@@ -5,57 +5,48 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, maximum-scale=1.0">
   <title>唤醒兽平台</title>
-  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- <script src="https://cdn.tailwindcss.com"></script> -->
+  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
   <link href="./font-awesome.all.min.css" rel="stylesheet">
-  <script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          colors: {
-            primary: '#FF6B35', // 唤醒兽主色调（活力橙）
-            secondary: '#FFECE5',
-            dark: '#333333',
-            light: '#FFFFFF',
-            gray: '#999999',
-            success: '#00B42A',
-            warning: '#FF7D00',
-            gold: '#FFD700',
-            silver: '#C0C0C0',
-            bronze: '#CD7F32',
-            blue: '#1E88E5'
-          },
-          fontFamily: {
-            sans: ['-apple-system', 'BlinkMacSystemFont', 'Helvetica Neue', 'Arial', 'sans-serif']
-          }
-        }
-      }
-    }
-  </script>
   <style type="text/tailwindcss">
-    @layer utilities {
-            .content-auto { content-visibility: auto; }
-            .page-transition { transition: transform 0.3s ease, opacity 0.3s ease; }
-            .nav-active { color: #FF6B35; border-bottom: 2px solid #FF6B35; }
-            .card-shadow { box-shadow: 0 2px 8px rgba(0,0,0,0.08); }
-            .scrollbar-hide::-webkit-scrollbar { display: none; }
-            .scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
-            .text-shadow { text-shadow: 0 1px 2px rgba(0,0,0,0.2); }
-            .bg-blur { backdrop-filter: blur(8px); }
-        }
+      @theme {
+        --color-primary: #FF6B35;
+        --color-secondary: #FFECE5;
+        --color-dark: #333333;
+        --color-light: #FFFFFF;
+        --color-gray: #999999;
+        --color-success: #00B42A;
+        --color-warning: #FF7D00;
+        --color-gold: #FFD700;
+        --color-silver: #C0C0C0;
+        --color-bronze: #CD7F32;
+        --color-blue: #1E88E5;
+      }
 
-        .page {
-            padding-bottom: 80px;
-            z-index: 100;
-            background-color: #fff;
-        }
-    </style>
+    @layer utilities {
+          .content-auto { content-visibility: auto; }
+          .page-transition { transition: transform 0.3s ease, opacity 0.3s ease; }
+          .nav-active { color: #FF6B35; border-bottom: 2px solid #FF6B35; }
+          .card-shadow { box-shadow: 0 2px 8px rgba(0,0,0,0.08); }
+          .scrollbar-hide::-webkit-scrollbar { display: none; }
+          .scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
+          .text-shadow { text-shadow: 0 1px 2px rgba(0,0,0,0.2); }
+          .bg-blur { backdrop-filter: blur(8px); }
+      }
+
+      .page {
+          padding-bottom: 60px;
+          z-index: 100;
+          /* background-color: #fff; */
+      }
+  </style>
 </head>
 
 <body class="bg-gray-50 font-sans text-dark overflow-x-hidden">
   <!-- 页面容器 -->
   <div class="page-container w-screen h-screen relative">
     <!-- 唤醒师 -->
-    <div class="page active absolute inset-0 overflow-y-auto scrollbar-hide" id="page-index">
+    <div class="page absolute inset-0 overflow-y-auto scrollbar-hide opacity-0 transform translate-x-full" id="page-index">
       <!-- 顶部导航栏 -->
       <header
         class="sticky top-0 z-50 bg-white/80 bg-blur border-b border-gray-100 p-3 flex items-center justify-between">
@@ -75,10 +66,9 @@
           </button>
           <button class="relative nav-action" data-target="page-messages">
             <i class="fa fa-envelope text-lg"></i>
-            <!-- <span
-                            class="absolute -top-1 -right-1 w-4 h-4 bg-primary text-white rounded-full flex items-center justify-center text-[10px]">
-                            签到
-                        </span> -->
+            <!-- <span class="absolute -top-1 -right-1 w-4 h-4 bg-primary text-white rounded-full flex items-center justify-center text-[10px]">
+                签到
+            </span> -->
           </button>
         </div>
       </header>
@@ -271,10 +261,10 @@
         </button>
         <button class="text-center nav-footer active" data-target="page-ai-assistant">
           <i class="fa fa-robot text-lg"></i>
-          <p class="text-xs mt-1">大师兄</p>
+          <p class="text-xs mt-1">大狮兄</p>
         </button>
         <button class="text-center nav-footer active" data-target="page-energy-tree">
-          <i class="fa fa-home text-lg"></i>
+          <i class="fa fa-tree text-lg"></i>
           <p class="text-xs mt-1">能量树</p>
         </button>
         <button class="text-center nav-footer" data-target="page-teacher-list">
@@ -361,6 +351,126 @@
         </div>
       </div>
 
+      <!-- 推荐唤醒师列表 -->
+      <div class="p-3 mt-1 mb-16">
+        <!-- 列表项1 -->
+        <div class="flex bg-light rounded-lg card-shadow p-3 mb-3 nav-action">
+          <img src="./img-20.jpg" alt="唤醒师头像" class="nav-action w-16 h-16 rounded-full mr-3" data-target="page-ouyang">
+          <div class="flex-1">
+            <div class="flex justify-between items-start">
+              <h3 class="font-medium">李教练（羽毛球）</h3>
+              <span class="text-xs bg-success/10 text-success px-2 py-0.5 rounded">冠军大神</span>
+            </div>
+            <p class="text-xs text-gray mt-1">国家二级运动员 | 10年教学经验</p>
+            <div class="flex items-center mt-1">
+              <div class="flex space-x-0.5 text-warning text-xs">
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+              </div>
+              <span class="text-xs text-gray ml-1">98%好评</span>
+            </div>
+            <div class="flex items-center mt-2">
+              <span class="text-primary font-medium">¥80</span>
+              <span class="text-xs text-gray ml-1">/小时</span>
+              <button class="nav-action ml-auto bg-primary/10 text-primary text-xs py-1 px-2 rounded"
+                data-target="page-teacher-detail">
+                立即预约
+              </button>
+            </div>
+          </div>
+        </div>
+        <!-- 列表项2 -->
+        <div class="flex bg-light rounded-lg card-shadow p-3 mb-3 nav-action">
+          <img src="./img-21.jpg" alt="唤醒师头像" class="nav-action w-16 h-16 rounded-full mr-3" data-target="page-teacher-detail">
+          <div class="flex-1">
+            <div class="flex justify-between items-start">
+              <h3 class="font-medium">张老师（瑜伽）</h3>
+              <span class="text-xs bg-warning/10 text-warning px-2 py-0.5 rounded">人气大神</span>
+            </div>
+            <p class="text-xs text-gray mt-1">高级瑜伽导师 | 5年教学经验</p>
+            <div class="flex items-center mt-1">
+              <div class="flex space-x-0.5 text-warning text-xs">
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star-half-o"></i>
+              </div>
+              <span class="text-xs text-gray ml-1">96%好评</span>
+            </div>
+            <div class="flex items-center mt-2">
+              <span class="text-primary font-medium">¥60</span>
+              <span class="text-xs text-gray ml-1">/小时</span>
+              <button class="nav-action ml-auto bg-primary/10 text-primary text-xs py-1 px-2 rounded"
+                data-target="page-teacher-detail">
+                立即预约
+              </button>
+            </div>
+          </div>
+        </div>
+        <!-- 列表项3 -->
+        <div class="flex bg-light rounded-lg card-shadow p-3 mb-3 nav-action">
+          <img src="./img-6.jpg" alt="唤醒师头像" class="nav-action w-16 h-16 rounded-full mr-3" data-target="page-teacher-detail">
+          <div class="flex-1">
+            <div class="flex justify-between items-start">
+              <h3 class="font-medium">王教练（健身）</h3>
+              <span class="text-xs bg-primary/10 text-primary px-2 py-0.5 rounded">好评大神</span>
+            </div>
+            <p class="text-xs text-gray mt-1">健美冠军 | 私人定制计划</p>
+            <div class="flex items-center mt-1">
+              <div class="flex space-x-0.5 text-warning text-xs">
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+              </div>
+              <span class="text-xs text-gray ml-1">99%好评</span>
+            </div>
+            <div class="flex items-center mt-2">
+              <span class="text-primary font-medium">¥120</span>
+              <span class="text-xs text-gray ml-1">/小时</span>
+              <button class="nav-action ml-auto bg-primary/10 text-primary text-xs py-1 px-2 rounded"
+                data-target="page-teacher-detail">
+                立即预约
+              </button>
+            </div>
+          </div>
+        </div>
+        <!-- 列表项4 -->
+        <div class="flex bg-light rounded-lg card-shadow p-3 mb-3 nav-action">
+          <img src="./img-7.jpg" alt="唤醒师头像" class="nav-action w-16 h-16 rounded-full mr-3" data-target="page-teacher-detail">
+          <div class="flex-1">
+            <div class="flex justify-between items-start">
+              <h3 class="font-medium">刘老师（绘画）</h3>
+              <span class="text-xs bg-primary/10 text-primary px-2 py-0.5 rounded">新锐大神</span>
+            </div>
+            <p class="text-xs text-gray mt-1">美术学院毕业 | 插画师</p>
+            <div class="flex items-center mt-1">
+              <div class="flex space-x-0.5 text-warning text-xs">
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star-o"></i>
+              </div>
+              <span class="text-xs text-gray ml-1">92%好评</span>
+            </div>
+            <div class="flex items-center mt-2">
+              <span class="text-primary font-medium">¥100</span>
+              <span class="text-xs text-gray ml-1">/小时</span>
+              <button class="nav-action ml-auto bg-primary/10 text-primary text-xs py-1 px-2 rounded"
+                data-target="page-teacher-detail">
+                立即预约
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
       <!-- 语音输入区 -->
       <div class="fixed bottom-20 left-0 right-0 p-4">
         <div class="flex items-center bg-light rounded-full card-shadow p-3">
@@ -382,10 +492,10 @@
         </button>
         <button class="text-center nav-footer active" data-target="page-ai-assistant">
           <i class="fa fa-robot text-lg"></i>
-          <p class="text-xs mt-1">大师兄</p>
+          <p class="text-xs mt-1">大狮兄</p>
         </button>
         <button class="text-center nav-footer active" data-target="page-energy-tree">
-          <i class="fa fa-home text-lg"></i>
+          <i class="fa fa-tree text-lg"></i>
           <p class="text-xs mt-1">能量树</p>
         </button>
         <button class="text-center nav-footer" data-target="page-teacher-list">
@@ -404,120 +514,630 @@
     </div>
 
     <!-- 能量树页面 -->
-    <div class="page absolute inset-0 overflow-y-auto scrollbar-hide opacity-0 transform translate-x-full"
+    <div class="page active absolute inset-0 overflow-y-auto scrollbar-hide flex flex-col"
       id="page-energy-tree">
-      <!-- 顶部导航 -->
-      <header class="sticky top-0 z-50 bg-light border-b border-gray-100 p-3 flex items-center">
-        <button class="nav-back mr-3 text-dark">
-          <i class="fa fa-angle-left text-xl"></i>
-        </button>
-        <h2 class="font-bold">我的能量树</h2>
+      <!-- 自定义能量树样式 -->
+      <style>
+        /* 玻璃拟态效果 */
+        .glass {
+          background: linear-gradient(180deg, rgba(255,255,255,0.15), rgba(255,255,255,0.05));
+          backdrop-filter: blur(6px);
+          -webkit-backdrop-filter: blur(6px);
+          border: 1px solid rgba(255,255,255,0.12);
+        }
+        /* 顶部渐变栏 */
+        .top-bar {
+          background: linear-gradient(90deg,#09a3ff66,#0aa0ff22);
+        }
+        /* 小气泡样式 */
+        .bubble {
+          background-image: linear-gradient(to bottom, #53ec6a66, #2ef34822);
+          border: 2px solid #fff;
+        }
+        .bubble-big {
+          background-image: linear-gradient(to bottom, #53ec6a66, #2ef34822);
+        }
+        /* 右侧图标容器 */
+        .right-icon {
+          width: 56px;
+          height: 56px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          border-radius: 12px;
+        }
+        /* 果实样式 */
+        .fruit {
+          width: 60px;
+          height: 60px;
+          border-radius: 50%;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
+          animation: float 3s ease-in-out infinite;
+          cursor: pointer;
+        }
+        .fruit-orange {
+          background: radial-gradient(circle at 30% 30%, #FFD700, #FF6B35);
+          box-shadow: 0 4px 15px rgba(255,107,53,0.4);
+        }
+        .fruit-purple {
+          background: radial-gradient(circle at 30% 30%, #DDA0DD, #9370DB);
+          box-shadow: 0 4px 15px rgba(147,112,219,0.4);
+        }
+        .fruit-red {
+          background: radial-gradient(circle at 30% 30%, #FFB6C1, #DC143C);
+          box-shadow: 0 4px 15px rgba(220,20,60,0.4);
+        }
+        .fruit-green {
+          background: radial-gradient(circle at 30% 30%, #98FB98, #228B22);
+          box-shadow: 0 4px 15px rgba(34,139,34,0.4);
+        }
+        /* 浮动动画 */
+        @keyframes float {
+          0% { transform: translateY(0px); }
+          50% { transform: translateY(-10px); }
+          100% { transform: translateY(0px); }
+        }
+        /* 气泡倒计时样式 */
+        .countdown-badge {
+          position: absolute;
+          bottom: -5px;
+          left: 50%;
+          transform: translateX(-50%);
+          background: rgba(0,0,0,0.7);
+          color: white;
+          padding: 2px 8px;
+          border-radius: 10px;
+          font-size: 10px;
+        }
+        /* 负号标记 */
+        .minus-badge {
+          position: absolute;
+          top: -5px;
+          right: -5px;
+          background: #FF6B35;
+          color: white;
+          width: 24px;
+          height: 24px;
+          border-radius: 50%;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          font-size: 12px;
+          font-weight: bold;
+        }
+        /* 消息气泡 */
+        .message-bubble {
+          max-width: 220px;
+          background: rgba(255,255,255,0.9);
+          border-radius: 16px;
+          border-bottom-left-radius: 4px;
+          padding: 10px;
+          box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+        /* 底部安全距离 */
+        .safe-bottom {
+          padding-bottom: env(safe-area-inset-bottom);
+        }
+      </style>
+
+      <!-- 顶部用户信息 -->
+      <header class="top-bar glass py-1 px-4 left-0 top-3 absolute z-10">
+        <div class="max-w-md mx-auto flex items-center gap-4">
+          <img src="https://i.pravatar.cc/100?img=1" alt="avatar" class="w-16 h-16 rounded-full border-2 border-white object-cover" />
+          <div class="flex-1">
+            <div class="flex items-center justify-between">
+              <div>
+                <div class="text-lg font-semibold text-white">张小明</div>
+                <div class="text-xs text-white/80">关注 25 | 粉丝 560</div>
+              </div>
+              <div class="text-right">
+                <div class="text-sm text-white">LV 15</div>
+                <div class="text-sm text-white">唤醒币: <span class="font-semibold">200</span></div>
+                <div class="text-sm text-white">能量币: <span class="font-semibold">35</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
       </header>
 
-      <!-- 能量树可视化 -->
-      <div class="flex flex-col items-center p-4 mt-2">
-        <div class="w-40 h-40 bg-secondary rounded-full relative flex items-center justify-center">
-          <img src="./img-24.jpg" alt="能量树" class="w-32 h-32">
-          <!-- 能量果实 -->
-          <div
-            class="absolute top-4 left-10 w-6 h-6 bg-primary rounded-full flex items-center justify-center text-white text-xs">
-            1
-          </div>
-          <div
-            class="absolute top-10 right-6 w-6 h-6 bg-primary rounded-full flex items-center justify-center text-white text-xs">
-            2
-          </div>
-          <div
-            class="absolute bottom-8 left-12 w-6 h-6 bg-primary rounded-full flex items-center justify-center text-white text-xs">
-            1
+      <!-- 主体：能量树和交互元素 -->
+      <main class="relative overflow-hidden flex-1" style="background: linear-gradient(to bottom, #1D4ED8 0%, #60A5FA 60%, #A9D0FE 100%);">
+        <!-- 背景装饰 -->
+        <div class="absolute top-1/4 left-1/4 w-64 h-64 bg-yellow-200 rounded-full opacity-10 blur-3xl"></div>
+        <div class="absolute bottom-1/3 right-1/4 w-80 h-80 bg-purple-200 rounded-full opacity-10 blur-3xl"></div>
+
+        <!-- 能量树背景图 -->
+        <div class="absolute top-[200px] inset-0 flex items-center justify-center relative">
+          <img src="./tree_1.png" class="w-full">
+
+          <!-- 能量果实（使用绝对定位） -->
+          <div class="absolute inset-0 pointer-events-none">
+            <!-- 左上 - 赏金 -->
+            <div class="absolute" style="left:22%; top:32%;">
+              <div class="fruit fruit-green pointer-events-auto relative">
+                <div class="text-center text-white">
+                  <div class="text-sm font-bold">赏金</div>
+                  <div class="text-xs mt-1">03:25</div>
+                </div>
+              </div>
+            </div>
+            <!-- 中上 - 登录 -->
+            <div class="absolute" style="left:42%; top:22%;">
+              <div class="fruit fruit-orange pointer-events-auto relative">
+                <div class="text-center text-white">
+                  <div class="text-xs">登录</div>
+                </div>
+                <div class="minus-badge">-10%</div>
+              </div>
+            </div>
+            <!-- 中 - 动态 -->
+            <div class="absolute" style="left:48%; top:38%;">
+              <div class="fruit fruit-purple pointer-events-auto relative">
+                <div class="text-center text-white">
+                  <div class="text-sm font-bold">动态</div>
+                  <div class="text-xs mt-1">02:16</div>
+                </div>
+              </div>
+            </div>
+            <!-- 右下 - 唤醒 -->
+            <div class="absolute" style="left:68%; top:48%;">
+              <div class="fruit fruit-red pointer-events-auto relative">
+                <div class="text-center text-white">
+                  <div class="text-sm font-bold">唤醒</div>
+                </div>
+                <div class="minus-badge">-10%</div>
+              </div>
+            </div>
+            <!-- 中左 - 灵兽孵化 -->
+            <div class="absolute" style="left:35%; top:46%;">
+              <div class="fruit fruit-orange pointer-events-auto relative">
+                <div class="text-center text-white">
+                  <div class="text-sm font-bold">灵兽孵化</div>
+                  <div class="text-xs mt-1">10-4#</div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
-        <div class="mt-3 flex items-center">
-          <i class="fa fa-diamond text-primary mr-1"></i>
-          <span class="font-medium">当前能量币：128</span>
+
+        <!-- 能量树内容区域 -->
+        <div class=" absolute top-0 left-0 w-full h-full">
+          <!-- 顶部左侧聊天提示 -->
+          <div class="absolute left-4 top-28 flex items-start gap-3">
+            <div class="relative">
+              <img src="https://i.pravatar.cc/64?img=3" class="w-14 h-14 rounded-full ring-2 ring-green-400 object-cover" alt="friend">
+              <div class="absolute -bottom-2 -left-1 text-green-400 text-xs font-bold">去找ta</div>
+            </div>
+            <div class="message-bubble text-sky-900">
+              <div class="text-sm font-semibold">李浩然 <span class="text-xs font-normal text-gray-700">18:20</span></div>
+              <div class="text-xs text-gray-800">偷摘你的30能量</div>
+            </div>
+          </div>
+
+          <!-- 右侧工具垂直栏 -->
+          <div class="absolute right-4 top-1/2 transform -translate-y-1/2 flex flex-col gap-4 items-center">
+            <div class="right-icon glass flex-col text-center">
+              <i class="fa fa-wallet text-white text-xl"></i>
+              <div class="text-xs mt-1 text-white">365</div>
+            </div>
+            <div class="right-icon glass flex-col text-center">
+              <i class="fa fa-gift text-white text-xl"></i>
+              <div class="text-xs mt-1 text-white">1229</div>
+            </div>
+            <div class="right-icon glass flex-col text-center">
+              <i class="fa fa-edit text-white text-xl"></i>
+              <div class="text-xs mt-1 text-white">1229</div>
+            </div>
+          </div>
+
+          <!-- 右下消息图标 -->
+          <div class="absolute right-4 bottom-40">
+            <div class="glass p-3 rounded-xl flex items-center gap-3">
+              <i class="fa fa-envelope text-white text-xl"></i>
+              <div class="bg-red-500 text-xs w-6 h-6 rounded-full flex items-center justify-center text-white">12</div>
+            </div>
+          </div>
         </div>
-        <button class="mt-2 bg-primary/10 text-primary text-xs py-1 px-2 rounded-full">
-          一键收取（3个果实可兑换1能量币）
+      </main>
+
+      <!-- 底部按钮组 -->
+      <div class="fixed left-0 right-0 bottom-20 px-4 flex items-center justify-between safe-bottom z-10">
+        <button id="dailyTasksBtn" class="w-15 h-15 rounded-full glass bubble pointer-events-auto text-white flex flex-col items-center justify-center">
+          <div class="text-xs">每日</div>
+          <div class="text-xs">任务</div>
+        </button>
+        <button id="friendRankingBtn" class="w-15 h-15 rounded-full glass bubble pointer-events-auto text-white flex flex-col items-center justify-center">
+          <div class="text-xs">好友</div>
+          <div class="text-xs">排行</div>
+        </button>
+
+        <div id="shakeBtn" class="w-25 h-25 rounded-full glass bubble-big flex flex-col items-center justify-center pointer-events-auto cursor-pointer select-none shadow-lg">
+          <div class="text-xs text-white">摇一摇</div>
+          <div id="countdown" class="text-2xl font-bold mt-1 text-white">0:32</div>
+          <div id="leftCount" class="text-xs mt-1 text-white/80">剩余 3 次</div>
+        </div>
+
+        <button id="energyItemsBtn" class="w-15 h-15 rounded-full glass bubble pointer-events-auto text-white flex flex-col items-center justify-center">
+          <div class="text-xs">能量</div>
+          <div class="text-xs">道具</div>
+        </button>
+        <button id="spiritBeastBtn" class="w-15 h-15 rounded-full glass bubble pointer-events-auto text-white flex flex-col items-center justify-center">
+          <div class="text-xs">灵兽</div>
+          <div class="text-xs">宇宙</div>
         </button>
       </div>
 
-      <!-- 能量币获取与使用 -->
-      <div class="p-4 mt-2">
-        <div class="flex justify-between mb-3">
-          <button class="font-bold text-primary border-b-2 border-primary pb-1">获取途径</button>
-          <button class="font-bold text-gray pb-1">使用规则</button>
-        </div>
-        <div class="bg-light rounded-lg card-shadow p-3 mb-2">
-          <div class="flex items-center">
-            <i class="fa fa-sign-in text-primary text-lg w-8 text-center"></i>
-            <div class="flex-1">
-              <p class="text-sm font-medium">日常登录</p>
-              <p class="text-xs text-gray">每日登录可获得2能量币</p>
-            </div>
-            <button class="text-xs bg-primary/10 text-primary px-2 py-0.5 rounded nav-action"
-              data-target="page-sign-in">
-              去登录
-            </button>
-          </div>
-        </div>
-        <div class="bg-light rounded-lg card-shadow p-3 mb-2">
-          <div class="flex items-center">
-            <i class="fa fa-camera text-primary text-lg w-8 text-center"></i>
-            <div class="flex-1">
-              <p class="text-sm font-medium">发布打卡</p>
-              <p class="text-xs text-gray">每次发布有效打卡可获得5能量币</p>
-            </div>
-            <button class="text-xs bg-primary/10 text-primary px-2 py-0.5 rounded nav-action"
-              data-target="page-check-in">
-              去打卡
-            </button>
-          </div>
-        </div>
-        <div class="bg-light rounded-lg card-shadow p-3 mb-2">
-          <div class="flex items-center">
-            <i class="fa fa-shopping-cart text-primary text-lg w-8 text-center"></i>
-            <div class="flex-1">
-              <p class="text-sm font-medium">购买服务</p>
-              <p class="text-xs text-gray">每消费10元可获得1能量币</p>
-            </div>
-            <button class="text-xs bg-primary/10 text-primary px-2 py-0.5 rounded nav-action"
-              data-target="page-teacher-list">
-              去选购
-            </button>
-          </div>
-        </div>
-        <div class="bg-light rounded-lg card-shadow p-3 mb-2">
-          <div class="flex items-center">
-            <i class="fa fa-share-alt text-primary text-lg w-8 text-center"></i>
-            <div class="flex-1">
-              <p class="text-sm font-medium">分享内容</p>
-              <p class="text-xs text-gray">每次成功分享可获得3能量币</p>
-            </div>
-            <button class="text-xs bg-primary/10 text-primary px-2 py-0.5 rounded">
-              去分享
-            </button>
-          </div>
-        </div>
-      </div>
+      <!-- 能量树交互逻辑 -->
+      <script>
+        (function(){
+          const countdownEl = document.getElementById('countdown');
+          const leftCountEl = document.getElementById('leftCount');
+          const shakeBtn = document.getElementById('shakeBtn');
+          const dailyTasksBtn = document.getElementById('dailyTasksBtn');
+          const friendRankingBtn = document.getElementById('friendRankingBtn');
+          const energyItemsBtn = document.getElementById('energyItemsBtn');
+          const spiritBeastBtn = document.getElementById('spiritBeastBtn');
 
-      <!-- 未来规划 -->
-      <div class="p-4 mt-2">
-        <h3 class="font-bold mb-3">未来规划</h3>
-        <div class="bg-light rounded-lg card-shadow p-3">
-          <p class="text-sm font-medium mb-2">选择你的能量树守护精灵</p>
-          <div class="flex justify-around">
-            <div class="text-center cursor-pointer border-2 border-primary rounded-lg p-2">
-              <i class="fa fa-male text-primary text-2xl"></i>
-              <p class="text-xs mt-1">大狮兄</p>
-            </div>
-            <div class="text-center cursor-pointer border-2 border-gray-200 rounded-lg p-2">
-              <i class="fa fa-female text-primary text-2xl"></i>
-              <p class="text-xs mt-1">小狮妹</p>
-            </div>
-          </div>
-          <p class="text-xs text-gray text-center mt-3">精灵将协助你管理能量树，为后续唤醒兽元宇宙生态做准备</p>
-        </div>
-      </div>
+          // 初始秒数与剩余次数
+          let seconds = 32;
+          let remainingShakes = 3;
+          let timer = null;
+          let running = false;
+
+          function formatTime(s) {
+            const m = Math.floor(s / 60);
+            const ss = s % 60;
+            return m + ':' + String(ss).padStart(2, '0');
+          }
+
+          function startTimer() {
+            if (running || seconds <= 0) return;
+            running = true;
+            timer = setInterval(() => {
+              seconds--;
+              countdownEl.textContent = formatTime(seconds);
+              if (seconds <= 0) {
+                clearInterval(timer);
+                running = false;
+                // 计时结束自动处理一次"摇一摇"
+                triggerShake();
+                // 重置（示例逻辑：重置为32秒以便演示）
+                seconds = 32;
+                countdownEl.textContent = formatTime(seconds);
+              }
+            }, 1000);
+          }
+
+          function stopTimer() {
+            if (timer) {
+              clearInterval(timer);
+              timer = null;
+            }
+            running = false;
+          }
+
+          function triggerShake() {
+            if (remainingShakes <= 0) {
+              // 无次数
+              alert('今日摇一摇次数已用完');
+              return;
+            }
+            remainingShakes--;
+            leftCountEl.textContent = '剩余 ' + remainingShakes + ' 次';
+            // 简单动画：缩放
+            shakeBtn.animate([
+              { transform: 'scale(1)' },
+              { transform: 'scale(1.06)' },
+              { transform: 'scale(1)' }
+            ], {
+              duration: 450,
+              easing: 'ease-out'
+            });
+
+            // 模拟获得能量（这里只是提示）
+            setTimeout(() => {
+              const gained = Math.floor(Math.random() * 15) + 1;
+              // 使用原生toast提示
+              const note = document.createElement('div');
+              note.textContent = '+' + gained + ' 能量';
+              note.style.position = 'fixed';
+              note.style.left = '50%';
+              note.style.top = '40%';
+              note.style.transform = 'translateX(-50%)';
+              note.style.padding = '8px 14px';
+              note.style.borderRadius = '999px';
+              note.style.background = 'rgba(0,0,0,0.6)';
+              note.style.color = '#fff';
+              note.style.zIndex = 80;
+              document.body.appendChild(note);
+              setTimeout(()=> note.remove(), 1400);
+            }, 400);
+          }
+
+          // 创建弹窗函数
+          function createPopup(title, content) {
+            // 检查是否已存在弹窗，存在则移除
+            const existingPopup = document.getElementById('customPopup');
+            if (existingPopup) {
+              existingPopup.remove();
+            }
+
+            // 创建弹窗容器
+            const popupContainer = document.createElement('div');
+            popupContainer.id = 'customPopup';
+            popupContainer.style.position = 'fixed';
+            popupContainer.style.left = '0';
+            popupContainer.style.top = '0';
+            popupContainer.style.width = '100%';
+            popupContainer.style.height = '100%';
+            popupContainer.style.backgroundColor = 'rgba(0,0,0,0.5)';
+            popupContainer.style.display = 'flex';
+            popupContainer.style.justifyContent = 'center';
+            popupContainer.style.alignItems = 'center';
+            popupContainer.style.zIndex = '999';
+
+            // 创建弹窗内容
+            const popupContent = document.createElement('div');
+            popupContent.style.width = '85%';
+            popupContent.style.maxWidth = '320px';
+            popupContent.style.backgroundColor = 'white';
+            popupContent.style.borderRadius = '16px';
+            popupContent.style.overflow = 'hidden';
+
+            // 创建弹窗标题
+            const popupTitle = document.createElement('div');
+            popupTitle.style.padding = '20px';
+            popupTitle.style.fontSize = '16px';
+            popupTitle.style.fontWeight = 'bold';
+            popupTitle.style.textAlign = 'center';
+            popupTitle.textContent = title;
+
+            // 创建弹窗内容区
+            const popupBody = document.createElement('div');
+            popupBody.style.padding = '0 20px 20px 20px';
+            popupBody.style.maxHeight = '300px';
+            popupBody.style.overflowY = 'auto';
+            popupBody.innerHTML = content;
+
+            // 创建关闭按钮
+            const closeButton = document.createElement('div');
+            closeButton.style.padding = '12px 20px';
+            closeButton.style.backgroundColor = '#FF6B35';
+            closeButton.style.color = 'white';
+            closeButton.style.textAlign = 'center';
+            closeButton.style.fontSize = '14px';
+            closeButton.style.fontWeight = 'bold';
+            closeButton.textContent = '关闭';
+            closeButton.style.cursor = 'pointer';
+
+            // 组装弹窗
+            popupContent.appendChild(popupTitle);
+            popupContent.appendChild(popupBody);
+            popupContent.appendChild(closeButton);
+            popupContainer.appendChild(popupContent);
+            document.body.appendChild(popupContainer);
+
+            // 添加关闭事件
+            closeButton.addEventListener('click', function() {
+              popupContainer.remove();
+            });
+
+            // 点击背景关闭弹窗
+            popupContainer.addEventListener('click', function(e) {
+              if (e.target === popupContainer) {
+                popupContainer.remove();
+              }
+            });
+          }
+
+          // 点击中间圆触发
+          shakeBtn.addEventListener('click', function(){
+            // 如果计时正在运行，点击表示立即触发一次（并重置计时）
+            if (running) {
+              stopTimer();
+              triggerShake();
+              seconds = 32;
+              countdownEl.textContent = formatTime(seconds);
+            } else {
+              // 否则开始计时
+              startTimer();
+            }
+          });
+
+          // 给所有果实添加点击事件
+          document.querySelectorAll('.fruit').forEach(fruit => {
+            fruit.addEventListener('click', function() {
+              // 简单动画效果
+              this.animate([
+                { transform: 'scale(1)' },
+                { transform: 'scale(1.2)' },
+                { transform: 'scale(0)' }
+              ], {
+                duration: 500,
+                easing: 'ease-out'
+              });
+              
+              // 延迟后隐藏果实
+              setTimeout(() => {
+                this.style.display = 'none';
+                // 显示获得能量的提示
+                const note = document.createElement('div');
+                note.textContent = '+5 能量';
+                note.style.position = 'fixed';
+                note.style.left = '50%';
+                note.style.top = '40%';
+                note.style.transform = 'translateX(-50%)';
+                note.style.padding = '8px 14px';
+                note.style.borderRadius = '999px';
+                note.style.background = 'rgba(0,0,0,0.6)';
+                note.style.color = '#fff';
+                note.style.zIndex = 80;
+                document.body.appendChild(note);
+                setTimeout(()=> note.remove(), 1400);
+              }, 500);
+            });
+          });
+
+          // 可选：轻微振动反馈（移动设备）
+          shakeBtn.addEventListener('touchstart', () => {
+            if (navigator.vibrate) navigator.vibrate(40);
+          });
+
+          // 为底部按钮添加点击事件
+          dailyTasksBtn.addEventListener('click', function() {
+            const content = `
+              <div class="space-y-4">
+                <div class="flex justify-between items-center p-3 bg-gray-50 rounded-lg">
+                  <div>
+                    <div class="font-medium">每日登录</div>
+                    <div class="text-xs text-gray-500">连续登录7天奖励翻倍</div>
+                  </div>
+                  <div class="bg-primary/10 text-primary px-3 py-1 rounded-full text-sm">+5能量</div>
+                </div>
+                <div class="flex justify-between items-center p-3 bg-gray-50 rounded-lg">
+                  <div>
+                    <div class="font-medium">完成一次打卡</div>
+                    <div class="text-xs text-gray-500">分享你的生活点滴</div>
+                  </div>
+                  <div class="bg-primary/10 text-primary px-3 py-1 rounded-full text-sm">+10能量</div>
+                </div>
+                <div class="flex justify-between items-center p-3 bg-gray-50 rounded-lg">
+                  <div>
+                    <div class="font-medium">邀请好友</div>
+                    <div class="text-xs text-gray-500">成功邀请一位好友注册</div>
+                  </div>
+                  <div class="bg-primary/10 text-primary px-3 py-1 rounded-full text-sm">+20能量</div>
+                </div>
+                <div class="flex justify-between items-center p-3 bg-gray-50 rounded-lg">
+                  <div>
+                    <div class="font-medium">每日签到</div>
+                    <div class="text-xs text-gray-500">连续签到30天有惊喜</div>
+                  </div>
+                  <div class="bg-success text-white px-3 py-1 rounded-full text-sm">已完成</div>
+                </div>
+              </div>
+            `;
+            createPopup('每日任务', content);
+          });
+
+          friendRankingBtn.addEventListener('click', function() {
+            const content = `
+              <div class="space-y-4">
+                <div class="flex items-center p-3 bg-yellow-50 rounded-lg">
+                  <div class="w-8 h-8 bg-yellow-400 rounded-full flex items-center justify-center text-white font-bold mr-3">1</div>
+                  <img src="https://i.pravatar.cc/64?img=10" class="w-12 h-12 rounded-full mr-3" alt="avatar">
+                  <div class="flex-1">
+                    <div class="font-medium">王大力</div>
+                    <div class="text-xs text-gray-500">能量值: 1250</div>
+                  </div>
+                  <div class="text-xs bg-primary/10 text-primary px-2 py-1 rounded">查看</div>
+                </div>
+                <div class="flex items-center p-3 bg-gray-50 rounded-lg">
+                  <div class="w-8 h-8 bg-gray-400 rounded-full flex items-center justify-center text-white font-bold mr-3">2</div>
+                  <img src="https://i.pravatar.cc/64?img=20" class="w-12 h-12 rounded-full mr-3" alt="avatar">
+                  <div class="flex-1">
+                    <div class="font-medium">李小明</div>
+                    <div class="text-xs text-gray-500">能量值: 980</div>
+                  </div>
+                  <div class="text-xs bg-primary/10 text-primary px-2 py-1 rounded">查看</div>
+                </div>
+                <div class="flex items-center p-3 bg-amber-50 rounded-lg">
+                  <div class="w-8 h-8 bg-amber-700 rounded-full flex items-center justify-center text-white font-bold mr-3">3</div>
+                  <img src="https://i.pravatar.cc/64?img=30" class="w-12 h-12 rounded-full mr-3" alt="avatar">
+                  <div class="flex-1">
+                    <div class="font-medium">张小花</div>
+                    <div class="text-xs text-gray-500">能量值: 750</div>
+                  </div>
+                  <div class="text-xs bg-primary/10 text-primary px-2 py-1 rounded">查看</div>
+                </div>
+                <div class="flex items-center p-3 bg-gray-50 rounded-lg">
+                  <div class="w-8 h-8 bg-gray-200 rounded-full flex items-center justify-center text-gray-600 font-bold mr-3">4</div>
+                  <img src="https://i.pravatar.cc/64?img=40" class="w-12 h-12 rounded-full mr-3" alt="avatar">
+                  <div class="flex-1">
+                    <div class="font-medium">你</div>
+                    <div class="text-xs text-gray-500">能量值: 520</div>
+                  </div>
+                  <div class="text-xs bg-primary/10 text-primary px-2 py-1 rounded">查看</div>
+                </div>
+              </div>
+            `;
+            createPopup('好友排行', content);
+          });
+
+          energyItemsBtn.addEventListener('click', function() {
+            const content = `
+              <div class="space-y-4">
+                <div class="flex items-center p-3 bg-gray-50 rounded-lg">
+                  <div class="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center mr-3">
+                    <i class="fa fa-tree text-green-500 text-xl"></i>
+                  </div>
+                  <div class="flex-1">
+                    <div class="font-medium">成长加速卡</div>
+                    <div class="text-xs text-gray-500">让能量树成长速度提升20%</div>
+                  </div>
+                  <div class="text-xs bg-primary px-3 py-1 rounded-full text-white">使用</div>
+                </div>
+                <div class="flex items-center p-3 bg-gray-50 rounded-lg">
+                  <div class="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center mr-3">
+                    <i class="fa fa-shield text-purple-500 text-xl"></i>
+                  </div>
+                  <div class="flex-1">
+                    <div class="font-medium">能量守护盾</div>
+                    <div class="text-xs text-gray-500">24小时内防止好友偷取能量</div>
+                  </div>
+                  <div class="text-xs bg-gray-300 px-3 py-1 rounded-full text-white">50能量</div>
+                </div>
+                <div class="flex items-center p-3 bg-gray-50 rounded-lg">
+                  <div class="w-12 h-12 bg-yellow-100 rounded-lg flex items-center justify-center mr-3">
+                    <i class="fa fa-magic text-yellow-500 text-xl"></i>
+                  </div>
+                  <div class="flex-1">
+                    <div class="font-medium">幸运果实</div>
+                    <div class="text-xs text-gray-500">有机会获得双倍能量</div>
+                  </div>
+                  <div class="text-xs bg-primary px-3 py-1 rounded-full text-white">使用</div>
+                </div>
+              </div>
+            `;
+            createPopup('能量道具', content);
+          });
+
+          spiritBeastBtn.addEventListener('click', function() {
+            const content = `
+              <div class="space-y-4">
+                <div class="text-center mb-4">
+                  <div class="text-lg font-bold text-primary mb-2">灵兽孵化中</div>
+                  <div class="w-32 h-32 mx-auto bg-gradient-to-br from-blue-400 to-purple-500 rounded-full flex items-center justify-center">
+                    <div class="text-3xl text-white">10-4#</div>
+                  </div>
+                  <div class="text-sm mt-2">预计孵化时间还剩: <span class="text-primary">23小时15分钟</span></div>
+                </div>
+                <div class="p-4 bg-gray-50 rounded-lg">
+                  <div class="font-medium mb-2">灵兽宇宙说明</div>
+                  <div class="text-xs text-gray-600 leading-relaxed">
+                    灵兽是能量树的守护者，不同的灵兽拥有不同的能力。孵化出的灵兽可以帮助你收集更多的能量，防止好友偷取，甚至可以协助你完成任务。
+                    <br><br>
+                    灵兽可以通过能量果实孵化获得，越稀有的果实孵化出稀有灵兽的概率越高。
+                  </div>
+                </div>
+                <div class="flex justify-center space-x-4">
+                  <button class="bg-primary/10 text-primary px-4 py-2 rounded-full text-sm">加速孵化</button>
+                  <button class="bg-primary text-white px-4 py-2 rounded-full text-sm">查看孵化器</button>
+                </div>
+              </div>
+            `;
+            createPopup('灵兽宇宙', content);
+          });
+
+          // 初始渲染
+          countdownEl.textContent = formatTime(seconds);
+          leftCountEl.textContent = '剩余 ' + remainingShakes + ' 次';
+
+        })();
+      </script>
 
       <footer
         class="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-100 flex justify-around items-center py-2 z-40">
@@ -527,21 +1147,21 @@
         </button>
         <button class="text-center nav-footer active" data-target="page-ai-assistant">
           <i class="fa fa-robot text-lg"></i>
-          <p class="text-xs mt-1">大师兄</p>
+          <p class="text-xs mt-1">大狮兄</p>
         </button>
         <button class="text-center nav-footer active" data-target="page-energy-tree">
-          <i class="fa fa-home text-lg"></i>
+          <i class="fa fa-tree text-lg"></i>
           <p class="text-xs mt-1">能量树</p>
         </button>
-        <button class="text-center nav-footer active" data-target="page-teacher-list">
+        <button class="text-center nav-footer" data-target="page-teacher-list">
           <i class="fa fa-user-circle text-lg"></i>
           <p class="text-xs mt-1">唤醒师</p>
         </button>
-        <button class="text-center nav-footer active" data-target="page-camp">
+        <button class="text-center nav-footer" data-target="page-camp">
           <i class="fa fa-heartbeat text-lg"></i>
           <p class="text-xs mt-1">唤醒营</p>
         </button>
-        <button class="text-center nav-footer active" data-target="page-me">
+        <button class="text-center nav-footer" data-target="page-me">
           <i class="fa fa-user text-lg"></i>
           <p class="text-xs mt-1">我的</p>
         </button>
@@ -719,10 +1339,10 @@
         </button>
         <button class="text-center nav-footer active" data-target="page-ai-assistant">
           <i class="fa fa-robot text-lg"></i>
-          <p class="text-xs mt-1">大师兄</p>
+          <p class="text-xs mt-1">大狮兄</p>
         </button>
         <button class="text-center nav-footer active" data-target="page-energy-tree">
-          <i class="fa fa-home text-lg"></i>
+          <i class="fa fa-tree text-lg"></i>
           <p class="text-xs mt-1">能量树</p>
         </button>
         <button class="text-center nav-footer active" data-target="page-teacher-list">
@@ -1537,10 +2157,10 @@
         </button>
         <button class="text-center nav-footer active" data-target="page-ai-assistant">
           <i class="fa fa-robot text-lg"></i>
-          <p class="text-xs mt-1">大师兄</p>
+          <p class="text-xs mt-1">大狮兄</p>
         </button>
         <button class="text-center nav-footer active" data-target="page-energy-tree">
-          <i class="fa fa-home text-lg"></i>
+          <i class="fa fa-tree text-lg"></i>
           <p class="text-xs mt-1">能量树</p>
         </button>
         <button class="text-center nav-footer" data-target="page-teacher-list">
@@ -1999,10 +2619,10 @@
         </button>
         <button class="text-center nav-footer active" data-target="page-ai-assistant">
           <i class="fa fa-robot text-lg"></i>
-          <p class="text-xs mt-1">大师兄</p>
+          <p class="text-xs mt-1">大狮兄</p>
         </button>
         <button class="text-center nav-footer active" data-target="page-ai-assistant">
-          <i class="fa fa-home text-lg"></i>
+          <i class="fa fa-tree text-lg"></i>
           <p class="text-xs mt-1">能量树</p>
         </button>
         <button class="text-center nav-footer" data-target="page-teacher-list">
@@ -2369,7 +2989,7 @@
       </button>
       <button class="text-center nav-footer" data-target="page-ai-assistant">
         <i class="fa fa-robot text-lg"></i>
-        <p class="text-xs mt-1">大师兄</p>
+        <p class="text-xs mt-1">大狮兄</p>
       </button>
       <button class="text-center nav-footer" data-target="page-energy-tree">
         <i class="fa fa-tree text-lg"></i>
