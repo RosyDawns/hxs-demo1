@@ -1,0 +1,134 @@
+/* 导入Tailwind CSS */
+@import "tailwindcss";
+
+
+/* Tailwind主题配置 */
+@layer base {
+  :root {
+    --color-primary: #1677ff;
+    --color-secondary: #e6f4ff;
+    --color-dark: #333333;
+    --color-light: #FFFFFF;
+    --color-gray: #999999;
+    --color-success: #52c41a;
+    --color-warning: #faad14;
+    --color-danger: #f5222d;
+  }
+}
+
+/* 自定义工具类 */
+@layer utilities {
+  .content-auto { content-visibility: auto; }
+  .page-transition { transition: transform 0.3s ease, opacity 0.3s ease; }
+  .nav-active { color: #FF6B35; border-bottom: 2px solid #FF6B35; }
+  .card-shadow { box-shadow: 0 2px 8px rgba(0,0,0,0.08); }
+  .scrollbar-hide::-webkit-scrollbar { display: none; }
+  .scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
+  .text-shadow { text-shadow: 0 1px 2px rgba(0,0,0,0.2); }
+  .bg-blur { backdrop-filter: blur(8px); }
+  .animate-fade-in { animation: fadeIn 0.3s ease-in-out; }
+  .animate-fade-out { animation: fadeOut 0.3s ease-in-out; }
+  
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateX(-50%) translateY(-10px); }
+    to { opacity: 1; transform: translateX(-50%) translateY(0); }
+  }
+  
+  @keyframes fadeOut {
+    from { opacity: 1; transform: translateX(-50%) translateY(0); }
+    to { opacity: 0; transform: translateX(-50%) translateY(-10px); }
+  }
+}
+
+/* 移动设备适配 - 使用rem单位 */
+html {
+  /* 设置基础字体大小，1rem = 16px */
+  font-size: 16px;
+}
+
+/* 使用媒体查询适配不同屏幕大小 */
+@media screen and (max-width: 375px) {
+  html {
+    font-size: 15px;
+  }
+}
+
+@media screen and (max-width: 320px) {
+  html {
+    font-size: 14px;
+  }
+}
+
+/* 全局样式重置 */
+/* * {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+} */
+
+body {
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  line-height: 1.5;
+  color: #333;
+  background-color: #f5f5f5;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* 应用容器样式 */
+#app {
+  width: 100%;
+  min-height: 100vh;
+  background-color: #f5f5f5;
+}
+
+/* 页面容器样式 */
+.page {
+  width: 100%;
+  min-height: 100vh;
+  background-color: #fff;
+  position: relative;
+  padding-bottom: 60px;
+  z-index: 100;
+}
+
+/* 导航按钮样式 */
+.nav-action {
+  cursor: pointer;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Tailwind扩展颜色配置 */
+@layer utilities {
+  .text-primary {
+    color: var(--color-primary);
+  }
+  .text-dark {
+    color: var(--color-dark);
+  }
+  .text-gray {
+    color: var(--color-gray);
+  }
+  .text-warning {
+    color: var(--color-warning);
+  }
+  .text-success {
+    color: var(--color-success);
+  }
+  .bg-primary {
+    background-color: var(--color-primary);
+  }
+  .bg-light {
+    background-color: var(--color-light);
+  }
+  .bg-secondary {
+    background-color: var(--color-secondary);
+  }
+  .border-primary {
+    border-color: var(--color-primary);
+  }
+  .border-gray {
+    border-color: #eee;
+  }
+}
