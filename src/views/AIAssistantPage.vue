@@ -108,6 +108,7 @@
 
 <script>
 import { ref } from 'vue'
+import { useRouter } from 'vue-router'
 import FooterNav from '../components/FooterNav.vue'
 
 export default {
@@ -116,6 +117,7 @@ export default {
     FooterNav
   },
   setup() {
+    const router = useRouter()
     const isRecording = ref(false)
 
     const startVoiceRecording = () => {
@@ -130,7 +132,7 @@ export default {
       console.log('停止录音')
       // 模拟处理录音结果，跳转到结果页
       setTimeout(() => {
-        window.location.href = '/ai-result'
+        router.push('/ai-result')
       }, 500)
     }
 
@@ -138,7 +140,7 @@ export default {
       console.log(`用户点击了${type}推荐`)
       // 根据不同类型的推荐跳转到不同的结果页面
       // 这里简化处理，统一跳转到AI结果页
-      window.location.href = '/ai-result'
+      router.push('/ai-result')
     }
 
     return {
