@@ -107,12 +107,12 @@
       </div>
     </div>
 
-    <!-- 推荐唤醒师 -->
+    <!-- 推荐唤醒狮 -->
     <div class="mt-3 p-3">
       <h3 class="font-bold text-sm mb-2">为你推荐</h3>
       <div class="space-y-2">
         <div class="flex bg-light rounded-lg card-shadow p-2 nav-action" @click="$router.push('/ouyang')">
-          <img src="@images/img-11.jpg" alt="唤醒师头像" class="w-12 h-12 rounded-full mr-2">
+          <img src="@images/img-11.jpg" alt="唤醒狮头像" class="w-12 h-12 rounded-full mr-2">
           <div class="flex-1">
             <div class="flex justify-between items-start">
               <h4 class="text-sm font-medium">李教练（羽毛球）</h4>

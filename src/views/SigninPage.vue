@@ -12,7 +12,7 @@
     <div class="bg-light p-5 mt-3">
       <div class="text-center mb-6">
         <img src="https://picsum.photos/id/20/80/80" alt="Logo" class="w-20 h-20 rounded-full mx-auto">
-        <h1 class="font-bold text-xl mt-3">唤醒师</h1>
+        <h1 class="font-bold text-xl mt-3">唤醒狮</h1>
         <p class="text-xs text-gray mt-1">发现最好的自己</p>
       </div>
 

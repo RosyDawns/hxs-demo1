@@ -64,7 +64,7 @@
                 <p class="text-sm font-medium text-gray-800">
                   帮我推荐一位附近的
                 </p>
-                <p class="text-sm font-medium text-gray-800">健身唤醒师</p>
+                <p class="text-sm font-medium text-gray-800">健身唤醒狮</p>
               </div>
             </div>
             <div class="flex justify-end">

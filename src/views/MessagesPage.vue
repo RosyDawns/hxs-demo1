@@ -21,7 +21,7 @@
       </button>
       <button
         class="py-3 px-4 text-sm font-medium text-gray nav-action">
-        唤醒师
+        唤醒狮
       </button>
       <button
         class="py-3 px-4 text-sm font-medium text-gray nav-action">

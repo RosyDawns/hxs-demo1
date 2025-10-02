@@ -35,8 +35,8 @@
     <!-- 匹配结果 -->
     <div class="bg-light p-3 mt-3">
       <div class="flex items-center justify-between mb-3">
-        <h3 class="font-medium">为您推荐的唤醒师</h3>
-        <span class="text-xs text-gray">共找到 5 位匹配的唤醒师</span>
+        <h3 class="font-medium">为您推荐的唤醒狮</h3>
+        <span class="text-xs text-gray">共找到 5 位匹配的唤醒狮</span>
       </div>
 
       <!-- 推荐理由 -->
@@ -44,14 +44,14 @@
         <div class="flex items-start">
           <i class="fa fa-lightbulb-o text-primary mt-0.5 mr-2"></i>
           <p class="text-xs text-gray flex-1">
-            根据您的需求（羽毛球新手，希望提升基础技术，预算50-100元/小时，偏好有3-5年经验的教练），我们为您推荐了以下唤醒师。这些唤醒师在新手教学方面有丰富经验，评分高，口碑好。
+            根据您的需求（羽毛球新手，希望提升基础技术，预算50-100元/小时，偏好有3-5年经验的教练），我们为您推荐了以下唤醒狮。这些唤醒狮在新手教学方面有丰富经验，评分高，口碑好。
           </p>
         </div>
       </div>
 
-      <!-- 唤醒师列表 -->
+      <!-- 唤醒狮列表 -->
       <div class="space-y-3">
-        <!-- 唤醒师1 -->
+        <!-- 唤醒狮1 -->
         <div class="border border-gray-100 rounded-lg overflow-hidden nav-action" @click="$router.push('/ouyang')">
           <div class="p-3">
             <div class="flex items-center">
@@ -101,7 +101,7 @@
           </div>
         </div>
 
-        <!-- 唤醒师2 -->
+        <!-- 唤醒狮2 -->
         <div class="border border-gray-100 rounded-lg overflow-hidden nav-action" @click="$router.push('/ouyang')">
           <div class="p-3">
             <div class="flex items-center">
@@ -151,7 +151,7 @@
           </div>
         </div>
 
-        <!-- 唤醒师3 -->
+        <!-- 唤醒狮3 -->
         <div class="border border-gray-100 rounded-lg overflow-hidden nav-action" @click="$router.push('/ouyang')">
           <div class="p-3">
             <div class="flex items-center">

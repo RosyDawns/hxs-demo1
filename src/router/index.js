@@ -4,7 +4,7 @@ import { createRouter, createWebHistory } from 'vue-router'
 import IndexPage from '../views/IndexPage.vue' // 首页 - 对应hss_v3.html中的page-index
 import AIAssistantPage from '../views/AIAssistantPage.vue' // AI管家（大狮兄）页面 - 对应hss_v3.html中的page-ai-assistant
 import EnergyTreePage from '../views/EnergyTreePage.vue' // 能量树页面 - 对应hss_v3.html中的page-energy-tree
-import TeacherListPage from '../views/TeacherListPage.vue' // 唤醒师列表页面
+import TeacherListPage from '../views/TeacherListPage.vue' // 唤醒狮列表页面
 import CampPage from '../views/CampPage.vue' // 唤醒营页面
 import MessagesPage from '../views/MessagesPage.vue' // 消息页面
 import MePage from '../views/MePage.vue' // 我的页面
@@ -54,13 +54,13 @@ const routes = [
       showInNav: true
     }
   },
-  // 唤醒师列表页面路由
+  // 唤醒狮列表页面路由
   {
     path: '/teacher-list',
     name: 'TeacherList',
     component: TeacherListPage,
     meta: {
-      title: '唤醒师列表',
+      title: '唤醒狮列表',
       icon: 'fa-user-circle',
       showInNav: true
     }

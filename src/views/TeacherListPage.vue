@@ -5,7 +5,7 @@
       <button class="nav-back mr-3 text-dark" @click="$router.push('/')">
         <i class="fa fa-angle-left text-xl"></i>
       </button>
-      <h2 class="font-bold">唤醒师列表</h2>
+      <h2 class="font-bold">唤醒狮列表</h2>
       <div class="flex-1 flex justify-end">
         <button class="nav-action text-gray" @click="$router.push('/filter')">
           <i class="fa fa-filter"></i>
@@ -69,12 +69,12 @@
       </button>
     </div>
 
-    <!-- 唤醒师列表 -->
+    <!-- 唤醒狮列表 -->
     <div class="p-3 space-y-3 mb-20">
-      <!-- 唤醒师项1 -->
+      <!-- 唤醒狮项1 -->
       <div class="bg-light rounded-lg card-shadow overflow-hidden nav-action" @click="$router.push('/ouyang')">
         <div class="flex p-3">
-          <img src="@images/img-20.jpg" alt="唤醒师头像" class="w-16 h-16 rounded-full mr-3">
+          <img src="@images/img-20.jpg" alt="唤醒狮头像" class="w-16 h-16 rounded-full mr-3">
           <div class="flex-1">
             <div class="flex justify-between items-start">
               <h3 class="font-medium">李教练（羽毛球）</h3>
@@ -110,10 +110,10 @@
         </div>
       </div>
 
-      <!-- 唤醒师项2 -->
+      <!-- 唤醒狮项2 -->
       <div class="bg-light rounded-lg card-shadow overflow-hidden nav-action" @click="$router.push('/ouyang')">
         <div class="flex p-3">
-          <img src="@images/img-21.jpg" alt="唤醒师头像" class="w-16 h-16 rounded-full mr-3">
+          <img src="@images/img-21.jpg" alt="唤醒狮头像" class="w-16 h-16 rounded-full mr-3">
           <div class="flex-1">
             <div class="flex justify-between items-start">
               <h3 class="font-medium">张老师（瑜伽）</h3>
@@ -148,10 +148,10 @@
         </div>
       </div>
 
-      <!-- 唤醒师项3 -->
+      <!-- 唤醒狮项3 -->
       <div class="bg-light rounded-lg card-shadow overflow-hidden nav-action" @click="$router.push('/ouyang')">
         <div class="flex p-3">
-          <img src="@images/img-22.jpg" alt="唤醒师头像" class="w-16 h-16 rounded-full mr-3">
+          <img src="@images/img-22.jpg" alt="唤醒狮头像" class="w-16 h-16 rounded-full mr-3">
           <div class="flex-1">
             <div class="flex justify-between items-start">
               <h3 class="font-medium">王教练（健身）</h3>

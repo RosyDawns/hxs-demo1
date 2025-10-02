@@ -5,7 +5,7 @@
       <button class="nav-back mr-3 text-dark" @click="$router.back()">
         <i class="fa fa-angle-left text-xl"></i>
       </button>
-      <h2 class="font-bold">匹配唤醒师</h2>
+      <h2 class="font-bold">匹配唤醒狮</h2>
     </header>
 
     <!-- 匹配进度指示器 -->
@@ -103,7 +103,7 @@
     <!-- 个性化需求 -->
     <div class="bg-light p-3 mt-3">
       <h3 class="font-medium mb-3">个性化需求（选填）</h3>
-      <textarea class="w-full h-24 p-3 border border-gray-100 rounded-lg text-sm resize-none" placeholder="请描述您的具体需求，帮助我们更精准地为您匹配唤醒师..."></textarea>
+      <textarea class="w-full h-24 p-3 border border-gray-100 rounded-lg text-sm resize-none" placeholder="请描述您的具体需求，帮助我们更精准地为您匹配唤醒狮..."></textarea>
     </div>
 
     <!-- 提交按钮 -->
