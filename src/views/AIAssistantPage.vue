@@ -3,7 +3,7 @@
     class="page bg-gradient-to-b from-white to-blue-50 min-h-screen flex flex-col"
     id="page-ai-assistant"
   >
-    <div class=" sticky top-0 z-50 bg-white pt-4 px-4 mb-6 flex justify-between items-center">
+    <div class=" sticky top-0 z-50 bg-white py-3 px-4 mb-2 flex justify-between items-center">
       <div class="flex items-center">
         <button
           class="w-10 h-10 rounded-full bg-gray-100 flex items-center justify-center"
