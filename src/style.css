@@ -88,7 +88,7 @@ body {
   min-height: 100vh;
   background-color: #fff;
   position: relative;
-  padding-bottom: 60px;
+  /* padding-bottom: 60px; */
   z-index: 100;
 }
 
