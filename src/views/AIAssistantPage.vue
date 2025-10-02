@@ -7,6 +7,7 @@
       <div class="flex items-center">
         <button
           class="w-10 h-10 rounded-full bg-gray-100 flex items-center justify-center"
+          @click="handleSwitchConversation"
         >
           <i class="fa-solid fa-bars text-dark"></i>
         </button>
@@ -15,6 +16,7 @@
       <div class="flex items-center space-x-3">
         <button
           class="w-10 h-10 rounded-full bg-gray-100 flex items-center justify-center"
+          @click="handleNewConversation"
         >
           <i class="fa-solid fa-clone"></i>
         </button>
@@ -34,8 +36,8 @@
         <span class="text-xs text-gray ml-2">9:41</span>
       </div>
 
-      <!-- 新增的快速查询卡片模块 -->
-      <div class="mb-6 flex gap-3">
+      <!-- 快速查询卡片模块 - 只在未显示推荐列表时显示 -->
+      <div v-if="!showRecommendations" class="mb-6 flex gap-3">
         <!-- 健身唤醒师推荐卡片 -->
         <div class="flex-1 bg-white rounded-xl p-4 shadow-sm border-2 border-pink-100 relative overflow-hidden">
           <div class="absolute top-0 right-0 text-3xl p-2 text-pink-200">
@@ -45,7 +47,7 @@
             <p class="text-sm font-medium">帮我推荐一位附近的健身唤醒师</p>
           </div>
           <div class="flex justify-end">
-            <button class="bg-black text-white text-xs py-1 px-3 rounded-full flex items-center">
+            <button class="bg-black text-white text-xs py-1 px-3 rounded-full flex items-center" @click="handleRecommendationClick">
               <i class="fa-solid fa-comment-dots"></i>试试
             </button>
           </div>
@@ -60,19 +62,19 @@
             <p class="text-sm font-medium">找瑜伽老师学习基础动作</p>
           </div>
           <div class="flex justify-end">
-            <button class="bg-black text-white text-xs py-1 px-3 rounded-full flex items-center">
+            <button class="bg-black text-white text-xs py-1 px-3 rounded-full flex items-center" @click="handleRecommendationClick">
               <i class="fa-solid fa-comment-dots"></i>试试
             </button>
           </div>
         </div>
       </div>
 
-      <!-- 对话区域 -->
-      <div class="mb-6">
+      <!-- 对话区域 - 只在显示推荐列表时显示 -->
+      <div v-if="showRecommendations" class="mb-6">
         <!-- 用户提问 -->
         <div class="flex justify-end mb-4">
           <div class="bg-white rounded-2xl p-4 max-w-[80%] shadow-sm">
-            <p class="text-sm">帮我在附近找一个游泳一对一教练，8岁2年经验小朋友，耐心一些，专业过硬，请推荐一下。</p>
+            <p class="text-sm">{{ currentQuery }}</p>
           </div>
         </div>
         
@@ -86,8 +88,8 @@
         </div>
       </div>
 
-      <!-- 推荐列表区域 -->
-      <div class="flex-1 overflow-y-auto">
+      <!-- 推荐列表区域 - 只在显示推荐列表时显示 -->
+      <div v-if="showRecommendations" class="flex-1 overflow-y-auto">
         <!-- 推荐教练列表 -->
         <div class="space-y-4">
           <!-- 教练1 -->
@@ -254,8 +256,8 @@
         </div>
       </div>
 
-      <!-- 操作按钮区域 -->
-      <div class="mt-4 mb-6">
+      <!-- 操作按钮区域 - 只在显示推荐列表时显示 -->
+      <div v-if="showRecommendations" class="mt-4 mb-6">
         <div class="flex space-x-3 mb-3">
           <button class="flex-1 bg-gray-100 text-gray text-sm py-2 rounded-full">
             换一批
@@ -305,57 +307,100 @@ export default {
   setup() {
     const router = useRouter();
     const isRecording = ref(false);
+    // 控制推荐列表显示状态
+    const showRecommendations = ref(false);
+    // 当前查询内容
+    const currentQuery = ref("帮我在附近找一个游泳一对一教练，8岁2年经验小朋友，耐心一些，专业过硬，请推荐一下。");
 
+    // 处理推荐按钮点击
+    const handleRecommendationClick = () => {
+      showRecommendations.value = true;
+      console.log("显示推荐列表");
+    };
+
+    // 开始录音
     const startVoiceRecording = () => {
       isRecording.value = true;
-      // 这里可以添加实际的录音逻辑
       console.log("开始录音");
     };
 
+    // 停止录音并显示推荐列表
     const stopVoiceRecording = () => {
       isRecording.value = false;
-      // 这里可以添加实际的停止录音逻辑
       console.log("停止录音");
-      // 模拟处理录音结果，跳转到结果页
+      // 显示推荐列表
+      showRecommendations.value = true;
+      // 模拟处理录音结果
       setTimeout(() => {
-        router.push("/ai-result");
+        // 这里可以根据实际录音内容更新currentQuery
+        currentQuery.value = "我需要一位游泳教练";
       }, 500);
     };
 
+    // 处理教练详情
     const handleCoachDetail = (coachId) => {
       console.log(`查看教练详情: ${coachId}`);
       router.push(`/ouyang`); // 使用现有的教练详情页路由
     };
 
+    // 处理预约教练
     const handleReserveCoach = (coachId) => {
       console.log(`预约教练: ${coachId}`);
       // 实现预约逻辑
     };
 
+    // 处理咨询教练
     const handleConsultCoach = (coachId) => {
       console.log(`咨询教练: ${coachId}`);
       router.push("/chat"); // 跳转到聊天页面
     };
 
+    // 更换推荐
     const handleChangeRecommendations = () => {
       console.log("更换推荐教练");
       // 实现更换推荐的逻辑
     };
 
+    // 前往搜索
     const handleGoSearch = () => {
       console.log("前往搜索页面");
       router.push("/teacher-list"); // 跳转到教练列表页
     };
 
+    // 新建对话 - 重置页面内容
+    const handleNewConversation = () => {
+      console.log("新建对话");
+      showRecommendations.value = false;
+      currentQuery.value = "";
+      // 可以添加其他重置逻辑
+    };
+
+    // 切换对话
+    const handleSwitchConversation = () => {
+      console.log("切换对话");
+      // 在实际应用中，这里应该打开对话列表供用户选择
+      // 这里简单模拟切换效果
+      if (showRecommendations.value) {
+        showRecommendations.value = false;
+      } else {
+        showRecommendations.value = true;
+      }
+    };
+
     return {
       isRecording,
+      showRecommendations,
+      currentQuery,
       startVoiceRecording,
       stopVoiceRecording,
+      handleRecommendationClick,
       handleCoachDetail,
       handleReserveCoach,
       handleConsultCoach,
       handleChangeRecommendations,
-      handleGoSearch
+      handleGoSearch,
+      handleNewConversation,
+      handleSwitchConversation
     };
   },
 };
