@@ -3,7 +3,7 @@
     class="page bg-gradient-to-b from-white to-blue-50 min-h-screen flex flex-col"
     id="page-ai-assistant"
   >
-    <div class="pt-10 px-6 mb-6 flex justify-between items-center">
+    <div class="pt-10 px-4 mb-6 flex justify-between items-center">
       <div class="flex items-center">
         <button
           class="w-10 h-10 rounded-full bg-gray-100 flex items-center justify-center"
@@ -43,11 +43,11 @@
     </div>
 
     <!-- 主体内容区 -->
-    <div class="flex-1 px-4 py-2 flex flex-col">
+    <div class="flex-1 px-4 py-2 flex flex-col pb-14">
       <!-- AI形象和时间 -->
       <div class="flex items-center mb-4">
         <img
-          src="https://picsum.photos/id/237/80/80"
+          src="@images/img-8.jpg"
           alt="大狮兄"
           class="w-10 h-10 object-cover rounded-full mr-2"
         >
@@ -288,7 +288,7 @@
       </div>
 
       <!-- 输入区域 - 语音/文本切换 -->
-      <div class="w-full flex mb-6">
+      <div class="w-full flex fixed bottom-20 px-4 left-0">
         <!-- 切换按钮 -->
         <div @click="toggleInputMode" class="w-11 h-11 rounded-full mr-2 bg-white flex items-center justify-center">
           <i v-if="isVoiceMode" class="fa-solid fa-keyboard"></i>
