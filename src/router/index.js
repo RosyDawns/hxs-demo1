@@ -17,6 +17,7 @@ import CampRegisterPage from '../views/CampRegisterPage.vue' // 唤醒营注册�
 import CampDetailPage from '../views/CampDetailPage.vue' // 唤醒营详情页面
 import MyOrdersPage from '../views/MyOrdersPage.vue' // 我的订单页面
 import AITResultPage from '../views/AITResultPage.vue' // AI匹配结果页面
+import DailySigninPage from '../views/DailySigninPage.vue' // 每日签到页面
 
 // 路由配置数组
 const routes = [
@@ -124,6 +125,16 @@ const routes = [
     component: SigninPage,
     meta: {
       title: '登录',
+      showInNav: false
+    }
+  },
+  // 每日签到页面路由
+  {
+    path: '/daily-signin',
+    name: 'DailySignin',
+    component: DailySigninPage,
+    meta: {
+      title: '每日签到',
       showInNav: false
     }
   },

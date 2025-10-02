@@ -16,7 +16,7 @@
         <button class="bg-primary text-white text-xs py-1.5 px-3 rounded-full mr-2 nav-action" @click="$router.push('/matching')">
           一键匹配
         </button>
-        <button class="relative nav-action text-gray-700" @click="$router.push('/signin')">
+        <button class="relative nav-action text-gray-700" @click="$router.push('/daily-signin')">
           <i class="fa-solid fa-building-circle-check text-lg"></i>
           <span class="absolute -top-1 -right-1 w-4 h-4 bg-red-500 text-white rounded-full flex items-center justify-center text-[10px]">
             1
