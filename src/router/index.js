@@ -19,6 +19,12 @@ import MyOrdersPage from '../views/MyOrdersPage.vue' // 我的订单页面
 import AITResultPage from '../views/AITResultPage.vue' // AI匹配结果页面
 import DailySigninPage from '../views/DailySigninPage.vue' // 每日签到页面
 import ChatPage from '../views/ChatPage.vue' // 聊天页面
+import CouponsPage from '../views/CouponsPage.vue' // 优惠券页面
+import FavoritesPage from '../views/FavoritesPage.vue' // 我的收藏页面
+import AddressPage from '../views/AddressPage.vue' // 收货地址页面
+import HelpPage from '../views/HelpPage.vue' // 帮助中心页面
+import FeedbackPage from '../views/FeedbackPage.vue' // 意见反馈页面
+import AboutPage from '../views/AboutPage.vue' // 关于我们页面
 
 // 路由配置数组
 const routes = [
@@ -206,6 +212,66 @@ const routes = [
     component: AITResultPage,
     meta: {
       title: 'AI匹配结果',
+      showInNav: false
+    }
+  },
+  // 优惠券页面路由
+  {
+    path: '/coupons',
+    name: 'Coupons',
+    component: CouponsPage,
+    meta: {
+      title: '优惠券',
+      showInNav: false
+    }
+  },
+  // 我的收藏页面路由
+  {
+    path: '/favorites',
+    name: 'Favorites',
+    component: FavoritesPage,
+    meta: {
+      title: '我的收藏',
+      showInNav: false
+    }
+  },
+  // 收货地址页面路由
+  {
+    path: '/address',
+    name: 'Address',
+    component: AddressPage,
+    meta: {
+      title: '收货地址',
+      showInNav: false
+    }
+  },
+  // 帮助中心页面路由
+  {
+    path: '/help',
+    name: 'Help',
+    component: HelpPage,
+    meta: {
+      title: '帮助中心',
+      showInNav: false
+    }
+  },
+  // 意见反馈页面路由
+  {
+    path: '/feedback',
+    name: 'Feedback',
+    component: FeedbackPage,
+    meta: {
+      title: '意见反馈',
+      showInNav: false
+    }
+  },
+  // 关于我们页面路由
+  {
+    path: '/about',
+    name: 'About',
+    component: AboutPage,
+    meta: {
+      title: '关于我们',
       showInNav: false
     }
   }

@@ -1,7 +1,7 @@
 <template>
   <div class="page flex flex-col h-screen" id="page-me">
     <!-- 顶部导航 -->
-    <header class="sticky top-0 z-50 bg-light border-b border-gray-100 p-3 flex items-center">
+    <!-- <header class="sticky top-0 z-50 bg-light border-b border-gray-100 p-3 flex items-center">
       <button class="nav-back mr-3 text-dark" @click="$router.push('/')">
         <i class="fa-solid fa-angle-left text-xl"></i>
       </button>
@@ -11,7 +11,7 @@
           <i class="fa-solid fa-gear"></i>
         </button>
       </div>
-    </header>
+    </header> -->
 
     <!-- 主要内容区 - 纵向布局 -->
     <main class="flex-1 overflow-y-auto">
@@ -113,7 +113,7 @@
         </div>
 
         <!-- 推荐唤醒狮 -->
-        <div>
+        <!-- <div>
           <h3 class="font-bold text-sm mb-2">为你推荐</h3>
           <div class="bg-light rounded-lg card-shadow p-3 nav-action" @click="$router.push('/ouyang')">
             <div class="flex items-center">
@@ -133,7 +133,7 @@
               </div>
             </div>
           </div>
-        </div>
+        </div> -->
       </div>
     </main>
 
