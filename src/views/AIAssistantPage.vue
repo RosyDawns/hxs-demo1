@@ -133,6 +133,7 @@
                   </div>
                   <span class="text-xs text-gray ml-1">评分4.8</span>
                 </div>
+                 <div class="text-xs text-gray">距离 <span class="text-primary">1.2</span> 公里</div>
               </div>
               <div class="bg-primary/10 text-primary text-xs px-2 py-0.5 rounded">
                 查看主页
@@ -152,19 +153,7 @@
                 <p class="text-sm font-bold text-primary">¥1680</p>
               </div>
             </div>
-            <div class="flex justify-between items-center">
-              <div class="text-xs text-gray">距离 <span class="text-primary">1.2</span> 公里</div>
-              <div class="flex space-x-2">
-                <button class="bg-gray-100 text-gray text-xs py-1 px-3 rounded-full">
-                  预约
-                </button>
-                <button class="bg-primary text-white text-xs py-1 px-3 rounded-full">
-                  咨询
-                </button>
-              </div>
-            </div>
           </div>
-
           <!-- 教练2 -->
           <div class="bg-white rounded-2xl p-4 shadow-sm">
             <div class="flex justify-between items-start mb-3">
@@ -187,6 +176,7 @@
                   </div>
                   <span class="text-xs text-gray ml-1">评分4.9</span>
                 </div>
+                <div class="text-xs text-gray">距离 <span class="text-primary">1.5</span> 公里</div>
               </div>
               <div class="bg-primary/10 text-primary text-xs px-2 py-0.5 rounded">
                 查看主页
@@ -206,19 +196,7 @@
                 <p class="text-sm font-bold text-primary">¥1880</p>
               </div>
             </div>
-            <div class="flex justify-between items-center">
-              <div class="text-xs text-gray">距离 <span class="text-primary">1.5</span> 公里</div>
-              <div class="flex space-x-2">
-                <button class="bg-gray-100 text-gray text-xs py-1 px-3 rounded-full">
-                  预约
-                </button>
-                <button class="bg-primary text-white text-xs py-1 px-3 rounded-full">
-                  咨询
-                </button>
-              </div>
-            </div>
           </div>
-
           <!-- 教练3 -->
           <div class="bg-white rounded-2xl p-4 shadow-sm">
             <div class="flex justify-between items-start mb-3">
@@ -241,6 +219,7 @@
                   </div>
                   <span class="text-xs text-gray ml-1">评分4.6</span>
                 </div>
+                <div class="text-xs text-gray">距离 <span class="text-primary">1.5</span> 公里</div>
               </div>
               <div class="bg-primary/10 text-primary text-xs px-2 py-0.5 rounded">
                 查看主页
@@ -258,17 +237,6 @@
               <div class="bg-gray-50 p-2 rounded-lg">
                 <p class="text-xs text-gray">10次卡</p>
                 <p class="text-sm font-bold text-primary">¥1580</p>
-              </div>
-            </div>
-            <div class="flex justify-between items-center">
-              <div class="text-xs text-gray">距离 <span class="text-primary">1.5</span> 公里</div>
-              <div class="flex space-x-2">
-                <button class="bg-gray-100 text-gray text-xs py-1 px-3 rounded-full">
-                  预约
-                </button>
-                <button class="bg-primary text-white text-xs py-1 px-3 rounded-full">
-                  咨询
-                </button>
               </div>
             </div>
           </div>
