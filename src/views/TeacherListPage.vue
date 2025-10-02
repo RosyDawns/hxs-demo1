@@ -186,8 +186,6 @@
         </div>
       </div>
     </div>
-
-    <FooterNav activePage="teachers" />
   </div>
 </template>
 

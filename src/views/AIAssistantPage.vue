@@ -135,7 +135,7 @@
                 </div>
                  <div class="text-xs text-gray">距离 <span class="text-primary">1.2</span> 公里</div>
               </div>
-              <div class="bg-primary/10 text-primary text-xs px-2 py-0.5 rounded">
+              <div class="bg-primary/10 text-primary text-xs px-2 py-0.5 rounded" @click="handleCoachDetail('coach1')">
                 查看主页
               </div>
             </div>
@@ -178,7 +178,7 @@
                 </div>
                 <div class="text-xs text-gray">距离 <span class="text-primary">1.5</span> 公里</div>
               </div>
-              <div class="bg-primary/10 text-primary text-xs px-2 py-0.5 rounded">
+              <div class="bg-primary/10 text-primary text-xs px-2 py-0.5 rounded" @click="handleCoachDetail('coach2')">
                 查看主页
               </div>
             </div>
@@ -221,7 +221,7 @@
                 </div>
                 <div class="text-xs text-gray">距离 <span class="text-primary">1.5</span> 公里</div>
               </div>
-              <div class="bg-primary/10 text-primary text-xs px-2 py-0.5 rounded">
+              <div class="bg-primary/10 text-primary text-xs px-2 py-0.5 rounded" @click="handleCoachDetail('coach3')">
                 查看主页
               </div>
             </div>
@@ -246,10 +246,10 @@
       <!-- 操作按钮区域 - 只在显示推荐列表时显示 -->
       <div v-if="showRecommendations" class="mt-4 mb-6">
         <div class="flex space-x-3 mb-3">
-          <button class="flex-1 bg-gray-100 text-gray text-sm py-2 rounded-full">
+          <button class="flex-1 bg-gray-100 text-gray text-sm py-2 rounded-full" @click="handleChangeRecommendations">
             换一批
           </button>
-          <button class="flex-1 bg-primary text-white text-sm py-2 rounded-full">
+          <button class="flex-1 bg-primary text-white text-sm py-2 rounded-full" @click="handleGoSearch">
             去寻找
           </button>
         </div>
@@ -453,6 +453,30 @@ export default {
     const handleChangeRecommendations = () => {
       console.log("更换推荐教练");
       // 实现更换推荐的逻辑
+      // 模拟更换推荐数据
+      // 教练数据模拟数组
+      const coachData = [
+        { id: 'coach1', name: '李教练', type: '游泳教练', title: '国家二级运动员 | 8年教学经验', rating: 4.8, distance: 1.2, image: 'https://picsum.photos/id/1005/100/100' },
+        { id: 'coach2', name: '赵教练', type: '游泳教练', title: '国家一级运动员 | 10年教学经验', rating: 4.9, distance: 1.5, image: 'https://picsum.photos/id/1011/100/100' },
+        { id: 'coach3', name: '张教练', type: '游泳教练', title: '国家二级运动员 | 6年教学经验', rating: 4.6, distance: 1.5, image: 'https://picsum.photos/id/1012/100/100' },
+        { id: 'coach4', name: '王教练', type: '健身教练', title: '国际健身教练认证 | 5年教学经验', rating: 4.7, distance: 0.8, image: 'https://picsum.photos/id/1010/100/100' },
+        { id: 'coach5', name: '陈教练', type: '瑜伽教练', title: '国际瑜伽联盟认证 | 7年教学经验', rating: 4.9, distance: 2.1, image: 'https://picsum.photos/id/1000/100/100' },
+        { id: 'coach6', name: '刘教练', type: '篮球教练', title: '前职业运动员 | 9年教学经验', rating: 4.8, distance: 1.7, image: 'https://picsum.photos/id/1001/100/100' }
+      ];
+      
+      // 随机选择3个教练作为新的推荐
+      const shuffledCoaches = [...coachData].sort(() => 0.5 - Math.random());
+      const selectedCoaches = shuffledCoaches.slice(0, 3);
+      
+      // 更新对话内容和推荐标题
+      currentQuery.value = `我需要${selectedCoaches[0].type}`;
+      // 在实际应用中，这里应该更新UI显示新的教练数据
+      // 这里通过重新显示推荐列表来模拟更新效果
+      showRecommendations.value = false;
+      setTimeout(() => {
+        showRecommendations.value = true;
+      }, 100);
+      console.log("已更换推荐教练：", selectedCoaches.map(c => c.name));
     };
 
     // 前往搜索
