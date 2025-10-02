@@ -7,7 +7,7 @@
       <div class="flex items-center">
         <button
           class="w-10 h-10 rounded-full bg-gray-100 flex items-center justify-center"
-          @click="handleSwitchConversation"
+          @click="toggleConversationList"
         >
           <i class="fa-solid fa-bars text-dark"></i>
         </button>
@@ -20,6 +20,25 @@
         >
           <i class="fa-solid fa-clone"></i>
         </button>
+      </div>
+    </div>
+
+    <!-- 对话记录列表 - 根据showConversationList状态显示/隐藏 -->
+    <div v-if="showConversationList" class="px-4 mb-4">
+      <div class="bg-white rounded-xl p-4 shadow-md">
+        <h3 class="text-sm font-bold mb-3">历史对话</h3>
+        <div class="space-y-2">
+          <div 
+            v-for="(conversation, index) in conversationHistory" 
+            :key="index" 
+            class="p-2 rounded-lg hover:bg-gray-50 cursor-pointer text-sm"
+            @click="selectConversation(index)"
+          >
+            {{ conversation.query }}
+            <span class="text-xs text-gray-400 block">{{ conversation.time }}</span>
+          </div>
+        </div>
+        <button class="text-xs text-primary mt-2" @click="toggleConversationList">关闭</button>
       </div>
     </div>
 
@@ -268,25 +287,47 @@
         </div>
       </div>
 
-      <!-- 语音输入按钮 -->
-      <div class="w-full mb-6 flex justify-between">
-        <div
-          class="h-11 w-11 mr-2 flex items-center justify-center bg-white rounded-full"
-        >
-          <i class="fa-solid fa-keyboard"></i>
+      <!-- 输入区域 - 语音/文本切换 -->
+      <div class="w-full flex mb-6">
+        <!-- 切换按钮 -->
+        <div @click="toggleInputMode" class="w-11 h-11 rounded-full mr-2 bg-white flex items-center justify-center">
+          <i v-if="isVoiceMode" class="fa-solid fa-keyboard"></i>
+          <i v-else class="fa-solid fa-microphone"></i>
         </div>
-        <button
-          class="h-11 flex-1 bg-white text-primary rounded-full font-medium flex items-center justify-center space-x-2 shadow-lg hover:bg-primary/90 transition-colors duration-300"
-          @mousedown="startVoiceRecording"
-          @mouseup="stopVoiceRecording"
-          @touchstart="startVoiceRecording"
-          @touchend="stopVoiceRecording"
-        >
-          <i class="fa-solid fa-microphone text-xl"></i>
-          <span :class="isRecording ? 'text-primary animate-pulse' : ''">{{
-            isRecording ? "正在录音..." : "按住说话"
-          }}</span>
-        </button>
+        
+        <div class="flex items-center flex-1">
+          <!-- 文本输入模式 -->
+          <div v-if="!isVoiceMode" class="w-full flex items-center">
+            <input
+              v-model="inputText"
+              type="text"
+              class="h-11 flex-1 bg-white text-primary rounded-full font-medium px-4 shadow-lg focus:outline-none"
+              placeholder="请输入您的问题..."
+            >
+            <button
+              class="ml-2 h-11 w-11 bg-primary text-white rounded-full flex items-center justify-center"
+              @click="handleTextInputConfirm"
+            >
+              OK
+            </button>
+          </div>
+          
+          <!-- 语音输入模式 -->
+          <div v-else class="w-full flex items-center">
+            <button
+              class="h-11 flex-1 bg-white text-primary rounded-full font-medium flex items-center justify-center space-x-2 shadow-lg hover:bg-primary/90 transition-colors duration-300"
+              @mousedown="startVoiceRecording"
+              @mouseup="stopVoiceRecording"
+              @touchstart="startVoiceRecording"
+              @touchend="stopVoiceRecording"
+            >
+              <i class="fa-solid fa-microphone text-xl"></i>
+              <span :class="isRecording ? 'text-primary animate-pulse' : ''">{{
+                isRecording ? "正在录音..." : "按住说话"
+              }}</span>
+            </button>
+          </div>
+        </div>
       </div>
     </div>
 
@@ -311,6 +352,31 @@ export default {
     const showRecommendations = ref(false);
     // 当前查询内容
     const currentQuery = ref("帮我在附近找一个游泳一对一教练，8岁2年经验小朋友，耐心一些，专业过硬，请推荐一下。");
+    // 输入模式控制：true为语音模式，false为文本模式
+    const isVoiceMode = ref(true);
+    // 文本输入内容
+    const inputText = ref('');
+    // 对话记录列表显示状态
+    const showConversationList = ref(false);
+    // 模拟对话历史记录
+    const conversationHistory = ref([
+      {
+        query: "帮我推荐一位附近的健身唤醒师",
+        time: "今天 09:30"
+      },
+      {
+        query: "找瑜伽老师学习基础动作",
+        time: "今天 08:45"
+      },
+      {
+        query: "帮我在附近找一个游泳一对一教练",
+        time: "昨天 16:20"
+      },
+      {
+        query: "推荐一位篮球私教",
+        time: "昨天 14:10"
+      }
+    ]);
 
     // 处理推荐按钮点击
     const handleRecommendationClick = () => {
@@ -334,7 +400,67 @@ export default {
       setTimeout(() => {
         // 这里可以根据实际录音内容更新currentQuery
         currentQuery.value = "我需要一位游泳教练";
+        // 将新对话添加到历史记录
+        addToConversationHistory(currentQuery.value);
       }, 500);
+    };
+
+    // 切换输入模式
+    const toggleInputMode = () => {
+      isVoiceMode.value = !isVoiceMode.value;
+      console.log(`切换到${isVoiceMode.value ? '语音' : '文本'}输入模式`);
+    };
+
+    // 处理文本输入确认
+    const handleTextInputConfirm = () => {
+      if (inputText.value.trim()) {
+        currentQuery.value = inputText.value.trim();
+        showRecommendations.value = true;
+        // 将新对话添加到历史记录
+        addToConversationHistory(currentQuery.value);
+        // 清空输入框
+        inputText.value = '';
+        console.log("确认文本输入：", currentQuery.value);
+      }
+    };
+
+    // 切换对话列表显示
+    const toggleConversationList = () => {
+      showConversationList.value = !showConversationList.value;
+      console.log(`对话列表${showConversationList.value ? '显示' : '隐藏'}`);
+    };
+
+    // 选择对话记录
+    const selectConversation = (index) => {
+      const selectedConversation = conversationHistory.value[index];
+      currentQuery.value = selectedConversation.query;
+      showRecommendations.value = true;
+      showConversationList.value = false;
+      console.log("选择对话记录：", selectedConversation.query);
+    };
+
+    // 添加到对话历史
+    const addToConversationHistory = (query) => {
+      // 检查是否已存在相同的查询
+      const exists = conversationHistory.value.some(item => item.query === query);
+      if (!exists) {
+        // 获取当前时间
+        const now = new Date();
+        const hours = now.getHours().toString().padStart(2, '0');
+        const minutes = now.getMinutes().toString().padStart(2, '0');
+        const timeText = `今天 ${hours}:${minutes}`;
+        
+        // 添加到历史记录的开头
+        conversationHistory.value.unshift({
+          query: query,
+          time: timeText
+        });
+        
+        // 限制历史记录数量
+        if (conversationHistory.value.length > 10) {
+          conversationHistory.value.pop();
+        }
+      }
     };
 
     // 处理教练详情
@@ -372,27 +498,29 @@ export default {
       console.log("新建对话");
       showRecommendations.value = false;
       currentQuery.value = "";
+      inputText.value = '';
       // 可以添加其他重置逻辑
     };
 
-    // 切换对话
+    // 切换对话 - 这里保留原函数名但实际使用toggleConversationList
     const handleSwitchConversation = () => {
-      console.log("切换对话");
-      // 在实际应用中，这里应该打开对话列表供用户选择
-      // 这里简单模拟切换效果
-      if (showRecommendations.value) {
-        showRecommendations.value = false;
-      } else {
-        showRecommendations.value = true;
-      }
+      toggleConversationList();
     };
 
     return {
       isRecording,
       showRecommendations,
       currentQuery,
+      isVoiceMode,
+      inputText,
+      showConversationList,
+      conversationHistory,
       startVoiceRecording,
       stopVoiceRecording,
+      toggleInputMode,
+      handleTextInputConfirm,
+      toggleConversationList,
+      selectConversation,
       handleRecommendationClick,
       handleCoachDetail,
       handleReserveCoach,
