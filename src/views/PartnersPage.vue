@@ -60,7 +60,7 @@
         <div class="space-y-3">
           <!-- 合作伙伴1 -->
           <div class="flex items-center border-b border-gray-100 pb-3 nav-action" @click="$router.push('/partner-detail')">
-            <img src="/img-3.jpg" alt="合作伙伴logo" class="w-16 h-16 rounded-lg mr-3">
+            <img src="@images/img-3.jpg" alt="合作伙伴logo" class="w-16 h-16 rounded-lg mr-3">
             <div class="flex-1">
               <div class="flex justify-between items-start">
                 <h4 class="font-medium">健体健身中心</h4>
@@ -84,7 +84,7 @@
 
           <!-- 合作伙伴2 -->
           <div class="flex items-center border-b border-gray-100 pb-3 nav-action" @click="$router.push('/partner-detail')">
-            <img src="/img-4.jpg" alt="合作伙伴logo" class="w-16 h-16 rounded-lg mr-3">
+            <img src="@images/img-4.jpg" alt="合作伙伴logo" class="w-16 h-16 rounded-lg mr-3">
             <div class="flex-1">
               <div class="flex justify-between items-start">
                 <h4 class="font-medium">静心瑜伽馆</h4>
@@ -108,7 +108,7 @@
 
           <!-- 合作伙伴3 -->
           <div class="flex items-center nav-action" @click="$router.push('/partner-detail')">
-            <img src="/img-12.jpg" alt="合作伙伴logo" class="w-16 h-16 rounded-lg mr-3">
+            <img src="@images/img-12.jpg" alt="合作伙伴logo" class="w-16 h-16 rounded-lg mr-3">
             <div class="flex-1">
               <div class="flex justify-between items-start">
                 <h4 class="font-medium">舞动青春舞蹈工作室</h4>
@@ -137,22 +137,22 @@
         <h3 class="font-medium mb-3">推荐品牌</h3>
         <div class="grid grid-cols-2 gap-3">
           <div class="bg-gray-50 rounded-lg p-3 flex flex-col items-center justify-center text-center nav-action" @click="$router.push('/partner-detail')">
-            <img src="/img-13.jpg" alt="品牌logo" class="w-16 h-16 rounded-lg mb-2">
+            <img src="@images/img-13.jpg" alt="品牌logo" class="w-16 h-16 rounded-lg mb-2">
             <h4 class="text-sm font-medium">健康生活食品</h4>
             <p class="text-xs text-gray mt-1">天然健康食品供应商</p>
           </div>
           <div class="bg-gray-50 rounded-lg p-3 flex flex-col items-center justify-center text-center nav-action" @click="$router.push('/partner-detail')">
-            <img src="/img-14.jpg" alt="品牌logo" class="w-16 h-16 rounded-lg mb-2">
+            <img src="@images/img-14.jpg" alt="品牌logo" class="w-16 h-16 rounded-lg mb-2">
             <h4 class="text-sm font-medium">活力运动装备</h4>
             <p class="text-xs text-gray mt-1">专业运动装备品牌</p>
           </div>
           <div class="bg-gray-50 rounded-lg p-3 flex flex-col items-center justify-center text-center nav-action" @click="$router.push('/partner-detail')">
-            <img src="/img-15.jpg" alt="品牌logo" class="w-16 h-16 rounded-lg mb-2">
+            <img src="@images/img-15.jpg" alt="品牌logo" class="w-16 h-16 rounded-lg mb-2">
             <h4 class="text-sm font-medium">智能健身设备</h4>
             <p class="text-xs text-gray mt-1">智能健身器材制造商</p>
           </div>
           <div class="bg-gray-50 rounded-lg p-3 flex flex-col items-center justify-center text-center nav-action" @click="$router.push('/partner-detail')">
-            <img src="/img-16.jpg" alt="品牌logo" class="w-16 h-16 rounded-lg mb-2">
+            <img src="@images/img-16.jpg" alt="品牌logo" class="w-16 h-16 rounded-lg mb-2">
             <h4 class="text-sm font-medium">健康管理平台</h4>
             <p class="text-xs text-gray mt-1">健康数据管理服务</p>
           </div>

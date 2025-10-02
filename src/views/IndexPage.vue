@@ -84,7 +84,7 @@
       <!-- 内容项1 -->
       <div class="bg-white rounded-lg overflow-hidden card-shadow nav-action cursor-pointer"
         @click="$router.push('/ouyang')">
-        <img src="/img_39.jpg" alt="美食图片" class="w-full h-40 object-cover">
+        <img src="@images/img_39.jpg" alt="美食图片" class="w-full h-40 object-cover">
         <div class="p-2">
           <p class="text-sm">比如紫苏、香茅、沙葱都是地域特色比较明显的</p>
           <div class="flex items-center justify-between mt-2">
@@ -102,7 +102,7 @@
       <!-- 内容项2 -->
       <div class="bg-white rounded-lg overflow-hidden card-shadow nav-action cursor-pointer"
         @click="$router.push('/ouyang')">
-        <img src="/img_40.jpg" alt="美食图片" class="w-full h-40 object-cover">
+        <img src="@images/img_40.jpg" alt="美食图片" class="w-full h-40 object-cover">
         <div class="p-2">
           <p class="text-sm">味道确实比以前好吃很多啊，面饼也烤得很好</p>
           <div class="flex items-center justify-between mt-2">
@@ -121,7 +121,7 @@
       <!-- 内容项3 -->
       <div class="bg-white rounded-lg overflow-hidden card-shadow nav-action cursor-pointer"
         @click="$router.push('/ouyang')">
-        <img src="/img_41.jpg" alt="运动图片" class="w-full h-40 object-cover">
+        <img src="@images/img_41.jpg" alt="运动图片" class="w-full h-40 object-cover">
         <div class="p-2">
           <div class="bg-blue-500/10 text-blue-500 text-xs px-1.5 py-0.5 rounded inline-block mb-1">运动
           </div>
@@ -142,7 +142,7 @@
       <!-- 内容项4 -->
       <div class="bg-white rounded-lg overflow-hidden card-shadow nav-action cursor-pointer"
         @click="$router.push('/ouyang')">
-        <img src="/img_42.jpg" alt="户外图片" class="w-full h-40 object-cover">
+        <img src="@images/img_42.jpg" alt="户外图片" class="w-full h-40 object-cover">
         <div class="p-2">
           <div class="bg-green-500/10 text-green-500 text-xs px-1.5 py-0.5 rounded inline-block mb-1">户外
           </div>

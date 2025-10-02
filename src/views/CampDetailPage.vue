@@ -18,7 +18,7 @@
 
     <!-- 训练营封面 -->
     <div class="relative">
-      <img src="/img-23.jpg" alt="训练营封面" class="w-full h-64 object-cover">
+      <img src="@images/img-23.jpg" alt="训练营封面" class="w-full h-64 object-cover">
       <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/60 to-transparent p-4">
         <h1 class="text-white font-bold text-xl">夏日减脂训练营</h1>
         <div class="flex items-center mt-1">
@@ -71,10 +71,10 @@
           适合人群：希望在短时间内减脂塑形的健康成年人，有无健身经验均可。
         </p>
         <div class="grid grid-cols-2 gap-2 mt-2">
-          <img src="/img-24.jpg" alt="训练营图片" class="w-full h-24 object-cover rounded">
-          <img src="/img-25.jpg" alt="训练营图片" class="w-full h-24 object-cover rounded">
-          <img src="/img-26.jpg" alt="训练营图片" class="w-full h-24 object-cover rounded">
-          <img src="/img-27.jpg" alt="训练营图片" class="w-full h-24 object-cover rounded">
+          <img src="@images/img-24.jpg" alt="训练营图片" class="w-full h-24 object-cover rounded">
+          <img src="@images/img-25.jpg" alt="训练营图片" class="w-full h-24 object-cover rounded">
+          <img src="@images/img-26.jpg" alt="训练营图片" class="w-full h-24 object-cover rounded">
+          <img src="@images/img-27.jpg" alt="训练营图片" class="w-full h-24 object-cover rounded">
         </div>
       </div>
     </div>
@@ -130,7 +130,7 @@
       <h3 class="font-medium mb-3">教练团队</h3>
       <div class="space-y-3">
         <div class="flex items-center nav-action" @click="$router.push('/ouyang')">
-          <img src="/img-7.jpg" alt="李教练" class="w-12 h-12 rounded-full mr-3">
+          <img src="@images/img-7.jpg" alt="李教练" class="w-12 h-12 rounded-full mr-3">
           <div class="flex-1">
             <h4 class="font-medium">李教练</h4>
             <p class="text-xs text-gray mt-0.5">健身教练 | 10年经验 | 国家级健身指导员</p>
@@ -139,7 +139,7 @@
         </div>
         
         <div class="flex items-center nav-action" @click="$router.push('/ouyang')">
-          <img src="/img-6.jpg" alt="张教练" class="w-12 h-12 rounded-full mr-3">
+          <img src="@images/img-6.jpg" alt="张教练" class="w-12 h-12 rounded-full mr-3">
           <div class="flex-1">
             <h4 class="font-medium">张教练</h4>
             <p class="text-xs text-gray mt-0.5">营养顾问 | 5年经验 | 注册营养师</p>
@@ -171,8 +171,8 @@
           </div>
           <p class="text-sm text-gray mt-1">课程非常棒，教练很专业，10天减了5斤，效果明显，推荐给想要减脂的朋友！</p>
           <div class="flex space-x-1 mt-2">
-            <img src="/img-28.jpg" alt="评价图片" class="w-16 h-16 object-cover rounded">
-            <img src="/img-29.jpg" alt="评价图片" class="w-16 h-16 object-cover rounded">
+            <img src="@images/img-28.jpg" alt="评价图片" class="w-16 h-16 object-cover rounded">
+            <img src="@images/img-29.jpg" alt="评价图片" class="w-16 h-16 object-cover rounded">
           </div>
           <p class="text-xs text-gray mt-2">2023-06-15</p>
         </div>

@@ -30,7 +30,7 @@
         <!-- 第二名 -->
         <div class="flex flex-col items-center">
           <div class="w-20 h-20 rounded-full border-2 border-gray-100 overflow-hidden mb-2">
-            <img src="/img-6.jpg" alt="第二名" class="w-full h-full object-cover">
+            <img src="@images/img-6.jpg" alt="第二名" class="w-full h-full object-cover">
           </div>
           <div class="w-8 h-8 bg-gray-200 rounded-full flex items-center justify-center text-white font-bold mb-1">2</div>
           <h4 class="text-sm font-medium">张教练</h4>
@@ -40,7 +40,7 @@
         <!-- 第一名 -->
         <div class="flex flex-col items-center">
           <div class="w-24 h-24 rounded-full border-2 border-warning overflow-hidden mb-2">
-            <img src="/img-7.jpg" alt="第一名" class="w-full h-full object-cover">
+            <img src="@images/img-7.jpg" alt="第一名" class="w-full h-full object-cover">
           </div>
           <div class="w-10 h-10 bg-warning rounded-full flex items-center justify-center text-white font-bold mb-1">1</div>
           <h4 class="text-sm font-medium">李教练</h4>
@@ -50,7 +50,7 @@
         <!-- 第三名 -->
         <div class="flex flex-col items-center">
           <div class="w-18 h-18 rounded-full border-2 border-gray-100 overflow-hidden mb-2">
-            <img src="/img-8.jpg" alt="第三名" class="w-full h-full object-cover">
+            <img src="@images/img-8.jpg" alt="第三名" class="w-full h-full object-cover">
           </div>
           <div class="w-8 h-8 bg-gray-200 rounded-full flex items-center justify-center text-white font-bold mb-1">3</div>
           <h4 class="text-sm font-medium">王教练</h4>
@@ -63,7 +63,7 @@
         <!-- 第4名 -->
         <div class="flex items-center border-b border-gray-100 pb-3 nav-action" @click="$router.push('/ouyang')">
           <div class="w-8 h-8 bg-gray-100 rounded-full flex items-center justify-center text-gray font-medium mr-3">4</div>
-          <img src="/img-9.jpg" alt="第四名" class="w-12 h-12 rounded-full mr-3">
+          <img src="@images/img-9.jpg" alt="第四名" class="w-12 h-12 rounded-full mr-3">
           <div class="flex-1">
             <h4 class="font-medium">陈教练</h4>
             <p class="text-xs text-gray mt-0.5">游泳教练 | 5年经验</p>
@@ -83,7 +83,7 @@
         <!-- 第5名 -->
         <div class="flex items-center border-b border-gray-100 pb-3 nav-action" @click="$router.push('/ouyang')">
           <div class="w-8 h-8 bg-gray-100 rounded-full flex items-center justify-center text-gray font-medium mr-3">5</div>
-          <img src="/img-10.jpg" alt="第五名" class="w-12 h-12 rounded-full mr-3">
+          <img src="@images/img-10.jpg" alt="第五名" class="w-12 h-12 rounded-full mr-3">
           <div class="flex-1">
             <h4 class="font-medium">刘教练</h4>
             <p class="text-xs text-gray mt-0.5">羽毛球教练 | 8年经验</p>
@@ -103,7 +103,7 @@
         <!-- 第6名 -->
         <div class="flex items-center border-b border-gray-100 pb-3 nav-action" @click="$router.push('/ouyang')">
           <div class="w-8 h-8 bg-gray-100 rounded-full flex items-center justify-center text-gray font-medium mr-3">6</div>
-          <img src="/img-17.jpg" alt="第六名" class="w-12 h-12 rounded-full mr-3">
+          <img src="@images/img-17.jpg" alt="第六名" class="w-12 h-12 rounded-full mr-3">
           <div class="flex-1">
             <h4 class="font-medium">赵教练</h4>
             <p class="text-xs text-gray mt-0.5">跑步教练 | 6年经验</p>
@@ -123,7 +123,7 @@
         <!-- 第7名 -->
         <div class="flex items-center border-b border-gray-100 pb-3 nav-action" @click="$router.push('/ouyang')">
           <div class="w-8 h-8 bg-gray-100 rounded-full flex items-center justify-center text-gray font-medium mr-3">7</div>
-          <img src="/img-18.jpg" alt="第七名" class="w-12 h-12 rounded-full mr-3">
+          <img src="@images/img-18.jpg" alt="第七名" class="w-12 h-12 rounded-full mr-3">
           <div class="flex-1">
             <h4 class="font-medium">黄教练</h4>
             <p class="text-xs text-gray mt-0.5">冥想教练 | 4年经验</p>
@@ -143,7 +143,7 @@
         <!-- 第8名 -->
         <div class="flex items-center border-b border-gray-100 pb-3 nav-action" @click="$router.push('/ouyang')">
           <div class="w-8 h-8 bg-gray-100 rounded-full flex items-center justify-center text-gray font-medium mr-3">8</div>
-          <img src="/img-19.jpg" alt="第八名" class="w-12 h-12 rounded-full mr-3">
+          <img src="@images/img-19.jpg" alt="第八名" class="w-12 h-12 rounded-full mr-3">
           <div class="flex-1">
             <h4 class="font-medium">周教练</h4>
             <p class="text-xs text-gray mt-0.5">拳击教练 | 7年经验</p>

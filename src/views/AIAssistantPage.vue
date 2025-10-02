@@ -70,7 +70,7 @@
     <div class="p-3 mt-1 mb-16">
       <!-- 列表项1 -->
       <div class="flex bg-light rounded-lg card-shadow p-3 mb-3 nav-action" @click="$router.push('/ouyang')">
-        <img src="/img-20.jpg" alt="唤醒师头像" class="nav-action w-16 h-16 rounded-full mr-3">
+        <img src="@images/img-20.jpg" alt="唤醒师头像" class="nav-action w-16 h-16 rounded-full mr-3">
         <div class="flex-1">
           <div class="flex justify-between items-start">
             <h3 class="font-medium">李教练（羽毛球）1</h3>
@@ -98,7 +98,7 @@
       </div>
       <!-- 列表项2 -->
       <div class="flex bg-light rounded-lg card-shadow p-3 mb-3 nav-action" @click="$router.push('/ouyang')">
-        <img src="/img-21.jpg" alt="唤醒师头像" class="nav-action w-16 h-16 rounded-full mr-3">
+        <img src="@images/img-21.jpg" alt="唤醒师头像" class="nav-action w-16 h-16 rounded-full mr-3">
         <div class="flex-1">
           <div class="flex justify-between items-start">
             <h3 class="font-medium">张老师（瑜伽）</h3>

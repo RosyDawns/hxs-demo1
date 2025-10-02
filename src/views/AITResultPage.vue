@@ -55,7 +55,7 @@
         <div class="border border-gray-100 rounded-lg overflow-hidden nav-action" @click="$router.push('/ouyang')">
           <div class="p-3">
             <div class="flex items-center">
-              <img src="/img-11.jpg" alt="李教练头像" class="w-16 h-16 rounded-full mr-3">
+              <img src="@images/img-11.jpg" alt="李教练头像" class="w-16 h-16 rounded-full mr-3">
               <div class="flex-1">
                 <div class="flex items-center">
                   <h3 class="font-medium">李教练（羽毛球）</h3>
@@ -105,7 +105,7 @@
         <div class="border border-gray-100 rounded-lg overflow-hidden nav-action" @click="$router.push('/ouyang')">
           <div class="p-3">
             <div class="flex items-center">
-              <img src="/img-9.jpg" alt="陈教练头像" class="w-16 h-16 rounded-full mr-3">
+              <img src="@images/img-9.jpg" alt="陈教练头像" class="w-16 h-16 rounded-full mr-3">
               <div class="flex-1">
                 <div class="flex items-center">
                   <h3 class="font-medium">陈教练（羽毛球）</h3>
@@ -155,7 +155,7 @@
         <div class="border border-gray-100 rounded-lg overflow-hidden nav-action" @click="$router.push('/ouyang')">
           <div class="p-3">
             <div class="flex items-center">
-              <img src="/img-10.jpg" alt="刘教练头像" class="w-16 h-16 rounded-full mr-3">
+              <img src="@images/img-10.jpg" alt="刘教练头像" class="w-16 h-16 rounded-full mr-3">
               <div class="flex-1">
                 <div class="flex items-center">
                   <h3 class="font-medium">刘教练（羽毛球）</h3>

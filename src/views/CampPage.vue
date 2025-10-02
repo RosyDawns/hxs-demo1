@@ -10,7 +10,7 @@
 
     <!-- 轮播图 -->
     <div class="relative w-full h-40 mb-3">
-      <img src="/img-31.jpg" alt="唤醒营轮播图" class="w-full h-full object-cover">
+      <img src="@images/img-31.jpg" alt="唤醒营轮播图" class="w-full h-full object-cover">
       <div class="absolute bottom-0 left-0 right-0 p-3">
         <div class="text-white font-bold text-lg">唤醒营活动</div>
         <div class="text-white text-xs opacity-80">探索更多精彩内容</div>
@@ -50,7 +50,7 @@
       <!-- 唤醒营项1 -->
       <div class="bg-light rounded-lg card-shadow overflow-hidden nav-action" @click="$router.push('/camp-detail')">
         <div class="relative">
-          <img src="/img-32.jpg" alt="体重唤醒营" class="w-full h-40 object-cover">
+          <img src="@images/img-32.jpg" alt="体重唤醒营" class="w-full h-40 object-cover">
           <div class="absolute top-0 right-0 bg-red-500 text-white text-xs py-1 px-2">限时5折</div>
         </div>
         <div class="p-3">
@@ -64,7 +64,7 @@
           <p class="text-xs text-gray mt-1">科学减脂，健康生活，专业教练一对一指导</p>
           <div class="flex items-center mt-2">
             <div class="flex items-center">
-              <img src="/img-20.jpg" alt="教练头像" class="w-6 h-6 rounded-full mr-1">
+              <img src="@images/img-20.jpg" alt="教练头像" class="w-6 h-6 rounded-full mr-1">
               <span class="text-xs">李教练</span>
             </div>
             <div class="flex space-x-1 ml-3">
@@ -88,7 +88,7 @@
       <!-- 唤醒营项2 -->
       <div class="bg-light rounded-lg card-shadow overflow-hidden nav-action" @click="$router.push('/camp-detail')">
         <div class="relative">
-          <img src="/img-33.jpg" alt="瑜伽唤醒营" class="w-full h-40 object-cover">
+          <img src="@images/img-33.jpg" alt="瑜伽唤醒营" class="w-full h-40 object-cover">
           <div class="absolute top-0 right-0 bg-green-500 text-white text-xs py-1 px-2">新课上线</div>
         </div>
         <div class="p-3">
@@ -102,7 +102,7 @@
           <p class="text-xs text-gray mt-1">身心平衡，放松压力，提升专注力和幸福感</p>
           <div class="flex items-center mt-2">
             <div class="flex items-center">
-              <img src="/img-21.jpg" alt="教练头像" class="w-6 h-6 rounded-full mr-1">
+              <img src="@images/img-21.jpg" alt="教练头像" class="w-6 h-6 rounded-full mr-1">
               <span class="text-xs">张老师</span>
             </div>
             <div class="flex space-x-1 ml-3">
@@ -126,7 +126,7 @@
       <!-- 唤醒营项3 -->
       <div class="bg-light rounded-lg card-shadow overflow-hidden nav-action" @click="$router.push('/camp-detail')">
         <div class="relative">
-          <img src="/img-34.jpg" alt="健身唤醒营" class="w-full h-40 object-cover">
+          <img src="@images/img-34.jpg" alt="健身唤醒营" class="w-full h-40 object-cover">
         </div>
         <div class="p-3">
           <div class="flex justify-between items-start">
@@ -139,7 +139,7 @@
           <p class="text-xs text-gray mt-1">提升体能，塑造身材，专业健身计划定制</p>
           <div class="flex items-center mt-2">
             <div class="flex items-center">
-              <img src="/img-22.jpg" alt="教练头像" class="w-6 h-6 rounded-full mr-1">
+              <img src="@images/img-22.jpg" alt="教练头像" class="w-6 h-6 rounded-full mr-1">
               <span class="text-xs">王教练</span>
             </div>
             <div class="flex space-x-1 ml-3">

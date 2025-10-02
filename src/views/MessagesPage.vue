@@ -35,7 +35,7 @@
       <div class="p-3 flex items-center justify-between nav-action" @click="$router.push('/chat')">
         <div class="flex items-center">
           <div class="relative">
-            <img src="/img-20.jpg" alt="李教练" class="w-14 h-14 rounded-full">
+            <img src="@images/img-20.jpg" alt="李教练" class="w-14 h-14 rounded-full">
             <div class="absolute bottom-0 right-0 w-4 h-4 bg-success border-2 border-white rounded-full"></div>
           </div>
           <div class="ml-3">
@@ -56,7 +56,7 @@
       <div class="p-3 flex items-center justify-between nav-action" @click="$router.push('/chat')">
         <div class="flex items-center">
           <div class="relative">
-            <img src="/img-21.jpg" alt="张老师" class="w-14 h-14 rounded-full">
+            <img src="@images/img-21.jpg" alt="张老师" class="w-14 h-14 rounded-full">
             <div class="absolute bottom-0 right-0 w-4 h-4 bg-success border-2 border-white rounded-full"></div>
           </div>
           <div class="ml-3">
@@ -77,7 +77,7 @@
       <div class="p-3 flex items-center justify-between nav-action" @click="$router.push('/chat')">
         <div class="flex items-center">
           <div class="relative">
-            <img src="/img-37.jpg" alt="系统通知" class="w-14 h-14 rounded-full">
+            <img src="@images/img-37.jpg" alt="系统通知" class="w-14 h-14 rounded-full">
           </div>
           <div class="ml-3">
             <div class="flex items-center">
@@ -96,7 +96,7 @@
       <div class="p-3 flex items-center justify-between nav-action" @click="$router.push('/chat')">
         <div class="flex items-center">
           <div class="relative">
-            <img src="/img-22.jpg" alt="王教练" class="w-14 h-14 rounded-full">
+            <img src="@images/img-22.jpg" alt="王教练" class="w-14 h-14 rounded-full">
           </div>
           <div class="ml-3">
             <div class="flex items-center">

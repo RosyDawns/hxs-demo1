@@ -74,7 +74,7 @@
       <!-- 唤醒师项1 -->
       <div class="bg-light rounded-lg card-shadow overflow-hidden nav-action" @click="$router.push('/ouyang')">
         <div class="flex p-3">
-          <img src="/img-20.jpg" alt="唤醒师头像" class="w-16 h-16 rounded-full mr-3">
+          <img src="@images/img-20.jpg" alt="唤醒师头像" class="w-16 h-16 rounded-full mr-3">
           <div class="flex-1">
             <div class="flex justify-between items-start">
               <h3 class="font-medium">李教练（羽毛球）</h3>
@@ -113,7 +113,7 @@
       <!-- 唤醒师项2 -->
       <div class="bg-light rounded-lg card-shadow overflow-hidden nav-action" @click="$router.push('/ouyang')">
         <div class="flex p-3">
-          <img src="/img-21.jpg" alt="唤醒师头像" class="w-16 h-16 rounded-full mr-3">
+          <img src="@images/img-21.jpg" alt="唤醒师头像" class="w-16 h-16 rounded-full mr-3">
           <div class="flex-1">
             <div class="flex justify-between items-start">
               <h3 class="font-medium">张老师（瑜伽）</h3>
@@ -151,7 +151,7 @@
       <!-- 唤醒师项3 -->
       <div class="bg-light rounded-lg card-shadow overflow-hidden nav-action" @click="$router.push('/ouyang')">
         <div class="flex p-3">
-          <img src="/img-22.jpg" alt="唤醒师头像" class="w-16 h-16 rounded-full mr-3">
+          <img src="@images/img-22.jpg" alt="唤醒师头像" class="w-16 h-16 rounded-full mr-3">
           <div class="flex-1">
             <div class="flex justify-between items-start">
               <h3 class="font-medium">王教练（健身）</h3>

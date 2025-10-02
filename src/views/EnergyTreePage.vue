@@ -3,7 +3,7 @@
     <!-- 顶部用户信息 -->
     <header class="top-bar glass py-1 px-4 left-0 top-3 absolute z-10">
       <div class="max-w-md mx-auto flex items-center gap-4">
-        <img src="/img_38.jpeg" alt="avatar" class="w-16 h-16 rounded-full border-2 border-white object-cover" />
+        <img src="@images/img_38.jpeg" alt="avatar" class="w-16 h-16 rounded-full border-2 border-white object-cover" />
         <div class="flex-1">
           <div class="flex items-center justify-between">
             <div>
@@ -28,7 +28,7 @@
 
       <!-- 能量树背景图 -->
       <div class="absolute top-2/9 inset-0 flex items-center justify-center relative">
-        <img src="/tree_2.png" class="w-full">
+        <img src="@images/tree_2.png" class="w-full">
 
         <!-- 能量果实（使用绝对定位） -->
         <div class="absolute inset-0 pointer-events-none z-100">
@@ -85,7 +85,7 @@
         <!-- 顶部左侧聊天提示 -->
         <div class="absolute left-4 top-28 flex items-start gap-3">
           <div class="relative">
-            <img src="/img_39.jpeg" class="w-14 h-14 rounded-full ring-2 ring-green-400 object-cover" alt="friend">
+            <img src="@images/img_39.jpeg" class="w-14 h-14 rounded-full ring-2 ring-green-400 object-cover" alt="friend">
             <div class="absolute -bottom-2 -left-1 text-green-400 text-xs font-bold">去找ta</div>
           </div>
           <div class="message-bubble text-sky-900">
@@ -322,6 +322,82 @@ export default {
       }, 1000)
     }
 
+    // 创建弹窗函数
+    const createPopup = (title, content) => {
+      // 检查是否已存在弹窗，存在则移除
+      const existingPopup = document.getElementById('customPopup');
+      if (existingPopup) {
+        existingPopup.remove();
+      }
+
+      // 创建弹窗容器
+      const popupContainer = document.createElement('div');
+      popupContainer.id = 'customPopup';
+      popupContainer.style.position = 'fixed';
+      popupContainer.style.left = '0';
+      popupContainer.style.top = '0';
+      popupContainer.style.width = '100%';
+      popupContainer.style.height = '100%';
+      popupContainer.style.backgroundColor = 'rgba(0,0,0,0.5)';
+      popupContainer.style.display = 'flex';
+      popupContainer.style.justifyContent = 'center';
+      popupContainer.style.alignItems = 'center';
+      popupContainer.style.zIndex = '999';
+
+      // 创建弹窗内容
+      const popupContent = document.createElement('div');
+      popupContent.style.width = '85%';
+      popupContent.style.maxWidth = '320px';
+      popupContent.style.backgroundColor = 'white';
+      popupContent.style.borderRadius = '16px';
+      popupContent.style.overflow = 'hidden';
+
+      // 创建弹窗标题
+      const popupTitle = document.createElement('div');
+      popupTitle.style.padding = '20px';
+      popupTitle.style.fontSize = '16px';
+      popupTitle.style.fontWeight = 'bold';
+      popupTitle.style.textAlign = 'center';
+      popupTitle.textContent = title;
+
+      // 创建弹窗内容区
+      const popupBody = document.createElement('div');
+      popupBody.style.padding = '0 20px 20px 20px';
+      popupBody.style.maxHeight = '300px';
+      popupBody.style.overflowY = 'auto';
+      popupBody.innerHTML = content;
+
+      // 创建关闭按钮
+      const closeButton = document.createElement('div');
+      closeButton.style.padding = '12px 20px';
+      closeButton.style.backgroundColor = '#FF6B35';
+      closeButton.style.color = 'white';
+      closeButton.style.textAlign = 'center';
+      closeButton.style.fontSize = '14px';
+      closeButton.style.fontWeight = 'bold';
+      closeButton.textContent = '关闭';
+      closeButton.style.cursor = 'pointer';
+
+      // 组装弹窗
+      popupContent.appendChild(popupTitle);
+      popupContent.appendChild(popupBody);
+      popupContent.appendChild(closeButton);
+      popupContainer.appendChild(popupContent);
+      document.body.appendChild(popupContainer);
+
+      // 添加关闭事件
+      closeButton.addEventListener('click', function () {
+        popupContainer.remove();
+      });
+
+      // 点击背景关闭弹窗
+      popupContainer.addEventListener('click', function (e) {
+        if (e.target === popupContainer) {
+          popupContainer.remove();
+        }
+      });
+    }
+
     // 摇一摇功能
     const shakeTree = () => {
       if (remainingShakes.value > 0 && !running.value) {
@@ -329,33 +405,187 @@ export default {
         if (remainingShakes.value === 0) {
           startCountdown()
         }
-        // 这里可以添加摇一摇的动画效果
-        console.log('摇一摇树')
+        // 简单动画：缩放
+        const shakeBtn = document.getElementById('shakeBtn');
+        if (shakeBtn) {
+          shakeBtn.animate([
+            { transform: 'scale(1)' },
+            { transform: 'scale(1.06)' },
+            { transform: 'scale(1)' }
+          ], {
+            duration: 450,
+            easing: 'ease-out'
+          });
+        }
+
+        // 模拟获得能量（这里只是提示）
+        setTimeout(() => {
+          const gained = Math.floor(Math.random() * 15) + 1;
+          // 使用原生toast提示
+          const note = document.createElement('div');
+          note.textContent = '+' + gained + ' 能量';
+          note.style.position = 'fixed';
+          note.style.left = '50%';
+          note.style.top = '40%';
+          note.style.transform = 'translateX(-50%)';
+          note.style.padding = '8px 14px';
+          note.style.borderRadius = '999px';
+          note.style.background = 'rgba(0,0,0,0.6)';
+          note.style.color = '#fff';
+          note.style.zIndex = 80;
+          document.body.appendChild(note);
+          setTimeout(() => note.remove(), 1400);
+        }, 400);
       }
     }
 
     // 显示每日任务
     const showDailyTasks = () => {
-      console.log('显示每日任务')
-      // 这里可以跳转到每日任务页面或显示任务弹窗
+      const content = `
+        <div class="space-y-4">
+          <div class="flex justify-between items-center p-3 bg-gray-50 rounded-lg">
+            <div>
+              <div class="font-medium">完成3次唤醒</div>
+              <div class="text-xs text-gray-500">帮助3位朋友唤醒潜能</div>
+            </div>
+            <div class="bg-primary/10 text-primary px-3 py-1 rounded-full text-sm">+10能量</div>
+          </div>
+          <div class="flex justify-between items-center p-3 bg-gray-50 rounded-lg">
+            <div>
+              <div class="font-medium">发布动态</div>
+              <div class="text-xs text-gray-500">分享今日感悟或收获</div>
+            </div>
+            <div class="bg-primary/10 text-primary px-3 py-1 rounded-full text-sm">+10能量</div>
+          </div>
+          <div class="flex justify-between items-center p-3 bg-gray-50 rounded-lg">
+            <div>
+              <div class="font-medium">邀请好友</div>
+              <div class="text-xs text-gray-500">成功邀请一位好友注册</div>
+            </div>
+            <div class="bg-primary/10 text-primary px-3 py-1 rounded-full text-sm">+20能量</div>
+          </div>
+          <div class="flex justify-between items-center p-3 bg-gray-50 rounded-lg">
+            <div>
+              <div class="font-medium">每日签到</div>
+              <div class="text-xs text-gray-500">连续签到30天有惊喜</div>
+            </div>
+            <div class="bg-success text-white px-3 py-1 rounded-full text-sm">已完成</div>
+          </div>
+        </div>
+      `;
+      createPopup('每日任务', content);
     }
 
     // 显示好友排行
     const showFriendRanking = () => {
-      console.log('显示好友排行')
-      // 这里可以跳转到好友排行页面
+      const content = `
+        <div class="space-y-4">
+          <div class="flex items-center p-3 bg-yellow-50 rounded-lg">
+            <div class="w-8 h-8 bg-yellow-400 rounded-full flex items-center justify-center text-white font-bold mr-3">1</div>
+            <img src="https://i.pravatar.cc/64?img=1" class="w-12 h-12 rounded-full mr-3" alt="avatar">
+            <div class="flex-1">
+              <div class="font-medium">李浩然</div>
+              <div class="text-xs text-gray-500">能量值: 980</div>
+            </div>
+            <div class="text-xs bg-primary/10 text-primary px-2 py-1 rounded">查看</div>
+          </div>
+          <div class="flex items-center p-3 bg-gray-50 rounded-lg">
+            <div class="w-8 h-8 bg-gray-300 rounded-full flex items-center justify-center text-white font-bold mr-3">2</div>
+            <img src="https://i.pravatar.cc/64?img=2" class="w-12 h-12 rounded-full mr-3" alt="avatar">
+            <div class="flex-1">
+              <div class="font-medium">王小花</div>
+              <div class="text-xs text-gray-500">能量值: 860</div>
+            </div>
+            <div class="text-xs bg-primary/10 text-primary px-2 py-1 rounded">查看</div>
+          </div>
+          <div class="flex items-center p-3 bg-gray-50 rounded-lg">
+            <div class="w-8 h-8 bg-gray-300 rounded-full flex items-center justify-center text-white font-bold mr-3">3</div>
+            <img src="https://i.pravatar.cc/64?img=3" class="w-12 h-12 rounded-full mr-3" alt="avatar">
+            <div class="flex-1">
+              <div class="font-medium">张大山</div>
+              <div class="text-xs text-gray-500">能量值: 750</div>
+            </div>
+            <div class="text-xs bg-primary/10 text-primary px-2 py-1 rounded">查看</div>
+          </div>
+          <div class="flex items-center p-3 bg-gray-50 rounded-lg">
+            <div class="w-8 h-8 bg-gray-200 rounded-full flex items-center justify-center text-gray-600 font-bold mr-3">4</div>
+            <img src="https://i.pravatar.cc/64?img=40" class="w-12 h-12 rounded-full mr-3" alt="avatar">
+            <div class="flex-1">
+              <div class="font-medium">你</div>
+              <div class="text-xs text-gray-500">能量值: 520</div>
+            </div>
+            <div class="text-xs bg-primary/10 text-primary px-2 py-1 rounded">查看</div>
+          </div>
+        </div>
+      `;
+      createPopup('好友排行', content);
     }
 
     // 显示能量道具
     const showEnergyItems = () => {
-      console.log('显示能量道具')
-      // 这里可以跳转到能量道具页面
+      const content = `
+        <div class="space-y-4">
+          <div class="flex items-center p-3 bg-gray-50 rounded-lg">
+            <div class="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center mr-3">
+              <i class="fa fa-tree text-green-500 text-xl"></i>
+            </div>
+            <div class="flex-1">
+              <div class="font-medium">成长加速卡</div>
+              <div class="text-xs text-gray-500">让能量树成长速度提升20%</div>
+            </div>
+            <div class="text-xs bg-primary px-3 py-1 rounded-full text-white">使用</div>
+          </div>
+          <div class="flex items-center p-3 bg-gray-50 rounded-lg">
+            <div class="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center mr-3">
+              <i class="fa fa-shield text-purple-500 text-xl"></i>
+            </div>
+            <div class="flex-1">
+              <div class="font-medium">能量守护盾</div>
+              <div class="text-xs text-gray-500">24小时内防止好友偷取能量</div>
+            </div>
+            <div class="text-xs bg-gray-300 px-3 py-1 rounded-full text-white">50能量</div>
+          </div>
+          <div class="flex items-center p-3 bg-gray-50 rounded-lg">
+            <div class="w-12 h-12 bg-yellow-100 rounded-lg flex items-center justify-center mr-3">
+              <i class="fa fa-magic text-yellow-500 text-xl"></i>
+            </div>
+            <div class="flex-1">
+              <div class="font-medium">幸运果实</div>
+              <div class="text-xs text-gray-500">有机会获得双倍能量</div>
+            </div>
+            <div class="text-xs bg-primary px-3 py-1 rounded-full text-white">使用</div>
+          </div>
+        </div>
+      `;
+      createPopup('能量道具', content);
     }
 
     // 显示灵兽宇宙
     const showSpiritBeast = () => {
-      console.log('显示灵兽宇宙')
-      // 这里可以跳转到灵兽宇宙页面
+      const content = `
+        <div class="space-y-4">
+          <div class="text-center mb-4">
+            <div class="text-lg font-bold text-primary mb-2">灵兽孵化中</div>
+            <div class="w-32 h-32 mx-auto bg-gradient-to-br from-blue-400 to-purple-500 rounded-full flex items-center justify-center">
+              <div class="text-3xl text-white">10-4#</div>
+            </div>
+            <div class="text-sm mt-2">预计孵化时间还剩: <span class="text-primary">23小时15分钟</span></div>
+          </div>
+          <div class="p-4 bg-gray-50 rounded-lg">
+            <div class="font-medium mb-2">灵兽宇宙说明</div>
+            <div class="text-xs text-gray-600 leading-relaxed">
+              灵兽是能量树的守护者，不同的灵兽拥有不同的能力。孵化出的灵兽可以帮助你收集更多的能量，防止好友偷取，甚至可以协助你完成任务。
+              <br><br>
+              灵兽可以通过能量果实孵化获得，越稀有的果实孵化出稀有灵兽的概率越高。
+            </div>
+          </div>
+          <div class="flex justify-center space-x-4">
+            <button class="bg-primary/10 text-primary px-4 py-2 rounded-full text-sm">加速孵化</button>
+            <button class="bg-primary text-white px-4 py-2 rounded-full text-sm">查看孵化器</button>
+          </div>
+        </div>
+      `;
+      createPopup('灵兽宇宙', content);
     }
 
     // 组件挂载时启动倒计时（如果需要）

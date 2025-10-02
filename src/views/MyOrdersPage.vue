@@ -55,7 +55,7 @@
         
         <div class="p-3">
           <div class="flex items-center mb-3">
-            <img src="/img-3.jpg" alt="服务图片" class="w-20 h-20 rounded-lg mr-3">
+            <img src="@images/img-3.jpg" alt="服务图片" class="w-20 h-20 rounded-lg mr-3">
             <div class="flex-1">
               <h4 class="font-medium text-sm">羽毛球一对一私教</h4>
               <p class="text-xs text-gray mt-1">2023-07-15 19:00-20:00</p>
@@ -97,7 +97,7 @@
         
         <div class="p-3">
           <div class="flex items-center mb-3">
-            <img src="/img-4.jpg" alt="服务图片" class="w-20 h-20 rounded-lg mr-3">
+            <img src="@images/img-4.jpg" alt="服务图片" class="w-20 h-20 rounded-lg mr-3">
             <div class="flex-1">
               <h4 class="font-medium text-sm">瑜伽初级课程</h4>
               <p class="text-xs text-gray mt-1">2023-06-30 18:00-19:30</p>
@@ -139,7 +139,7 @@
         
         <div class="p-3">
           <div class="flex items-center mb-3">
-            <img src="/img-5.jpg" alt="服务图片" class="w-20 h-20 rounded-lg mr-3">
+            <img src="@images/img-5.jpg" alt="服务图片" class="w-20 h-20 rounded-lg mr-3">
             <div class="flex-1">
               <h4 class="font-medium text-sm">夏日减脂训练营</h4>
               <p class="text-xs text-gray mt-1">2023-07-10 至 2023-07-20</p>

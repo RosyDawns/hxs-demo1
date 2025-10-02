@@ -10,7 +10,7 @@
 
     <!-- 训练营信息 -->
     <div class="bg-light mt-3">
-      <img src="/img-23.jpg" alt="训练营封面" class="w-full h-40 object-cover">
+      <img src="@images/img-23.jpg" alt="训练营封面" class="w-full h-40 object-cover">
       <div class="p-3">
         <h3 class="font-bold text-lg">夏日减脂训练营</h3>
         <div class="flex items-center mt-2">
