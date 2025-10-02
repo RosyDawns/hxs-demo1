@@ -1,7 +1,7 @@
 <template>
   <div class="page" id="page-messages">
     <!-- 顶部导航 -->
-    <header class="sticky top-0 z-50 bg-light border-b border-gray-100 p-3 flex items-center">
+    <!-- <header class="sticky top-0 z-50 bg-light border-b border-gray-100 p-3 flex items-center">
       <button class="nav-back mr-3 text-dark" @click="$router.push('/')">
         <i class="fa fa-angle-left text-xl"></i>
       </button>
@@ -11,20 +11,26 @@
           <i class="fa fa-cog"></i>
         </button>
       </div>
-    </header>
+    </header> -->
 
     <!-- 消息分类 -->
     <div class="flex border-b border-gray-100 px-3">
       <button
-        class="py-3 px-4 text-sm font-medium text-primary border-b-2 border-primary nav-action">
+        :class="activeTab === 'all' ? 'text-primary border-b-2 border-primary' : 'text-gray'"
+        class="py-3 px-4 text-sm font-medium nav-action"
+        @click="activeTab = 'all'">
         全部
       </button>
       <button
-        class="py-3 px-4 text-sm font-medium text-gray nav-action">
+        :class="activeTab === 'teacher' ? 'text-primary border-b-2 border-primary' : 'text-gray'"
+        class="py-3 px-4 text-sm font-medium nav-action"
+        @click="activeTab = 'teacher'">
         唤醒狮
       </button>
       <button
-        class="py-3 px-4 text-sm font-medium text-gray nav-action">
+        :class="activeTab === 'system' ? 'text-primary border-b-2 border-primary' : 'text-gray'"
+        class="py-3 px-4 text-sm font-medium nav-action"
+        @click="activeTab = 'system'">
         系统通知
       </button>
     </div>
@@ -32,7 +38,7 @@
     <!-- 消息列表 -->
     <div class="divide-y divide-gray-100 mb-20">
       <!-- 消息项1 -->
-      <div class="p-3 flex items-center justify-between nav-action" @click="$router.push('/chat')">
+      <div v-if="activeTab === 'all' || activeTab === 'teacher'" class="p-3 flex items-center justify-between nav-action" @click="openChat('李教练（羽毛球）')">
         <div class="flex items-center">
           <div class="relative">
             <img src="@images/img-20.jpg" alt="李教练" class="w-14 h-14 rounded-full">
@@ -53,7 +59,7 @@
       </div>
 
       <!-- 消息项2 -->
-      <div class="p-3 flex items-center justify-between nav-action" @click="$router.push('/chat')">
+      <div v-if="activeTab === 'all' || activeTab === 'teacher'" class="p-3 flex items-center justify-between nav-action" @click="openChat('张老师（瑜伽）')">
         <div class="flex items-center">
           <div class="relative">
             <img src="@images/img-21.jpg" alt="张老师" class="w-14 h-14 rounded-full">
@@ -74,7 +80,7 @@
       </div>
 
       <!-- 消息项3 -->
-      <div class="p-3 flex items-center justify-between nav-action" @click="$router.push('/chat')">
+      <div v-if="activeTab === 'all' || activeTab === 'system'" class="p-3 flex items-center justify-between nav-action" @click="openChat('系统通知')">
         <div class="flex items-center">
           <div class="relative">
             <img src="@images/img-37.jpg" alt="系统通知" class="w-14 h-14 rounded-full">
@@ -93,7 +99,7 @@
       </div>
 
       <!-- 消息项4 -->
-      <div class="p-3 flex items-center justify-between nav-action" @click="$router.push('/chat')">
+      <div v-if="activeTab === 'all' || activeTab === 'teacher'" class="p-3 flex items-center justify-between nav-action" @click="openChat('王教练（健身）')">
         <div class="flex items-center">
           <div class="relative">
             <img src="@images/img-22.jpg" alt="王教练" class="w-14 h-14 rounded-full">
@@ -117,12 +123,33 @@
 </template>
 
 <script>
+import { ref } from 'vue'
+import { useRouter } from 'vue-router'
 import FooterNav from '../components/FooterNav.vue'
 
 export default {
   name: 'MessagesPage',
   components: {
     FooterNav
+  },
+  setup() {
+    // 获取router实例
+    const router = useRouter()
+    
+    // 当前选中的标签页
+    const activeTab = ref('all')
+    
+    // 打开聊天页面
+    const openChat = (username) => {
+      // 将聊天对象信息保存到localStorage
+      localStorage.setItem('chatUsername', username)
+      // 使用Vue Router进行跳转
+      router.push('/chat')
+    }
+    
+    return {
+      activeTab,
+      openChat
+    }
   }
-}
-</script>
+}</script>

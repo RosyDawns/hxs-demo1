@@ -118,20 +118,24 @@
       </div>
 
       <!-- 语音输入按钮 -->
-      <div class="w-full max-w-sm mb-6">
+      <div class="w-full max-w-sm mb-6 flex justify-between">
+        <div
+          class="h-11 w-11 mr-2 flex items-center justify-center bg-white rounded-full"
+        >
+          <i class="fa-solid fa-keyboard"></i>
+        </div>
         <button
-          class="w-full bg-primary text-white py-4 rounded-full font-medium flex items-center justify-center space-x-2 shadow-lg hover:bg-primary/90 transition-colors duration-300"
+          class="h-11 flex-1 bg-white text-primary rounded-full font-medium flex items-center justify-center space-x-2 shadow-lg hover:bg-primary/90 transition-colors duration-300"
           @mousedown="startVoiceRecording"
           @mouseup="stopVoiceRecording"
           @touchstart="startVoiceRecording"
           @touchend="stopVoiceRecording"
         >
           <i class="fa fa-microphone text-xl"></i>
-          <span :class="isRecording ? 'text-yellow-300 animate-pulse' : ''">{{
+          <span :class="isRecording ? 'text-primary animate-pulse' : ''">{{
             isRecording ? "正在录音..." : "按住说话"
           }}</span>
         </button>
-        <p class="text-xs text-gray-400 text-center mt-2">长按说话，松开结束</p>
       </div>
     </div>
 

@@ -18,6 +18,7 @@ import CampDetailPage from '../views/CampDetailPage.vue' // 唤醒营详情页�
 import MyOrdersPage from '../views/MyOrdersPage.vue' // 我的订单页面
 import AITResultPage from '../views/AITResultPage.vue' // AI匹配结果页面
 import DailySigninPage from '../views/DailySigninPage.vue' // 每日签到页面
+import ChatPage from '../views/ChatPage.vue' // 聊天页面
 
 // 路由配置数组
 const routes = [
@@ -135,6 +136,16 @@ const routes = [
     component: DailySigninPage,
     meta: {
       title: '每日签到',
+      showInNav: false
+    }
+  },
+  // 聊天页面路由
+  {
+    path: '/chat',
+    name: 'Chat',
+    component: ChatPage,
+    meta: {
+      title: '聊天',
       showInNav: false
     }
   },
