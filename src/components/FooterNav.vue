@@ -2,7 +2,7 @@
   <footer
     class="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-100 flex justify-around items-center py-2 z-40">
     <button class="text-center nav-footer" :class="activePage === 'index' ? 'text-primary' : 'text-gray'" @click="$router.push('/')">
-      <i class="fa fa-home text-lg"></i>
+      <i class="fa-solid fa-paw"></i>
       <p class="text-xs mt-1">唤醒狮</p>
     </button>
     <button class="text-center nav-footer" :class="activePage === 'ai' ? 'text-primary' : 'text-gray'" @click="$router.push('/ai-assistant')">
@@ -13,16 +13,16 @@
       <i class="fa fa-tree text-lg"></i>
       <p class="text-xs mt-1">能量树</p>
     </button>
-    <button class="text-center nav-footer" :class="activePage === 'teachers' ? 'text-primary' : 'text-gray'" @click="$router.push('/teacher-list')">
+    <!-- <button class="text-center nav-footer" :class="activePage === 'teachers' ? 'text-primary' : 'text-gray'" @click="$router.push('/teacher-list')">
       <i class="fa fa-user-circle text-lg"></i>
       <p class="text-xs mt-1">唤醒狮</p>
     </button>
     <button class="text-center nav-footer" :class="activePage === 'camp' ? 'text-primary' : 'text-gray'" @click="$router.push('/camp')">
       <i class="fa fa-heartbeat text-lg"></i>
       <p class="text-xs mt-1">唤醒营</p>
-    </button>
+    </button> -->
     <button class="text-center nav-footer" :class="activePage === 'messages' ? 'text-primary' : 'text-gray'" @click="$router.push('/messages')">
-      <i class="fa fa-envelope text-lg"></i>
+      <i class="fa-solid fa-message"></i>
       <p class="text-xs mt-1">消息</p>
     </button>
     <button class="text-center nav-footer" :class="activePage === 'me' ? 'text-primary' : 'text-gray'" @click="$router.push('/me')">
