@@ -1,141 +1,104 @@
 <template>
-  <div class="page" id="page-ai-assistant">
+  <div class="page bg-gradient-to-b from-white to-blue-50 min-h-screen" id="page-ai-assistant">
     <!-- 顶部导航 -->
-    <header class="sticky top-0 z-50 bg-light border-b border-gray-100 p-3 flex items-center">
-      <button class="nav-back mr-3 text-dark" @click="$router.push('/')">
-        <i class="fa fa-angle-left text-xl"></i>
-      </button>
-      <div class="flex items-center">
-        <i class="fa fa-robot text-primary text-xl mr-2"></i>
-        <h2 class="font-bold">AI管家·大狮兄</h2>
+    <header class="sticky top-0 z-50 bg-white/80 backdrop-blur-sm border-b border-gray-100 p-3 flex items-center">
+      <div class="flex items-center justify-between w-full">
+        <div class="flex items-center">
+          <button class="nav-back mr-3 text-dark" @click="$router.push('/')">
+            <i class="fa fa-angle-left text-xl"></i>
+          </button>
+          <h2 class="font-bold">大狮兄</h2>
+        </div>
+        <div class="flex items-center space-x-3">
+          <button class="text-gray-500">
+            <i class="fa fa-bell text-lg"></i>
+            <span class="absolute -top-1 -right-1 w-4 h-4 bg-red-500 text-white rounded-full flex items-center justify-center text-[10px]">
+              1
+            </span>
+          </button>
+          <button class="text-gray-500">
+            <i class="fa fa-cog text-lg"></i>
+          </button>
+        </div>
       </div>
     </header>
 
-    <!-- AI形象与介绍 -->
-    <div class="flex flex-col items-center p-4 mt-2">
-      <div class="w-24 h-24 bg-secondary rounded-full flex items-center justify-center">
-        <i class="fa fa-robot text-primary text-4xl"></i>
-      </div>
-      <p class="font-medium mt-3">你好！我是大狮兄，你的智能服务助手</p>
-      <p class="text-xs text-gray text-center mt-1">说出你的需求，我会为你匹配最合适的唤醒师～</p>
-    </div>
-
-    <!-- 示例需求 -->
-    <div class="p-4 mt-2">
-      <h3 class="font-bold text-sm mb-2">常见需求示例</h3>
-      <div class="grid grid-cols-2 gap-2">
-        <button class="bg-light rounded-lg card-shadow p-2 text-xs text-center nav-action"
-          @click="$router.push('/ai-result')">
-          周六下午找附近羽毛球陪练
-        </button>
-        <button class="bg-light rounded-lg card-shadow p-2 text-xs text-center nav-action"
-          @click="$router.push('/ai-result')">
-          想加入体重管理唤醒营
-        </button>
-        <button class="bg-light rounded-lg card-shadow p-2 text-xs text-center nav-action"
-          @click="$router.push('/ai-result')">
-          找瑜伽老师学习基础动作
-        </button>
-        <button class="bg-light rounded-lg card-shadow p-2 text-xs text-center nav-action"
-          @click="$router.push('/ai-result')">
-          推荐附近的健身唤醒师
-        </button>
-      </div>
-    </div>
-
-    <!-- 历史对话 -->
-    <div class="p-4 mt-2">
-      <h3 class="font-bold text-sm mb-2">历史对话</h3>
-      <div class="space-y-3">
-        <div class="flex items-start">
-          <div class="w-6 h-6 bg-secondary rounded-full flex items-center justify-center flex-shrink-0 mt-1">
-            <i class="fa fa-user text-primary text-xs"></i>
-          </div>
-          <div class="ml-2 bg-light rounded-lg rounded-tl-none p-2 text-xs max-w-[80%]">
-            有没有适合初学者的羽毛球教练？
+    <!-- 主体内容区 -->
+    <div class="flex flex-col items-center justify-between flex-1 px-4 py-8">
+      <!-- AI形象 -->
+      <div class="flex flex-col items-center mb-8">
+        <div class="relative">
+          <!-- 狮子形象 -->
+          <div class="w-40 h-40 bg-yellow-100 rounded-full flex items-center justify-center relative">
+            <img src="https://picsum.photos/id/237/120/120" alt="大狮兄" class="w-32 h-32 object-cover rounded-full">
+            <!-- 发光效果 -->
+            <div class="absolute -inset-4 bg-gradient-to-r from-blue-400 to-purple-500 rounded-full blur-md opacity-30 animate-pulse"></div>
           </div>
         </div>
-        <div class="flex items-start justify-end">
-          <div class="mr-2 bg-primary text-white rounded-lg rounded-tr-none p-2 text-xs max-w-[80%]">
-            为你推荐李教练和赵教练，都擅长初学者教学，需要为你展示他们的详细信息吗？
-          </div>
-          <div class="w-6 h-6 bg-primary rounded-full flex items-center justify-center flex-shrink-0 mt-1">
-            <i class="fa fa-robot text-white text-xs"></i>
-          </div>
+        
+        <!-- 问候语 -->
+        <div class="mt-6 bg-blue-50 px-6 py-3 rounded-2xl shadow-sm">
+          <p class="text-lg font-medium text-center">"国庆快乐，主人！"</p>
         </div>
       </div>
-    </div>
 
-    <!-- 推荐唤醒师列表 -->
-    <div class="p-3 mt-1 mb-16">
-      <!-- 列表项1 -->
-      <div class="flex bg-light rounded-lg card-shadow p-3 mb-3 nav-action" @click="$router.push('/ouyang')">
-        <img src="@images/img-20.jpg" alt="唤醒师头像" class="nav-action w-16 h-16 rounded-full mr-3">
-        <div class="flex-1">
-          <div class="flex justify-between items-start">
-            <h3 class="font-medium">李教练（羽毛球）1</h3>
-            <span class="text-xs bg-success/10 text-success px-2 py-0.5 rounded">冠军大神</span>
-          </div>
-          <p class="text-xs text-gray mt-1">国家二级运动员 | 10年教学经验</p>
-          <div class="flex items-center mt-1">
-            <div class="flex space-x-0.5 text-warning text-xs">
-              <i class="fa fa-star"></i>
-              <i class="fa fa-star"></i>
-              <i class="fa fa-star"></i>
-              <i class="fa fa-star"></i>
-              <i class="fa fa-star"></i>
+      <!-- 推荐操作按钮 -->
+      <div class="w-full max-w-sm space-y-4 mb-8">
+        <div class="grid grid-cols-2 gap-4">
+          <!-- 按钮1 -->
+          <div class="bg-white rounded-2xl p-5 shadow-sm border border-gray-100 nav-action hover:shadow-md transition-shadow duration-300" @click="handleRecommendationClick('fitness')">
+            <div class="flex items-start space-x-3">
+              <div class="bg-green-100 text-green-500 p-2 rounded-full">
+                <i class="fa fa-dumbbell text-xl"></i>
+              </div>
+              <div>
+                <p class="text-sm font-medium text-gray-800">帮我推荐一位附近的</p>
+                <p class="text-sm font-medium text-gray-800">健身唤醒师</p>
+              </div>
             </div>
-            <span class="text-xs text-gray ml-1">98%好评</span>
-          </div>
-          <div class="flex items-center mt-2">
-            <span class="text-primary font-medium">¥80</span>
-            <span class="text-xs text-gray ml-1">/小时</span>
-            <button class="ml-auto bg-primary/10 text-primary text-xs py-1 px-2 rounded" @click.stop="$router.push('/ouyang')">
-              立即预约
-            </button>
-          </div>
-        </div>
-      </div>
-      <!-- 列表项2 -->
-      <div class="flex bg-light rounded-lg card-shadow p-3 mb-3 nav-action" @click="$router.push('/ouyang')">
-        <img src="@images/img-21.jpg" alt="唤醒师头像" class="nav-action w-16 h-16 rounded-full mr-3">
-        <div class="flex-1">
-          <div class="flex justify-between items-start">
-            <h3 class="font-medium">张老师（瑜伽）</h3>
-            <span class="text-xs bg-warning/10 text-warning px-2 py-0.5 rounded">人气大神</span>
-          </div>
-          <p class="text-xs text-gray mt-1">高级瑜伽导师 | 5年教学经验</p>
-          <div class="flex items-center mt-1">
-            <div class="flex space-x-0.5 text-warning text-xs">
-              <i class="fa fa-star"></i>
-              <i class="fa fa-star"></i>
-              <i class="fa fa-star"></i>
-              <i class="fa fa-star"></i>
-              <i class="fa fa-star-half-o"></i>
+            <div class="mt-3 text-xs text-green-500 font-medium flex items-center">
+              试试 <i class="fa fa-angle-right ml-1"></i>
             </div>
-            <span class="text-xs text-gray ml-1">96%好评</span>
           </div>
-          <div class="flex items-center mt-2">
-            <span class="text-primary font-medium">¥60</span>
-            <span class="text-xs text-gray ml-1">/小时</span>
-            <button class="ml-auto bg-primary/10 text-primary text-xs py-1 px-2 rounded" @click.stop="$router.push('/ouyang')">
-              立即预约
-            </button>
+
+          <!-- 按钮2 -->
+          <div class="bg-white rounded-2xl p-5 shadow-sm border border-gray-100 nav-action hover:shadow-md transition-shadow duration-300" @click="handleRecommendationClick('yoga')">
+            <div class="flex items-start space-x-3">
+              <div class="bg-purple-100 text-purple-500 p-2 rounded-full">
+                <i class="fa fa-leaf text-xl"></i>
+              </div>
+              <div>
+                <p class="text-sm font-medium text-gray-800">找瑜伽老师学习</p>
+                <p class="text-sm font-medium text-gray-800">基础动作</p>
+              </div>
+            </div>
+            <div class="mt-3 text-xs text-purple-500 font-medium flex items-center">
+              试试 <i class="fa fa-angle-right ml-1"></i>
+            </div>
+          </div>
+        </div>
+
+        <!-- 其他推荐操作 -->
+        <div class="bg-white rounded-2xl p-4 shadow-sm border border-gray-100 nav-action hover:shadow-md transition-shadow duration-300" @click="handleRecommendationClick('other')">
+          <div class="flex justify-between items-center">
+            <div class="flex items-center space-x-3">
+              <div class="bg-blue-100 text-blue-500 p-2 rounded-full">
+                <i class="fa fa-lightbulb-o text-xl"></i>
+              </div>
+              <p class="text-sm font-medium text-gray-800">查看更多服务</p>
+            </div>
+            <i class="fa fa-angle-right text-gray-400"></i>
           </div>
         </div>
       </div>
-    </div>
 
-    <!-- 语音输入区 -->
-    <div class="fixed bottom-20 left-0 right-0 p-4">
-      <div class="flex items-center bg-light rounded-full card-shadow p-3">
-        <button class="text-primary mr-3">
+      <!-- 语音输入按钮 -->
+      <div class="w-full max-w-sm mb-6">
+        <button class="w-full bg-primary text-white py-4 rounded-full font-medium flex items-center justify-center space-x-2 shadow-lg hover:bg-primary/90 transition-colors duration-300" @mousedown="startVoiceRecording" @mouseup="stopVoiceRecording" @touchstart="startVoiceRecording" @touchend="stopVoiceRecording">
           <i class="fa fa-microphone text-xl"></i>
+          <span :class="isRecording ? 'text-yellow-300 animate-pulse' : ''">{{ isRecording ? '正在录音...' : '按住说话' }}</span>
         </button>
-        <input type="text" placeholder="输入你的需求（例如：找羽毛球陪练）" class="bg-transparent w-full focus:outline-none text-sm">
-        <button class="text-primary ml-3 nav-action" @click="$router.push('/ai-result')">
-          <i class="fa fa-paper-plane text-xl"></i>
-        </button>
+        <p class="text-xs text-gray-400 text-center mt-2">长按说话，松开结束</p>
       </div>
     </div>
 
@@ -144,12 +107,62 @@
 </template>
 
 <script>
+import { ref } from 'vue'
 import FooterNav from '../components/FooterNav.vue'
 
 export default {
   name: 'AIAssistantPage',
   components: {
     FooterNav
+  },
+  setup() {
+    const isRecording = ref(false)
+
+    const startVoiceRecording = () => {
+      isRecording.value = true
+      // 这里可以添加实际的录音逻辑
+      console.log('开始录音')
+    }
+
+    const stopVoiceRecording = () => {
+      isRecording.value = false
+      // 这里可以添加实际的停止录音逻辑
+      console.log('停止录音')
+      // 模拟处理录音结果，跳转到结果页
+      setTimeout(() => {
+        window.location.href = '/ai-result'
+      }, 500)
+    }
+
+    const handleRecommendationClick = (type) => {
+      console.log(`用户点击了${type}推荐`)
+      // 根据不同类型的推荐跳转到不同的结果页面
+      // 这里简化处理，统一跳转到AI结果页
+      window.location.href = '/ai-result'
+    }
+
+    return {
+      isRecording,
+      startVoiceRecording,
+      stopVoiceRecording,
+      handleRecommendationClick
+    }
   }
 }
 </script>
+
+<style scoped>
+/* 自定义动画 */
+@keyframes pulse {
+  0%, 100% {
+    opacity: 0.3;
+  }
+  50% {
+    opacity: 0.6;
+  }
+}
+
+.animate-pulse {
+  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+</style>
