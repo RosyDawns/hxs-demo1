@@ -124,37 +124,51 @@
     <!-- 分类标签栏 -->
     <div class="flex space-x-2 p-3 overflow-x-auto scrollbar-hide">
       <button
-        class="px-3 py-2 whitespace-nowrap text-sm font-medium text-gray nav-action text-primary border-b-2 border-primary"
+        class="px-3 py-2 whitespace-nowrap text-sm font-medium text-gray nav-action cursor-pointer"
+        :class="selectedCategory === '关注' ? 'text-primary border-b-2 border-primary' : ''"
+        @click="handleCategoryClick('关注')"
       >
         关注
       </button>
       <button
-        class="px-3 py-2 whitespace-nowrap text-sm font-medium text-gray nav-action"
+        class="px-3 py-2 whitespace-nowrap text-sm font-medium text-gray nav-action cursor-pointer"
+        :class="selectedCategory === '推荐' ? 'text-primary border-b-2 border-primary' : ''"
+        @click="handleCategoryClick('推荐')"
       >
         推荐
       </button>
       <button
-        class="px-3 py-2 whitespace-nowrap text-sm font-medium text-gray nav-action"
+        class="px-3 py-2 whitespace-nowrap text-sm font-medium text-gray nav-action cursor-pointer"
+        :class="selectedCategory === '附近' ? 'text-primary border-b-2 border-primary' : ''"
+        @click="handleCategoryClick('附近')"
       >
         附近
       </button>
       <button
-        class="px-3 py-2 whitespace-nowrap text-sm font-medium text-gray nav-action"
+        class="px-3 py-2 whitespace-nowrap text-sm font-medium text-gray nav-action cursor-pointer"
+        :class="selectedCategory === '运动' ? 'text-primary border-b-2 border-primary' : ''"
+        @click="handleCategoryClick('运动')"
       >
         运动
       </button>
       <button
-        class="px-3 py-2 whitespace-nowrap text-sm font-medium text-gray nav-action"
+        class="px-3 py-2 whitespace-nowrap text-sm font-medium text-gray nav-action cursor-pointer"
+        :class="selectedCategory === '玩乐' ? 'text-primary border-b-2 border-primary' : ''"
+        @click="handleCategoryClick('玩乐')"
       >
         玩乐
       </button>
       <button
-        class="px-3 py-2 whitespace-nowrap text-sm font-medium text-gray nav-action"
+        class="px-3 py-2 whitespace-nowrap text-sm font-medium text-gray nav-action cursor-pointer"
+        :class="selectedCategory === '户外' ? 'text-primary border-b-2 border-primary' : ''"
+        @click="handleCategoryClick('户外')"
       >
         户外
       </button>
       <button
-        class="px-3 py-2 whitespace-nowrap text-sm font-medium text-gray nav-action"
+        class="px-3 py-2 whitespace-nowrap text-sm font-medium text-gray nav-action cursor-pointer"
+        :class="selectedCategory === '按摩' ? 'text-primary border-b-2 border-primary' : ''"
+        @click="handleCategoryClick('按摩')"
       >
         按摩
       </button>
@@ -302,5 +316,21 @@ export default {
   components: {
     FooterNav,
   },
+  setup() {
+    // 当前选中的分类
+    const selectedCategory = ref('关注');
+    
+    // 处理分类点击
+    const handleCategoryClick = (category) => {
+      selectedCategory.value = category;
+      console.log(`切换到${category}分类`);
+      // 在实际应用中，这里应该根据选中的分类加载相应的数据
+    };
+    
+    return {
+      selectedCategory,
+      handleCategoryClick
+    };
+  }
 };
 </script>
