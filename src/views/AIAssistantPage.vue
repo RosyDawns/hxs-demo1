@@ -1,9 +1,8 @@
 <template>
-  <div
-    class="page bg-gradient-to-b from-white to-blue-50 min-h-screen flex flex-col"
-    id="page-ai-assistant"
-  >
-    <div class=" sticky top-0 z-50 bg-white py-3 px-4 mb-2 flex justify-between items-center">
+  <div class="page bg-white min-h-screen flex flex-col" id="page-ai-assistant">
+    <div
+      class="sticky top-0 z-50 bg-white py-3 px-4 mb-2 flex justify-between items-center"
+    >
       <div class="flex items-center">
         <button
           class="w-10 h-10 rounded-full bg-gray-100 flex items-center justify-center"
@@ -28,17 +27,24 @@
       <div class="bg-white rounded-xl p-4 shadow-md">
         <h3 class="text-sm font-bold mb-3">历史对话</h3>
         <div class="space-y-2">
-          <div 
-            v-for="(conversation, index) in conversationHistory" 
-            :key="index" 
+          <div
+            v-for="(conversation, index) in conversationHistory"
+            :key="index"
             class="p-2 rounded-lg hover:bg-gray-50 cursor-pointer text-sm"
             @click="selectConversation(index)"
           >
             {{ conversation.query }}
-            <span class="text-xs text-gray-400 block">{{ conversation.time }}</span>
+            <span class="text-xs text-gray-400 block">{{
+              conversation.time
+            }}</span>
           </div>
         </div>
-        <button class="text-xs text-primary mt-2" @click="toggleConversationList">关闭</button>
+        <button
+          class="text-xs text-primary mt-2"
+          @click="toggleConversationList"
+        >
+          关闭
+        </button>
       </div>
     </div>
 
@@ -47,41 +53,47 @@
       <!-- AI形象和时间 -->
       <div class="flex items-center mb-4">
         <img
-          src="@images/img-8.jpg"
+          src="@images/logo.png"
           alt="大狮兄"
-          class="w-10 h-10 object-cover rounded-full mr-2"
-        >
-        <span class="text-xs text-gray">大狮兄</span>
-        <span class="text-xs text-gray ml-2">9:41</span>
+          class="w-1/2 mx-auto object-cover"
+        />
       </div>
 
       <!-- 快速查询卡片模块 - 只在未显示推荐列表时显示 -->
-      <div v-if="!showRecommendations" class="mb-6 flex gap-3">
+      <div v-if="!showRecommendations" class="mb-6 flex px-3">
         <!-- 健身唤醒师推荐卡片 -->
-        <div class="flex-1 bg-white rounded-xl p-4 shadow-sm border-2 border-pink-100 relative overflow-hidden">
-          <div class="absolute top-0 right-0 text-3xl p-2 text-pink-200">
-            👟
+        <div
+          class="flex-1 bg-white rounded-4xl px-4 py-5 shadow-sm border-6 border-pink-100 relative overflow-hidden -rotate-z-6 z-1"
+        >
+          <div class="pt-2 pb-2">
+            <p class="text-pink-100 text-6xl">“</p>
+            <p class="text-base font-medium">帮我推荐一位附近的健身唤醒师💪</p>
           </div>
-          <div class="pt-4 pb-2">
-            <p class="text-sm font-medium">帮我推荐一位附近的健身唤醒师</p>
-          </div>
-          <div class="flex justify-end">
-            <button class="bg-black text-white text-xs py-1 px-3 rounded-full flex items-center" @click="handleRecommendationClick">
+          <div class="flex justify-end mt-10">
+            <button
+              class="bg-black text-white text-xs py-1 px-3 rounded-full flex items-center"
+              @click="
+                handleRecommendationClick('帮我推荐一位附近的健身唤醒师💪')
+              "
+            >
               <i class="fa-solid fa-comment-dots"></i>试试
             </button>
           </div>
         </div>
-        
+
         <!-- 瑜伽老师推荐卡片 -->
-        <div class="flex-1 bg-white rounded-xl p-4 shadow-sm border-2 border-blue-100 relative overflow-hidden">
-          <div class="absolute top-0 right-0 text-3xl p-2 text-blue-200">
-            🧘
+        <div
+          class="flex-1 bg-white rounded-4xl px-4 py-5 shadow-sm border-6 border-blue-100 relative overflow-hidden rotate-z-6"
+        >
+          <div class="pt-2 pb-2">
+            <p class="text-blue-100 text-6xl">“</p>
+            <p class="text-base font-medium">找瑜伽老师学习基础动作🧘</p>
           </div>
-          <div class="pt-4 pb-2">
-            <p class="text-sm font-medium">找瑜伽老师学习基础动作</p>
-          </div>
-          <div class="flex justify-end">
-            <button class="bg-black text-white text-xs py-1 px-3 rounded-full flex items-center" @click="handleRecommendationClick">
+          <div class="flex justify-end mt-10">
+            <button
+              class="bg-black text-white text-xs py-1 px-3 rounded-full flex items-center"
+              @click="handleRecommendationClick('找瑜伽老师学习基础动作🧘')"
+            >
               <i class="fa-solid fa-comment-dots"></i>试试
             </button>
           </div>
@@ -92,17 +104,28 @@
       <div v-if="showRecommendations" class="mb-6">
         <!-- 用户提问 -->
         <div class="flex justify-end mb-4">
-          <div class="bg-white rounded-2xl p-4 max-w-[80%] shadow-sm">
+          <div
+            class="rounded-2xl p-4 max-w-[80%] shadow-sm"
+            style="
+              background-image: linear-gradient(
+                to right,
+                rgb(255 222 161),
+                rgb(253 220 155)
+              );
+            "
+          >
             <p class="text-sm">{{ currentQuery }}</p>
           </div>
         </div>
-        
+
         <!-- AI回答 -->
         <div class="mb-4">
           <div class="bg-white rounded-2xl p-4 max-w-[80%] shadow-sm">
             <p class="text-sm mb-3">根据您的需求，我为您整理了以下推荐</p>
             <h3 class="font-bold text-sm mb-2">游泳一对一教练推荐</h3>
-            <p class="text-sm mb-2">为您推荐李教练、赵教练和张教练，都擅长儿童游泳教学，需要为您展示他们的详细信息吗？</p>
+            <p class="text-sm mb-2">
+              为您推荐李教练、赵教练和张教练，都擅长儿童游泳教学，需要为您展示他们的详细信息吗？
+            </p>
           </div>
         </div>
       </div>
@@ -112,17 +135,19 @@
         <!-- 推荐教练列表 -->
         <div class="space-y-4">
           <!-- 教练1 -->
-          <div class="bg-white rounded-2xl p-4 shadow-sm">
+          <div class="bg-blue-50 rounded-2xl p-4 shadow-sm">
             <div class="flex justify-between items-start mb-3">
               <img
                 src="https://picsum.photos/id/1005/100/100"
                 alt="李教练"
                 class="w-16 h-16 object-cover rounded-full"
-              >
+              />
               <div class="flex-1 ml-3">
                 <h4 class="font-bold text-sm">李教练</h4>
                 <p class="text-xs text-gray">游泳教练</p>
-                <p class="text-xs text-gray mt-1">国家二级运动员 | 8年教学经验</p>
+                <p class="text-xs text-gray mt-1">
+                  国家二级运动员 | 8年教学经验
+                </p>
                 <div class="flex items-center mt-1">
                   <div class="flex text-xs text-warning">
                     <i class="fa-solid fa-star"></i>
@@ -133,13 +158,21 @@
                   </div>
                   <span class="text-xs text-gray ml-1">评分4.8</span>
                 </div>
-                 <div class="text-xs text-gray">距离 <span class="text-primary">1.2</span> 公里</div>
+                <div class="text-xs text-gray">
+                  距离 <span class="text-primary">1.2</span> 公里
+                </div>
               </div>
-              <div class="bg-primary/10 text-primary text-xs px-2 py-0.5 rounded" @click="handleCoachDetail('coach1')">
+              <div
+                class="text-white text-xs px-2 py-1 rounded-full"
+                style="
+                  background-image: linear-gradient(to right, #faad14, #ff6b35);
+                "
+                @click="handleCoachDetail('coach1')"
+              >
                 查看主页
               </div>
             </div>
-            <div class="grid grid-cols-3 gap-2 mb-3">
+            <div class="grid grid-cols-3 gap-2">
               <div class="bg-gray-50 p-2 rounded-lg">
                 <p class="text-xs text-gray">体验课</p>
                 <p class="text-sm font-bold text-primary">¥88</p>
@@ -155,17 +188,19 @@
             </div>
           </div>
           <!-- 教练2 -->
-          <div class="bg-white rounded-2xl p-4 shadow-sm">
+          <div class="bg-blue-50 rounded-2xl p-4 shadow-sm">
             <div class="flex justify-between items-start mb-3">
               <img
                 src="https://picsum.photos/id/1011/100/100"
                 alt="赵教练"
                 class="w-16 h-16 object-cover rounded-full"
-              >
+              />
               <div class="flex-1 ml-3">
                 <h4 class="font-bold text-sm">赵教练</h4>
                 <p class="text-xs text-gray">游泳教练</p>
-                <p class="text-xs text-gray mt-1">国家一级运动员 | 10年教学经验</p>
+                <p class="text-xs text-gray mt-1">
+                  国家一级运动员 | 10年教学经验
+                </p>
                 <div class="flex items-center mt-1">
                   <div class="flex text-xs text-warning">
                     <i class="fa-solid fa-star"></i>
@@ -176,13 +211,21 @@
                   </div>
                   <span class="text-xs text-gray ml-1">评分4.9</span>
                 </div>
-                <div class="text-xs text-gray">距离 <span class="text-primary">1.5</span> 公里</div>
+                <div class="text-xs text-gray">
+                  距离 <span class="text-primary">1.5</span> 公里
+                </div>
               </div>
-              <div class="bg-primary/10 text-primary text-xs px-2 py-0.5 rounded" @click="handleCoachDetail('coach2')">
+              <div
+                class="text-white text-xs px-2 py-1 rounded-full"
+                style="
+                  background-image: linear-gradient(to right, #faad14, #ff6b35);
+                "
+                @click="handleCoachDetail('coach2')"
+              >
                 查看主页
               </div>
             </div>
-            <div class="grid grid-cols-3 gap-2 mb-3">
+            <div class="grid grid-cols-3 gap-2">
               <div class="bg-gray-50 p-2 rounded-lg">
                 <p class="text-xs text-gray">体验课</p>
                 <p class="text-sm font-bold text-primary">¥98</p>
@@ -198,17 +241,19 @@
             </div>
           </div>
           <!-- 教练3 -->
-          <div class="bg-white rounded-2xl p-4 shadow-sm">
+          <div class="bg-blue-50 rounded-2xl p-4 shadow-sm">
             <div class="flex justify-between items-start mb-3">
               <img
                 src="https://picsum.photos/id/1012/100/100"
                 alt="张教练"
                 class="w-16 h-16 object-cover rounded-full"
-              >
+              />
               <div class="flex-1 ml-3">
                 <h4 class="font-bold text-sm">张教练</h4>
                 <p class="text-xs text-gray">游泳教练</p>
-                <p class="text-xs text-gray mt-1">国家二级运动员 | 6年教学经验</p>
+                <p class="text-xs text-gray mt-1">
+                  国家二级运动员 | 6年教学经验
+                </p>
                 <div class="flex items-center mt-1">
                   <div class="flex text-xs text-warning">
                     <i class="fa-solid fa-star"></i>
@@ -219,13 +264,21 @@
                   </div>
                   <span class="text-xs text-gray ml-1">评分4.6</span>
                 </div>
-                <div class="text-xs text-gray">距离 <span class="text-primary">1.5</span> 公里</div>
+                <div class="text-xs text-gray">
+                  距离 <span class="text-primary">1.5</span> 公里
+                </div>
               </div>
-              <div class="bg-primary/10 text-primary text-xs px-2 py-0.5 rounded" @click="handleCoachDetail('coach3')">
+              <div
+                class="text-white text-xs px-2 py-1 rounded-full"
+                style="
+                  background-image: linear-gradient(to right, #faad14, #ff6b35);
+                "
+                @click="handleCoachDetail('coach3')"
+              >
                 查看主页
               </div>
             </div>
-            <div class="grid grid-cols-3 gap-2 mb-3">
+            <div class="grid grid-cols-3 gap-2">
               <div class="bg-gray-50 p-2 rounded-lg">
                 <p class="text-xs text-gray">体验课</p>
                 <p class="text-sm font-bold text-primary">¥80</p>
@@ -246,10 +299,16 @@
       <!-- 操作按钮区域 - 只在显示推荐列表时显示 -->
       <div v-if="showRecommendations" class="mt-4 mb-6">
         <div class="flex space-x-3 mb-3">
-          <button class="flex-1 bg-gray-100 text-gray text-sm py-2 rounded-full" @click="handleChangeRecommendations">
+          <button
+            class="flex-1 bg-gray-50 text-sm py-2 rounded-full"
+            @click="handleChangeRecommendations"
+          >
             换一批
           </button>
-          <button class="flex-1 bg-primary text-white text-sm py-2 rounded-full" @click="handleGoSearch">
+          <button
+            class="flex-1 bg-gray-50 text-sm py-2 rounded-full"
+            @click="handleGoSearch"
+          >
             去寻找
           </button>
         </div>
@@ -258,11 +317,14 @@
       <!-- 输入区域 - 语音/文本切换 -->
       <div class="w-full flex fixed bottom-20 px-4 left-0">
         <!-- 切换按钮 -->
-        <div @click="toggleInputMode" class="w-11 h-11 rounded-full mr-2 bg-white flex items-center justify-center">
+        <div
+          @click="toggleInputMode"
+          class="w-11 h-11 rounded-full mr-2 bg-white shadow-lg flex items-center justify-center"
+        >
           <i v-if="isVoiceMode" class="fa-solid fa-keyboard"></i>
           <i v-else class="fa-solid fa-microphone"></i>
         </div>
-        
+
         <div class="flex items-center flex-1">
           <!-- 文本输入模式 -->
           <div v-if="!isVoiceMode" class="w-full flex items-center">
@@ -271,15 +333,15 @@
               type="text"
               class="h-11 flex-1 bg-white text-primary rounded-full font-medium px-4 shadow-lg focus:outline-none"
               placeholder="请输入您的问题..."
-            >
+            />
             <button
-              class="ml-2 h-11 w-11 bg-primary text-white rounded-full flex items-center justify-center"
+              class="ml-2 h-11 w-11 bg-primary text-white rounded-full shadow-lg flex items-center justify-center"
               @click="handleTextInputConfirm"
             >
               OK
             </button>
           </div>
-          
+
           <!-- 语音输入模式 -->
           <div v-else class="w-full flex items-center">
             <button
@@ -319,36 +381,40 @@ export default {
     // 控制推荐列表显示状态
     const showRecommendations = ref(false);
     // 当前查询内容
-    const currentQuery = ref("帮我在附近找一个游泳一对一教练，8岁2年经验小朋友，耐心一些，专业过硬，请推荐一下。");
+    const currentQuery = ref(
+      "帮我在附近找一个游泳一对一教练，8岁2年经验小朋友，耐心一些，专业过硬，请推荐一下。"
+    );
     // 输入模式控制：true为语音模式，false为文本模式
     const isVoiceMode = ref(true);
     // 文本输入内容
-    const inputText = ref('');
+    const inputText = ref("");
     // 对话记录列表显示状态
     const showConversationList = ref(false);
     // 模拟对话历史记录
     const conversationHistory = ref([
       {
         query: "帮我推荐一位附近的健身唤醒师",
-        time: "今天 09:30"
+        time: "今天 09:30",
       },
       {
         query: "找瑜伽老师学习基础动作",
-        time: "今天 08:45"
+        time: "今天 08:45",
       },
       {
         query: "帮我在附近找一个游泳一对一教练",
-        time: "昨天 16:20"
+        time: "昨天 16:20",
       },
       {
         query: "推荐一位篮球私教",
-        time: "昨天 14:10"
-      }
+        time: "昨天 14:10",
+      },
     ]);
 
     // 处理推荐按钮点击
-    const handleRecommendationClick = () => {
+    const handleRecommendationClick = (content) => {
+      currentQuery.value = content || "";
       showRecommendations.value = true;
+      addToConversationHistory(currentQuery.value);
       console.log("显示推荐列表");
     };
 
@@ -376,7 +442,7 @@ export default {
     // 切换输入模式
     const toggleInputMode = () => {
       isVoiceMode.value = !isVoiceMode.value;
-      console.log(`切换到${isVoiceMode.value ? '语音' : '文本'}输入模式`);
+      console.log(`切换到${isVoiceMode.value ? "语音" : "文本"}输入模式`);
     };
 
     // 处理文本输入确认
@@ -387,7 +453,7 @@ export default {
         // 将新对话添加到历史记录
         addToConversationHistory(currentQuery.value);
         // 清空输入框
-        inputText.value = '';
+        inputText.value = "";
         console.log("确认文本输入：", currentQuery.value);
       }
     };
@@ -395,7 +461,7 @@ export default {
     // 切换对话列表显示
     const toggleConversationList = () => {
       showConversationList.value = !showConversationList.value;
-      console.log(`对话列表${showConversationList.value ? '显示' : '隐藏'}`);
+      console.log(`对话列表${showConversationList.value ? "显示" : "隐藏"}`);
     };
 
     // 选择对话记录
@@ -410,20 +476,22 @@ export default {
     // 添加到对话历史
     const addToConversationHistory = (query) => {
       // 检查是否已存在相同的查询
-      const exists = conversationHistory.value.some(item => item.query === query);
+      const exists = conversationHistory.value.some(
+        (item) => item.query === query
+      );
       if (!exists) {
         // 获取当前时间
         const now = new Date();
-        const hours = now.getHours().toString().padStart(2, '0');
-        const minutes = now.getMinutes().toString().padStart(2, '0');
+        const hours = now.getHours().toString().padStart(2, "0");
+        const minutes = now.getMinutes().toString().padStart(2, "0");
         const timeText = `今天 ${hours}:${minutes}`;
-        
+
         // 添加到历史记录的开头
         conversationHistory.value.unshift({
           query: query,
-          time: timeText
+          time: timeText,
         });
-        
+
         // 限制历史记录数量
         if (conversationHistory.value.length > 10) {
           conversationHistory.value.pop();
@@ -456,18 +524,66 @@ export default {
       // 模拟更换推荐数据
       // 教练数据模拟数组
       const coachData = [
-        { id: 'coach1', name: '李教练', type: '游泳教练', title: '国家二级运动员 | 8年教学经验', rating: 4.8, distance: 1.2, image: 'https://picsum.photos/id/1005/100/100' },
-        { id: 'coach2', name: '赵教练', type: '游泳教练', title: '国家一级运动员 | 10年教学经验', rating: 4.9, distance: 1.5, image: 'https://picsum.photos/id/1011/100/100' },
-        { id: 'coach3', name: '张教练', type: '游泳教练', title: '国家二级运动员 | 6年教学经验', rating: 4.6, distance: 1.5, image: 'https://picsum.photos/id/1012/100/100' },
-        { id: 'coach4', name: '王教练', type: '健身教练', title: '国际健身教练认证 | 5年教学经验', rating: 4.7, distance: 0.8, image: 'https://picsum.photos/id/1010/100/100' },
-        { id: 'coach5', name: '陈教练', type: '瑜伽教练', title: '国际瑜伽联盟认证 | 7年教学经验', rating: 4.9, distance: 2.1, image: 'https://picsum.photos/id/1000/100/100' },
-        { id: 'coach6', name: '刘教练', type: '篮球教练', title: '前职业运动员 | 9年教学经验', rating: 4.8, distance: 1.7, image: 'https://picsum.photos/id/1001/100/100' }
+        {
+          id: "coach1",
+          name: "李教练",
+          type: "游泳教练",
+          title: "国家二级运动员 | 8年教学经验",
+          rating: 4.8,
+          distance: 1.2,
+          image: "https://picsum.photos/id/1005/100/100",
+        },
+        {
+          id: "coach2",
+          name: "赵教练",
+          type: "游泳教练",
+          title: "国家一级运动员 | 10年教学经验",
+          rating: 4.9,
+          distance: 1.5,
+          image: "https://picsum.photos/id/1011/100/100",
+        },
+        {
+          id: "coach3",
+          name: "张教练",
+          type: "游泳教练",
+          title: "国家二级运动员 | 6年教学经验",
+          rating: 4.6,
+          distance: 1.5,
+          image: "https://picsum.photos/id/1012/100/100",
+        },
+        {
+          id: "coach4",
+          name: "王教练",
+          type: "健身教练",
+          title: "国际健身教练认证 | 5年教学经验",
+          rating: 4.7,
+          distance: 0.8,
+          image: "https://picsum.photos/id/1010/100/100",
+        },
+        {
+          id: "coach5",
+          name: "陈教练",
+          type: "瑜伽教练",
+          title: "国际瑜伽联盟认证 | 7年教学经验",
+          rating: 4.9,
+          distance: 2.1,
+          image: "https://picsum.photos/id/1000/100/100",
+        },
+        {
+          id: "coach6",
+          name: "刘教练",
+          type: "篮球教练",
+          title: "前职业运动员 | 9年教学经验",
+          rating: 4.8,
+          distance: 1.7,
+          image: "https://picsum.photos/id/1001/100/100",
+        },
       ];
-      
+
       // 随机选择3个教练作为新的推荐
       const shuffledCoaches = [...coachData].sort(() => 0.5 - Math.random());
       const selectedCoaches = shuffledCoaches.slice(0, 3);
-      
+
       // 更新对话内容和推荐标题
       currentQuery.value = `我需要${selectedCoaches[0].type}`;
       // 在实际应用中，这里应该更新UI显示新的教练数据
@@ -476,7 +592,10 @@ export default {
       setTimeout(() => {
         showRecommendations.value = true;
       }, 100);
-      console.log("已更换推荐教练：", selectedCoaches.map(c => c.name));
+      console.log(
+        "已更换推荐教练：",
+        selectedCoaches.map((c) => c.name)
+      );
     };
 
     // 前往搜索
@@ -490,7 +609,7 @@ export default {
       console.log("新建对话");
       showRecommendations.value = false;
       currentQuery.value = "";
-      inputText.value = '';
+      inputText.value = "";
       // 可以添加其他重置逻辑
     };
 
@@ -520,7 +639,7 @@ export default {
       handleChangeRecommendations,
       handleGoSearch,
       handleNewConversation,
-      handleSwitchConversation
+      handleSwitchConversation,
     };
   },
 };
