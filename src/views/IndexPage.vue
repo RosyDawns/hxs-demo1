@@ -12,23 +12,25 @@
         <div class="text-lg font-medium">上海</div>
         <i class="fa fa-angle-down ml-1"></i>
       </div>
-      <div class="relative flex-1 max-w-[60%] mx-3">
-        <input
-          type="text"
-          placeholder="头疗"
-          class="w-full bg-gray-100 rounded-full pl-10 pr-4 py-2 focus:outline-none text-sm border"
-        />
-        <i
-          class="fa fa-search absolute left-3 top-1/2 transform -translate-y-1/2 text-gray"
-        ></i>
+      <div class="relative flex-1 max-w-[70%] mx-3">
+        <div class="relative">
+          <input
+            type="text"
+            placeholder="头疗"
+            class="w-full bg-gray-100 rounded-full pl-10 pr-24 py-2 focus:outline-none text-sm border border-orange-400"
+          />
+          <i
+            class="fa fa-search absolute left-3 top-1/2 transform -translate-y-1/2 text-gray"
+          ></i>
+          <button
+            class="absolute right-2 top-1/2 transform -translate-y-1/2 bg-primary text-white text-xs py-1.5 px-3 rounded-full nav-action"
+            @click="$router.push('/matching')"
+          >
+            一键匹配
+          </button>
+        </div>
       </div>
       <div class="flex items-center">
-        <button
-          class="bg-primary text-white text-xs py-1.5 px-3 rounded-full mr-2 nav-action"
-          @click="$router.push('/matching')"
-        >
-          一键匹配
-        </button>
         <button
           class="relative nav-action"
           :style="{ color: headerOpacity > 0.5 ? '#333' : '#fff' }"
