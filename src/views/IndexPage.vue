@@ -88,7 +88,7 @@
           class="bg-white rounded-lg p-3 card-shadow nav-action cursor-pointer"
           @click="$router.push('/ranking')"
         >
-          <div class="font-bold text-md text-black">城市大神</div>
+          <div class="font-bold text-sm text-black">城市大神</div>
           <div class="font-medium text-xs text-gray">老狮榜单</div>
           <div class="flex justify-end mt-1" style="color: orange">
             <i class="fa-solid fa-map-location-dot"></i>
