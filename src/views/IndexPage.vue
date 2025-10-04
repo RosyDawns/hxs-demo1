@@ -56,25 +56,28 @@
 
     <!-- 核心功能区 -->
     <div class="p-3 -mt-[80px]">
-      <div class="relative overflow-hidden rounded-xl mb-3 z-5">
-        <div class="grid grid-cols-3 gap-2">
+      <div class="relative overflow-hidden rounded-xl mb-3 z-5 bg-white p-3">
+        <div class="grid grid-cols-3 gap-3">
           <div
-            class="bg-white text-black shadow flex flex-col items-center justify-center p-6 rounded-xl nav-action cursor-pointer"
+            class="bg-white text-black shadow flex flex-col items-center justify-center rounded-xl nav-action cursor-pointer overflow-hidden"
             @click="$router.push('/teacher-list')"
           >
-            <div class="text-xl font-bold">主理人频道</div>
+            <img src="@images/user_1.png" class="w-full object-contain" />
+            <div class="text-xl py-1">主理人频道</div>
           </div>
           <div
-            class="bg-white text-black shadow flex flex-col items-center justify-center p-6 rounded-xl nav-action cursor-pointer"
+            class="bg-white text-black shadow flex flex-col items-center justify-center rounded-xl nav-action cursor-pointer overflow-hidden"
             @click="$router.push('/teacher-list')"
           >
-            <div class="text-xl font-bold">技能唤醒狮</div>
+            <img src="@images/user_2.png" class="w-full object-contain" />
+            <div class="text-xl py-1">技能唤醒狮</div>
           </div>
           <div
-            class="bg-white text-black shadow flex flex-col items-center justify-center p-6 rounded-xl nav-action cursor-pointer"
+            class="bg-white text-black shadow flex flex-col items-center justify-center rounded-xl nav-action cursor-pointer overflow-hidden"
             @click="$router.push('/partners')"
           >
-            <div class="text-xl font-bold">搭子唤醒狮</div>
+            <img src="@images/user_3.png" class="w-full object-contain" />
+            <div class="text-xl py-1">搭子唤醒狮</div>
           </div>
         </div>
       </div>
@@ -85,28 +88,34 @@
           class="bg-white rounded-lg p-3 card-shadow nav-action cursor-pointer"
           @click="$router.push('/ranking')"
         >
-          <div class="font-medium text-sm">城市大神</div>
-          <div class="font-medium text-sm">老狮榜单</div>
-          <i class="fa fa-arrow-up text-primary mt-1 text-xs"></i>
+          <div class="font-bold text-md text-black">城市大神</div>
+          <div class="font-medium text-xs text-gray">老狮榜单</div>
+          <div class="flex justify-end mt-1" style="color: orange">
+            <i class="fa-solid fa-map-location-dot"></i>
+          </div>
         </div>
         <div
           class="bg-white rounded-lg p-3 card-shadow nav-action cursor-pointer"
           @click="$router.push('/camp-register')"
         >
-          <div class="font-medium text-sm">免费试</div>
-          <div class="font-medium text-sm">试试就试试</div>
-          <div class="text-yellow-500 mt-1 text-xs">0元</div>
+          <div class="font-bold text-sm text-black">免费试</div>
+          <div class="font-medium text-xs text-gray">试试就试试</div>
+          <div class="flex justify-end mt-1">
+            <div class="bg-yellow-500 text-white text-xs p-0.5 rounded-full">
+              0元
+            </div>
+          </div>
         </div>
         <div
           class="bg-white rounded-lg p-3 card-shadow relative nav-action cursor-pointer col-span-2"
           @click="$router.push('/camp-detail')"
         >
-          <div class="font-medium text-sm">体重唤醒营</div>
-          <div class="font-medium text-sm">唤醒瘦 科学瘦 坚持瘦</div>
-          <div
-            class="absolute top-0 right-0 bg-yellow-500 text-white text-xs py-0.5 px-1 rounded-bl-lg"
-          >
-            5折
+          <div class="font-bold text-sm text-black">体重管理唤醒营</div>
+          <div class="font-medium text-xs text-gray">
+            唤醒瘦～科学瘦～坚持瘦
+          </div>
+          <div class="flex justify-end mt-1" style="color: orange">
+            <i class="fa-solid fa-map-location-dot"></i>
           </div>
         </div>
       </div>
