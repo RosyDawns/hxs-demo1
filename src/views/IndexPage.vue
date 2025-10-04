@@ -2,11 +2,11 @@
   <div class="page" id="page-index">
     <!-- 顶部导航栏 -->
     <header
-      class="sticky top-0 z-50 bg-white/80 bg-blur border-b border-gray-100 p-3 flex items-center justify-between"
+      class="fixed w-full top-0 z-50 p-3 flex items-center justify-between"
     >
-      <div class="flex items-center">
+      <div class="flex items-center text-white">
         <div class="text-lg font-medium">上海</div>
-        <i class="fa fa-angle-down ml-1 text-gray"></i>
+        <i class="fa fa-angle-down ml-1"></i>
       </div>
       <div class="relative flex-1 max-w-[60%] mx-3">
         <input
@@ -39,24 +39,39 @@
       </div>
     </header>
 
+    <div class="banner relative">
+      <img src="@images/img_39.jpg" class="block w-full relative z-1" />
+      <div
+        class="slogn absolute top-1/2 -translate-y-1/2 left-[20px] z-10 text-white font-bold font-italic"
+      >
+        <p class="text-3xl mb-1 text-shadow-2xs">生活唤醒师频道</p>
+        <p
+          class="pl-2 text-xl border border-solid rounded-full flex items-center justify-between"
+        >
+          让你的热爱发光
+          <span class="bg-amber-50 text-amber-700 rounded-full px-2">GO></span>
+        </p>
+      </div>
+    </div>
+
     <!-- 核心功能区 -->
-    <div class="p-3">
-      <div class="relative overflow-hidden rounded-xl mb-3">
+    <div class="p-3 -mt-[80px]">
+      <div class="relative overflow-hidden rounded-xl mb-3 z-5">
         <div class="grid grid-cols-3 gap-2">
           <div
-            class="bg-gradient-to-br from-primary to-orange-600 text-white flex flex-col items-center justify-center p-6 rounded-xl nav-action cursor-pointer"
+            class="bg-white text-black shadow flex flex-col items-center justify-center p-6 rounded-xl nav-action cursor-pointer"
             @click="$router.push('/teacher-list')"
           >
             <div class="text-xl font-bold">主理人频道</div>
           </div>
           <div
-            class="bg-gradient-to-br from-primary to-orange-600 text-white flex flex-col items-center justify-center p-6 rounded-xl nav-action cursor-pointer"
+            class="bg-white text-black shadow flex flex-col items-center justify-center p-6 rounded-xl nav-action cursor-pointer"
             @click="$router.push('/teacher-list')"
           >
             <div class="text-xl font-bold">技能唤醒狮</div>
           </div>
           <div
-            class="bg-gradient-to-br from-primary to-orange-600 text-white flex flex-col items-center justify-center p-6 rounded-xl nav-action cursor-pointer"
+            class="bg-white text-black shadow flex flex-col items-center justify-center p-6 rounded-xl nav-action cursor-pointer"
             @click="$router.push('/partners')"
           >
             <div class="text-xl font-bold">搭子唤醒狮</div>
@@ -65,7 +80,7 @@
       </div>
 
       <!-- 快捷入口 -->
-      <div class="grid grid-cols-4 gap-2 mb-3">
+      <div class="grid grid-cols-4 gap-2">
         <div
           class="bg-white rounded-lg p-3 card-shadow nav-action cursor-pointer"
           @click="$router.push('/ranking')"
@@ -149,7 +164,7 @@
           class="w-full h-40 object-cover"
         />
         <div class="p-2">
-          <p class="text-sm">比如紫苏、香茅、沙葱都是地域特色比较明显的</p>
+          <p class="text-sm">专业力量训练，器材齐全环境超棒的</p>
           <div class="flex items-center justify-between mt-2">
             <div class="flex items-center">
               <img
@@ -177,11 +192,11 @@
           class="w-full h-40 object-cover"
         />
         <div class="p-2">
-          <p class="text-sm">味道确实比以前好吃很多啊，面饼也烤得很好</p>
+          <p class="text-sm">高蛋白低脂餐单推荐，帮你高效增肌减脂</p>
           <div class="flex items-center justify-between mt-2">
             <div class="flex items-center">
               <img
-                src="https://picsum.photos/id/65/30/30"
+                src="@images/img-44.jpg"
                 alt="用户头像"
                 class="w-6 h-6 rounded-full"
               />
@@ -215,7 +230,7 @@
           <div class="flex items-center justify-between mt-2">
             <div class="flex items-center">
               <img
-                src="https://picsum.photos/id/91/30/30"
+                src="@images/img-44.jpg"
                 alt="用户头像"
                 class="w-6 h-6 rounded-full"
               />
@@ -249,7 +264,7 @@
           <div class="flex items-center justify-between mt-2">
             <div class="flex items-center">
               <img
-                src="https://picsum.photos/id/25/30/30"
+                src="@images/img-44.jpg"
                 alt="用户头像"
                 class="w-6 h-6 rounded-full"
               />
