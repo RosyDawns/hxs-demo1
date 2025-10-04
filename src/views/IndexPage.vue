@@ -60,8 +60,10 @@
     </div>
 
     <!-- 核心功能区 -->
-    <div class="p-3 -mt-[80px]">
-      <div class="relative overflow-hidden rounded-xl mb-3 z-5 bg-white p-3">
+    <div class="px-3 pt-3 -mt-[80px]">
+      <div
+        class="relative overflow-hidden rounded-xl z-5 bg-white px-3 pt-3 pb-5"
+      >
         <div class="grid grid-cols-3 gap-3">
           <div
             class="bg-white text-black shadow flex flex-col items-center justify-center rounded-xl nav-action cursor-pointer overflow-hidden"
@@ -90,7 +92,7 @@
       <!-- 快捷入口 -->
       <div class="grid grid-cols-4 gap-2">
         <div
-          class="bg-white rounded-lg p-3 card-shadow nav-action cursor-pointer"
+          class="bg-white rounded-lg p-3 shadow nav-action cursor-pointer"
           @click="$router.push('/ranking')"
         >
           <div class="font-bold text-sm text-black">城市大神</div>
@@ -100,7 +102,7 @@
           </div>
         </div>
         <div
-          class="bg-white rounded-lg p-3 card-shadow nav-action cursor-pointer"
+          class="bg-white rounded-lg p-3 shadow nav-action cursor-pointer"
           @click="$router.push('/camp-register')"
         >
           <div class="font-bold text-sm text-black">免费试</div>
@@ -112,7 +114,7 @@
           </div>
         </div>
         <div
-          class="bg-white rounded-lg p-3 card-shadow relative nav-action cursor-pointer col-span-2"
+          class="bg-white rounded-lg p-3 shadow relative nav-action cursor-pointer col-span-2"
           @click="$router.push('/camp-detail')"
         >
           <div class="font-bold text-sm text-black">体重管理唤醒营</div>
@@ -129,77 +131,77 @@
     <!-- 分类标签栏 -->
     <div class="flex space-x-2 p-3 overflow-x-auto scrollbar-hide">
       <button
-        class="px-3 py-2 whitespace-nowrap text-sm font-medium text-gray nav-action cursor-pointer"
+        class="px-3 py-2 whitespace-nowrap text-sm font-medium nav-action cursor-pointer"
         :class="
           selectedCategory === '关注'
-            ? 'text-primary border-b-2 border-primary'
-            : ''
+            ? 'text-primary border-b-2 border-primary text-orange'
+            : 'text-black'
         "
         @click="handleCategoryClick('关注')"
       >
         关注
       </button>
       <button
-        class="px-3 py-2 whitespace-nowrap text-sm font-medium text-gray nav-action cursor-pointer"
+        class="px-3 py-2 whitespace-nowrap text-sm font-medium nav-action cursor-pointer"
         :class="
           selectedCategory === '推荐'
-            ? 'text-primary border-b-2 border-primary'
-            : ''
+            ? 'text-primary border-b-2 border-primary text-orange'
+            : 'text-black'
         "
         @click="handleCategoryClick('推荐')"
       >
         推荐
       </button>
       <button
-        class="px-3 py-2 whitespace-nowrap text-sm font-medium text-gray nav-action cursor-pointer"
+        class="px-3 py-2 whitespace-nowrap text-sm font-medium nav-action cursor-pointer"
         :class="
           selectedCategory === '附近'
-            ? 'text-primary border-b-2 border-primary'
-            : ''
+            ? 'text-primary border-b-2 border-primary text-orange'
+            : 'text-black'
         "
         @click="handleCategoryClick('附近')"
       >
         附近
       </button>
       <button
-        class="px-3 py-2 whitespace-nowrap text-sm font-medium text-gray nav-action cursor-pointer"
+        class="px-3 py-2 whitespace-nowrap text-sm font-medium nav-action cursor-pointer"
         :class="
           selectedCategory === '运动'
-            ? 'text-primary border-b-2 border-primary'
-            : ''
+            ? 'text-primary border-b-2 border-primary text-orange'
+            : 'text-black'
         "
         @click="handleCategoryClick('运动')"
       >
         运动
       </button>
       <button
-        class="px-3 py-2 whitespace-nowrap text-sm font-medium text-gray nav-action cursor-pointer"
+        class="px-3 py-2 whitespace-nowrap text-sm font-medium nav-action cursor-pointer"
         :class="
           selectedCategory === '玩乐'
-            ? 'text-primary border-b-2 border-primary'
-            : ''
+            ? 'text-primary border-b-2 border-primary text-orange'
+            : 'text-black'
         "
         @click="handleCategoryClick('玩乐')"
       >
         玩乐
       </button>
       <button
-        class="px-3 py-2 whitespace-nowrap text-sm font-medium text-gray nav-action cursor-pointer"
+        class="px-3 py-2 whitespace-nowrap text-sm font-medium nav-action cursor-pointer"
         :class="
           selectedCategory === '户外'
-            ? 'text-primary border-b-2 border-primary'
-            : ''
+            ? 'text-primary border-b-2 border-primary text-orange'
+            : 'text-black'
         "
         @click="handleCategoryClick('户外')"
       >
         户外
       </button>
       <button
-        class="px-3 py-2 whitespace-nowrap text-sm font-medium text-gray nav-action cursor-pointer"
+        class="px-3 py-2 whitespace-nowrap text-sm font-medium nav-action cursor-pointer"
         :class="
           selectedCategory === '按摩'
-            ? 'text-primary border-b-2 border-primary'
-            : ''
+            ? 'text-primary border-b-2 border-primary text-orange'
+            : 'text-black'
         "
         @click="handleCategoryClick('按摩')"
       >
@@ -208,7 +210,7 @@
     </div>
 
     <!-- 内容列表 -->
-    <div class="grid grid-cols-2 gap-2 p-3">
+    <div class="grid grid-cols-2 gap-2 px-3 pb-3 pt-1">
       <div
         v-for="item in contentList"
         :key="item.id"
@@ -322,6 +324,14 @@ export default {
         },
         {
           id: 4,
+          image: img42,
+          title: "周末爬山，看到这么美的风景，值得了",
+          user: { name: "山野", avatar: user1 },
+          likes: 58,
+          category: "户外",
+        },
+        {
+          id: 5,
           image: img42,
           title: "周末爬山，看到这么美的风景，值得了",
           user: { name: "山野", avatar: user1 },
