@@ -64,6 +64,7 @@
         <!-- 健身唤醒师推荐卡片 -->
         <div
           class="flex-1 bg-white rounded-4xl px-4 py-5 shadow-sm border-6 border-pink-100 relative overflow-hidden -rotate-z-6 z-1"
+          @click="handleRecommendationClick('帮我推荐一位附近的健身唤醒师💪')"
         >
           <div class="pt-2 pb-2">
             <p class="text-pink-100 text-6xl">“</p>
@@ -72,9 +73,6 @@
           <div class="flex justify-end mt-10">
             <button
               class="bg-black text-white text-xs py-1 px-3 rounded-full flex items-center"
-              @click="
-                handleRecommendationClick('帮我推荐一位附近的健身唤醒师💪')
-              "
             >
               <i class="fa-solid fa-comment-dots"></i>试试
             </button>
@@ -84,6 +82,7 @@
         <!-- 瑜伽老师推荐卡片 -->
         <div
           class="flex-1 bg-white rounded-4xl px-4 py-5 shadow-sm border-6 border-blue-100 relative overflow-hidden rotate-z-6"
+          @click="handleRecommendationClick('找瑜伽老师学习基础动作🧘')"
         >
           <div class="pt-2 pb-2">
             <p class="text-blue-100 text-6xl">“</p>
@@ -92,7 +91,6 @@
           <div class="flex justify-end mt-10">
             <button
               class="bg-black text-white text-xs py-1 px-3 rounded-full flex items-center"
-              @click="handleRecommendationClick('找瑜伽老师学习基础动作🧘')"
             >
               <i class="fa-solid fa-comment-dots"></i>试试
             </button>
@@ -135,8 +133,8 @@
         <!-- 推荐教练列表 -->
         <div class="space-y-4">
           <!-- 使用可复用组件渲染教练卡片 -->
-          <HxsItem 
-            v-for="(coach, index) in recommendedCoaches" 
+          <HxsItem
+            v-for="(coach, index) in recommendedCoaches"
             :key="coach.id"
             :coach="coach"
             @view-profile="handleCoachDetail"
@@ -223,7 +221,7 @@ export default {
   name: "AIAssistantPage",
   components: {
     FooterNav,
-    HxsItem
+    HxsItem,
   },
   setup() {
     const router = useRouter();
@@ -259,7 +257,7 @@ export default {
         time: "昨天 14:10",
       },
     ]);
-    
+
     // 推荐教练数据
     const recommendedCoaches = ref([
       {
@@ -273,8 +271,8 @@ export default {
         prices: {
           trial: 88,
           single: 200,
-          card10: 1680
-        }
+          card10: 1680,
+        },
       },
       {
         id: "coach2",
@@ -287,8 +285,8 @@ export default {
         prices: {
           trial: 98,
           single: 220,
-          card10: 1880
-        }
+          card10: 1880,
+        },
       },
       {
         id: "coach3",
@@ -301,9 +299,9 @@ export default {
         prices: {
           trial: 80,
           single: 180,
-          card10: 1580
-        }
-      }
+          card10: 1580,
+        },
+      },
     ]);
 
     // 处理推荐按钮点击

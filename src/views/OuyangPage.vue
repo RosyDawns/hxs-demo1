@@ -17,19 +17,20 @@
 
     <!-- 顶部封面区域 -->
     <div class="relative">
-      <div
-        class="w-full bg-cover bg-center pt-10 pb-16"
-        style="
-          background-position: center top;
-          background-repeat: no-repeat;
-          background-size: 100% 100%;
-        "
-        :style="{
-          backgroundImage: `url(${BgImage})`,
-        }"
-      >
+      <div class="pt-10 pb-16 relative">
+        <div
+          class="absolute w-full h-full left-0 top-0 blur-md"
+          style="
+            background-position: center top;
+            background-repeat: no-repeat;
+            background-size: 100% 100%;
+          "
+          :style="{
+            backgroundImage: `url(${BgImage})`,
+          }"
+        ></div>
         <!-- 用户信息区域 -->
-        <div class="px-4 py-3 text-white">
+        <div class="px-4 py-3 text-white relative z-1">
           <div class="flex items-center mb-5">
             <img
               src="https://picsum.photos/id/1005/120/120"
@@ -116,7 +117,7 @@
           <div class="mt-3">
             <div class="flex items-center justify-between w-full">
               <span class="text-sm font-medium">营业中 10:00-22:00</span>
-              <button class="text-gray-300 flex items-center text-sm">
+              <button class="text-white flex items-center text-sm">
                 <span>信息/设施</span>
                 <i class="fa fa-angle-right"></i>
               </button>
@@ -149,9 +150,9 @@
             </p>
           </div>
 
-          <div class="flex items-center justify-between">
+          <div class="flex items-center justify-between mt-3">
             <div>
-              <p class="text-sm mt-2">徐泾镇叶联路333弄金地天御18号001</p>
+              <p class="text-sm">徐泾镇叶联路333弄金地天御18号001</p>
               <p class="text-xs">驾车1km,需约3分钟</p>
             </div>
             <div class="flex justify-end mt-4">
@@ -249,24 +250,30 @@
     >
       <!-- 内容标签栏 -->
       <div class="mb-3">
-        <div class="flex">
-          <button
-            class="tab-button flex-1 py-3 text-center font-medium text-sm text-primary border-b-2 border-primary"
-          >
-            动态
-          </button>
-          <button
-            class="tab-button flex-1 py-3 text-center font-medium text-sm"
-            @click="$router.push('/store')"
-          >
-            橱窗
-          </button>
-          <button
-            class="tab-button flex-1 py-3 text-center font-medium text-sm"
-            @click="$router.push('/services')"
-          >
-            推荐服务
-          </button>
+        <div class="flex items-center justify-between">
+          <div class="flex pt-3">
+            <button
+              class="tab-button px-5 py-2 mr-2 text-center font-medium text-sm text-primary border-b-2 border-primary"
+            >
+              动态
+            </button>
+            <button
+              class="tab-button px-5 py-2 mr-2 text-center font-medium text-sm"
+              @click="$router.push('/store')"
+            >
+              橱窗
+            </button>
+            <button
+              class="tab-button px-5 py-2 mr-2 text-center font-medium text-sm"
+              @click="$router.push('/services')"
+            >
+              推荐服务
+            </button>
+          </div>
+          <div class="flex items-center">
+            <i class="mr-4 fa-solid fa-magnifying-glass text-gray-400"></i>
+            <i class="mr-5 fa-solid fa-gift text-gray-400"></i>
+          </div>
         </div>
       </div>
 
@@ -283,8 +290,8 @@
 </template>
 
 <script>
-import CommonHeader from "../components/CommonHeader.vue";
-import NotesContent from "../components/NotesContent.vue";
+import CommonHeader from "@/components/CommonHeader.vue";
+import NotesContent from "@/components/NotesContent.vue";
 import BgImage from "@/assets/images/img_40.jpg";
 export default {
   name: "OuyangPage",
