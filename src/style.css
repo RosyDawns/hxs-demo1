@@ -1,6 +1,11 @@
 /* 导入Tailwind CSS */
 @import "tailwindcss";
 
+* {
+  -webkit-user-drag: none;
+  user-select: none;
+}
+
 /* Tailwind主题配置 */
 @layer base {
   :root {
