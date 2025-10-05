@@ -183,6 +183,7 @@ export default {
       // 处理查看教练主页的逻辑
       console.log(`查看教练ID: ${coachId}的主页`);
       // 可以跳转到教练主页
+      this.$router.push({ path: '/ouyang', params: { id: coachId } });
     },
     
     // 排序教练列表

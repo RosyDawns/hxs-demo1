@@ -29,6 +29,7 @@ import AddressPage from '../views/AddressPage.vue' // 收货地址页面
 import HelpPage from '../views/HelpPage.vue' // 帮助中心页面
 import FeedbackPage from '../views/FeedbackPage.vue' // 意见反馈页面
 import AboutPage from '../views/AboutPage.vue' // 关于我们页面
+import ProductDetailPage from '../views/ProductDetailPage.vue' // 商品详情页面
 
 // 路由配置数组
 const routes = [
@@ -306,6 +307,16 @@ const routes = [
     component: FeedbackPage,
     meta: {
       title: '意见反馈',
+      showInNav: false
+    }
+  },
+  // 商品详情页面路由
+  {
+    path: '/product-detail/:id',
+    name: 'ProductDetail',
+    component: ProductDetailPage,
+    meta: {
+      title: '商品详情',
       showInNav: false
     }
   },

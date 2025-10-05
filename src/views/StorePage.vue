@@ -213,9 +213,8 @@ export default {
   },
   methods: {
     handleProductClick(productId) {
-      // 处理点击商品的逻辑
-      console.log(`查看商品ID: ${productId}的详情`);
-      // 可以跳转到商品详情页
+      // 跳转到商品详情页
+      this.$router.push(`/product-detail/${productId}`);
     },
 
     // 排序商品列表
