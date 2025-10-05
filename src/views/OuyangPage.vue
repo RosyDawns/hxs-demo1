@@ -105,13 +105,13 @@
       <!-- 内容标签栏 -->
       <div class="border-t border-b border-gray-100 mb-3">
         <div class="flex">
-          <button :class="['tab-button flex-1 py-3 text-center font-medium text-sm', activeTab === 'notes' ? 'text-primary border-b-2 border-primary' : 'text-gray-500']" @click="activeTab = 'notes'">笔记</button>
+          <button :class="['tab-button flex-1 py-3 text-center font-medium text-sm', activeTab === 'notes' ? 'text-primary border-b-2 border-primary' : 'text-gray-500']" @click="activeTab = 'notes'">动态</button>
           <button :class="['tab-button flex-1 py-3 text-center font-medium text-sm', activeTab === 'store' ? 'text-primary border-b-2 border-primary' : 'text-gray-500']" @click="activeTab = 'store'">橱窗</button>
           <button :class="['tab-button flex-1 py-3 text-center font-medium text-sm', activeTab === 'services' ? 'text-primary border-b-2 border-primary' : 'text-gray-500']" @click="activeTab = 'services'">推荐服务</button>
         </div>
       </div>
 
-      <!-- 笔记内容区 -->
+      <!-- 动态内容区 -->
       <div v-show="activeTab === 'notes'" class="tab-content" id="notes">
         <div class="grid grid-cols-2 gap-2 p-1">
           <!-- 内容项1 -->
@@ -142,7 +142,7 @@
             </div>
           </div>
 
-          <!-- 更多笔记内容... -->
+          <!-- 更多动态内容... -->
           <div class="bg-white rounded-lg overflow-hidden card-shadow">
             <img src="https://picsum.photos/id/1061/300/200" alt="徒步路线" class="w-full h-36 object-cover">
             <div class="p-2">

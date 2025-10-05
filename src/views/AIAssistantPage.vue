@@ -134,165 +134,13 @@
       <div v-if="showRecommendations" class="flex-1 overflow-y-auto">
         <!-- 推荐教练列表 -->
         <div class="space-y-4">
-          <!-- 教练1 -->
-          <div class="bg-blue-50 rounded-2xl p-4 shadow-sm">
-            <div class="flex justify-between items-start mb-3">
-              <img
-                src="https://picsum.photos/id/1005/100/100"
-                alt="李教练"
-                class="w-16 h-16 object-cover rounded-full"
-              />
-              <div class="flex-1 ml-3">
-                <h4 class="font-bold text-sm">李教练</h4>
-                <p class="text-xs text-gray">游泳教练</p>
-                <p class="text-xs text-gray mt-1">
-                  国家二级运动员 | 8年教学经验
-                </p>
-                <div class="flex items-center mt-1">
-                  <div class="flex text-xs text-warning">
-                    <i class="fa-solid fa-star"></i>
-                    <i class="fa-solid fa-star"></i>
-                    <i class="fa-solid fa-star"></i>
-                    <i class="fa-solid fa-star"></i>
-                    <i class="fa-solid fa-star-half-stroke"></i>
-                  </div>
-                  <span class="text-xs text-gray ml-1">评分4.8</span>
-                </div>
-                <div class="text-xs text-gray">
-                  距离 <span class="text-primary">1.2</span> 公里
-                </div>
-              </div>
-              <div
-                class="text-white text-xs px-2 py-1 rounded-full"
-                style="
-                  background-image: linear-gradient(to right, #faad14, #ff6b35);
-                "
-                @click="handleCoachDetail('coach1')"
-              >
-                查看主页
-              </div>
-            </div>
-            <div class="grid grid-cols-3 gap-2">
-              <div class="bg-gray-50 p-2 rounded-lg">
-                <p class="text-xs text-gray">体验课</p>
-                <p class="text-sm font-bold text-primary">¥88</p>
-              </div>
-              <div class="bg-gray-50 p-2 rounded-lg">
-                <p class="text-xs text-gray">单次课</p>
-                <p class="text-sm font-bold text-primary">¥200</p>
-              </div>
-              <div class="bg-gray-50 p-2 rounded-lg">
-                <p class="text-xs text-gray">10次卡</p>
-                <p class="text-sm font-bold text-primary">¥1680</p>
-              </div>
-            </div>
-          </div>
-          <!-- 教练2 -->
-          <div class="bg-blue-50 rounded-2xl p-4 shadow-sm">
-            <div class="flex justify-between items-start mb-3">
-              <img
-                src="https://picsum.photos/id/1011/100/100"
-                alt="赵教练"
-                class="w-16 h-16 object-cover rounded-full"
-              />
-              <div class="flex-1 ml-3">
-                <h4 class="font-bold text-sm">赵教练</h4>
-                <p class="text-xs text-gray">游泳教练</p>
-                <p class="text-xs text-gray mt-1">
-                  国家一级运动员 | 10年教学经验
-                </p>
-                <div class="flex items-center mt-1">
-                  <div class="flex text-xs text-warning">
-                    <i class="fa-solid fa-star"></i>
-                    <i class="fa-solid fa-star"></i>
-                    <i class="fa-solid fa-star"></i>
-                    <i class="fa-solid fa-star"></i>
-                    <i class="fa-solid fa-star"></i>
-                  </div>
-                  <span class="text-xs text-gray ml-1">评分4.9</span>
-                </div>
-                <div class="text-xs text-gray">
-                  距离 <span class="text-primary">1.5</span> 公里
-                </div>
-              </div>
-              <div
-                class="text-white text-xs px-2 py-1 rounded-full"
-                style="
-                  background-image: linear-gradient(to right, #faad14, #ff6b35);
-                "
-                @click="handleCoachDetail('coach2')"
-              >
-                查看主页
-              </div>
-            </div>
-            <div class="grid grid-cols-3 gap-2">
-              <div class="bg-gray-50 p-2 rounded-lg">
-                <p class="text-xs text-gray">体验课</p>
-                <p class="text-sm font-bold text-primary">¥98</p>
-              </div>
-              <div class="bg-gray-50 p-2 rounded-lg">
-                <p class="text-xs text-gray">单次课</p>
-                <p class="text-sm font-bold text-primary">¥220</p>
-              </div>
-              <div class="bg-gray-50 p-2 rounded-lg">
-                <p class="text-xs text-gray">10次卡</p>
-                <p class="text-sm font-bold text-primary">¥1880</p>
-              </div>
-            </div>
-          </div>
-          <!-- 教练3 -->
-          <div class="bg-blue-50 rounded-2xl p-4 shadow-sm">
-            <div class="flex justify-between items-start mb-3">
-              <img
-                src="https://picsum.photos/id/1012/100/100"
-                alt="张教练"
-                class="w-16 h-16 object-cover rounded-full"
-              />
-              <div class="flex-1 ml-3">
-                <h4 class="font-bold text-sm">张教练</h4>
-                <p class="text-xs text-gray">游泳教练</p>
-                <p class="text-xs text-gray mt-1">
-                  国家二级运动员 | 6年教学经验
-                </p>
-                <div class="flex items-center mt-1">
-                  <div class="flex text-xs text-warning">
-                    <i class="fa-solid fa-star"></i>
-                    <i class="fa-solid fa-star"></i>
-                    <i class="fa-solid fa-star"></i>
-                    <i class="fa-solid fa-star"></i>
-                    <i class="fa-solid fa-star-half-stroke"></i>
-                  </div>
-                  <span class="text-xs text-gray ml-1">评分4.6</span>
-                </div>
-                <div class="text-xs text-gray">
-                  距离 <span class="text-primary">1.5</span> 公里
-                </div>
-              </div>
-              <div
-                class="text-white text-xs px-2 py-1 rounded-full"
-                style="
-                  background-image: linear-gradient(to right, #faad14, #ff6b35);
-                "
-                @click="handleCoachDetail('coach3')"
-              >
-                查看主页
-              </div>
-            </div>
-            <div class="grid grid-cols-3 gap-2">
-              <div class="bg-gray-50 p-2 rounded-lg">
-                <p class="text-xs text-gray">体验课</p>
-                <p class="text-sm font-bold text-primary">¥80</p>
-              </div>
-              <div class="bg-gray-50 p-2 rounded-lg">
-                <p class="text-xs text-gray">单次课</p>
-                <p class="text-sm font-bold text-primary">¥180</p>
-              </div>
-              <div class="bg-gray-50 p-2 rounded-lg">
-                <p class="text-xs text-gray">10次卡</p>
-                <p class="text-sm font-bold text-primary">¥1580</p>
-              </div>
-            </div>
-          </div>
+          <!-- 使用可复用组件渲染教练卡片 -->
+          <HxsItem 
+            v-for="(coach, index) in recommendedCoaches" 
+            :key="coach.id"
+            :coach="coach"
+            @view-profile="handleCoachDetail"
+          />
         </div>
       </div>
 
@@ -368,12 +216,14 @@
 <script>
 import { ref } from "vue";
 import { useRouter } from "vue-router";
-import FooterNav from "../components/FooterNav.vue";
+import FooterNav from "@/components/FooterNav.vue";
+import HxsItem from "@/components/hxs-item.vue";
 
 export default {
   name: "AIAssistantPage",
   components: {
     FooterNav,
+    HxsItem
   },
   setup() {
     const router = useRouter();
@@ -408,6 +258,52 @@ export default {
         query: "推荐一位篮球私教",
         time: "昨天 14:10",
       },
+    ]);
+    
+    // 推荐教练数据
+    const recommendedCoaches = ref([
+      {
+        id: "coach1",
+        name: "李教练",
+        type: "游泳教练",
+        title: "国家二级运动员 | 8年教学经验",
+        rating: 4.8,
+        distance: 1.2,
+        image: "https://picsum.photos/id/1005/100/100",
+        prices: {
+          trial: 88,
+          single: 200,
+          card10: 1680
+        }
+      },
+      {
+        id: "coach2",
+        name: "赵教练",
+        type: "游泳教练",
+        title: "国家一级运动员 | 10年教学经验",
+        rating: 4.9,
+        distance: 1.5,
+        image: "https://picsum.photos/id/1011/100/100",
+        prices: {
+          trial: 98,
+          single: 220,
+          card10: 1880
+        }
+      },
+      {
+        id: "coach3",
+        name: "张教练",
+        type: "游泳教练",
+        title: "国家二级运动员 | 6年教学经验",
+        rating: 4.6,
+        distance: 1.5,
+        image: "https://picsum.photos/id/1012/100/100",
+        prices: {
+          trial: 80,
+          single: 180,
+          card10: 1580
+        }
+      }
     ]);
 
     // 处理推荐按钮点击
@@ -626,6 +522,7 @@ export default {
       inputText,
       showConversationList,
       conversationHistory,
+      recommendedCoaches,
       startVoiceRecording,
       stopVoiceRecording,
       toggleInputMode,
