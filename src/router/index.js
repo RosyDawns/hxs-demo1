@@ -5,6 +5,8 @@ import IndexPage from '../views/IndexPage.vue' // 首页 - 对应hss_v3.html中�
 import AIAssistantPage from '../views/AIAssistantPage.vue' // AI管家（大狮兄）页面 - 对应hss_v3.html中的page-ai-assistant
 import EnergyTreePage from '../views/EnergyTreePage.vue' // 能量树页面 - 对应hss_v3.html中的page-energy-tree
 import TeacherListPage from '../views/TeacherListPage.vue' // 唤醒狮列表页面
+import LeaderChannelPage from '../views/LeaderChannelPage.vue' // 主理人频道页面
+import BuddyWakerPage from '../views/BuddyWakerPage.vue' // 搭子唤醒师页面
 import CampPage from '../views/CampPage.vue' // 唤醒营页面
 import MessagesPage from '../views/MessagesPage.vue' // 消息页面
 import MePage from '../views/MePage.vue' // 我的页面
@@ -70,6 +72,26 @@ const routes = [
       title: '唤醒狮列表',
       icon: 'fa-user-circle',
       showInNav: true
+    }
+  },
+  // 主理人频道页面路由
+  {
+    path: '/leader-channel',
+    name: 'LeaderChannel',
+    component: LeaderChannelPage,
+    meta: {
+      title: '主理人频道',
+      showInNav: false
+    }
+  },
+  // 搭子唤醒师页面路由
+  {
+    path: '/buddy-waker',
+    name: 'BuddyWaker',
+    component: BuddyWakerPage,
+    meta: {
+      title: '搭子唤醒师',
+      showInNav: false
     }
   },
   // 唤醒营页面路由

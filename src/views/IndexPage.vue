@@ -69,7 +69,7 @@
         <div class="grid grid-cols-3 gap-3">
           <div
             class="bg-white text-black shadow flex flex-col items-center justify-center rounded-xl nav-action cursor-pointer overflow-hidden"
-            @click="$router.push('/teacher-list')"
+            @click="$router.push('/leader-channel')"
           >
             <img src="@images/user_1.png" class="w-full object-contain" />
             <div class="text-base py-1">主理人频道</div>
@@ -83,9 +83,8 @@
           </div>
           <div
             class="bg-white text-black shadow flex flex-col items-center justify-center rounded-xl nav-action cursor-pointer overflow-hidden"
-            @click="$router.push('/teacher-list')"
+            @click="$router.push('/buddy-waker')"
             >
-            <!-- @click="$router.push('/partners')" -->
             <img src="@images/user_3.png" class="w-full object-contain" />
             <div class="text-base py-1">搭子唤醒狮</div>
           </div>
