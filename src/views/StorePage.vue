@@ -66,7 +66,7 @@
     >
       <!-- 内容标签栏 -->
       <div class="mb-3">
-        <div class="flex items-center justify-between pt-3">
+        <div class="flex items-center justify-between pl-1 pt-3">
           <div class="flex">
             <button
               class="tab-button px-2 py-2 mr-0.5 text-center font-medium text-sm"
@@ -74,25 +74,25 @@
                 'text-primary border-b-2 border-primary':
                   sortBy === 'recommend',
               }"
-              @click="sortCoaches('recommend')"
+              @click="sortProducts('recommend')"
             >
               综合
             </button>
             <button
               class="tab-button px-2 py-2 mr-0.5 text-center font-medium text-sm"
               :class="{
-                'text-primary border-b-2 border-primary': sortBy === 'distance',
+                'text-primary border-b-2 border-primary': sortBy === 'sales',
               }"
-              @click="sortCoaches('distance')"
+              @click="sortProducts('sales')"
             >
               销量
             </button>
             <button
               class="tab-button px-2 py-2 mr-0.5 text-center font-medium text-sm"
               :class="{
-                'text-primary border-b-2 border-primary': sortBy === 'rating',
+                'text-primary border-b-2 border-primary': sortBy === 'new',
               }"
-              @click="sortCoaches('rating')"
+              @click="sortProducts('new')"
             >
               新品
             </button>
@@ -101,7 +101,7 @@
               :class="{
                 'text-primary border-b-2 border-primary': sortBy === 'priceAsc',
               }"
-              @click="sortCoaches('priceAsc')"
+              @click="sortProducts('priceAsc')"
             >
               价格升序
             </button>
@@ -111,7 +111,7 @@
                 'text-primary border-b-2 border-primary':
                   sortBy === 'priceDesc',
               }"
-              @click="sortCoaches('priceDesc')"
+              @click="sortProducts('priceDesc')"
             >
               价格降序
             </button>
@@ -123,16 +123,33 @@
         </div>
       </div>
 
-      <!-- 服务内容 -->
+      <!-- 商品列表 -->
       <div class="px-4 pb-3 mt-4">
-        <div class="space-y-4 mt-3">
-          <hxs-item
-            v-for="coach in coaches"
-            :key="coach.id"
-            :coach="coach"
-            className="bg-white"
-            @view-profile="handleViewProfile"
-          />
+        <div class="grid grid-cols-2 gap-4 mt-3">
+          <div 
+            v-for="product in products" 
+            :key="product.id" 
+            class="bg-white rounded-lg overflow-hidden shadow-md"
+            @click="handleProductClick(product.id)"
+          >
+            <div class="relative">
+              <img 
+                :src="product.image" 
+                :alt="product.title"
+                class="w-full h-48 object-cover"
+              />
+              <div v-if="product.isNew" class="absolute top-2 left-2 bg-red-500 text-white text-xs px-2 py-1 rounded">
+                新品
+              </div>
+            </div>
+            <div class="p-2">
+              <h3 class="text-sm font-medium line-clamp-2 mb-1">{{ product.title }}</h3>
+              <div class="flex items-center">
+                <div class="text-red-500 font-bold mr-1">¥{{ product.price }}</div>
+                <div class="text-xs text-gray-500">已售 {{ product.sales }}</div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -153,83 +170,85 @@ export default {
   },
   data() {
     return {
-      // 教练列表数据
-      originalCoaches: [
+      // 商品数据
+      originalProducts: [
         {
-          id: "coach1",
-          name: "李教练",
-          type: "游泳教练",
-          title: "国家二级运动员 | 8年教学经验",
-          rating: 4.8,
-          distance: 1.2,
-          image: "https://picsum.photos/id/1005/100/100",
-          prices: {
-            trial: 88,
-            single: 200,
-            tenPack: 1680,
-          },
+          id: "product1",
+          title: "蛙泳/自由泳（体验卡）",
+          price: 38,
+          sales: 5680,
+          image: "https://picsum.photos/id/1065/300/300",
+          isNew: false,
         },
         {
-          id: "coach2",
-          name: "赵教练",
-          type: "游泳教练",
-          title: "国家一级运动员 | 10年教学经验",
-          rating: 4.9,
-          distance: 1.5,
-          image: "https://picsum.photos/id/1011/100/100",
-          prices: {
-            trial: 98,
-            single: 220,
-            tenPack: 1880,
-          },
+          id: "product2",
+          title: "自由泳60分钟（单次卡）",
+          price: 200,
+          sales: 890,
+          image: "https://picsum.photos/id/1066/300/300",
+          isNew: true,
         },
         {
-          id: "coach3",
-          name: "张教练",
-          type: "游泳教练",
-          title: "国家二级运动员 | 6年教学经验",
-          rating: 4.6,
-          distance: 1.5,
-          image: "https://picsum.photos/id/1012/100/100",
-          prices: {
-            trial: 80,
-            single: 180,
-            tenPack: 1580,
-          },
+          id: "product3",
+          title: "蛙泳/自由泳（10次卡）",
+          price: 1680,
+          sales: 538,
+          image: "https://picsum.photos/id/1067/300/300",
+          isNew: false,
+        },
+        {
+          id: "product4",
+          title: "蛙泳/自由泳（20次卡）",
+          price: 2980,
+          sales: 136,
+          image: "https://picsum.photos/id/1068/300/300",
+          isNew: true,
         },
       ],
-      // 当前排序方式：'recommend', 'distance', 'rating'
+      // 当前排序方式：'recommend', 'sales', 'new', 'priceAsc', 'priceDesc'
       sortBy: "recommend",
       // 用于展示的数据
-      coaches: [],
+      products: [],
     };
   },
   methods: {
-    handleViewProfile(coachId) {
-      // 处理查看教练主页的逻辑
-      console.log(`查看教练ID: ${coachId}的主页`);
-      // 可以跳转到教练主页
+    handleProductClick(productId) {
+      // 处理点击商品的逻辑
+      console.log(`查看商品ID: ${productId}的详情`);
+      // 可以跳转到商品详情页
     },
 
-    // 排序教练列表
-    sortCoaches(sortType) {
+    // 排序商品列表
+    sortProducts(sortType) {
       this.sortBy = sortType;
 
       // 深拷贝原始数据，避免修改原始数据
-      const sortedCoaches = JSON.parse(JSON.stringify(this.originalCoaches));
+      const sortedProducts = JSON.parse(JSON.stringify(this.originalProducts));
 
       switch (sortType) {
         case "recommend":
           // 推荐排序（保持原始顺序）
-          this.coaches = sortedCoaches;
+          this.products = sortedProducts;
           break;
-        case "distance":
-          // 按距离升序排序
-          this.coaches = sortedCoaches.sort((a, b) => a.distance - b.distance);
+        case "sales":
+          // 按销量降序排序
+          this.products = sortedProducts.sort((a, b) => b.sales - a.sales);
           break;
-        case "rating":
-          // 按评分降序排序
-          this.coaches = sortedCoaches.sort((a, b) => b.rating - a.rating);
+        case "new":
+          // 新品优先排序
+          this.products = sortedProducts.sort((a, b) => {
+            if (a.isNew && !b.isNew) return -1;
+            if (!a.isNew && b.isNew) return 1;
+            return 0;
+          });
+          break;
+        case "priceAsc":
+          // 按价格升序排序
+          this.products = sortedProducts.sort((a, b) => a.price - b.price);
+          break;
+        case "priceDesc":
+          // 按价格降序排序
+          this.products = sortedProducts.sort((a, b) => b.price - a.price);
           break;
       }
     },
@@ -237,7 +256,7 @@ export default {
 
   // 组件挂载时初始化数据
   mounted() {
-    this.sortCoaches("recommend");
+    this.sortProducts("recommend");
   },
   setup() {
     return {
