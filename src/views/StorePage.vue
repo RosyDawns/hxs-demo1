@@ -1,9 +1,20 @@
 <template>
-  <div class="page pt-10" id="page-store">
+  <div class="page" id="page-services">
     <!-- 顶部导航 -->
-    <CommonHeader>
+    <CommonHeader arrowColor="#fff">
       <template #center>
-        <h2 class="font-bold">我的橱窗</h2>
+        <div class="relative flex-1 w-fu mx-3">
+          <div class="relative">
+            <input
+              type="text"
+              placeholder="搜索橱窗内的商品"
+              class="w-full bg-gray-100 rounded-full pl-10 pr-24 py-1 focus:outline-none text-sm border"
+            />
+            <i
+              class="fa fa-search absolute left-3 top-1/2 transform -translate-y-1/2 text-gray"
+            ></i>
+          </div>
+        </div>
       </template>
       <template #left>
         <button class="text-dark" @click="$router.back()">
@@ -11,123 +22,117 @@
         </button>
       </template>
       <template #right>
-        <button class="text-dark">
+        <button class="text-white">
           <i class="fa fa-ellipsis-h text-xl"></i>
         </button>
       </template>
     </CommonHeader>
 
-    <!-- 橱窗内容 -->
-    <div class="px-4 mt-4">
-      <div class="bg-white rounded-lg p-3 card-shadow mb-4">
-        <div class="flex items-center justify-between">
+    <div class="pt-14 pb-16 relative">
+      <div
+        class="absolute w-full h-full left-0 top-0 blur-md"
+        style="
+          background-position: center top;
+          background-repeat: no-repeat;
+          background-size: 100% 100%;
+        "
+        :style="{
+          backgroundImage: `url(${BgImage})`,
+        }"
+      ></div>
+
+      <div class="px-4 py-4 text-white relative z-1">
+        <div class="flex items-center mb-5 relative">
+          <img
+            src="https://picsum.photos/id/1005/120/120"
+            alt="李教练"
+            class="w-20 h-20 rounded-full border-2 border-white"
+          />
+          <div class="ml-4">
+            <div class="text-xl font-bold">李教练的橱窗</div>
+            <p class="text-xs mt-3">
+              <span class="text-white mr-1">2.1万</span>
+              <span class="text-gray mr-1">粉丝</span>
+              <span class="text-white mr-1">10.3w</span>
+              <span class="text-gray">获赞与收藏</span>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div
+      class="relative bg-white z-10 -mt-[70px] rounded-l-4xl rounded-r-4xl overflow-hidden"
+    >
+      <!-- 内容标签栏 -->
+      <div class="mb-3">
+        <div class="flex items-center justify-between pt-3">
+          <div class="flex">
+            <button
+              class="tab-button px-2 py-2 mr-0.5 text-center font-medium text-sm"
+              :class="{
+                'text-primary border-b-2 border-primary':
+                  sortBy === 'recommend',
+              }"
+              @click="sortCoaches('recommend')"
+            >
+              综合
+            </button>
+            <button
+              class="tab-button px-2 py-2 mr-0.5 text-center font-medium text-sm"
+              :class="{
+                'text-primary border-b-2 border-primary': sortBy === 'distance',
+              }"
+              @click="sortCoaches('distance')"
+            >
+              销量
+            </button>
+            <button
+              class="tab-button px-2 py-2 mr-0.5 text-center font-medium text-sm"
+              :class="{
+                'text-primary border-b-2 border-primary': sortBy === 'rating',
+              }"
+              @click="sortCoaches('rating')"
+            >
+              新品
+            </button>
+            <button
+              class="tab-button px-2 py-2 mr-0.5 text-center font-medium text-sm"
+              :class="{
+                'text-primary border-b-2 border-primary': sortBy === 'priceAsc',
+              }"
+              @click="sortCoaches('priceAsc')"
+            >
+              价格升序
+            </button>
+            <button
+              class="tab-button px-2 py-2 mr-0.5 text-center font-medium text-sm"
+              :class="{
+                'text-primary border-b-2 border-primary':
+                  sortBy === 'priceDesc',
+              }"
+              @click="sortCoaches('priceDesc')"
+            >
+              价格降序
+            </button>
+          </div>
           <div class="flex items-center">
-            <i class="fa fa-shopping-bag text-gray-500 mr-2"></i>
-            <p class="font-medium">我的橱窗</p>
-          </div>
-          <p class="text-gray-500 text-xs">营业时间: 10:00-22:00 | 快递: 满99元包邮</p>
-        </div>
-
-        <!-- 商品分类 -->
-        <div class="flex overflow-x-auto scrollbar-hide border-b border-gray-100 py-2 mt-2">
-          <button class="px-3 py-1 text-sm font-medium text-primary border-b-2 border-primary whitespace-nowrap">全部商品</button>
-          <button class="px-3 py-1 text-sm font-medium text-gray-500 whitespace-nowrap">户外装备</button>
-          <button class="px-3 py-1 text-sm font-medium text-gray-500 whitespace-nowrap">运动服饰</button>
-          <button class="px-3 py-1 text-sm font-medium text-gray-500 whitespace-nowrap">登山鞋靴</button>
-          <button class="px-3 py-1 text-sm font-medium text-gray-500 whitespace-nowrap">露营用品</button>
-          <button class="px-3 py-1 text-sm font-medium text-gray-500 whitespace-nowrap">户外配件</button>
-        </div>
-
-        <!-- 商品列表 -->
-        <div class="grid grid-cols-2 gap-3 mt-3">
-          <!-- 商品1 -->
-          <div class="bg-gray-50 rounded-lg overflow-hidden">
-            <div class="relative">
-              <img src="https://picsum.photos/id/1025/300/300" alt="户外速干短裤" class="w-full h-40 object-cover">
-              <span class="absolute top-1 right-1 bg-red-500 text-white text-xs px-1.5 py-0.5 rounded">热销</span>
-            </div>
-            <div class="p-2">
-              <p class="text-xs font-medium line-clamp-2">户外速干短裤女款 透气防泼水 多口袋设计</p>
-              <div class="flex justify-between items-center mt-1">
-                <div>
-                  <span class="text-red-500 font-bold text-sm">¥171.9</span>
-                  <span class="text-gray-400 text-xs line-through ml-1">¥239</span>
-                </div>
-                <button class="bg-primary text-white w-6 h-6 rounded-full flex items-center justify-center text-xs">
-                  <i class="fa fa-shopping-cart"></i>
-                </button>
-              </div>
-              <p class="text-gray-500 text-xs mt-1">已售 126件</p>
-            </div>
-          </div>
-
-          <!-- 商品2 -->
-          <div class="bg-gray-50 rounded-lg overflow-hidden">
-            <div class="relative">
-              <img src="https://picsum.photos/id/1027/300/300" alt="户外防晒帽" class="w-full h-40 object-cover">
-            </div>
-            <div class="p-2">
-              <p class="text-xs font-medium line-clamp-2">户外防晒帽 防紫外线 可折叠 男女通用</p>
-              <div class="flex justify-between items-center mt-1">
-                <div>
-                  <span class="text-red-500 font-bold text-sm">¥29.9</span>
-                  <span class="text-gray-400 text-xs line-through ml-1">¥59</span>
-                </div>
-                <button class="bg-primary text-white w-6 h-6 rounded-full flex items-center justify-center text-xs">
-                  <i class="fa fa-shopping-cart"></i>
-                </button>
-              </div>
-              <p class="text-gray-500 text-xs mt-1">已售 358件</p>
-            </div>
-          </div>
-
-          <!-- 商品3 -->
-          <div class="bg-gray-50 rounded-lg overflow-hidden">
-            <div class="relative">
-              <img src="https://picsum.photos/id/1039/300/300" alt="户外冲锋衣" class="w-full h-40 object-cover">
-              <span class="absolute top-1 right-1 bg-green-500 text-white text-xs px-1.5 py-0.5 rounded">新品</span>
-            </div>
-            <div class="p-2">
-              <p class="text-xs font-medium line-clamp-2">三合一冲锋衣 防风防水 保暖透气 登山必备</p>
-              <div class="flex justify-between items-center mt-1">
-                <div>
-                  <span class="text-red-500 font-bold text-sm">¥699</span>
-                  <span class="text-gray-400 text-xs line-through ml-1">¥899</span>
-                </div>
-                <button class="bg-primary text-white w-6 h-6 rounded-full flex items-center justify-center text-xs">
-                  <i class="fa fa-shopping-cart"></i>
-                </button>
-              </div>
-              <p class="text-gray-500 text-xs mt-1">已售 42件</p>
-            </div>
-          </div>
-
-          <!-- 商品4 -->
-          <div class="bg-gray-50 rounded-lg overflow-hidden">
-            <div class="relative">
-              <img src="https://picsum.photos/id/1040/300/300" alt="登山背包" class="w-full h-40 object-cover">
-            </div>
-            <div class="p-2">
-              <p class="text-xs font-medium line-clamp-2">40L登山背包 轻量防水 背负系统 徒步旅行</p>
-              <div class="flex justify-between items-center mt-1">
-                <div>
-                  <span class="text-red-500 font-bold text-sm">¥359</span>
-                  <span class="text-gray-400 text-xs line-through ml-1">¥499</span>
-                </div>
-                <button class="bg-primary text-white w-6 h-6 rounded-full flex items-center justify-center text-xs">
-                  <i class="fa fa-shopping-cart"></i>
-                </button>
-              </div>
-              <p class="text-gray-500 text-xs mt-1">已售 89件</p>
-            </div>
+            <i class="mr-4 fa-solid fa-magnifying-glass text-gray-400"></i>
+            <i class="mr-5 fa-solid fa-gift text-gray-400"></i>
           </div>
         </div>
+      </div>
 
-        <!-- 查看更多按钮 -->
-        <div class="text-center mt-4">
-          <button class="border border-primary text-primary text-sm py-1 px-6 rounded-full">
-            查看更多商品
-          </button>
+      <!-- 服务内容 -->
+      <div class="px-4 pb-3 mt-4">
+        <div class="space-y-4 mt-3">
+          <hxs-item
+            v-for="coach in coaches"
+            :key="coach.id"
+            :coach="coach"
+            className="bg-white"
+            @view-profile="handleViewProfile"
+          />
         </div>
       </div>
     </div>
@@ -135,17 +140,109 @@
 </template>
 
 <script>
-import CommonHeader from "../components/CommonHeader.vue";
+import CommonHeader from "@/components/CommonHeader.vue";
+import HxsItem from "@/components/hxs-item.vue";
+
+import BgImage from "@/assets/images/img_40.jpg";
 
 export default {
-  name: "StorePage",
+  name: "ServicesPage",
   components: {
-    CommonHeader
+    CommonHeader,
+    HxsItem,
   },
   data() {
     return {
-      // 可以添加商品列表数据和分类数据
-    }
-  }
-}
+      // 教练列表数据
+      originalCoaches: [
+        {
+          id: "coach1",
+          name: "李教练",
+          type: "游泳教练",
+          title: "国家二级运动员 | 8年教学经验",
+          rating: 4.8,
+          distance: 1.2,
+          image: "https://picsum.photos/id/1005/100/100",
+          prices: {
+            trial: 88,
+            single: 200,
+            tenPack: 1680,
+          },
+        },
+        {
+          id: "coach2",
+          name: "赵教练",
+          type: "游泳教练",
+          title: "国家一级运动员 | 10年教学经验",
+          rating: 4.9,
+          distance: 1.5,
+          image: "https://picsum.photos/id/1011/100/100",
+          prices: {
+            trial: 98,
+            single: 220,
+            tenPack: 1880,
+          },
+        },
+        {
+          id: "coach3",
+          name: "张教练",
+          type: "游泳教练",
+          title: "国家二级运动员 | 6年教学经验",
+          rating: 4.6,
+          distance: 1.5,
+          image: "https://picsum.photos/id/1012/100/100",
+          prices: {
+            trial: 80,
+            single: 180,
+            tenPack: 1580,
+          },
+        },
+      ],
+      // 当前排序方式：'recommend', 'distance', 'rating'
+      sortBy: "recommend",
+      // 用于展示的数据
+      coaches: [],
+    };
+  },
+  methods: {
+    handleViewProfile(coachId) {
+      // 处理查看教练主页的逻辑
+      console.log(`查看教练ID: ${coachId}的主页`);
+      // 可以跳转到教练主页
+    },
+
+    // 排序教练列表
+    sortCoaches(sortType) {
+      this.sortBy = sortType;
+
+      // 深拷贝原始数据，避免修改原始数据
+      const sortedCoaches = JSON.parse(JSON.stringify(this.originalCoaches));
+
+      switch (sortType) {
+        case "recommend":
+          // 推荐排序（保持原始顺序）
+          this.coaches = sortedCoaches;
+          break;
+        case "distance":
+          // 按距离升序排序
+          this.coaches = sortedCoaches.sort((a, b) => a.distance - b.distance);
+          break;
+        case "rating":
+          // 按评分降序排序
+          this.coaches = sortedCoaches.sort((a, b) => b.rating - a.rating);
+          break;
+      }
+    },
+  },
+
+  // 组件挂载时初始化数据
+  mounted() {
+    this.sortCoaches("recommend");
+  },
+  setup() {
+    return {
+      BgImage,
+    };
+  },
+};
 </script>

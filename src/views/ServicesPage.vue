@@ -66,24 +66,24 @@
     >
       <!-- 内容标签栏 -->
       <div class="mb-3">
-        <div class="flex items-center justify-between">
-          <div class="flex pt-3">
+        <div class="flex items-center justify-between pt-3">
+          <div class="flex">
             <button
-              class="tab-button px-5 py-2 mr-0.5 text-center font-medium text-sm"
+              class="tab-button  px-2 py-2 mr-0.5 text-center font-medium text-sm"
               :class="{ 'text-primary border-b-2 border-primary': sortBy === 'recommend' }"
               @click="sortCoaches('recommend')"
             >
               推荐
             </button>
             <button
-              class="tab-button px-5 py-2 mr-0.5 text-center font-medium text-sm"
+              class="tab-button  px-2 py-2 mr-0.5 text-center font-medium text-sm"
               :class="{ 'text-primary border-b-2 border-primary': sortBy === 'distance' }"
               @click="sortCoaches('distance')"
             >
               距离排序
             </button>
             <button
-              class="tab-button px-5 py-2 mr-0.5 text-center font-medium text-sm"
+              class="tab-button  px-2 py-2 mr-0.5 text-center font-medium text-sm"
               :class="{ 'text-primary border-b-2 border-primary': sortBy === 'rating' }"
               @click="sortCoaches('rating')"
             >
