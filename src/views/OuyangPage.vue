@@ -31,7 +31,7 @@
         ></div>
         <!-- 用户信息区域 -->
         <div class="px-4 py-3 text-white relative z-1">
-          <div class="flex items-center mb-5">
+          <div class="flex items-center mb-5 relative">
             <img
               src="https://picsum.photos/id/1005/120/120"
               alt="李教练"
@@ -43,7 +43,7 @@
               <p class="text-xs mt-1">IP属地: 上海</p>
             </div>
             <button
-              class="ml-auto bg-red-500 text-white px-4 py-1.5 rounded-full text-sm font-medium"
+              class="absolute right-0 top-0 bg-red-500 text-white px-4 py-1.5 rounded-full text-sm font-medium"
             >
               关注
             </button>
@@ -61,26 +61,35 @@
           <!-- 标签 -->
           <div class="flex flex-wrap gap-2 mt-3">
             <span
-              class="flex items-center bg-orange-50 text-orange-500 text-xs px-2 py-1 rounded-full"
+              class="flex items-center text-xs px-2 py-1 rounded-full text-red-500"
+              style="background-color: rgba(255, 255, 255, 0.2)"
             >
-              <i class="fa fa-fire mr-1"></i>
+              <i class="fa-solid fa-venus"></i>
+            </span>
+            <span
+              class="flex items-center text-xs px-2 py-1 rounded-full"
+              style="background-color: rgba(255, 255, 255, 0.2)"
+            >
               上海浦东
             </span>
             <span
               class="text-xs px-2 py-1 rounded-full"
               style="background-color: rgba(255, 255, 255, 0.2)"
-              >技能派</span
             >
+              技能派
+            </span>
             <span
               class="text-xs px-2 py-1 rounded-full"
               style="background-color: rgba(255, 255, 255, 0.2)"
-              >游泳唤醒师</span
             >
+              游泳唤醒师
+            </span>
             <span
               class="text-xs px-2 py-1 rounded-full"
               style="background-color: rgba(255, 255, 255, 0.2)"
-              >游泳教练</span
             >
+              游泳教练
+            </span>
           </div>
 
           <!-- 数据统计 -->
@@ -99,14 +108,16 @@
             </div>
             <div class="text-center">
               <button
-                class="border border-gray-300 text-xs py-1 px-2 rounded-full"
+                class="border border-white text-xs py-1 px-2 rounded-full"
+                style="background-color: rgba(255, 255, 255, 0.2)"
               >
                 脉圈
               </button>
             </div>
             <div class="text-center">
               <button
-                class="border border-blue-400 bg-blue-50 text-blue-500 text-xs py-1 px-2 rounded-full"
+                class="border border-white text-xs py-1 px-2 rounded-full"
+                style="background-color: rgba(255, 255, 255, 0.2)"
               >
                 真实评价 4.8分
               </button>
@@ -167,7 +178,6 @@
 
           <!-- 课程卡片 -->
           <div class="mt-4">
-            <h3 class="text-base font-bold mb-3">服务</h3>
             <div
               class="p-2 rounded-lg overflow-hidden"
               style="background-color: rgba(255, 255, 255, 0.4)"
