@@ -1,12 +1,18 @@
 <template>
-  <header class="sticky top-0 z-50 bg-white/90 bg-blur border-b border-gray-100 p-3 flex items-center">
+  <header
+    class="fixed w-full top-0 z-50 p-3 flex items-center"
+    :style="{ backgroundColor: bgColor }"
+  >
     <!-- 返回按钮 -->
-    <button 
-      v-if="showBackButton" 
-      class="nav-back mr-3 text-dark" 
+    <button
+      v-if="showBackButton"
+      class="nav-back mr-3 text-dark"
       @click="handleBack"
     >
-      <i class="fa fa-angle-left text-xl"></i>
+      <i
+        class="fa fa-circle-down text-xl relative rotate-z-90"
+        :style="{ color: arrowColor }"
+      ></i>
     </button>
     <!-- 中间自定义内容区域 -->
     <div class="flex-1 flex items-center justify-center min-w-0">
@@ -25,14 +31,22 @@ export default {
   props: {
     showBackButton: {
       type: Boolean,
-      default: true
-    }
+      default: true,
+    },
+    bgColor: {
+      type: String,
+      default: "bg-blur",
+    },
+    arrowColor: {
+      type: String,
+      default: "text-white",
+    },
   },
   methods: {
     handleBack() {
       this.$router.back();
-    }
-  }
+    },
+  },
 };
 </script>
 

@@ -1,7 +1,7 @@
 <template>
-  <div class="page" id="page-buddy-waker">
+  <div class="page pt-10" id="page-buddy-waker">
     <!-- 顶部导航 -->
-    <CommonHeader>
+    <CommonHeader arrowColor="#000">
       <template #center>
         <h2 class="font-bold">搭子唤醒师</h2>
       </template>
@@ -14,65 +14,6 @@
       </template>
     </CommonHeader>
 
-    <div class="sticky bg-white z-10" style="top: 50px">
-      <!-- 筛选标签 -->
-      <div class="p-3 flex space-x-2 overflow-x-auto scrollbar-hide">
-        <button
-          class="px-3 py-1.5 whitespace-nowrap text-sm font-medium text-primary bg-primary/10 rounded-full nav-action"
-        >
-          全部
-        </button>
-        <button
-          class="px-3 py-1.5 whitespace-nowrap text-sm font-medium text-gray bg-light rounded-full nav-action"
-        >
-          晨跑搭子
-        </button>
-        <button
-          class="px-3 py-1.5 whitespace-nowrap text-sm font-medium text-gray bg-light rounded-full nav-action"
-        >
-          健身搭子
-        </button>
-        <button
-          class="px-3 py-1.5 whitespace-nowrap text-sm font-medium text-gray bg-light rounded-full nav-action"
-        >
-          阅读搭子
-        </button>
-        <button
-          class="px-3 py-1.5 whitespace-nowrap text-sm font-medium text-gray bg-light rounded-full nav-action"
-        >
-          爬山搭子
-        </button>
-        <button
-          class="px-3 py-1.5 whitespace-nowrap text-sm font-medium text-gray bg-light rounded-full nav-action"
-        >
-          学习搭子
-        </button>
-        <button
-          class="px-3 py-1.5 whitespace-nowrap text-sm font-medium text-gray bg-light rounded-full nav-action"
-        >
-          电影搭子
-        </button>
-      </div>
-      <!-- 排序选项 -->
-      <div class="flex border-b border-gray-100 px-3">
-        <button
-          class="py-3 px-4 text-sm font-medium text-primary border-b-2 border-primary nav-action"
-        >
-          推荐
-        </button>
-        <button class="py-3 px-4 text-sm font-medium text-gray nav-action">
-          距离最近
-        </button>
-        <button class="py-3 px-4 text-sm font-medium text-gray nav-action">
-          活跃度高
-        </button>
-        <button class="py-3 px-4 text-sm font-medium text-gray nav-action">
-          评分最高
-        </button>
-      </div>
-    </div>
-
-    <!-- 搭子唤醒师列表 -->
     <div class="p-3 space-y-3 mb-20">
       <HxsItem
         v-for="(buddy, index) in recommendedBuddies"
