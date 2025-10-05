@@ -11,6 +11,8 @@ import CampPage from '../views/CampPage.vue' // 唤醒营页面
 import MessagesPage from '../views/MessagesPage.vue' // 消息页面
 import MePage from '../views/MePage.vue' // 我的页面
 import OuyangPage from '../views/OuyangPage.vue' // 欧阳老师详情页面
+import StorePage from '../views/StorePage.vue' // 橱窗页面
+import ServicesPage from '../views/ServicesPage.vue' // 推荐服务页面
 import MatchingPage from '../views/MatchingPage.vue' // 一键匹配页面
 import SigninPage from '../views/SigninPage.vue' // 登录页面
 import PartnersPage from '../views/PartnersPage.vue' // 生活搭子页面
@@ -134,6 +136,26 @@ const routes = [
     component: OuyangPage,
     meta: {
       title: '欧阳老师详情',
+      showInNav: false
+    }
+  },
+  // 橱窗页面路由
+  {
+    path: '/store',
+    name: 'Store',
+    component: StorePage,
+    meta: {
+      title: '我的橱窗',
+      showInNav: false
+    }
+  },
+  // 推荐服务页面路由
+  {
+    path: '/services',
+    name: 'Services',
+    component: ServicesPage,
+    meta: {
+      title: '推荐服务',
       showInNav: false
     }
   },
