@@ -1,12 +1,11 @@
 <template>
   <div class="page" id="page-camp">
     <!-- 顶部导航 -->
-    <header class="sticky top-0 z-50 bg-light border-b border-gray-100 p-3 flex items-center">
-      <button class="nav-back mr-3 text-dark" @click="$router.push('/')">
-        <i class="fa fa-angle-left text-xl"></i>
-      </button>
-      <h2 class="font-bold">唤醒营</h2>
-    </header>
+    <CommonHeader>
+      <template #center>
+        <h2 class="font-bold">唤醒营</h2>
+      </template>
+    </CommonHeader>
 
     <!-- 轮播图 -->
     <div class="relative w-full h-40 mb-3">
@@ -167,11 +166,13 @@
 
 <script>
 import FooterNav from '../components/FooterNav.vue'
+import CommonHeader from "../components/CommonHeader.vue";
 
 export default {
   name: 'CampPage',
   components: {
-    FooterNav
+    FooterNav,
+    CommonHeader
   }
 }
 </script>

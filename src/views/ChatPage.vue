@@ -1,23 +1,24 @@
 <template>
   <div class="page" id="page-chat">
     <!-- 顶部导航 -->
-    <header class="sticky top-0 z-50 bg-light border-b border-gray-100 p-3 flex items-center">
-      <button class="nav-back mr-3 text-dark" @click="$router.back()">
-        <i class="fa fa-angle-left text-xl"></i>
-      </button>
-      <div class="flex items-center">
-        <img :src="avatarUrl" :alt="chatUsername" class="w-8 h-8 rounded-full">
-        <h2 class="font-medium ml-2">{{ chatUsername }}</h2>
-      </div>
-      <div class="flex-1 flex justify-end">
-        <button class="nav-action text-gray mr-3">
-          <i class="fa fa-phone"></i>
-        </button>
-        <!-- <button class="nav-action text-gray">
-          <i class="fa fa-video-camera"></i>
-        </button> -->
-      </div>
-    </header>
+    <CommonHeader>
+      <template #center>
+        <div class="flex items-center">
+          <img :src="avatarUrl" :alt="chatUsername" class="w-8 h-8 rounded-full">
+          <h2 class="font-medium ml-2">{{ chatUsername }}</h2>
+        </div>
+      </template>
+      <template #right>
+        <div class="flex-1 flex justify-end">
+          <button class="nav-action text-gray mr-3">
+            <i class="fa fa-phone"></i>
+          </button>
+          <!-- <button class="nav-action text-gray">
+            <i class="fa fa-video-camera"></i>
+          </button> -->
+        </div>
+      </template>
+    </CommonHeader>
 
     <!-- 聊天内容区 -->
     <div class="p-3 space-y-4 overflow-y-auto flex-1" id="chat-messages">
@@ -100,6 +101,7 @@
 
 <script>
 import { ref, onMounted } from 'vue'
+import CommonHeader from "../components/CommonHeader.vue";
 // 导入所需的图片
 import img37 from '@/assets/images/img-37.jpg'
 import img20 from '@/assets/images/img-20.jpg'
@@ -109,6 +111,9 @@ import img12 from '@/assets/images/img-12.jpg'
 
 export default {
   name: 'ChatPage',
+  components: {
+    CommonHeader
+  },
   setup() {
     // 获取聊天对象信息
     const chatUsername = ref('')

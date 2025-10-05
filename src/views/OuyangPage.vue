@@ -1,15 +1,16 @@
 <template>
   <div class="page" id="page-ouyang">
     <!-- 顶部导航 -->
-    <header class="sticky top-0 z-50 bg-white/90 bg-blur border-b border-gray-100 p-3 flex items-center">
-      <button class="nav-back mr-3 text-dark" @click="$router.back()">
-        <i class="fa fa-angle-left text-xl"></i>
-      </button>
-      <h2 class="font-bold">欧阳带你飞飞飞</h2>
-      <button class="ml-auto text-dark">
-        <i class="fa fa-ellipsis-h text-xl"></i>
-      </button>
-    </header>
+    <CommonHeader>
+      <template #center>
+        <h2 class="font-bold">欧阳带你飞飞飞</h2>
+      </template>
+      <template #right>
+        <button class="text-dark">
+          <i class="fa fa-ellipsis-h text-xl"></i>
+        </button>
+      </template>
+    </CommonHeader>
     
     <!-- 顶部封面区域 -->
     <div class="relative">
@@ -400,8 +401,13 @@
 </template>
 
 <script>
+import CommonHeader from "../components/CommonHeader.vue";
+
 export default {
-  name: 'OuyangPage',
+  name: "OuyangPage",
+  components: {
+    CommonHeader
+  },
   data() {
     return {
       activeTab: 'notes'

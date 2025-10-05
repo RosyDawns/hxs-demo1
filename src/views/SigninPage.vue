@@ -1,12 +1,11 @@
 <template>
   <div class="page" id="page-signin">
     <!-- 顶部导航 -->
-    <header class="sticky top-0 z-50 bg-light border-b border-gray-100 p-3 flex items-center">
-      <button class="nav-back mr-3 text-dark" @click="$router.back()">
-        <i class="fa fa-angle-left text-xl"></i>
-      </button>
-      <h2 class="font-bold">登录</h2>
-    </header>
+    <CommonHeader>
+      <template #center>
+        <h2 class="font-bold">登录</h2>
+      </template>
+    </CommonHeader>
 
     <!-- 登录表单 -->
     <div class="bg-light p-5 mt-3">
@@ -86,7 +85,12 @@
 </template>
 
 <script>
+import CommonHeader from "../components/CommonHeader.vue";
+
 export default {
-  name: 'SigninPage'
+  name: "SigninPage",
+  components: {
+    CommonHeader
+  }
 }
 </script>

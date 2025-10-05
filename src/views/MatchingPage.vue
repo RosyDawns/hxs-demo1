@@ -1,12 +1,11 @@
 <template>
   <div class="page" id="page-matching">
     <!-- 顶部导航 -->
-    <header class="sticky top-0 z-50 bg-light border-b border-gray-100 p-3 flex items-center">
-      <button class="nav-back mr-3 text-dark" @click="$router.back()">
-        <i class="fa fa-angle-left text-xl"></i>
-      </button>
-      <h2 class="font-bold">匹配唤醒狮</h2>
-    </header>
+    <CommonHeader>
+      <template #center>
+        <h2 class="font-bold">匹配唤醒狮</h2>
+      </template>
+    </CommonHeader>
 
     <!-- 匹配进度指示器 -->
     <div class="bg-light p-3 mt-3">
@@ -116,7 +115,12 @@
 </template>
 
 <script>
+import CommonHeader from "../components/CommonHeader.vue";
+
 export default {
-  name: 'MatchingPage'
+  name: "MatchingPage",
+  components: {
+    CommonHeader
+  },
 }
 </script>

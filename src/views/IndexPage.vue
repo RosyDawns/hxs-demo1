@@ -83,8 +83,9 @@
           </div>
           <div
             class="bg-white text-black shadow flex flex-col items-center justify-center rounded-xl nav-action cursor-pointer overflow-hidden"
-            @click="$router.push('/partners')"
-          >
+            @click="$router.push('/teacher-list')"
+            >
+            <!-- @click="$router.push('/partners')" -->
             <img src="@images/user_3.png" class="w-full object-contain" />
             <div class="text-base py-1">搭子唤醒狮</div>
           </div>

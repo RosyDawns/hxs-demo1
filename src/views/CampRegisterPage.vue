@@ -1,12 +1,11 @@
 <template>
   <div class="page" id="page-camp-register">
     <!-- 顶部导航 -->
-    <header class="sticky top-0 z-50 bg-light border-b border-gray-100 p-3 flex items-center">
-      <button class="nav-back mr-3 text-dark" @click="$router.back()">
-        <i class="fa fa-angle-left text-xl"></i>
-      </button>
-      <h2 class="font-bold">训练营报名</h2>
-    </header>
+    <CommonHeader>
+      <template #center>
+        <h2 class="font-bold">训练营报名</h2>
+      </template>
+    </CommonHeader>
 
     <!-- 训练营信息 -->
     <div class="bg-light mt-3">
@@ -142,7 +141,12 @@
 </template>
 
 <script>
+import CommonHeader from "../components/CommonHeader.vue";
+
 export default {
-  name: 'CampRegisterPage'
+  name: "CampRegisterPage",
+  components: {
+    CommonHeader
+  },
 }
 </script>

@@ -101,7 +101,7 @@
       </div>
 
       <!-- 对话区域 - 只在显示推荐列表时显示 -->
-      <div v-if="showRecommendations" class="mb-6">
+      <div v-if="showRecommendations" class="mb-2">
         <!-- 用户提问 -->
         <div class="flex justify-end mb-4">
           <div
@@ -119,7 +119,7 @@
         </div>
 
         <!-- AI回答 -->
-        <div class="mb-4">
+        <div class="mb-2">
           <div class="bg-white rounded-2xl p-4 max-w-[80%] shadow-sm">
             <p class="text-sm mb-3">根据您的需求，我为您整理了以下推荐</p>
             <h3 class="font-bold text-sm mb-2">游泳一对一教练推荐</h3>

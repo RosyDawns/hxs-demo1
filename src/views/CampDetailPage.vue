@@ -1,20 +1,21 @@
 <template>
   <div class="page" id="page-camp-detail">
     <!-- 顶部导航 -->
-    <header class="sticky top-0 z-50 bg-light border-b border-gray-100 p-3 flex items-center">
-      <button class="nav-back mr-3 text-dark" @click="$router.back()">
-        <i class="fa fa-angle-left text-xl"></i>
-      </button>
-      <h2 class="font-bold">训练营详情</h2>
-      <div class="flex-1 flex justify-end">
-        <button class="nav-action text-gray mr-3">
-          <i class="fa fa-share-alt"></i>
-        </button>
-        <button class="nav-action text-gray">
-          <i class="fa fa-heart-o"></i>
-        </button>
-      </div>
-    </header>
+    <CommonHeader>
+      <template #center>
+        <h2 class="font-bold">训练营详情</h2>
+      </template>
+      <template #right>
+        <div class="flex-1 flex justify-end">
+          <button class="nav-action text-gray mr-3">
+            <i class="fa fa-share-alt"></i>
+          </button>
+          <button class="nav-action text-gray">
+            <i class="fa fa-heart-o"></i>
+          </button>
+        </div>
+      </template>
+    </CommonHeader>
 
     <!-- 训练营封面 -->
     <div class="relative">
@@ -205,7 +206,12 @@
 </template>
 
 <script>
+import CommonHeader from "../components/CommonHeader.vue";
+
 export default {
-  name: 'CampDetailPage'
+  name: "CampDetailPage",
+  components: {
+    CommonHeader
+  },
 }
 </script>
