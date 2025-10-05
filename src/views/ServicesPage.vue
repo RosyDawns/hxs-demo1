@@ -1,9 +1,20 @@
 <template>
-  <div class="page pt-10" id="page-services">
+  <div class="page" id="page-services">
     <!-- 顶部导航 -->
-    <CommonHeader>
+    <CommonHeader arrowColor="#fff">
       <template #center>
-        <h2 class="font-bold">推荐服务</h2>
+        <div class="relative flex-1 w-fu mx-3">
+          <div class="relative">
+            <input
+              type="text"
+              placeholder="搜索橱窗内的商品"
+              class="w-full bg-gray-100 rounded-full pl-10 pr-24 py-1 focus:outline-none text-sm border "
+            />
+            <i
+              class="fa fa-search absolute left-3 top-1/2 transform -translate-y-1/2 text-gray"
+            ></i>
+          </div>
+        </div>
       </template>
       <template #left>
         <button class="text-dark" @click="$router.back()">
@@ -11,130 +22,87 @@
         </button>
       </template>
       <template #right>
-        <button class="text-dark">
+        <button class="text-white">
           <i class="fa fa-ellipsis-h text-xl"></i>
         </button>
       </template>
     </CommonHeader>
 
-    <!-- 服务内容 -->
-    <div class="px-4 mt-4">
-      <div class="bg-white rounded-lg p-3 card-shadow mb-4">
-        <div class="flex items-center">
-          <i class="fa fa-handshake-o text-gray-500 mr-2"></i>
-          <p class="font-medium">我的推荐服务</p>
+    <div class="pt-14 pb-16 relative">
+      <div
+        class="absolute w-full h-full left-0 top-0 blur-md"
+        style="
+          background-position: center top;
+          background-repeat: no-repeat;
+          background-size: 100% 100%;
+        "
+        :style="{
+          backgroundImage: `url(${BgImage})`,
+        }"
+      ></div>
+
+      <div class="px-4 py-4 text-white relative z-1">
+        <div class="flex items-center mb-5 relative">
+          <img
+            src="https://picsum.photos/id/1005/120/120"
+            alt="李教练"
+            class="w-20 h-20 rounded-full border-2 border-white"
+          />
+          <div class="ml-4">
+            <div class="text-xl font-bold">李教练的星推官橱窗</div>
+            <p class="text-xs mt-3">
+              <span class="text-white mr-1">2.1万</span>
+              <span class="text-gray mr-1">粉丝</span>
+              <span class="text-white mr-1">10.3w</span>
+              <span class="text-gray">获赞与收藏</span>
+            </p>
+          </div>
         </div>
+      </div>
+    </div>
 
-        <!-- 服务分类 -->
-        <div class="flex overflow-x-auto scrollbar-hide border-b border-gray-100 py-2 mt-2">
-          <button class="px-3 py-1 text-sm font-medium text-primary border-b-2 border-primary whitespace-nowrap">全部服务</button>
-          <button class="px-3 py-1 text-sm font-medium text-gray-500 whitespace-nowrap">徒步向导</button>
-          <button class="px-3 py-1 text-sm font-medium text-gray-500 whitespace-nowrap">摄影指导</button>
-          <button class="px-3 py-1 text-sm font-medium text-gray-500 whitespace-nowrap">装备咨询</button>
-          <button class="px-3 py-1 text-sm font-medium text-gray-500 whitespace-nowrap">户外培训</button>
+    <div
+      class="relative bg-white z-10 -mt-[70px] rounded-l-4xl rounded-r-4xl overflow-hidden"
+    >
+      <!-- 内容标签栏 -->
+      <div class="mb-3">
+        <div class="flex items-center justify-between">
+          <div class="flex pt-3">
+            <button
+              class="tab-button px-5 py-2 mr-2 text-center font-medium text-sm text-primary border-b-2 border-primary"
+            >
+              动态
+            </button>
+            <button
+              class="tab-button px-5 py-2 mr-2 text-center font-medium text-sm"
+              @click="$router.push('/store')"
+            >
+              橱窗
+            </button>
+            <button
+              class="tab-button px-5 py-2 mr-2 text-center font-medium text-sm"
+              @click="$router.push('/services')"
+            >
+              推荐服务
+            </button>
+          </div>
+          <div class="flex items-center">
+            <i class="mr-4 fa-solid fa-magnifying-glass text-gray-400"></i>
+            <i class="mr-5 fa-solid fa-gift text-gray-400"></i>
+          </div>
         </div>
+      </div>
 
-        <!-- 服务列表 -->
-        <div class="space-y-3 mt-3">
-          <!-- 服务1 -->
-          <div class="border border-gray-100 rounded-lg overflow-hidden">
-            <div class="flex">
-              <img src="https://picsum.photos/id/1061/200/200" alt="云南徒步向导" class="w-1/3 object-cover">
-              <div class="w-2/3 p-2">
-                <div class="flex justify-between">
-                  <p class="text-sm font-medium">云南滇西徒步向导服务</p>
-                  <span class="text-primary font-bold text-sm">¥399/天</span>
-                </div>
-                <p class="text-gray-500 text-xs mt-1 line-clamp-2">
-                  专业户外向导带队，提供路线规划、安全保障、装备建议，适合新手入门
-                </p>
-                <div class="flex justify-between items-center mt-2">
-                  <div class="flex items-center">
-                    <i class="fa fa-star text-yellow-400 text-xs"></i>
-                    <span class="text-gray-600 text-xs ml-1">4.9 (28评价)</span>
-                  </div>
-                  <button class="bg-primary text-white text-xs py-0.5 px-2 rounded">
-                    预约
-                  </button>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <!-- 服务2 -->
-          <div class="border border-gray-100 rounded-lg overflow-hidden">
-            <div class="flex">
-              <img src="https://picsum.photos/id/1063/200/200" alt="户外摄影指导" class="w-1/3 object-cover">
-              <div class="w-2/3 p-2">
-                <div class="flex justify-between">
-                  <p class="text-sm font-medium">户外摄影技巧指导</p>
-                  <span class="text-primary font-bold text-sm">¥299/小时</span>
-                </div>
-                <p class="text-gray-500 text-xs mt-1 line-clamp-2">
-                  教你如何在户外拍摄绝美风景和人像，构图技巧、光线运用、后期处理
-                </p>
-                <div class="flex justify-between items-center mt-2">
-                  <div class="flex items-center">
-                    <i class="fa fa-star text-yellow-400 text-xs"></i>
-                    <span class="text-gray-600 text-xs ml-1">4.8 (15评价)</span>
-                  </div>
-                  <button class="bg-primary text-white text-xs py-0.5 px-2 rounded">
-                    预约
-                  </button>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <!-- 服务3 -->
-          <div class="border border-gray-100 rounded-lg overflow-hidden">
-            <div class="flex">
-              <img src="https://picsum.photos/id/1060/200/200" alt="装备选购咨询" class="w-1/3 object-cover">
-              <div class="w-2/3 p-2">
-                <div class="flex justify-between">
-                  <p class="text-sm font-medium">户外装备选购咨询</p>
-                  <span class="text-primary font-bold text-sm">¥99/次</span>
-                </div>
-                <p class="text-gray-500 text-xs mt-1 line-clamp-2">
-                  根据你的需求和预算，提供专业的户外装备选购建议，避免踩坑
-                </p>
-                <div class="flex justify-between items-center mt-2">
-                  <div class="flex items-center">
-                    <i class="fa fa-star text-yellow-400 text-xs"></i>
-                    <span class="text-gray-600 text-xs ml-1">4.7 (32评价)</span>
-                  </div>
-                  <button class="bg-primary text-white text-xs py-0.5 px-2 rounded">
-                    预约
-                  </button>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <!-- 服务4 -->
-          <div class="border border-gray-100 rounded-lg overflow-hidden">
-            <div class="flex">
-              <img src="https://picsum.photos/id/1059/200/200" alt="初级户外培训" class="w-1/3 object-cover">
-              <div class="w-2/3 p-2">
-                <div class="flex justify-between">
-                  <p class="text-sm font-medium">初级户外技能培训</p>
-                  <span class="text-primary font-bold text-sm">¥599/天</span>
-                </div>
-                <p class="text-gray-500 text-xs mt-1 line-clamp-2">
-                  适合新手的户外基础技能培训，包括地图使用、指南针、急救知识等
-                </p>
-                <div class="flex justify-between items-center mt-2">
-                  <div class="flex items-center">
-                    <i class="fa fa-star text-yellow-400 text-xs"></i>
-                    <span class="text-gray-600 text-xs ml-1">4.9 (19评价)</span>
-                  </div>
-                  <button class="bg-primary text-white text-xs py-0.5 px-2 rounded">
-                    预约
-                  </button>
-                </div>
-              </div>
-            </div>
-          </div>
+      <!-- 服务内容 -->
+      <div class="px-4 pb-3 mt-4">
+        <div class="space-y-4 mt-3">
+          <hxs-item
+            v-for="coach in coaches"
+            :key="coach.id"
+            :coach="coach"
+            className="bg-white"
+            @view-profile="handleViewProfile"
+          />
         </div>
       </div>
     </div>
@@ -142,17 +110,63 @@
 </template>
 
 <script>
-import CommonHeader from "../components/CommonHeader.vue";
+import CommonHeader from "@/components/CommonHeader.vue";
+import HxsItem from "@/components/hxs-item.vue";
+
+import BgImage from "@/assets/images/img_40.jpg";
 
 export default {
   name: "ServicesPage",
   components: {
-    CommonHeader
+    CommonHeader,
+    HxsItem,
   },
   data() {
     return {
-      // 可以添加服务列表数据和分类数据
-    }
-  }
-}
+      // 教练列表数据
+      coaches: [
+        {
+          id: "001",
+          name: "赵教练",
+          title: "国家一级运动员",
+          qualification: "10年教学经验",
+          image: "https://picsum.photos/id/64/200/200",
+          rating: 4.9,
+          distance: "1.5",
+          prices: {
+            trial: 48,
+            single: 228,
+            tenPack: 1880,
+          },
+        },
+        {
+          id: "002",
+          name: "张教练",
+          title: "国家二级运动员",
+          qualification: "6年教学经验",
+          image: "https://picsum.photos/id/91/200/200",
+          rating: 4.6,
+          distance: "1.8",
+          prices: {
+            trial: 28,
+            single: 160,
+            tenPack: 1280,
+          },
+        },
+      ],
+    };
+  },
+  methods: {
+    handleViewProfile(coachId) {
+      // 处理查看教练主页的逻辑
+      console.log(`查看教练ID: ${coachId}的主页`);
+      // 可以跳转到教练主页
+    },
+  },
+  setup() {
+    return {
+      BgImage,
+    };
+  },
+};
 </script>
