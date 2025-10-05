@@ -1,5 +1,5 @@
 <template>
-  <div class="page" id="page-store">
+  <div class="page pt-10" id="page-store">
     <!-- 顶部导航 -->
     <CommonHeader>
       <template #center>

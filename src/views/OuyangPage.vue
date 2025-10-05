@@ -18,7 +18,7 @@
     <!-- 顶部封面区域 -->
     <div class="relative">
       <div
-        class="w-full bg-cover bg-center pt-10"
+        class="w-full bg-cover bg-center pt-10 pb-16"
         style="
           background-position: center top;
           background-repeat: no-repeat;
@@ -30,17 +30,15 @@
       >
         <!-- 用户信息区域 -->
         <div class="px-4 py-3 text-white">
-          <div class="flex items-center">
+          <div class="flex items-center mb-5">
             <img
               src="https://picsum.photos/id/1005/120/120"
               alt="李教练"
-              class="w-16 h-16 rounded-full border-2 border-white"
+              class="w-20 h-20 rounded-full border-2 border-white"
             />
             <div class="ml-4">
-              <div class="flex items-center">
-                <h1 class="text-xl font-bold">李教练</h1>
-                <span class="ml-2 text-xs">唤醒兽号: 123456789</span>
-              </div>
+              <div class="text-xl font-bold">李教练</div>
+              <p class="text-xs mt-3">唤醒兽号: 123456789</p>
               <p class="text-xs mt-1">IP属地: 上海</p>
             </div>
             <button
@@ -169,47 +167,75 @@
           <!-- 课程卡片 -->
           <div class="mt-4">
             <h3 class="text-base font-bold mb-3">服务</h3>
-            <div class="flex gap-3 overflow-x-auto pb-2">
-              <div
-                class="flex-shrink-0 w-[130px] rounded-lg overflow-hidden card-shadow"
-              >
+            <div
+              class="p-2 rounded-lg overflow-hidden"
+              style="background-color: rgba(255, 255, 255, 0.4)"
+            >
+              <div class="grid grid-cols-3 gap-2">
                 <div
-                  class="h-[80px] bg-cover bg-center"
-                  style="
-                    background-image: url('https://picsum.photos/id/1059/300/200');
-                  "
-                ></div>
-                <div class="p-2">
-                  <p class="text-sm font-medium">体验卡: 38元</p>
-                  <p class="text-xs mt-1">项目: 蛙泳/自由泳</p>
+                  class="bg-gray-50 rounded-lg overflow-hidden relative text-center"
+                >
+                  <img
+                    class="w-full h-22 object-cover"
+                    src="@images/img_40.jpg"
+                  />
+                  <p class="text-xs text-black bg-white py-1">体验课</p>
+                  <p
+                    class="text-white w-full absolute top-0 left-0 py-1 text-xs"
+                    style="
+                      background-image: linear-gradient(
+                        to bottom,
+                        #000,
+                        rgba(255, 255, 255, 0)
+                      );
+                    "
+                  >
+                    体验卡：¥100
+                  </p>
                 </div>
-              </div>
-              <div
-                class="flex-shrink-0 w-[130px] rounded-lg overflow-hidden card-shadow"
-              >
                 <div
-                  class="h-[80px] bg-cover bg-center"
-                  style="
-                    background-image: url('https://picsum.photos/id/1060/300/200');
-                  "
-                ></div>
-                <div class="p-2">
-                  <p class="text-sm font-medium">单次卡: 200元</p>
-                  <p class="text-xs mt-1">60分钟/节</p>
+                  class="bg-gray-50 rounded-lg overflow-hidden relative text-center"
+                >
+                  <img
+                    class="w-full h-22 object-cover"
+                    src="@images/img_40.jpg"
+                    alt=""
+                  />
+                  <p class="text-xs text-black bg-white py-1">单次课</p>
+                  <p
+                    class="text-xs text-white w-full absolute top-0 left-0 py-0.5"
+                    style="
+                      background-image: linear-gradient(
+                        to bottom,
+                        #000,
+                        rgba(255, 255, 255, 0)
+                      );
+                    "
+                  >
+                    体验卡：¥200
+                  </p>
                 </div>
-              </div>
-              <div
-                class="flex-shrink-0 w-[130px] rounded-lg overflow-hidden card-shadow"
-              >
                 <div
-                  class="h-[80px] bg-cover bg-center"
-                  style="
-                    background-image: url('https://picsum.photos/id/1061/300/200');
-                  "
-                ></div>
-                <div class="p-2">
-                  <p class="text-sm font-medium">10次卡/1680元</p>
-                  <p class="text-xs mt-1">低至168元/节</p>
+                  class="bg-gray-50 rounded-lg overflow-hidden relative text-center"
+                >
+                  <img
+                    class="w-full h-22 object-cover"
+                    src="@images/img_40.jpg"
+                    alt=""
+                  />
+                  <p class="text-xs text-black bg-white py-1">10次卡</p>
+                  <p
+                    class="text-xs text-white w-full absolute top-0 left-0 py-0.5"
+                    style="
+                      background-image: linear-gradient(
+                        to bottom,
+                        #000,
+                        rgba(255, 255, 255, 0)
+                      );
+                    "
+                  >
+                    体验卡：¥300
+                  </p>
                 </div>
               </div>
             </div>
@@ -218,33 +244,39 @@
       </div>
     </div>
 
-    <!-- 内容标签栏 -->
-    <div class="border-t border-b border-gray-100 mb-3 mt-3">
-      <div class="flex">
-        <button
-          class="tab-button flex-1 py-3 text-center font-medium text-sm text-primary border-b-2 border-primary"
-        >
-          动态
-        </button>
-        <button
-          class="tab-button flex-1 py-3 text-center font-medium text-sm"
-          @click="$router.push('/store')"
-        >
-          橱窗
-        </button>
-        <button
-          class="tab-button flex-1 py-3 text-center font-medium text-sm"
-          @click="$router.push('/services')"
-        >
-          推荐服务
-        </button>
+    <div
+      class="relative bg-white z-10 -mt-[60px] rounded-l-4xl rounded-r-4xl overflow-hidden"
+    >
+      <!-- 内容标签栏 -->
+      <div class="mb-3">
+        <div class="flex">
+          <button
+            class="tab-button flex-1 py-3 text-center font-medium text-sm text-primary border-b-2 border-primary"
+          >
+            动态
+          </button>
+          <button
+            class="tab-button flex-1 py-3 text-center font-medium text-sm"
+            @click="$router.push('/store')"
+          >
+            橱窗
+          </button>
+          <button
+            class="tab-button flex-1 py-3 text-center font-medium text-sm"
+            @click="$router.push('/services')"
+          >
+            推荐服务
+          </button>
+        </div>
       </div>
-    </div>
 
-    <!-- 动态内容区 - 使用组件 -->
-    <div class="tab-content notes-content">
-      <div class="grid grid-cols-2 gap-2 p-1">
-        <NotesContent v-for="item in notes" :key="item.id" :item="item" />
+      <div class="px-3 pb-3">
+        <!-- 动态内容区 - 使用组件 -->
+        <div class="tab-content notes-content">
+          <div class="grid grid-cols-2 gap-2 p-1">
+            <NotesContent v-for="item in notes" :key="item.id" :item="item" />
+          </div>
+        </div>
       </div>
     </div>
   </div>
