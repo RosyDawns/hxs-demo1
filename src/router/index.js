@@ -332,9 +332,56 @@ const routes = [
   }
 ]
 
+// 存储每个页面的滚动位置
+const scrollPositions = {}
+
+// 存储访问历史，用于处理嵌套跳转
+const visitHistory = new Set()
+
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
-  routes
+  routes,
+  // 改进的滚动行为配置，保存和恢复所有页面的滚动位置
+  scrollBehavior(to, from, savedPosition) {
+    // 如果是后退导航，使用Vue Router默认的savedPosition
+    if (savedPosition) {
+      // 从访问历史中移除当前要离开的页面
+      visitHistory.delete(from.fullPath);
+      return savedPosition
+    }
+    
+    // 判断是否是嵌套跳转访问过的页面
+    if (visitHistory.has(to.fullPath)) {
+      // 多次访问同一页面，重置滚动高度
+      return { top: 0 }
+    }
+    
+    // 记录新的访问历史
+    visitHistory.add(to.fullPath);
+    
+    // 如果是进入页面，尝试恢复之前保存的滚动位置
+    if (scrollPositions[to.fullPath]) {
+      const position = scrollPositions[to.fullPath]
+      // 清除保存的位置，防止重复使用
+      delete scrollPositions[to.fullPath]
+      return position
+    }
+    
+    // 默认滚动到顶部
+    return { top: 0 }
+  }
+})
+
+// 在导航离开页面时保存滚动位置
+router.beforeEach((to, from, next) => {
+  // 使用fullPath而不是path，这样可以区分带有不同参数的相同路径
+  if (from.fullPath && from.fullPath !== to.fullPath) {
+    scrollPositions[from.fullPath] = {
+      top: window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop,
+      left: 0
+    }
+  }
+  next()
 })
 
 export default router

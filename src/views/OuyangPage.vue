@@ -19,7 +19,7 @@
     <div class="relative">
       <div class="pt-10 pb-16 relative">
         <div
-          class="absolute w-full h-full left-0 top-0 blur-md"
+          class="absolute w-full h-full left-0 top-0 blur-sm"
           style="
             background-position: center top;
             background-repeat: no-repeat;
@@ -161,12 +161,12 @@
             </p>
           </div>
 
-          <div class="flex items-center justify-between mt-3">
+          <div class="flex items-center justify-between mt-4">
             <div>
               <p class="text-sm">徐泾镇叶联路333弄金地天御18号001</p>
               <p class="text-xs">驾车1km,需约3分钟</p>
             </div>
-            <div class="flex justify-end mt-4">
+            <div class="flex justify-end">
               <button class="bg-gray-100 p-2 rounded-full mr-3 w-10 h-10">
                 <i class="fa fa-comment text-gray-600"></i>
               </button>
