@@ -8,7 +8,7 @@
             <input
               type="text"
               placeholder="搜索橱窗内的商品"
-              class="w-full bg-gray-100 rounded-full pl-10 pr-24 py-1 focus:outline-none text-sm border "
+              class="w-full bg-gray-100 rounded-full pl-10 pr-24 py-1 focus:outline-none text-sm border"
             />
             <i
               class="fa fa-search absolute left-3 top-1/2 transform -translate-y-1/2 text-gray"
@@ -69,21 +69,25 @@
         <div class="flex items-center justify-between">
           <div class="flex pt-3">
             <button
-              class="tab-button px-5 py-2 mr-2 text-center font-medium text-sm text-primary border-b-2 border-primary"
+              class="tab-button px-5 py-2 mr-0.5 text-center font-medium text-sm"
+              :class="{ 'text-primary border-b-2 border-primary': sortBy === 'recommend' }"
+              @click="sortCoaches('recommend')"
             >
-              动态
+              推荐
             </button>
             <button
-              class="tab-button px-5 py-2 mr-2 text-center font-medium text-sm"
-              @click="$router.push('/store')"
+              class="tab-button px-5 py-2 mr-0.5 text-center font-medium text-sm"
+              :class="{ 'text-primary border-b-2 border-primary': sortBy === 'distance' }"
+              @click="sortCoaches('distance')"
             >
-              橱窗
+              距离排序
             </button>
             <button
-              class="tab-button px-5 py-2 mr-2 text-center font-medium text-sm"
-              @click="$router.push('/services')"
+              class="tab-button px-5 py-2 mr-0.5 text-center font-medium text-sm"
+              :class="{ 'text-primary border-b-2 border-primary': sortBy === 'rating' }"
+              @click="sortCoaches('rating')"
             >
-              推荐服务
+              服务分排序
             </button>
           </div>
           <div class="flex items-center">
@@ -124,36 +128,54 @@ export default {
   data() {
     return {
       // 教练列表数据
-      coaches: [
+      originalCoaches: [
         {
-          id: "001",
-          name: "赵教练",
-          title: "国家一级运动员",
-          qualification: "10年教学经验",
-          image: "https://picsum.photos/id/64/200/200",
-          rating: 4.9,
-          distance: "1.5",
+          id: "coach1",
+          name: "李教练",
+          type: "游泳教练",
+          title: "国家二级运动员 | 8年教学经验",
+          rating: 4.8,
+          distance: 1.2,
+          image: "https://picsum.photos/id/1005/100/100",
           prices: {
-            trial: 48,
-            single: 228,
+            trial: 88,
+            single: 200,
+            tenPack: 1680,
+          },
+        },
+        {
+          id: "coach2",
+          name: "赵教练",
+          type: "游泳教练",
+          title: "国家一级运动员 | 10年教学经验",
+          rating: 4.9,
+          distance: 1.5,
+          image: "https://picsum.photos/id/1011/100/100",
+          prices: {
+            trial: 98,
+            single: 220,
             tenPack: 1880,
           },
         },
         {
-          id: "002",
+          id: "coach3",
           name: "张教练",
-          title: "国家二级运动员",
-          qualification: "6年教学经验",
-          image: "https://picsum.photos/id/91/200/200",
+          type: "游泳教练",
+          title: "国家二级运动员 | 6年教学经验",
           rating: 4.6,
-          distance: "1.8",
+          distance: 1.5,
+          image: "https://picsum.photos/id/1012/100/100",
           prices: {
-            trial: 28,
-            single: 160,
-            tenPack: 1280,
+            trial: 80,
+            single: 180,
+            tenPack: 1580,
           },
         },
       ],
+      // 当前排序方式：'recommend', 'distance', 'rating'
+      sortBy: 'recommend',
+      // 用于展示的数据
+      coaches: []
     };
   },
   methods: {
@@ -162,6 +184,34 @@ export default {
       console.log(`查看教练ID: ${coachId}的主页`);
       // 可以跳转到教练主页
     },
+    
+    // 排序教练列表
+    sortCoaches(sortType) {
+      this.sortBy = sortType;
+      
+      // 深拷贝原始数据，避免修改原始数据
+      const sortedCoaches = JSON.parse(JSON.stringify(this.originalCoaches));
+      
+      switch(sortType) {
+        case 'recommend':
+          // 推荐排序（保持原始顺序）
+          this.coaches = sortedCoaches;
+          break;
+        case 'distance':
+          // 按距离升序排序
+          this.coaches = sortedCoaches.sort((a, b) => a.distance - b.distance);
+          break;
+        case 'rating':
+          // 按评分降序排序
+          this.coaches = sortedCoaches.sort((a, b) => b.rating - a.rating);
+          break;
+      }
+    },
+  },
+  
+  // 组件挂载时初始化数据
+  mounted() {
+    this.sortCoaches('recommend');
   },
   setup() {
     return {

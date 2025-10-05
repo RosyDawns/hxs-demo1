@@ -277,7 +277,7 @@
               class="tab-button px-5 py-2 mr-2 text-center font-medium text-sm"
               @click="$router.push('/services')"
             >
-              推荐服务
+              星推官
             </button>
           </div>
           <div class="flex items-center">
