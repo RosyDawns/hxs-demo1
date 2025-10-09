@@ -3,12 +3,18 @@
     <!-- 顶部导航 -->
     <CommonHeader arrowColor="#000" class="border-b border-gray-100">
       <template #center>
-        <div class=" w-full pr-10">
+        <div class="w-full pr-10">
           <div class="flex-1 flex items-center justify-around">
             <button class="text-lg px-1" @click="topTab = 'discover'">
-              <span :class="{ 'text-primary': topTab === 'discover' }"
-                >发现</span
+              <div
+                class="flex items-center"
+                :class="{ 'text-primary': topTab === 'discover' }"
               >
+                发现<i
+                  class="fa-solid fa-right-left ml-0.5"
+                  style="font-size: 10px"
+                ></i>
+              </div>
             </button>
             <button class="text-lg mx-2 px-1" @click="topTab = 'city'">
               <span :class="{ 'text-primary': topTab === 'city' }">上海</span>
@@ -27,9 +33,7 @@
     </CommonHeader>
 
     <!-- 分类标签栏 -->
-    <div
-      class="flex space-x-2 p-3 overflow-x-auto scrollbar-hide"
-    >
+    <div class="flex space-x-2 p-3 overflow-x-auto scrollbar-hide">
       <!-- 发现标签下的分类 -->
       <template v-if="topTab === 'discover'">
         <button
@@ -338,10 +342,7 @@
 
         <!-- 生活技能/生活搭子内容 -->
         <template
-          v-else-if="
-            selectedTab === '生活技能' ||
-            selectedTab === '生活搭子'
-          "
+          v-else-if="selectedTab === '生活技能' || selectedTab === '生活搭子'"
         >
           <CoachListItem
             v-for="coach in coaches"
@@ -569,13 +570,13 @@ export default {
 
     // 监听topTab变化，设置对应的默认selectedTab
     watch(topTab, (newTopTab) => {
-      if (newTopTab === 'discover') {
-        selectedTab.value = '推荐';
-        selectedSubTab.value = '推荐';
-      } else if (newTopTab === 'city') {
-        selectedTab.value = '附近';
-      } else if (newTopTab === 'follow') {
-        selectedTab.value = '动态';
+      if (newTopTab === "discover") {
+        selectedTab.value = "推荐";
+        selectedSubTab.value = "推荐";
+      } else if (newTopTab === "city") {
+        selectedTab.value = "附近";
+      } else if (newTopTab === "follow") {
+        selectedTab.value = "动态";
       }
     });
 
