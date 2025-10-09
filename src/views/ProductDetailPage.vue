@@ -51,10 +51,10 @@
         class="absolute inset-0 flex items-center justify-center"
         @click="togglePlayPause"
       >
-        <div 
+        <div
           v-if="!isPlaying || videoEnded"
           class="w-16 h-16 rounded-full bg-black/50 flex items-center justify-center text-white"
-          style="cursor: pointer;"
+          style="cursor: pointer"
         >
           <i class="fa-solid fa-play text-xl"></i>
         </div>
@@ -111,55 +111,74 @@
 
     <div class="p-3">
       <!-- 商品信息 -->
-      <div class="bg-white p-4 rounded-2xl overflow-hidden">
-        <div class="flex items-center mb-3">
-          <div
-            class="flex items-center bg-red-50 text-red-500 text-xs px-2 py-1 rounded mr-2"
-          >
-            <span>券后</span>
-          </div>
-          <div class="text-red-500 font-bold text-xl">¥{{ product.price }}</div>
-          <div class="text-gray-300 line-through text-sm ml-2">
-            ¥{{ Math.floor(product.price * 1.1) }}
-          </div>
-          <div
-            class="ml-3 text-xs bg-gray-100 text-gray-500 px-2 py-0.5 rounded"
-          >
-            3.0折
-          </div>
-        </div>
-        <h2 class="text-lg font-medium mb-3">
-          【体验卡】1对1游泳零基础蛙泳/自由泳（新人福利）
-        </h2>
-        <div class="flex items-center mb-4">
-          <div class="flex items-center text-green-500 text-sm">
-            <i class="fa fa-check-circle mr-1"></i>
-            100%好评
-          </div>
-          <div class="text-gray-500 text-sm ml-3">
-            "教练很专业，环境很不错" 共 {{ product.reviews }} 个消费评价
-          </div>
-        </div>
-
-        <!-- 购买限制 -->
-        <div class="border-l-4 border-red-500 bg-red-50 p-3 mb-4">
-          <div class="text-sm">
-            <div class="font-medium mb-1">限制</div>
-            <div class="text-gray-600">每人限购1张</div>
-          </div>
-        </div>
-
-        <!-- 使用须知 -->
-        <div class="">
-          <div class="text-sm mb-2">
-            <div class="font-medium mb-1">须知</div>
-            <div class="text-gray-600 mb-1">
-              需预约 · 周一至周日10:00-22:00可用
+      <div class="bg-white rounded-2xl overflow-hidden">
+        <div class="flex items-end px-3 py-2 bg-red-50 mb-3">
+          <div class="flex-1 flex items-end">
+            <div
+              class="flex items-center bg-red-50 text-red-500 text-xs rounded mr-2"
+            >
+              <span>券后</span>
             </div>
-            <div class="text-gray-600 mb-1">须知 · 随时退 · 过期退</div>
+            <div class="text-red-500 font-bold flex items-end">
+              <span class="text-sm leading-none">¥</span>
+              <span class="text-xl leading-none">{{ product.price }}</span>
+            </div>
+            <div
+              class="ml-2 text-xs border border-red-500 text-red-500 px-1 py-0.5 rounded leading-none"
+            >
+              3.0折
+            </div>
+            <div class="text-gray-500 line-through text-xs ml-2 leading-none">
+              ¥{{ Math.floor(product.price * 1.1) }}
+            </div>
+          </div>
+          <div class="text-gray text-xs">已售 6000</div>
+        </div>
+        <div class="px-4 pb-2">
+          <div class="flex items-center w-full">
+            <div class="flex-1 min-w-0">
+              <div
+                class="text-black mb-2 font-bold overflow-hidden text-ellipsis whitespace-nowrap flex-shrink-0 w-full"
+              >
+                [体验卡]1对1游泳零基础蛙泳/自由泳（新人福利）hddd
+              </div>
+              <div class="flex items-center justify-between text-xs">
+                <div class="flex-1 flex items-center">
+                  <img
+                    src="https://picsum.photos/id/1005/100/100"
+                    class="w-5 h-5 rounded-full mr-1 object-contain"
+                  />
+                  <span>100%好评</span>
+                  <span>“教练很专业，环境很不错</span>
+                </div>
+                <span>共183个消费评价</span>
+              </div>
+            </div>
+            <i class="fa-solid fa-arrow-right text-gray-300"></i>
+          </div>
+
+          <div class="mt-3 flex items-center">
+            <div class="flex-1">
+              <div class="flex items-center text-sm">
+                <div class="font-medium mb-1 mr-2">限制</div>
+                <div class="text-gray-600 mb-1">每人限购1张</div>
+              </div>
+              <div class="flex items-center text-sm">
+                <div class="font-medium mb-1 mr-2">须知</div>
+                <div class="text-gray-600 mb-1">
+                  需预约 · 周一至周日10:00-22:00可用
+                </div>
+              </div>
+              <div class="flex items-center text-sm">
+                <div class="font-medium mb-1 mr-2">保障</div>
+                <div class="text-gray-600 mb-1">随时退 · 过期退</div>
+              </div>
+            </div>
+            <i class="fa-solid fa-arrow-right text-black"></i>
           </div>
         </div>
       </div>
+
       <div class="mt-2 mb-5 flex border-b border-gray-200">
         <button
           class="py-3 mr-8 text-center text-sm font-medium"
@@ -432,7 +451,7 @@ export default {
         this.isVideoMode = false;
       }
     },
-    
+
     // 控制视频播放/暂停
     togglePlayPause() {
       const video = this.$refs.productVideo;
@@ -452,7 +471,7 @@ export default {
         }
       }
     },
-    
+
     // 视频播放结束时触发
     onVideoEnded() {
       this.isPlaying = false;
