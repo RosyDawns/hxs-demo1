@@ -84,7 +84,7 @@
           <div
             class="bg-white text-black shadow flex flex-col items-center justify-center rounded-xl nav-action cursor-pointer overflow-hidden"
             @click="$router.push('/buddy-waker')"
-            >
+          >
             <img src="@images/user_3.png" class="w-full object-contain" />
             <div class="text-base py-1">搭子唤醒狮</div>
           </div>
@@ -131,7 +131,7 @@
     </div>
 
     <!-- 分类标签栏 -->
-    <div class="flex space-x-2 p-3 overflow-x-auto scrollbar-hide">
+    <div class="flex space-x-2 py-3 overflow-x-auto scrollbar-hide">
       <button
         class="px-3 py-2 whitespace-nowrap text-sm font-medium nav-action cursor-pointer"
         :class="
@@ -139,7 +139,7 @@
             ? 'text-primary border-b-2 border-primary text-orange'
             : 'text-black'
         "
-        @click="handleCategoryClick('关注')"
+        @click="handleCategoryClick('关注', event)"
       >
         关注
       </button>
@@ -150,7 +150,7 @@
             ? 'text-primary border-b-2 border-primary text-orange'
             : 'text-black'
         "
-        @click="handleCategoryClick('推荐')"
+        @click="handleCategoryClick('推荐', event)"
       >
         推荐
       </button>
@@ -161,92 +161,82 @@
             ? 'text-primary border-b-2 border-primary text-orange'
             : 'text-black'
         "
-        @click="handleCategoryClick('附近')"
+        @click="handleCategoryClick('附近', event)"
       >
         附近
       </button>
       <button
         class="px-3 py-2 whitespace-nowrap text-sm font-medium nav-action cursor-pointer"
         :class="
-          selectedCategory === '运动'
+          selectedCategory === '筛选'
             ? 'text-primary border-b-2 border-primary text-orange'
             : 'text-black'
         "
-        @click="handleCategoryClick('运动')"
+        @click="handleCategoryClick('筛选', event)"
       >
-        运动
+        筛选
       </button>
       <button
         class="px-3 py-2 whitespace-nowrap text-sm font-medium nav-action cursor-pointer"
         :class="
-          selectedCategory === '玩乐'
+          selectedCategory === '直播'
             ? 'text-primary border-b-2 border-primary text-orange'
             : 'text-black'
         "
-        @click="handleCategoryClick('玩乐')"
+        @click="handleCategoryClick('直播', event)"
       >
-        玩乐
+        直播
       </button>
-      <button
-        class="px-3 py-2 whitespace-nowrap text-sm font-medium nav-action cursor-pointer"
-        :class="
-          selectedCategory === '户外'
-            ? 'text-primary border-b-2 border-primary text-orange'
-            : 'text-black'
-        "
-        @click="handleCategoryClick('户外')"
-      >
-        户外
-      </button>
-      <button
-        class="px-3 py-2 whitespace-nowrap text-sm font-medium nav-action cursor-pointer"
-        :class="
-          selectedCategory === '按摩'
-            ? 'text-primary border-b-2 border-primary text-orange'
-            : 'text-black'
-        "
-        @click="handleCategoryClick('按摩')"
-      >
-        按摩
+      <button class="ml-auto text-gray">
+        <i class="fa-solid fa-search"></i>
       </button>
     </div>
 
-    <!-- 内容列表 -->
-    <div class="grid grid-cols-2 gap-2 px-3 pb-3 pt-1">
+    <!-- 教练列表 -->
+    <div class="grid grid-cols-2 gap-3 px-3 pb-3 pt-1">
       <div
-        v-for="item in contentList"
-        :key="item.id"
+        v-for="coach in coaches"
+        :key="coach.id"
         class="bg-white rounded-lg overflow-hidden card-shadow nav-action cursor-pointer"
         @click="$router.push('/ouyang')"
       >
+        <!-- @click="$router.push('/product-detail/' + coach.id)" -->
         <img
-          :src="item.image"
-          :alt="item.title"
-          class="w-full h-40 object-cover"
+          :src="coach.avatar"
+          :alt="coach.name"
+          class="w-full h-45 object-cover rounded-lt-full rounded-rt-full"
         />
-        <div class="p-2">
-          <div
-            v-if="item.category"
-            class="bg-blue-500/10 text-blue-500 text-xs px-1.5 py-0.5 rounded inline-block mb-1"
-          >
-            {{ item.category }}
+        <div class="px-2 py-2">
+          <div class="flex items-center mb-2">
+            <img
+              class="w-6 h-6 rounded-full object-cover mr-1"
+              :src="coach.pic"
+              alt=""
+            />
+            <span class="text-sm text-black">{{ coach.name }}</span>
           </div>
-          <p class="text-sm">{{ item.title }}</p>
-          <div class="flex items-center justify-between mt-2">
+          <p class="text-xs text-black font-bold mb-1">
+            {{ coach.qualification }}
+          </p>
+          <p class="text-xs text-gray-500 mb-1">擅长: {{ coach.skills }}</p>
+          <div class="flex items-center justify-between">
             <div class="flex items-center">
-              <img
-                :src="item.user.avatar"
-                :alt="item.user.name"
-                class="w-6 h-6 rounded-full"
-              />
-              <span class="text-xs text-gray ml-1">{{ item.user.name }}</span>
+              <span class="text-xs text-gray-500 mr-1">{{ coach.rating }}</span>
+              <div class="flex">
+                <i class="fa-solid fa-star text-yellow-400 text-xs"></i>
+                <i class="fa-solid fa-star text-yellow-400 text-xs"></i>
+                <i class="fa-solid fa-star text-yellow-400 text-xs"></i>
+                <i class="fa-solid fa-star text-yellow-400 text-xs"></i>
+                <i
+                  class="fa-solid fa-star-half-stroke text-yellow-400 text-xs"
+                ></i>
+              </div>
             </div>
-            <button class="text-gray">
-              <i class="fa-solid fa-heart"></i>
-              <span v-if="item.likes > 0" class="text-xs text-gray ml-1">{{
-                item.likes
-              }}</span>
-            </button>
+            <div
+              class="bg-orange-100 text-orange text-xs px-1 py-0.5 rounded-full"
+            >
+              {{ coach.label }}
+            </div>
           </div>
         </div>
       </div>
@@ -262,13 +252,14 @@ import { ref, computed, onUnmounted } from "vue";
 import FooterNav from "../components/FooterNav.vue";
 
 // 导入本地图片资源
-import img39 from "@images/img_39.jpg";
-import img40 from "@images/img_40.jpg";
-import img41 from "@images/img_41.jpg";
-import img42 from "@images/img_42.jpg";
 import user1 from "@images/user_1.png";
 import user2 from "@images/user_2.png";
 import user3 from "@images/user_3.png";
+import user4 from "@images/user_4.jpg";
+import avatr1 from "@images/img-18.jpg";
+import avatr2 from "@images/img-13.jpg";
+import avatr3 from "@images/img_39.jpeg";
+import avatr4 from "@images/img_38.jpeg";
 
 export default {
   name: "IndexPage",
@@ -277,7 +268,7 @@ export default {
   },
   setup() {
     // 当前选中的分类
-    const selectedCategory = ref("关注");
+    const selectedCategory = ref("推荐");
     // 头部背景透明度
     const headerOpacity = ref(0);
 
@@ -296,264 +287,60 @@ export default {
       window.removeEventListener("scroll", handleScroll);
     });
 
-    // 模拟不同分类的数据
-    // 使用导入的图片变量引用图片
-    const categoryData = ref({
-      关注: [
-        {
-          id: 1,
-          image: img39,
-          title: "专业力量训练，器材齐全环境超棒的",
-          user: { name: "小乖狼", avatar: user1 },
-          likes: 0,
-          category: "",
-        },
-        {
-          id: 2,
-          image: img40,
-          title: "高蛋白低脂餐单推荐，帮你高效增肌减脂",
-          user: { name: "黛嘻", avatar: user2 },
-          likes: 36,
-          category: "",
-        },
-        {
-          id: 3,
-          image: img41,
-          title: "今天天气不错，约了朋友一起来打球，状态很好",
-          user: { name: "阿峰", avatar: user3 },
-          likes: 12,
-          category: "运动",
-        },
-        {
-          id: 4,
-          image: img42,
-          title: "周末爬山，看到这么美的风景，值得了",
-          user: { name: "山野", avatar: user1 },
-          likes: 58,
-          category: "户外",
-        },
-        {
-          id: 5,
-          image: img42,
-          title: "周末爬山，看到这么美的风景，值得了",
-          user: { name: "山野", avatar: user1 },
-          likes: 58,
-          category: "户外",
-        },
-      ],
-      推荐: [
-        {
-          id: 5,
-          image: img41,
-          title: "瑜伽冥想，让身心得到彻底放松",
-          user: { name: "静思", avatar: user2 },
-          likes: 128,
-          category: "运动",
-        },
-        {
-          id: 6,
-          image: img42,
-          title: "城市周边骑行路线推荐，风景优美路况好",
-          user: { name: "追风", avatar: user3 },
-          likes: 89,
-          category: "户外",
-        },
-        {
-          id: 7,
-          image: img39,
-          title: "新式按摩手法体验，缓解疲劳效果显著",
-          user: { name: "舒适", avatar: user1 },
-          likes: 67,
-          category: "按摩",
-        },
-        {
-          id: 8,
-          image: img40,
-          title: "桌游爱好者聚会，认识志同道合的朋友",
-          user: { name: "游戏王", avatar: user2 },
-          likes: 45,
-          category: "玩乐",
-        },
-      ],
-      附近: [
-        {
-          id: 9,
-          image: img39,
-          title: "小区附近新开的健身工作室，设施齐全",
-          user: { name: "健身达人", avatar: user3 },
-          likes: 32,
-          category: "运动",
-        },
-        {
-          id: 10,
-          image: img40,
-          title: "街角咖啡馆的新品推荐，味道很独特",
-          user: { name: "咖啡控", avatar: user1 },
-          likes: 28,
-          category: "玩乐",
-        },
-        {
-          id: 11,
-          image: img41,
-          title: "城市公园晨跑路线，空气清新环境好",
-          user: { name: "晨跑者", avatar: user2 },
-          likes: 56,
-          category: "户外",
-        },
-        {
-          id: 12,
-          image: img42,
-          title: "社区按摩店体验，性价比很高",
-          user: { name: "放松达人", avatar: user3 },
-          likes: 41,
-          category: "按摩",
-        },
-      ],
-      运动: [
-        {
-          id: 13,
-          image: img39,
-          title: "专业力量训练，器材齐全环境超棒的",
-          user: { name: "小乖狼", avatar: user1 },
-          likes: 156,
-          category: "运动",
-        },
-        {
-          id: 14,
-          image: img41,
-          title: "今天天气不错，约了朋友一起来打球，状态很好",
-          user: { name: "阿峰", avatar: user2 },
-          likes: 132,
-          category: "运动",
-        },
-        {
-          id: 15,
-          image: img40,
-          title: "游泳技巧分享，提高你的游泳效率",
-          user: { name: "水精灵", avatar: user3 },
-          likes: 98,
-          category: "运动",
-        },
-        {
-          id: 16,
-          image: img42,
-          title: "跑步姿势纠正，避免运动伤害",
-          user: { name: "跑步教练", avatar: user1 },
-          likes: 87,
-          category: "运动",
-        },
-      ],
-      玩乐: [
-        {
-          id: 17,
-          image: img40,
-          title: "桌游爱好者聚会，认识志同道合的朋友",
-          user: { name: "游戏王", avatar: user2 },
-          likes: 143,
-          category: "玩乐",
-        },
-        {
-          id: 18,
-          image: img39,
-          title: "KTV新歌推荐，周末嗨起来",
-          user: { name: "麦霸", avatar: user3 },
-          likes: 121,
-          category: "玩乐",
-        },
-        {
-          id: 19,
-          image: img41,
-          title: "主题密室逃脱体验，烧脑又刺激",
-          user: { name: "解谜王", avatar: user1 },
-          likes: 96,
-          category: "玩乐",
-        },
-        {
-          id: 20,
-          image: img42,
-          title: "创意手作工坊，制作独一无二的礼物",
-          user: { name: "巧手", avatar: user2 },
-          likes: 85,
-          category: "玩乐",
-        },
-      ],
-      户外: [
-        {
-          id: 21,
-          image: img42,
-          title: "周末爬山，看到这么美的风景，值得了",
-          user: { name: "山野", avatar: user3 },
-          likes: 234,
-          category: "户外",
-        },
-        {
-          id: 22,
-          image: img41,
-          title: "城市周边骑行路线推荐，风景优美路况好",
-          user: { name: "追风", avatar: user1 },
-          likes: 189,
-          category: "户外",
-        },
-        {
-          id: 23,
-          image: img40,
-          title: "露营装备清单，新手必备",
-          user: { name: "露营达人", avatar: user2 },
-          likes: 156,
-          category: "户外",
-        },
-        {
-          id: 24,
-          image: img39,
-          title: "钓鱼技巧分享，轻松钓大鱼",
-          user: { name: "渔翁", avatar: user3 },
-          likes: 123,
-          category: "户外",
-        },
-      ],
-      按摩: [
-        {
-          id: 25,
-          image: img39,
-          title: "新式按摩手法体验，缓解疲劳效果显著",
-          user: { name: "舒适", avatar: user1 },
-          likes: 178,
-          category: "按摩",
-        },
-        {
-          id: 26,
-          image: img40,
-          title: "社区按摩店体验，性价比很高",
-          user: { name: "放松达人", avatar: user2 },
-          likes: 145,
-          category: "按摩",
-        },
-        {
-          id: 27,
-          image: img41,
-          title: "头部按摩手法教学，缓解头痛和压力",
-          user: { name: "头疗师", avatar: user3 },
-          likes: 123,
-          category: "按摩",
-        },
-        {
-          id: 28,
-          image: img42,
-          title: "精油按摩功效介绍，选择适合自己的精油",
-          user: { name: "芳香师", avatar: user1 },
-          likes: 98,
-          category: "按摩",
-        },
-      ],
-    });
-
-    // 根据当前选中的分类获取对应的内容列表
-    const contentList = computed(() => {
-      return categoryData.value[selectedCategory.value] || [];
-    });
+    // 教练数据
+    const coaches = ref([
+      {
+        id: 1,
+        name: "李1教练",
+        avatar: user1,
+        qualification: "国家二级游泳运动员",
+        skills: "长泳/自由泳",
+        rating: 4.8,
+        level: "初级教练",
+        price: 188,
+        label: "到店服务",
+        pic: avatr1,
+      },
+      {
+        id: 2,
+        name: "赵2教练",
+        avatar: user2,
+        qualification: "国家一级游泳运动员",
+        skills: "仰泳/自由泳",
+        rating: 4.9,
+        level: "高级教练",
+        price: 268,
+        label: "上门服务",
+        pic: avatr2,
+      },
+      {
+        id: 3,
+        name: "王3教练",
+        avatar: user3,
+        qualification: "游泳健将",
+        skills: "蝶泳/混合泳",
+        rating: 5.0,
+        level: "专业教练",
+        price: 388,
+        label: "线上服务",
+        pic: avatr3,
+      },
+      {
+        id: 4,
+        name: "孙4教练",
+        avatar: user4,
+        qualification: "国家二级游泳运动员",
+        skills: "蛙泳/自由泳",
+        rating: 4.7,
+        level: "初级教练",
+        price: 168,
+        label: "到店服务",
+        pic: avatr4,
+      },
+    ]);
 
     // 处理分类点击 - 修复页面回弹问题
-    const handleCategoryClick = (category) => {
+    const handleCategoryClick = (category, event) => {
       // 阻止事件冒泡和默认行为
       event.preventDefault();
       event.stopPropagation();
@@ -567,7 +354,7 @@ export default {
 
     return {
       selectedCategory,
-      contentList,
+      coaches,
       handleCategoryClick,
       headerOpacity,
     };
