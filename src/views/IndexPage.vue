@@ -131,7 +131,7 @@
     </div>
 
     <!-- 分类标签栏 -->
-    <div class="flex space-x-2 py-3 overflow-x-auto scrollbar-hide">
+    <div class="flex space-x-2 p-3 overflow-x-auto scrollbar-hide">
       <button
         class="px-3 py-2 whitespace-nowrap text-sm font-medium nav-action cursor-pointer"
         :class="
@@ -139,7 +139,7 @@
             ? 'text-primary border-b-2 border-primary text-orange'
             : 'text-black'
         "
-        @click="handleCategoryClick('关注', event)"
+        @click="handleCategoryClick('关注')"
       >
         关注
       </button>
@@ -150,7 +150,7 @@
             ? 'text-primary border-b-2 border-primary text-orange'
             : 'text-black'
         "
-        @click="handleCategoryClick('推荐', event)"
+        @click="handleCategoryClick('推荐')"
       >
         推荐
       </button>
@@ -161,7 +161,7 @@
             ? 'text-primary border-b-2 border-primary text-orange'
             : 'text-black'
         "
-        @click="handleCategoryClick('附近', event)"
+        @click="handleCategoryClick('附近')"
       >
         附近
       </button>
@@ -172,7 +172,7 @@
             ? 'text-primary border-b-2 border-primary text-orange'
             : 'text-black'
         "
-        @click="handleCategoryClick('筛选', event)"
+        @click="handleCategoryClick('筛选')"
       >
         筛选
       </button>
@@ -183,7 +183,7 @@
             ? 'text-primary border-b-2 border-primary text-orange'
             : 'text-black'
         "
-        @click="handleCategoryClick('直播', event)"
+        @click="handleCategoryClick('直播')"
       >
         直播
       </button>
@@ -340,11 +340,7 @@ export default {
     ]);
 
     // 处理分类点击 - 修复页面回弹问题
-    const handleCategoryClick = (category, event) => {
-      // 阻止事件冒泡和默认行为
-      event.preventDefault();
-      event.stopPropagation();
-
+    const handleCategoryClick = (category) => {
       // 添加一个小延迟，避免页面回弹
       setTimeout(() => {
         selectedCategory.value = category;
