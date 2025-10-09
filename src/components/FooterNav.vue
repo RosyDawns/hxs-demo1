@@ -8,8 +8,10 @@
         :class="activePage === 'index' ? 'text-primary' : 'text-gray'"
         @click="$router.push('/')"
       >
-        <i class="fa-solid fa-paw"></i>
-        <p class="text-xs mt-1">唤醒狮</p>
+        <i class="fa-solid fa-paw text-lg"></i>
+        <p class="text-xs mt-1 flex items-center">
+          唤醒狮<i class="fa-solid fa-right-left ml-0.5" style="font-size: 10px"></i>
+        </p>
       </button>
       <button
         class="text-center nav-footer"
@@ -40,7 +42,7 @@
         :class="activePage === 'messages' ? 'text-primary' : 'text-gray'"
         @click="$router.push('/messages')"
       >
-        <i class="fa-solid fa-message"></i>
+        <i class="fa-solid fa-message text-lg"></i>
         <p class="text-xs mt-1">消息</p>
       </button>
       <button

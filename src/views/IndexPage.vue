@@ -133,7 +133,7 @@
     <!-- 分类标签栏 -->
     <div class="flex space-x-2 p-3 overflow-x-auto scrollbar-hide">
       <button
-        class="px-3 py-2 whitespace-nowrap text-sm font-medium nav-action cursor-pointer"
+        class="px-1 py-2 whitespace-nowrap text-sm font-medium nav-action cursor-pointer"
         :class="
           selectedCategory === '关注'
             ? 'text-primary border-b-2 border-primary text-orange'
@@ -141,10 +141,10 @@
         "
         @click="handleCategoryClick('关注')"
       >
-        关注
+        关注 <i class="fa-solid fa-right-left" style="font-size: 10px"></i>
       </button>
       <button
-        class="px-3 py-2 whitespace-nowrap text-sm font-medium nav-action cursor-pointer"
+        class="px-1 py-2 whitespace-nowrap text-sm font-medium nav-action cursor-pointer"
         :class="
           selectedCategory === '推荐'
             ? 'text-primary border-b-2 border-primary text-orange'
@@ -152,10 +152,10 @@
         "
         @click="handleCategoryClick('推荐')"
       >
-        推荐
+        推荐 <i class="fa-solid fa-right-left" style="font-size: 10px"></i>
       </button>
       <button
-        class="px-3 py-2 whitespace-nowrap text-sm font-medium nav-action cursor-pointer"
+        class="px-1 py-2 whitespace-nowrap text-sm font-medium nav-action cursor-pointer"
         :class="
           selectedCategory === '附近'
             ? 'text-primary border-b-2 border-primary text-orange'
@@ -163,10 +163,10 @@
         "
         @click="handleCategoryClick('附近')"
       >
-        附近
+        附近 <i class="fa-solid fa-right-left" style="font-size: 10px"></i>
       </button>
       <button
-        class="px-3 py-2 whitespace-nowrap text-sm font-medium nav-action cursor-pointer"
+        class="px-1 py-2 whitespace-nowrap text-sm font-medium nav-action cursor-pointer"
         :class="
           selectedCategory === '筛选'
             ? 'text-primary border-b-2 border-primary text-orange'
@@ -174,10 +174,10 @@
         "
         @click="handleCategoryClick('筛选')"
       >
-        筛选
+        筛选 <i class="fa-solid fa-caret-down" style="font-size: 10px"></i>
       </button>
       <button
-        class="px-3 py-2 whitespace-nowrap text-sm font-medium nav-action cursor-pointer"
+        class="px-1 py-2 whitespace-nowrap text-sm font-medium nav-action cursor-pointer"
         :class="
           selectedCategory === '直播'
             ? 'text-primary border-b-2 border-primary text-orange'
@@ -223,13 +223,15 @@
             <div class="flex items-center">
               <span class="text-xs text-gray-500 mr-1">{{ coach.rating }}</span>
               <div class="flex">
-                <i class="fa-solid fa-star text-yellow-400 text-xs"></i>
-                <i class="fa-solid fa-star text-yellow-400 text-xs"></i>
-                <i class="fa-solid fa-star text-yellow-400 text-xs"></i>
-                <i class="fa-solid fa-star text-yellow-400 text-xs"></i>
-                <i
-                  class="fa-solid fa-star-half-stroke text-yellow-400 text-xs"
-                ></i>
+                <!-- 动态生成星星 -->
+                <i v-for="star in 5" :key="star" :class="[
+                  'text-yellow-400 text-xs',
+                  {
+                    'fa-solid fa-star': star <= Math.floor(coach.rating),
+                    'fa-solid fa-star-half-stroke': star === Math.ceil(coach.rating) && coach.rating % 1 !== 0,
+                    'fa-regular fa-star': star > Math.ceil(coach.rating)
+                  }
+                ]"></i>
               </div>
             </div>
             <div
@@ -293,7 +295,7 @@ export default {
         id: 1,
         name: "李1教练",
         avatar: user1,
-        qualification: "国家二级游泳运动员",
+        qualification: "国家一级游泳运动员",
         skills: "长泳/自由泳",
         rating: 4.8,
         level: "初级教练",
