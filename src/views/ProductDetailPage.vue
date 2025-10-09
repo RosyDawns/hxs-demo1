@@ -29,20 +29,81 @@
       </template>
     </CommonHeader>
 
-    <!-- 商品图片 -->
+    <!-- 商品图片/视频 -->
     <div class="relative">
+      <!-- 视频元素，初始隐藏 -->
+      <video
+        ref="productVideo"
+        v-if="isVideoMode"
+        :src="product.video || '@images/sample_video.mp4'"
+        :alt="product.title"
+        class="w-full h-130 object-cover"
+        playsinline
+        :autoplay="!videoEnded"
+        :muted="isMuted"
+        @pause="isPlaying = false"
+        @playing="isPlaying = true"
+        @ended="onVideoEnded"
+      ></video>
+      <!-- 视频播放/暂停按钮覆盖层 -->
+      <div
+        v-if="isVideoMode"
+        class="absolute inset-0 flex items-center justify-center"
+        @click="togglePlayPause"
+      >
+        <div 
+          v-if="!isPlaying || videoEnded"
+          class="w-16 h-16 rounded-full bg-black/50 flex items-center justify-center text-white"
+          style="cursor: pointer;"
+        >
+          <i class="fa-solid fa-play text-xl"></i>
+        </div>
+      </div>
+      <!-- 图片元素 -->
       <img
+        v-else
         src="@images/img_39.jpg"
         :alt="product.title"
-        class="w-full h-80 object-cover"
+        class="w-full h-130 object-cover"
       />
       <div
         class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/50 to-transparent p-3"
       >
         <div class="flex items-center justify-between">
-          <div class="text-white text-sm">{{ product.sales }} 人已购买</div>
-          <div class="flex items-center text-white text-sm">
-            <i class="fa fa-eye mr-1"></i> 浏览
+          <!-- 声音控制按钮只在视频模式下显示 -->
+          <div v-if="isVideoMode" class="text-white text-sm">
+            <i
+              class="fa-solid"
+              :class="isMuted ? 'fa-volume-xmark' : 'fa-volume-high'"
+              @click="toggleMute"
+              style="cursor: pointer"
+            ></i>
+          </div>
+          <!-- 图片模式下显示空白占位，保持布局对齐 -->
+          <div v-else class="w-5"></div>
+          <div
+            class="flex items-center text-white text-sm py-1 rounded-full"
+            :class="{ 'pl-3 pr-1': !isVideoMode, 'pl-1 pr-3': isVideoMode }"
+            style="background-color: rgba(0, 0, 0, 0.4)"
+          >
+            <span
+              :class="{
+                'font-bold': isVideoMode,
+                'bg-white text-black px-2 rounded-full': isVideoMode,
+              }"
+              @click="toggleDisplayMode('video')"
+              style="cursor: pointer; margin-right: 8px"
+              >视频</span
+            >
+            <span
+              :class="{
+                'font-bold': !isVideoMode,
+                'bg-white text-black px-2 rounded-full': !isVideoMode,
+              }"
+              @click="toggleDisplayMode('image')"
+              style="cursor: pointer"
+              >图片</span
+            >
           </div>
         </div>
       </div>
@@ -130,46 +191,47 @@
       </div>
       <div class="bg-white rounded-2xl overflow-hidden">
         <!-- 详情内容 -->
-        <div class="p-4">
-          <div v-if="activeTab === 'details'">
-            <div class="text-sm mb-4">
-              <div class="font-medium mb-2">游泳一对一体验课程</div>
-              <div class="text-gray-600 mb-3">
-                【体验卡】1对1游泳零基础蛙泳/自由泳（新人福利）
+
+        <div v-if="activeTab === 'details'">
+          <div class="text-sm mb-4">
+            <div class="text-sm mb-2 bg-red-50 py-2.5 px-3 font-medium">
+              游泳一对一体验课程
+            </div>
+            <div class="px-3">
+              <div class="text-black mb-2 font-bold">
+                [体验卡]1对1游泳零基础蛙泳/自由泳（新人福利）
               </div>
-              <div class="text-gray-600 mb-2">
-                <span class="font-medium text-gray-500 mr-3">游泳种类</span>
+
+              <div class="flex items-center justify-between text-xs mb-2">
+                <div class="flex-1 flex items-center">
+                  <img
+                    src="https://picsum.photos/id/1005/100/100"
+                    class="w-5 h-5 rounded-full mr-1 object-contain"
+                  />
+                  <span>100%好评</span>
+                  <span>“教练很专业，环境很不错</span>
+                </div>
+                <span>共183个消费评价</span>
+              </div>
+
+              <div class="text-gray-600 mb-1 text-xs">
+                <span class="text-gray-400 mr-3">游泳种类</span>
                 <span>可自选</span>
               </div>
-              <div class="text-gray-600 mb-2">
-                <span class="font-medium text-gray-500 mr-3">课程时长</span>
-                <span>45分钟</span>
-              </div>
-            </div>
-
-            <!-- 课程图片 -->
-            <div class="grid grid-cols-2 gap-2 mb-4">
-              <img
-                src="https://picsum.photos/id/1065/200/200"
-                alt="课程图片"
-                class="w-full h-40 object-cover rounded-md"
-              />
-              <img
-                src="https://picsum.photos/id/1066/200/200"
-                alt="课程图片"
-                class="w-full h-40 object-cover rounded-md"
-              />
-            </div>
-
-            <!-- 课程介绍 -->
-            <div class="text-sm mb-4">
-              <div class="font-medium mb-2">课程介绍</div>
-              <div class="text-gray-600 leading-relaxed">
-                本课程专为游泳零基础学员设计，由专业教练一对一指导，帮助学员快速掌握蛙泳或自由泳的基本技巧。课程内容包括：呼吸技巧、划水动作、腿部动作、身体协调等。
+              <div
+                class="text-gray-600 mb-2 text-xs flex items-center justify-between"
+              >
+                <div class="flex-1">
+                  <span class="text-gray-400 mr-3">课程时长</span>
+                  <span>45分钟</span>
+                </div>
+                <i class="fa-solid fa-arrow-right"></i>
               </div>
             </div>
           </div>
+        </div>
 
+        <div class="p-4" v-else>
           <div v-if="activeTab === 'notices'">
             <div class="text-sm text-gray-600 leading-relaxed">
               <p class="mb-2">1. 请至少提前24小时预约课程。</p>
@@ -212,7 +274,7 @@
                   </div>
                 </div>
 
-                <div class="border-b border-gray-100 pb-3">
+                <div class="border-gray-100">
                   <div class="flex items-center mb-2">
                     <img
                       src="https://picsum.photos/id/1002/40/40"
@@ -282,7 +344,13 @@ export default {
         image: "",
         reviews: 0,
         isNew: false,
+        video: "",
+        audio: "",
       },
+      isMuted: true, // 声音默认关闭
+      isVideoMode: false, // 默认显示图片模式
+      isPlaying: true, // 默认视频处于播放状态
+      videoEnded: false, // 视频是否播放结束
     };
   },
   mounted() {
@@ -304,6 +372,8 @@ export default {
           image: "https://picsum.photos/id/1065/300/300",
           reviews: 183,
           isNew: false,
+          video: "https://samplelib.com/lib/preview/mp4/sample-5s.mp4",
+          audio: "",
         },
         {
           id: "product2",
@@ -313,6 +383,8 @@ export default {
           image: "https://picsum.photos/id/1066/300/300",
           reviews: 120,
           isNew: true,
+          video: "https://samplelib.com/lib/preview/mp4/sample-5s.mp4",
+          audio: "",
         },
         {
           id: "product3",
@@ -322,6 +394,8 @@ export default {
           image: "https://picsum.photos/id/1067/300/300",
           reviews: 89,
           isNew: false,
+          video: "https://samplelib.com/lib/preview/mp4/sample-5s.mp4",
+          audio: "",
         },
         {
           id: "product4",
@@ -331,6 +405,8 @@ export default {
           image: "https://picsum.photos/id/1068/300/300",
           reviews: 45,
           isNew: true,
+          video: "https://samplelib.com/lib/preview/mp4/sample-5s.mp4",
+          audio: "",
         },
       ];
 
@@ -339,6 +415,48 @@ export default {
       if (foundProduct) {
         this.product = foundProduct;
       }
+    },
+
+    // 切换声音开关（只在视频模式下有效）
+    toggleMute() {
+      this.isMuted = !this.isMuted;
+    },
+
+    // 切换视频/图片模式
+    toggleDisplayMode(mode) {
+      if (mode === "video") {
+        this.isVideoMode = true;
+        this.isPlaying = true; // 切换到视频模式时自动播放
+        this.videoEnded = false; // 重置视频结束状态
+      } else {
+        this.isVideoMode = false;
+      }
+    },
+    
+    // 控制视频播放/暂停
+    togglePlayPause() {
+      const video = this.$refs.productVideo;
+      if (video) {
+        if (this.videoEnded) {
+          // 如果视频已经播放结束，重置到开始位置再播放
+          video.currentTime = 0;
+          video.play();
+          this.isPlaying = true;
+          this.videoEnded = false;
+        } else if (this.isPlaying) {
+          video.pause();
+          this.isPlaying = false;
+        } else {
+          video.play();
+          this.isPlaying = true;
+        }
+      }
+    },
+    
+    // 视频播放结束时触发
+    onVideoEnded() {
+      this.isPlaying = false;
+      this.videoEnded = true;
     },
   },
 };
