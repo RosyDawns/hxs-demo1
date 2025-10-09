@@ -31,23 +31,36 @@
 
     <!-- 商品图片/视频 -->
     <div class="relative">
-      <!-- 视频元素，初始隐藏 -->
+      <!-- 视频元素，使用v-show代替v-if以便预加载 -->
+      <!-- 视频可播放时触发onVideoCanPlay事件，加载首帧数据时触发onVideoLoadedData事件 -->
       <video
         ref="productVideo"
-        v-if="isVideoMode"
+        v-show="isVideoMode"
         :src="product.video || '@images/sample_video.mp4'"
         :alt="product.title"
+        :poster="product.image"
         class="w-full h-130 object-cover"
         playsinline
+        preload="auto"
         :autoplay="!videoEnded"
         :muted="isMuted"
         @pause="isPlaying = false"
         @playing="isPlaying = true"
+        @canplay="onVideoCanPlay"
         @ended="onVideoEnded"
+        @loadeddata="onVideoLoadedData"
       ></video>
+      <!-- 视频加载状态指示器 -->
+      <div
+        v-if="isVideoMode && !videoLoaded"
+        class="absolute inset-0 flex flex-col items-center justify-center bg-black/20"
+      >
+        <div class="w-12 h-12 border-4 border-white border-t-transparent rounded-full animate-spin mb-4"></div>
+        <div class="text-white font-medium">视频加载中...</div>
+      </div>
       <!-- 视频播放/暂停按钮覆盖层 -->
       <div
-        v-if="isVideoMode"
+        v-if="isVideoMode && videoLoaded"
         class="absolute inset-0 flex items-center justify-center"
         @click="togglePlayPause"
       >
@@ -353,32 +366,62 @@ export default {
     CommonHeader,
   },
   data() {
-    return {
-      activeTab: "details",
-      product: {
-        id: "",
-        title: "",
-        price: 0,
-        sales: 0,
-        image: "",
-        reviews: 0,
-        isNew: false,
-        video: "",
-        audio: "",
+      return {
+        activeTab: "details",
+        product: {
+          id: "",
+          title: "",
+          price: 0,
+          sales: 0,
+          image: "",
+          reviews: 0,
+          isNew: false,
+          video: "",
+          audio: "",
+        },
+        isMuted: true, // 声音默认关闭
+        isVideoMode: false, // 默认显示图片模式
+        isPlaying: true, // 默认视频处于播放状态
+        videoEnded: false, // 视频是否播放结束
+        videoLoaded: false, // 视频是否加载完成
+        preloadVideoElement: null, // 预加载视频元素
+      };
+    },
+    mounted() {
+      // 从路由参数中获取商品ID
+      const productId = this.$route.params.id;
+      // 模拟获取商品详情数据
+      this.loadProductDetail(productId);
+      
+      // 预加载视频元素，提升切换体验
+      this.preloadVideo();
+    },
+    methods: {
+      // 预加载视频
+      preloadVideo() {
+        // 创建隐藏的视频元素进行预加载
+        if (!this.preloadVideoElement) {
+          this.preloadVideoElement = document.createElement('video');
+          this.preloadVideoElement.preload = 'metadata';
+          
+          // 当商品数据加载后设置视频源
+          this.$watch('product.video', (newVideoUrl) => {
+            if (newVideoUrl) {
+              this.preloadVideoElement.src = newVideoUrl;
+            }
+          });
+        }
       },
-      isMuted: true, // 声音默认关闭
-      isVideoMode: false, // 默认显示图片模式
-      isPlaying: true, // 默认视频处于播放状态
-      videoEnded: false, // 视频是否播放结束
-    };
-  },
-  mounted() {
-    // 从路由参数中获取商品ID
-    const productId = this.$route.params.id;
-    // 模拟获取商品详情数据
-    this.loadProductDetail(productId);
-  },
-  methods: {
+      
+      // 视频可播放时触发
+      onVideoCanPlay() {
+        this.videoLoaded = true;
+      },
+      
+      // 视频加载首帧数据时触发
+      onVideoLoadedData() {
+        this.videoLoaded = true;
+      },
     loadProductDetail(productId) {
       // 这里应该是一个API调用，现在我们使用模拟数据
       // 模拟商品数据
