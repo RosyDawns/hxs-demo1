@@ -5,8 +5,8 @@
     >
       <button
         class="text-center nav-footer"
-        :class="activePage === 'index' ? 'text-primary' : 'text-gray'"
-        @click="$router.push('/')"
+        :class="activePage === 'index' || activePage === 'teachers' ? 'text-primary' : 'text-gray'"
+        @click="handleWakerLionClick"
       >
         <i class="fa-solid fa-paw text-lg"></i>
         <p class="text-xs mt-1 flex items-center">
@@ -66,5 +66,18 @@ export default {
       required: true,
     },
   },
+  methods: {
+    handleWakerLionClick() {
+      // 如果当前在首页，则跳转到唤醒狮列表页；如果在唤醒狮列表页，则跳转到首页
+      if (this.activePage === 'index') {
+        this.$router.push('/teacher-list');
+      } else if (this.activePage === 'teachers') {
+        this.$router.push('/');
+      } else {
+        // 默认跳转到首页
+        this.$router.push('/');
+      }
+    }
+  }
 };
 </script>

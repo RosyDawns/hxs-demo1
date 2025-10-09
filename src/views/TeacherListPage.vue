@@ -23,6 +23,9 @@
         @view-profile="handleCoachDetail"
       />
     </div>
+
+    <!-- 底部导航 -->
+    <FooterNav :activePage="activePage" />
   </div>
 </template>
 
@@ -91,9 +94,13 @@ export default {
       router.push(`/ouyang`); // 使用现有的教练详情页路由
     };
 
+    // 底部导航活动页面
+    const activePage = ref("teachers");
+
     return {
       recommendedCoaches,
       handleCoachDetail,
+      activePage,
     };
   },
 };
