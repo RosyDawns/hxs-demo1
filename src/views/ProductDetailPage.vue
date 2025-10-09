@@ -36,7 +36,7 @@
       <video
         ref="productVideo"
         v-show="isVideoMode"
-        :src="product.video || '@images/sample_video.mp4'"
+        src="@/assets/video/sample-5s.mp4"
         :alt="product.title"
         :poster="product.image"
         class="w-full h-130 object-cover"
