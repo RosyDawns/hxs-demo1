@@ -15,7 +15,7 @@
         <p class="text-xs text-gray mt-0.5">擅长：仰泳/自由泳</p>
         <div class="flex items-center mt-0.5">
           <span class="text-xs text-gray mr-1">评分{{ coach.rating }}</span>
-          <div class="flex text-xs text-warning">
+          <div class="flex text-xs text-primary">
             <i
               v-for="star in Math.floor(coach.rating)"
               :key="`full-${star}`"

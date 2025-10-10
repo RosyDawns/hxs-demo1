@@ -135,8 +135,8 @@ const partners = ref([...originalPartners]);
 const handleViewProfile = (id) => {
   // 实现查看主页的逻辑
   console.log("查看伙伴主页:", id);
-  // 可以根据实际需求添加路由跳转
-  // router.push(`/partner/profile/${id}`);
+  // 跳转到欧阳老师页面
+  router.push('/ouyang');
 };
 
 // 处理重新匹配
