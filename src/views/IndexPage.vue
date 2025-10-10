@@ -6,13 +6,14 @@
       :style="{ backgroundColor: `rgba(255, 255, 255, ${headerOpacity})` }"
     >
       <div
-        class="flex items-center"
+        class="flex items-center nav-action cursor-pointer"
         :style="{ color: headerOpacity > 0.5 ? '#000' : '#fff' }"
+        @click="showCityPicker = true"
       >
-        <div class="text-lg font-medium">上海</div>
-        <i class="fa fa-angle-down ml-1"></i>
+        <div class="text-sm font-medium">{{ selectedCity || "上海" }}</div>
+        <i class="fa fa-angle-down text-sm ml-0.5"></i>
       </div>
-      <div class="relative flex-1 max-w-[70%] mx-3">
+      <div class="relative flex-6 mx-3">
         <div class="relative">
           <input
             type="text"
@@ -30,8 +31,8 @@
           </button>
         </div>
       </div>
-      <div class="flex items-center">
-        <button
+      <div class="flex items-center flex-1">
+        <!-- <button
           class="relative nav-action"
           :style="{ color: headerOpacity > 0.5 ? '#333' : '#fff' }"
           @click="$router.push('/daily-signin')"
@@ -42,9 +43,110 @@
           >
             1
           </span>
-        </button>
+        </button> -->
       </div>
     </header>
+
+    <!-- 省市区选择弹窗 -->
+    <div
+      v-if="showCityPicker"
+      class="fixed inset-0 z-50 flex items-end"
+      style="background-color: rgba(255, 255, 255, 0.5)"
+    >
+      <div
+        class="bg-white w-full rounded-t-xl p-4 max-h-[80vh] overflow-y-auto"
+      >
+        <div class="flex justify-between items-center mb-4">
+          <h3 class="text-lg font-bold">选择城市</h3>
+          <button @click="showCityPicker = false" class="text-gray-500">
+            <i class="fa fa-times text-xl"></i>
+          </button>
+        </div>
+
+        <!-- 已选城市 -->
+        <div class="mb-4">
+          <h4 class="text-sm text-gray-500 mb-2">当前定位城市</h4>
+          <div class="flex items-center space-x-2">
+            <div
+              class="px-3 py-1.5 bg-gray-100 rounded-full text-sm flex items-center"
+            >
+              <i class="fa fa-location-dot mr-1 text-orange-400"></i>
+              上海
+            </div>
+          </div>
+        </div>
+
+        <!-- 热门城市 -->
+        <div class="mb-4">
+          <h4 class="text-sm text-gray-500 mb-2">热门城市</h4>
+          <div class="flex flex-wrap gap-2">
+            <div
+              v-for="city in hotCities"
+              :key="city"
+              class="px-3 py-1.5 bg-gray-100 rounded-full text-sm"
+              @click="selectCity(city)"
+            >
+              {{ city }}
+            </div>
+          </div>
+        </div>
+
+        <!-- 省市区选择器 -->
+        <div class="mb-4">
+          <h4 class="text-sm text-gray-500 mb-2">按地区选择</h4>
+
+          <!-- 省份选择 -->
+          <div class="mb-3">
+            <div class="text-sm font-medium mb-2">省份</div>
+            <input
+              type="text"
+              placeholder="请输入省份"
+              v-model="provinceInput"
+              class="w-full border border-gray-300 rounded-lg px-3 py-2 mb-2"
+            />
+            <div class="max-h-40 overflow-y-auto">
+              <div class="flex flex-wrap gap-2">
+                <div
+                  v-for="province in filteredProvinces"
+                  :key="province"
+                  class="px-3 py-1.5 bg-gray-100 rounded-full text-sm"
+                  @click="selectProvince(province)"
+                >
+                  {{ province }}
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 城市选择 -->
+          <div class="mb-3">
+            <div class="text-sm font-medium mb-2">城市</div>
+            <input
+              type="text"
+              placeholder="请输入城市"
+              v-model="cityInput"
+              class="w-full border border-gray-300 rounded-lg px-3 py-2 mb-2"
+              :disabled="!selectedProvince"
+            />
+            <div class="max-h-40 overflow-y-auto">
+              <div v-if="selectedProvince" class="flex flex-wrap gap-2">
+                <div
+                  v-for="city in filteredCities"
+                  :key="city"
+                  class="px-3 py-1.5 bg-gray-100 rounded-full text-sm"
+                  @click="selectCity(city)"
+                >
+                  {{ city }}
+                </div>
+              </div>
+              <div v-else class="text-center text-gray-400 text-sm py-4">
+                请先选择省份
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
 
     <div class="banner relative">
       <img src="@images/img_39.jpg" class="block w-full relative z-1" />
@@ -224,14 +326,20 @@
               <span class="text-xs text-gray-500 mr-1">{{ coach.rating }}</span>
               <div class="flex">
                 <!-- 动态生成星星 -->
-                <i v-for="star in 5" :key="star" :class="[
-                  'text-yellow-400 text-xs',
-                  {
-                    'fa-solid fa-star': star <= Math.floor(coach.rating),
-                    'fa-solid fa-star-half-stroke': star === Math.ceil(coach.rating) && coach.rating % 1 !== 0,
-                    'fa-regular fa-star': star > Math.ceil(coach.rating)
-                  }
-                ]"></i>
+                <i
+                  v-for="star in 5"
+                  :key="star"
+                  :class="[
+                    'text-yellow-400 text-xs',
+                    {
+                      'fa-solid fa-star': star <= Math.floor(coach.rating),
+                      'fa-solid fa-star-half-stroke':
+                        star === Math.ceil(coach.rating) &&
+                        coach.rating % 1 !== 0,
+                      'fa-regular fa-star': star > Math.ceil(coach.rating),
+                    },
+                  ]"
+                ></i>
               </div>
             </div>
             <div
@@ -273,6 +381,85 @@ export default {
     const selectedCategory = ref("推荐");
     // 头部背景透明度
     const headerOpacity = ref(0);
+    // 城市选择相关
+    const showCityPicker = ref(false);
+    const selectedCity = ref("");
+    const selectedProvince = ref("");
+    const provinceInput = ref("");
+    const cityInput = ref("");
+
+    // 热门城市数据
+    const hotCities = [
+      "上海",
+      "北京",
+      "广州",
+      "深圳",
+      "杭州",
+      "南京",
+      "成都",
+      "武汉",
+    ];
+
+    // 省份数据
+    const provinces = [
+      "北京市",
+      "上海市",
+      "广东省",
+      "江苏省",
+      "浙江省",
+      "四川省",
+      "湖北省",
+      "湖南省",
+      "山东省",
+      "河南省",
+    ];
+
+    // 城市数据 (按省份分类)
+    const citiesByProvince = {
+      北京市: ["北京"],
+      上海市: ["上海"],
+      广东省: ["广州", "深圳", "东莞", "佛山", "珠海", "中山"],
+      江苏省: ["南京", "苏州", "无锡", "常州", "扬州", "徐州"],
+      浙江省: ["杭州", "宁波", "温州", "嘉兴", "湖州", "绍兴"],
+      四川省: ["成都", "绵阳", "德阳", "自贡", "泸州", "内江"],
+      湖北省: ["武汉", "襄阳", "宜昌", "荆州", "十堰", "黄石"],
+      湖南省: ["长沙", "株洲", "湘潭", "衡阳", "邵阳", "岳阳"],
+      山东省: ["济南", "青岛", "烟台", "潍坊", "临沂", "淄博"],
+      河南省: ["郑州", "洛阳", "开封", "安阳", "新乡", "焦作"],
+    };
+
+    // 过滤后的省份列表
+    const filteredProvinces = computed(() => {
+      if (!provinceInput.value) return provinces;
+      return provinces.filter((province) =>
+        province.includes(provinceInput.value)
+      );
+    });
+
+    // 过滤后的城市列表
+    const filteredCities = computed(() => {
+      if (!selectedProvince.value) return [];
+      const cities = citiesByProvince[selectedProvince.value] || [];
+      if (!cityInput.value) return cities;
+      return cities.filter((city) => city.includes(cityInput.value));
+    });
+
+    // 选择省份
+    const selectProvince = (province) => {
+      selectedProvince.value = province;
+      provinceInput.value = "";
+      cityInput.value = "";
+    };
+
+    // 选择城市
+    const selectCity = (city) => {
+      selectedCity.value = city;
+      showCityPicker.value = false;
+      selectedProvince.value = "";
+      provinceInput.value = "";
+      cityInput.value = "";
+      console.log("选择的城市:", city);
+    };
 
     // 处理页面滚动事件
     const handleScroll = () => {
@@ -355,6 +542,16 @@ export default {
       coaches,
       handleCategoryClick,
       headerOpacity,
+      showCityPicker,
+      selectedCity,
+      selectedProvince,
+      provinceInput,
+      cityInput,
+      hotCities,
+      filteredProvinces,
+      filteredCities,
+      selectProvince,
+      selectCity,
     };
   },
 };

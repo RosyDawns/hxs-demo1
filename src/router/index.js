@@ -20,7 +20,6 @@ import RankingPage from '../views/RankingPage.vue' // 城市大神老狮榜单�
 import CampRegisterPage from '../views/CampRegisterPage.vue' // 唤醒营注册页面
 import CampDetailPage from '../views/CampDetailPage.vue' // 唤醒营详情页面
 import MyOrdersPage from '../views/MyOrdersPage.vue' // 我的订单页面
-import AITResultPage from '../views/AITResultPage.vue' // AI匹配结果页面
 import DailySigninPage from '../views/DailySigninPage.vue' // 每日签到页面
 import ChatPage from '../views/ChatPage.vue' // 聊天页面
 import CouponsPage from '../views/CouponsPage.vue' // 优惠券页面
@@ -247,16 +246,6 @@ const routes = [
     component: MyOrdersPage,
     meta: {
       title: '我的订单',
-      showInNav: false
-    }
-  },
-  // AI匹配结果页面路由
-  {
-    path: '/ai-result',
-    name: 'AIResult',
-    component: AITResultPage,
-    meta: {
-      title: 'AI匹配结果',
       showInNav: false
     }
   },
