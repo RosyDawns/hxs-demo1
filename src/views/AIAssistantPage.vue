@@ -51,7 +51,7 @@
     <!-- 主体内容区 -->
     <div class="flex-1 px-4 py-2 flex flex-col pb-14">
       <!-- AI形象和时间 -->
-      <div class="flex items-center mb-4">
+      <div class="flex items-center mb-5">
         <img
           src="@images/logo.png"
           alt="大狮兄"
@@ -66,11 +66,11 @@
           class="flex-1 bg-white rounded-4xl px-4 py-5 shadow-sm border-6 border-pink-100 relative overflow-hidden -rotate-z-6 z-1"
           @click="handleRecommendationClick('帮我推荐一位附近的健身唤醒师💪')"
         >
-          <div class="pt-2 pb-2">
+          <div class="pb-2">
             <p class="text-pink-100 text-6xl">“</p>
             <p class="text-base font-medium">帮我推荐一位附近的健身唤醒师💪</p>
           </div>
-          <div class="flex justify-end mt-10">
+          <div class="flex justify-end mt-8">
             <button
               class="bg-black text-white text-xs py-1 px-3 rounded-full flex items-center"
             >
@@ -84,11 +84,11 @@
           class="flex-1 bg-white rounded-4xl px-4 py-5 shadow-sm border-6 border-blue-100 relative overflow-hidden rotate-z-6"
           @click="handleRecommendationClick('找瑜伽老师学习基础动作🧘')"
         >
-          <div class="pt-2 pb-2">
+          <div class="pb-2">
             <p class="text-blue-100 text-6xl">“</p>
             <p class="text-base font-medium">找瑜伽老师学习基础动作🧘</p>
           </div>
-          <div class="flex justify-end mt-10">
+          <div class="flex justify-end mt-8">
             <button
               class="bg-black text-white text-xs py-1 px-3 rounded-full flex items-center"
             >

@@ -121,7 +121,7 @@
         >
           <div class="font-bold text-sm text-black">体重管理唤醒营</div>
           <div class="font-medium text-xs text-gray">
-            唤醒瘦～科学瘦～坚持瘦
+            唤醒瘦 · 科学瘦 · 坚持瘦
           </div>
           <div class="flex justify-end mt-1" style="color: orange">
             <i class="fa-solid fa-map-location-dot"></i>
@@ -235,7 +235,7 @@
               </div>
             </div>
             <div
-              class="bg-orange-100 text-orange text-xs px-1 py-0.5 rounded-full"
+              class="bg-orange-400 text-white text-xs px-1 py-0.5 rounded-full"
             >
               {{ coach.label }}
             </div>

@@ -37,7 +37,7 @@
           </div>
         </div>
         <div
-          class="bg-orange-100 text-orange text-xs px-1 py-0.5 rounded-full"
+          class="bg-orange-400 text-white text-xs px-1 py-0.5 rounded-full"
         >
           {{ coach.label || '可约课' }}
         </div>
