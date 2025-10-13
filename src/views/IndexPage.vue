@@ -26,7 +26,7 @@
           ></i>
           <button
             class="absolute right-2 top-1/2 transform -translate-y-1/2 bg-primary text-white text-xs py-1.5 px-3 rounded-full nav-action"
-            @click="$router.push('/matching')"
+            @click="$router.push('/ai-assistant')"
           >
             一键匹配
           </button>
