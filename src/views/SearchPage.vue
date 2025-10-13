@@ -14,11 +14,11 @@
               v-model="searchQuery"
               type="text"
               placeholder="福苓湘食小馆"
-              class="w-full bg-gray-100 rounded-full pl-4 pr-16 py-3 focus:outline-none focus:ring-2 focus:ring-orange-400 focus:bg-white transition-colors"
+              class="w-full bg-gray-100 rounded-full pl-4 pr-16 py-2 focus:outline-none focus:ring-2 focus:ring-orange-400 focus:bg-white transition-colors"
               @keyup.enter="handleSearch"
             />
             <button
-              class="absolute right-2 top-1/2 transform -translate-y-1/2 bg-orange-500 text-white px-6 py-2 rounded-full text-sm"
+              class="absolute right-1 top-1/2 transform -translate-y-1/2 bg-orange-500 text-white px-6 py-2 rounded-full text-sm"
               @click="handleSearch"
             >
               搜索
