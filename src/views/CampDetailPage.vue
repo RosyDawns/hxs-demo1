@@ -9,22 +9,6 @@
           </svg>
         </button>
         <h1 class="title">免费体验活动详情</h1>
-        <div class="header-right">
-          <span class="view-count">
-            <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-              <path d="M8 3C4.5 3 1.73 5.11 1 8c.73 2.89 3.5 5 7 5s6.27-2.11 7-5c-.73-2.89-3.5-5-7-5z" stroke="#666" stroke-width="1.5"/>
-              <circle cx="8" cy="8" r="2" stroke="#666" stroke-width="1.5"/>
-            </svg>
-            49
-          </span>
-          <button class="more-btn">
-            <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
-              <circle cx="10" cy="5" r="1.5" fill="#666"/>
-              <circle cx="10" cy="10" r="1.5" fill="#666"/>
-              <circle cx="10" cy="15" r="1.5" fill="#666"/>
-            </svg>
-          </button>
-        </div>
       </div>
       <div class="subtitle">
         青少年学习沟通如拉在家里户提供的人
@@ -34,7 +18,7 @@
     <!-- 主图和基础信息 -->
     <div class="main-content">
       <div class="hero-image">
-        <img src="/api/placeholder/400/200" alt="游泳活动" class="camp-image">
+        <img src="@images/img_41.jpg" alt="游泳活动" class="camp-image">
       </div>
 
       <div class="camp-info">
@@ -58,7 +42,7 @@
       <div class="coach-section">
         <h3 class="section-title">适用教练师</h3>
         <div class="coach-card">
-          <img src="/api/placeholder/60/60" alt="李老师" class="coach-avatar">
+          <img src="@images/img-13.jpg" alt="李老师" class="coach-avatar">
           <div class="coach-info">
             <div class="coach-name">李老师</div>
             <div class="coach-tags">
@@ -86,15 +70,15 @@
         <h3 class="section-title">智慧家长新答</h3>
         <div class="parent-cards">
           <div class="parent-card">
-            <img src="/api/placeholder/100/80" alt="体验课" class="parent-image">
+            <img src="@images/img-36.jpg" alt="体验课" class="parent-image">
             <p class="parent-text">体验课</p>
           </div>
           <div class="parent-card">
-            <img src="/api/placeholder/100/80" alt="游泳课" class="parent-image">
+            <img src="@images/img-36.jpg" alt="游泳课" class="parent-image">
             <p class="parent-text">游泳课、200元</p>
           </div>
           <div class="parent-card">
-            <img src="/api/placeholder/100/80" alt="暑假" class="parent-image">
+            <img src="@images/img-36.jpg" alt="暑假" class="parent-image">
             <p class="parent-text">100天了暑假</p>
           </div>
         </div>
@@ -334,8 +318,6 @@ export default {
 /* 头部样式 */
 .header {
   background-color: white;
-  padding: 44px 0 16px 0;
-  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
 }
 
 .nav-bar {
