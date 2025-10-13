@@ -296,61 +296,31 @@
     </div>
 
     <!-- 教练列表 -->
-    <div class="grid grid-cols-2 gap-3 px-3 pb-3 pt-1">
-      <div
-        v-for="coach in coaches"
-        :key="coach.id"
-        class="bg-white rounded-lg overflow-hidden card-shadow nav-action cursor-pointer"
-        @click="$router.push('/ouyang')"
-      >
-        <!-- @click="$router.push('/product-detail/' + coach.id)" -->
-        <img
-          :src="coach.avatar"
-          :alt="coach.name"
-          class="w-full h-45 object-cover rounded-lt-full rounded-rt-full"
-        />
-        <div class="px-2 py-2">
-          <div class="flex items-center mb-2">
-            <img
-              class="w-6 h-6 rounded-full object-cover mr-1"
-              :src="coach.pic"
-              alt=""
-            />
-            <span class="text-sm text-black">{{ coach.name }}</span>
-          </div>
-          <p class="text-xs text-black font-bold mb-1">
-            {{ coach.qualification }}
-          </p>
-          <p class="text-xs text-gray-500 mb-1">擅长: {{ coach.skills }}</p>
-          <div class="flex items-center justify-between">
-            <div class="flex items-center">
-              <span class="text-xs text-gray-500 mr-1">{{ coach.rating }}</span>
-              <div class="flex">
-                <!-- 动态生成星星 -->
-                <i
-                  v-for="star in 5"
-                  :key="star"
-                  :class="[
-                    'text-yellow-400 text-xs',
-                    {
-                      'fa-solid fa-star': star <= Math.floor(coach.rating),
-                      'fa-solid fa-star-half-stroke':
-                        star === Math.ceil(coach.rating) &&
-                        coach.rating % 1 !== 0,
-                      'fa-regular fa-star': star > Math.ceil(coach.rating),
-                    },
-                  ]"
-                ></i>
-              </div>
-            </div>
-            <div
-              class="bg-orange-400 text-white text-xs px-1 py-0.5 rounded-full"
-            >
-              {{ coach.label }}
-            </div>
-          </div>
+    <div class="px-3 pb-3 pt-1">
+      <!-- 模式1：列表模式（默认） -->
+      <template v-if="viewMode === 'mode1'">
+        <div class="grid grid-cols-2 gap-3">
+          <CoachListCard
+            v-for="coach in coaches"
+            :key="coach.id"
+            :coach="coach"
+            @click="$router.push('/ouyang')"
+          />
         </div>
-      </div>
+      </template>
+
+      <!-- 模式2：内容卡片模式 -->
+      <template v-else>
+        <div class="grid grid-cols-2 gap-3">
+          <CoachContentCard
+            v-for="coach in coaches1"
+            :key="coach.id"
+            :coach="coach"
+            @click="$router.push('/ouyang')"
+            @like="handleCoachLike"
+          />
+        </div>
+      </template>
     </div>
 
     <!-- 底部导航 -->
@@ -361,6 +331,8 @@
 <script>
 import { ref, computed, onUnmounted } from "vue";
 import FooterNav from "../components/FooterNav.vue";
+import CoachListCard from "../components/CoachListCard.vue";
+import CoachContentCard from "../components/CoachContentCard.vue";
 
 // 导入本地图片资源
 import user1 from "@images/user_1.png";
@@ -372,14 +344,23 @@ import avatr2 from "@images/img-13.jpg";
 import avatr3 from "@images/img_39.jpeg";
 import avatr4 from "@images/img_38.jpeg";
 
+import avatr39 from "@images/img_39.jpg";
+import avatr40 from "@images/img_40.jpg";
+import avatr41 from "@images/img_41.jpg";
+import avatr42 from "@images/img_42.jpg";
+
 export default {
   name: "IndexPage",
   components: {
     FooterNav,
+    CoachListCard,
+    CoachContentCard,
   },
   setup() {
     // 当前选中的分类
     const selectedCategory = ref("推荐");
+    // 显示模式：'mode1' 列表模式（默认），'mode2' 内容卡片模式
+    const viewMode = ref("mode1");
     // 头部背景透明度
     const headerOpacity = ref(0);
     // 城市选择相关
@@ -529,19 +510,89 @@ export default {
       },
     ]);
 
-    // 处理分类点击 - 修复页面回弹问题
+    const coaches1 = ref([
+      {
+        id: 1,
+        name: "李1教练",
+        avatar: avatr39,
+        qualification: "专业力量训练，器材齐全环境超棒的小乖狼1",
+        skills: "长泳/自由泳",
+        rating: 4.8,
+        level: "初级教练",
+        price: 188,
+        label: "到店服务",
+        pic: avatr1,
+      },
+      {
+        id: 2,
+        name: "赵2教练",
+        avatar: avatr40,
+        qualification: "高蛋白低脂餐单推荐，帮你高效增肌减脂黛西",
+        skills: "仰泳/自由泳",
+        rating: 4.9,
+        level: "高级教练",
+        price: 268,
+        label: "上门服务",
+        pic: avatr2,
+      },
+      {
+        id: 3,
+        name: "王3教练",
+        avatar: avatr41,
+        qualification: "专业力量训练，器材齐全环境超棒的32小乖狼",
+        skills: "蝶泳/混合泳",
+        rating: 5.0,
+        level: "专业教练",
+        price: 388,
+        label: "线上服务",
+        pic: avatr3,
+      },
+      {
+        id: 4,
+        name: "孙4教练",
+        avatar: avatr42,
+        qualification: "高蛋白低脂餐单推荐，帮你高效增肌减脂12321321黛西",
+        skills: "蛙泳/自由泳",
+        rating: 4.7,
+        level: "初级教练",
+        price: 168,
+        label: "到店服务",
+        pic: avatr4,
+      },
+    ]);
+
+    // 处理分类点击 - 支持模式切换
     const handleCategoryClick = (category) => {
-      // 添加一个小延迟，避免页面回弹
-      setTimeout(() => {
+      // 可切换模式的分类
+      const toggleableCategories = ["关注", "推荐", "附近"];
+      
+      // 如果点击的是当前已选中的分类，且是可切换分类，则切换模式
+      if (selectedCategory.value === category && toggleableCategories.includes(category)) {
+        // 在两种模式间切换
+        viewMode.value = viewMode.value === "mode1" ? "mode2" : "mode1";
+        console.log(`切换到${category}分类 - 模式${viewMode.value}`);
+      } else {
+        // 切换到新分类，重置为模式1
         selectedCategory.value = category;
+        if (toggleableCategories.includes(category)) {
+          viewMode.value = "mode1";
+        }
         console.log(`切换到${category}分类`);
-      }, 50);
+      }
+    };
+
+    // 处理教练点赞
+    const handleCoachLike = (coachId, isLiked) => {
+      console.log(`教练 ${coachId} 点赞状态:`, isLiked);
     };
 
     return {
       selectedCategory,
+      viewMode,
       coaches,
+      coaches1,
       handleCategoryClick,
+      handleCoachLike,
       headerOpacity,
       showCityPicker,
       selectedCity,
