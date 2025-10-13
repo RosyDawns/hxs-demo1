@@ -41,21 +41,21 @@
     </div>
     <div class="grid grid-cols-3 gap-2">
       <div class="bg-gray-50 rounded-lg overflow-hidden relative text-center shadow">
-        <img class="w-full h-22 object-cover" src="https://picsum.photos/id/1065/300/200" alt="体验课" />
+        <img class="w-full h-22 object-cover" src="@images/img_40.jpg" alt="体验课" />
         <p class="text-xs text-black bg-white py-1">体验课</p>
         <p class=" text-white w-full absolute top-0 left-0 py-1 text-xs" style="background-image: linear-gradient(to bottom, #000, rgba(255,255,255,0));">
           体验卡：¥{{ coach.prices.trial }}
         </p>
       </div>
       <div class="bg-gray-50 rounded-lg overflow-hidden relative text-center shadow">
-        <img class="w-full h-22 object-cover" src="https://picsum.photos/id/1066/300/200" alt="单次课" />
+        <img class="w-full h-22 object-cover" src="@images/img_41.jpg" alt="单次课" />
         <p class="text-xs text-black bg-white py-1">单次课</p>
         <p class="text-xs text-white w-full absolute top-0 left-0 py-0.5 "  style="background-image: linear-gradient(to bottom, #000, rgba(255,255,255,0));">
           体验卡：¥{{ coach.prices.single }}
         </p>
       </div>
       <div class="bg-gray-50 rounded-lg overflow-hidden relative text-center shadow">
-        <img class="w-full h-22 object-cover" src="https://picsum.photos/id/1067/300/200" alt="10次卡" />
+        <img class="w-full h-22 object-cover" src="@images/img_39.jpg" alt="10次卡" />
         <p class="text-xs text-black bg-white py-1">10次卡</p>
         <p class="text-xs text-white w-full absolute top-0 left-0 py-0.5" style="background-image: linear-gradient(to bottom, #000, rgba(255,255,255,0));">
           体验卡：¥{{ coach.prices.tenPack }}

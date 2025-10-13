@@ -77,6 +77,9 @@
 
 <script>
 import HxsItem from "@/components/hxs-item.vue";
+import Picture1 from "@/assets/images/img-7.jpg";
+import Picture2 from "@/assets/images/img-18.jpg";
+import Picture3 from "@/assets/images/img-6.jpg";
 
 export default {
   name: "SearchResultsPage",
@@ -191,7 +194,7 @@ export default {
           location: locations[Math.floor(Math.random() * locations.length)],
           rating: parseFloat(rating.toFixed(1)),
           distance: (Math.random() * 10 + 0.5).toFixed(1),
-          image: `https://picsum.photos/id/${1000 + i}/200/200`,
+          image: i % 2 === 0 ? Picture1 : i % 2 === 1 ? Picture2 : Picture3,
           qualification: category,
           prices: {
             trial: Math.floor(Math.random() * 100) + 50,
