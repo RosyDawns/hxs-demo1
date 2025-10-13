@@ -140,13 +140,20 @@
                 @click="selectFilterTab(tab.id)"
               >
                 {{ tab.name }}
+                <!-- 人气大师：下拉箭头 -->
                 <i
                   v-if="tab.hasDropdown"
                   class="fa-solid fa-chevron-down text-xs ml-1"
                 ></i>
+                <!-- 更多按钮：右箭头 -->
                 <i
                   v-if="tab.id === 'more'"
                   class="fa-solid fa-chevron-right text-xs ml-1"
+                ></i>
+                <!-- 冠军/非遗大师：排序图标 -->
+                <i
+                  v-if="tab.iconType === 'sort'"
+                  class="fa-solid fa-right-left text-xs ml-1"
                 ></i>
                 <span
                   v-if="selectedFilterTab === tab.id"
@@ -270,11 +277,11 @@ export default {
       ],
       // 冠军大师/非遗大师的筛选标签
       championFilterTabs: [
-        { id: "follow", name: "关注", hasDropdown: true },
-        { id: "recommend", name: "推荐", hasDropdown: true },
-        { id: "nearby", name: "附近", hasDropdown: true },
+        { id: "follow", name: "关注", iconType: "sort" },
+        { id: "recommend", name: "推荐", iconType: "sort" },
+        { id: "nearby", name: "附近", iconType: "sort" },
         { id: "screen", name: "筛选", hasDropdown: true },
-        { id: "live", name: "直播", hasDropdown: false },
+        { id: "live", name: "直播", iconType: "none" },
       ],
       masterCategories: [
         {
