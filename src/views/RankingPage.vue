@@ -50,127 +50,138 @@
         </div>
       </div>
 
-      <!-- 大师分类卡片 -->
-      <div class="bg-white rounded-t-3xl -mt-6 relative z-10 px-4 pt-6">
-        <div class="grid grid-cols-3 gap-4 mb-4">
+      <div class="bg-white">
+        <!-- 大师分类卡片 -->
+        <div class="px-2">
           <div
-            v-for="(category, index) in masterCategories"
-            :key="index"
-            class="flex flex-col items-center cursor-pointer"
-            :class="{
-              'opacity-100': selectedCategory === category.id,
-              'opacity-60': selectedCategory !== category.id,
-            }"
-            @click="selectCategory(category.id)"
+            class="rounded-t-xl -mt-6 relative z-10 px-2 pt-2 bg-white"
+            style="margin-top: -50px"
           >
-            <div class="w-24 h-24 rounded-2xl overflow-hidden mb-2 shadow-md">
-              <img
-                :src="category.image"
-                :alt="category.name"
-                class="w-full h-full object-cover"
-              />
+            <div class="grid grid-cols-3 gap-3 mb-4">
+              <div
+                v-for="(category, index) in masterCategories"
+                :key="index"
+                class="flex flex-col items-center cursor-pointer bg-white shadow rounded-xl overflow-hidden"
+                :class="{
+                  'opacity-100': selectedCategory === category.id,
+                  'opacity-60': selectedCategory !== category.id,
+                }"
+                @click="selectCategory(category.id)"
+              >
+                <div class="w-full">
+                  <img
+                    class="w-full h-22 block"
+                    :src="category.image"
+                    :alt="category.name"
+                  />
+                </div>
+                <span class="font-medium text-base py-1">{{
+                  category.name
+                }}</span>
+              </div>
             </div>
-            <span class="text-sm font-medium">{{ category.name }}</span>
           </div>
         </div>
-      </div>
 
-      <!-- 当前大师信息和二级分类 -->
-      <div class="bg-white px-4 pb-3">
-        <div class="flex items-center justify-between mb-3">
-          <div class="flex-1 flex items-center">
-            <h2 class="text-lg font-bold mr-2">
-              {{ getCurrentCategoryName() }}
-            </h2>
-            <div class="text-xs text-gray-500">10月05日已更新</div>
+        <!-- 当前大师信息和二级分类 -->
+        <div class="px-4 pb-1">
+          <div class="flex items-center justify-between mb-2">
+            <div class="flex-1 flex items-center">
+              <h2 class="text-lg font-bold mr-2">
+                {{ getCurrentCategoryName() }}
+              </h2>
+              <div class="text-xs text-gray-500">10月05日已更新</div>
+            </div>
+            <button
+              class="flex items-center text-xs text-gray-600"
+              @click="showRules = true"
+            >
+              评选规则
+              <i class="fa-solid fa-chevron-right ml-1 text-xs"></i>
+            </button>
           </div>
-          <button
-            class="flex items-center text-sm text-gray-600 mb-3"
-            @click="showRules = true"
+
+          <!-- 二级分类标签 -->
+          <div
+            class="flex items-center space-x-2 overflow-x-auto scrollbar-hide"
           >
-            评选规则
-            <i class="fa-solid fa-chevron-right ml-1 text-xs"></i>
-          </button>
+            <button
+              v-for="subCategory in subCategories"
+              :key="subCategory.id"
+              class="px-2 py-1 rounded-full text-sm whitespace-nowrap transition-colors"
+              :class="
+                selectedSubCategory === subCategory.id
+                  ? 'bg-orange-50 text-primary'
+                  : 'text-gray-600 '
+              "
+              @click="selectedSubCategory = subCategory.id"
+            >
+              {{ subCategory.name }}
+            </button>
+          </div>
         </div>
 
-        <!-- 二级分类标签 -->
-        <div
-          class="flex items-center space-x-2 overflow-x-auto scrollbar-hide"
-        >
-          <button
-            v-for="subCategory in subCategories"
-            :key="subCategory.id"
-            class="px-2 py-1 rounded-full text-sm whitespace-nowrap transition-colors"
-            :class="
-              selectedSubCategory === subCategory.id
-                ? 'bg-orange-50 text-primary'
-                : 'text-gray-600 '
-            "
-            @click="selectedSubCategory = subCategory.id"
+        <!-- 筛选标签栏 -->
+        <div class="border-b border-gray-100 px-4">
+          <div
+            class="flex items-center space-x-4 overflow-x-auto scrollbar-hide"
           >
-            {{ subCategory.name }}
-          </button>
+            <button
+              class="py-3 text-xs font-medium whitespace-nowrap text-orange-500 relative"
+            >
+              全部主理人
+              <i class="fa-solid fa-chevron-down text-xs"></i>
+              <span
+                class="absolute bottom-0 left-0 right-0 h-0.5 bg-orange-500"
+              ></span>
+            </button>
+            <button
+              class="py-3 text-xs font-medium whitespace-nowrap text-gray-600"
+            >
+              行业
+              <i class="fa-solid fa-chevron-down text-xs"></i>
+            </button>
+            <button class="py-3 text-xs text-gray-600 whitespace-nowrap">
+              餐饮美食
+            </button>
+            <button class="py-3 text-xs text-gray-600 whitespace-nowrap">
+              运动健康
+            </button>
+            <button class="py-3 text-xs text-gray-600 whitespace-nowrap">
+              少儿培训
+            </button>
+            <button class="py-3 text-xs text-gray-600 whitespace-nowrap">
+              艺术
+            </button>
+            <button class="py-3 text-xs text-gray-600 whitespace-nowrap">
+              更多
+              <i class="fa-solid fa-chevron-right text-xs"></i>
+            </button>
+          </div>
         </div>
-      </div>
 
-      <!-- 筛选标签栏 -->
-      <div class="bg-white border-b border-gray-100 px-4">
-        <div class="flex items-center space-x-4 overflow-x-auto scrollbar-hide">
-          <button
-            class="py-3 text-xs font-medium whitespace-nowrap text-orange-500 relative"
-          >
-            全部主理人
-            <i class="fa-solid fa-chevron-down text-xs"></i>
-            <span
-              class="absolute bottom-0 left-0 right-0 h-0.5 bg-orange-500"
-            ></span>
-          </button>
-          <button
-            class="py-3 text-xs font-medium whitespace-nowrap text-gray-600"
-          >
-            行业
-            <i class="fa-solid fa-chevron-down text-xs"></i>
-          </button>
-          <button class="py-3 text-xs text-gray-600 whitespace-nowrap">
-            餐饮美食
-          </button>
-          <button class="py-3 text-xs text-gray-600 whitespace-nowrap">
-            运动健康
-          </button>
-          <button class="py-3 text-xs text-gray-600 whitespace-nowrap">
-            少儿培训
-          </button>
-          <button class="py-3 text-xs text-gray-600 whitespace-nowrap">
-            艺术
-          </button>
-          <button class="py-3 text-xs text-gray-600 whitespace-nowrap">
-            更多
-            <i class="fa-solid fa-chevron-right text-xs"></i>
-          </button>
-        </div>
-      </div>
+        <!-- 排行榜列表区域 -->
+        <div class="bg-gray-50 px-4 py-4">
+          <RankingCard
+            v-for="(master, index) in rankedMasters"
+            :key="master.id"
+            :master="master"
+            :rank="index + 1"
+            @view-profile="handleViewProfile"
+            @call="handleCall"
+          />
 
-      <!-- 排行榜列表区域 -->
-      <div class="bg-gray-50 px-4 py-4">
-        <RankingCard
-          v-for="(master, index) in rankedMasters"
-          :key="master.id"
-          :master="master"
-          :rank="index + 1"
-          @view-profile="handleViewProfile"
-          @call="handleCall"
-        />
-
-        <!-- 加载更多 -->
-        <div class="text-center py-4">
-          <button
-            class="text-sm text-gray-500 hover:text-gray-700"
-            @click="loadMore"
-            :disabled="loading"
-          >
-            {{ loading ? "加载中..." : "加载更多" }}
-            <i class="fa-solid fa-chevron-down ml-1"></i>
-          </button>
+          <!-- 加载更多 -->
+          <div class="text-center py-4">
+            <button
+              class="text-sm text-gray-500 hover:text-gray-700"
+              @click="loadMore"
+              :disabled="loading"
+            >
+              {{ loading ? "加载中..." : "加载更多" }}
+              <i class="fa-solid fa-chevron-down ml-1"></i>
+            </button>
+          </div>
         </div>
       </div>
 
@@ -207,6 +218,9 @@
 import MasterCard from "@/components/MasterCard.vue";
 import ContentCard from "@/components/ContentCard.vue";
 import RankingCard from "@/components/RankingCard.vue";
+import User1 from "@images/user_1.png";
+import User2 from "@images/user_2.png";
+import User3 from "@images/user_3.png";
 
 export default {
   name: "RankingPage",
@@ -225,17 +239,17 @@ export default {
         {
           id: "popular",
           name: "人气大师",
-          image: "https://randomuser.me/api/portraits/women/1.jpg",
+          image: User1,
         },
         {
           id: "champion",
           name: "冠军大师",
-          image: "https://randomuser.me/api/portraits/men/2.jpg",
+          image: User2,
         },
         {
           id: "heritage",
           name: "非遗大师",
-          image: "https://randomuser.me/api/portraits/women/3.jpg",
+          image: User3,
         },
       ],
       subCategories: [
