@@ -5,36 +5,76 @@
       <div class="nav-bar">
         <button class="back-btn" @click="goBack">
           <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
-            <path d="M12.5 15L7.5 10L12.5 5" stroke="#333" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            <path
+              d="M12.5 15L7.5 10L12.5 5"
+              stroke="#333"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
           </svg>
         </button>
         <h1 class="title">免费体验活动详情</h1>
+        <div class="header-right">
+          <span class="view-count">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+              <path
+                d="M8 3C4.5 3 1.73 5.11 1 8c.73 2.89 3.5 5 7 5s6.27-2.11 7-5c-.73-2.89-3.5-5-7-5z"
+                stroke="#666"
+                stroke-width="1.5"
+              />
+              <circle cx="8" cy="8" r="2" stroke="#666" stroke-width="1.5" />
+            </svg>
+            49
+          </span>
+          <button class="more-btn">
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+              <circle cx="10" cy="5" r="1.5" fill="#666" />
+              <circle cx="10" cy="10" r="1.5" fill="#666" />
+              <circle cx="10" cy="15" r="1.5" fill="#666" />
+            </svg>
+          </button>
+        </div>
       </div>
-      <div class="subtitle">
-        青少年学习沟通如拉在家里户提供的人
-      </div>
+      <div class="subtitle">青少年学习沟通如拉在家里户提供的人</div>
     </header>
 
     <!-- 主图和基础信息 -->
     <div class="main-content">
       <div class="hero-image">
-        <img src="@images/img_41.jpg" alt="游泳活动" class="camp-image">
+        <img src="@images/img_41.jpg" alt="游泳活动" class="camp-image" />
       </div>
 
       <div class="camp-info">
         <h2 class="camp-title">蛙泳/自由泳(体验课)</h2>
+
+        <!-- 价格信息 -->
+        <div class="price-section">
+          <div class="price-info">
+            <span class="current-price">¥0</span>
+            <span class="original-price">¥280</span>
+          </div>
+          <div class="status-info">
+            <span class="quota">🗺️ 50个中奖名额</span>
+          </div>
+        </div>
+
+        <!-- 统计信息 -->
+        <div class="stats-info">
+          <span class="stat-item">14671人已报名</span>
+          <span class="stat-item">33936人感兴趣</span>
+        </div>
+
+        <!-- 评分和名额 -->
         <div class="camp-meta">
           <div class="rating">
             <span class="rating-icon">🏆</span>
             <span class="rating-text">0分</span>
           </div>
-          <div class="participants">
-            <span class="participant-count">0个上课名额</span>
+          <div class="capacity-info">
+            <span class="capacity">1对7人上课模式</span>
+            <span class="group-size">成班30人满课堂</span>
           </div>
-        </div>
-        <div class="capacity-info">
-          <span class="capacity">1对7人上课模式</span>
-          <span class="group-size">成班30人满课堂</span>
         </div>
       </div>
 
@@ -42,7 +82,7 @@
       <div class="coach-section">
         <h3 class="section-title">适用教练师</h3>
         <div class="coach-card">
-          <img src="@images/img-13.jpg" alt="李老师" class="coach-avatar">
+          <img src="@images/img-13.jpg" alt="李老师" class="coach-avatar" />
           <div class="coach-info">
             <div class="coach-name">李老师</div>
             <div class="coach-tags">
@@ -59,7 +99,9 @@
               </div>
             </div>
             <div class="coach-details">
-              <span class="location">📍1km 市区附近有限公司办事处安顺市1号001</span>
+              <span class="location"
+                >📍1km 市区附近有限公司办事处安顺市1号001</span
+              >
             </div>
           </div>
         </div>
@@ -70,41 +112,41 @@
         <h3 class="section-title">智慧家长新答</h3>
         <div class="parent-cards">
           <div class="parent-card">
-            <img src="@images/img-36.jpg" alt="体验课" class="parent-image">
+            <img src="@images/img-36.jpg" alt="体验课" class="parent-image" />
             <p class="parent-text">体验课</p>
           </div>
           <div class="parent-card">
-            <img src="@images/img-36.jpg" alt="游泳课" class="parent-image">
+            <img src="@images/img-36.jpg" alt="游泳课" class="parent-image" />
             <p class="parent-text">游泳课、200元</p>
           </div>
           <div class="parent-card">
-            <img src="@images/img-36.jpg" alt="暑假" class="parent-image">
+            <img src="@images/img-36.jpg" alt="暑假" class="parent-image" />
             <p class="parent-text">100天了暑假</p>
           </div>
         </div>
       </div>
 
       <!-- 标签栏 -->
-      <div class="tabs-section">
+      <div class="tabs-section" :class="{ sticky: isSticky }">
         <div class="tabs">
-          <button 
-            class="tab" 
+          <button
+            class="tab"
             :class="{ active: activeTab === '活动流程' }"
-            @click="activeTab = '活动流程'"
+            @click="scrollToSection('活动流程')"
           >
             活动流程
           </button>
-          <button 
-            class="tab" 
+          <button
+            class="tab"
             :class="{ active: activeTab === '活动内容' }"
-            @click="activeTab = '活动内容'"
+            @click="scrollToSection('活动内容')"
           >
             活动内容
           </button>
-          <button 
-            class="tab" 
+          <button
+            class="tab"
             :class="{ active: activeTab === '活动规则' }"
-            @click="activeTab = '活动规则'"
+            @click="scrollToSection('活动规则')"
           >
             活动规则
           </button>
@@ -112,13 +154,13 @@
       </div>
 
       <!-- 活动流程 -->
-      <div class="tab-content" v-show="activeTab === '活动流程'">
+      <div class="tab-content">
         <div class="content-section">
           <div class="flow-header">
             <h3 class="content-title">活动流程</h3>
             <span class="detail-link">详情即时 ></span>
           </div>
-          
+
           <div class="flow-steps">
             <div class="flow-step">
               <div class="step-number">1</div>
@@ -126,28 +168,28 @@
                 <div class="step-title">免费报名</div>
               </div>
             </div>
-            
+
             <div class="flow-step">
               <div class="step-number">2</div>
               <div class="step-content">
                 <div class="step-title">中奖公布</div>
               </div>
             </div>
-            
+
             <div class="flow-step">
               <div class="step-number">3</div>
               <div class="step-content">
                 <div class="step-title">确前预约</div>
               </div>
             </div>
-            
+
             <div class="flow-step">
               <div class="step-number">4</div>
               <div class="step-content">
                 <div class="step-title">体验服务</div>
               </div>
             </div>
-            
+
             <div class="flow-step">
               <div class="step-number">5</div>
               <div class="step-content">
@@ -159,42 +201,42 @@
       </div>
 
       <!-- 活动内容 -->
-      <div class="tab-content" v-show="activeTab === '活动内容'">
+      <div class="tab-content">
         <div class="content-section">
           <h3 class="content-title">活动内容</h3>
-          
+
           <div class="activity-content">
             <div class="content-item">
               <div class="label">课程内容：</div>
               <div class="value">蛙泳/自由泳体验</div>
             </div>
-            
+
             <div class="content-item">
               <div class="label">容纳人数：</div>
               <div class="value">1人</div>
             </div>
-            
+
             <div class="content-item">
               <div class="label">容纳时间：</div>
               <div class="value">40分钟</div>
             </div>
-            
+
             <div class="content-item">
               <div class="label">容纳体验次数：</div>
               <div class="value">仅限单次体验完毕</div>
             </div>
-            
+
             <div class="content-item">
               <div class="label">适用年龄：</div>
               <div class="value">不限，小朋</div>
             </div>
-            
+
             <div class="content-item">
               <div class="label">特色：</div>
               <div class="value">小班</div>
             </div>
           </div>
-          
+
           <div class="notice">
             <div class="notice-icon">⚠️</div>
             <div class="notice-text">
@@ -205,10 +247,10 @@
       </div>
 
       <!-- 活动规则 -->
-      <div class="tab-content" v-show="activeTab === '活动规则'">
+      <div class="tab-content">
         <div class="content-section">
           <h3 class="content-title">活动规则</h3>
-          
+
           <!-- 体验时间 -->
           <div class="rule-section">
             <h4 class="rule-title">体验时间</h4>
@@ -224,7 +266,9 @@
             </div>
             <div class="rule-notice">
               <span class="notice-dot">•</span>
-              <span class="notice-content">阀在体验都体验过程中个，进入体验个为不在可获得其可以等各方进参。</span>
+              <span class="notice-content"
+                >阀在体验都体验过程中个，进入体验个为不在可获得其可以等各方进参。</span
+              >
             </div>
           </div>
 
@@ -233,11 +277,15 @@
             <h4 class="rule-title">预约规则</h4>
             <div class="rule-notice">
               <span class="notice-dot">•</span>
-              <span class="notice-content">请在约定第一次时间前联系客服，若未能在约定时间内进行课程的体验，课程此次体验服务体验。</span>
+              <span class="notice-content"
+                >请在约定第一次时间前联系客服，若未能在约定时间内进行课程的体验，课程此次体验服务体验。</span
+              >
             </div>
             <div class="rule-notice">
               <span class="notice-dot">•</span>
-              <span class="notice-content">单次体验的课程网（中意合法联系关系大此重的，时未能保障的客服联系。</span>
+              <span class="notice-content"
+                >单次体验的课程网（中意合法联系关系大此重的，时未能保障的客服联系。</span
+              >
             </div>
           </div>
 
@@ -246,11 +294,15 @@
             <h4 class="rule-title">限告须知</h4>
             <div class="rule-notice">
               <span class="notice-dot">•</span>
-              <span class="notice-content">免费体验课程不位于回家服务地点。</span>
+              <span class="notice-content"
+                >免费体验课程不位于回家服务地点。</span
+              >
             </div>
             <div class="rule-notice">
               <span class="notice-dot">•</span>
-              <span class="notice-content">不得利用体验的机会进行其他商业活动，一经发现即可取消本次体验机会。</span>
+              <span class="notice-content"
+                >不得利用体验的机会进行其他商业活动，一经发现即可取消本次体验机会。</span
+              >
             </div>
           </div>
 
@@ -262,69 +314,124 @@
             </div>
             <div class="rule-notice">
               <span class="notice-dot">•</span>
-              <span class="notice-content">请在公开评价时，深入情况在评价体验中检始理以协助教育机构完善高质量教学服务。教育机构将总数认真对待家长反馈的教学。无先机教育机构并相应提升。第二，如果对教学服务的精税的课程校长的评价不理起子。参与办教育机构将适定数画科领造简。教育机构将在教育学院中保证另一对美好的体验。第三，一在一一在一域内进行学习。</span>
+              <span class="notice-content"
+                >请在公开评价时，深入情况在评价体验中检始理以协助教育机构完善高质量教学服务。教育机构将总数认真对待家长反馈的教学。无先机教育机构并相应提升。第二，如果对教学服务的精税的课程校长的评价不理起子。参与办教育机构将适定数画科领造简。教育机构将在教育学院中保证另一对美好的体验。第三，一在一一在一域内进行学习。</span
+              >
             </div>
           </div>
         </div>
       </div>
     </div>
-    
+
     <!-- 底部操作按钮 -->
     <div class="bottom-actions">
       <button class="action-btn secondary" @click="addToFavorites">
         <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
-          <path d="M10 15.27L16.18 19L14.54 11.97L20 7.24L12.81 6.63L10 0L7.19 6.63L0 7.24L5.46 11.97L3.82 19L10 15.27Z" fill="currentColor"/>
+          <path
+            d="M10 15.27L16.18 19L14.54 11.97L20 7.24L12.81 6.63L10 0L7.19 6.63L0 7.24L5.46 11.97L3.82 19L10 15.27Z"
+            fill="currentColor"
+          />
         </svg>
         收藏关注
       </button>
-      <button class="action-btn primary" @click="joinActivity">
-        立即报名
-      </button>
+      <button class="action-btn primary" @click="joinActivity">立即报名</button>
     </div>
   </div>
 </template>
 
 <script>
 export default {
-  name: 'CampDetailPage',
+  name: "CampDetailPage",
   data() {
     return {
-      activeTab: '活动流程'
-    }
+      activeTab: "活动流程",
+      isSticky: false,
+      stickyOffset: 0,
+    };
+  },
+  mounted() {
+    // 监听滚动事件
+    window.addEventListener("scroll", this.handleScroll);
+    // 计算标签栏应该在何时变为固定定位
+    this.setStickyOffset();
+  },
+  beforeUnmount() {
+    // 移除滚动事件监听，防止内存泄漏
+    window.removeEventListener("scroll", this.handleScroll);
   },
   methods: {
+    setStickyOffset() {
+      // 获取标签栏元素
+      const tabsElement = document.querySelector(".tabs-section");
+      if (tabsElement) {
+        // 计算标签栏相对于视口顶部的距离
+        this.stickyOffset =
+          tabsElement.getBoundingClientRect().top + window.pageYOffset;
+      }
+    },
+    handleScroll() {
+      // 获取当前滚动距离
+      const scrollY = window.pageYOffset;
+      // 判断是否超过阈值，如果超过则固定标签栏
+      this.isSticky = scrollY > this.stickyOffset - 100; // 提前100px固定，提供更好的用户体验
+    },
     goBack() {
-      this.$router.go(-1)
+      this.$router.go(-1);
     },
     addToFavorites() {
       // 收藏逻辑
-      console.log('添加到收藏')
+      console.log("添加到收藏");
     },
     joinActivity() {
       // 报名逻辑
-      console.log('立即报名')
-    }
-  }
-}
+      console.log("立即报名");
+    },
+    scrollToSection(section) {
+      // 更新当前激活的标签
+      this.activeTab = section;
+
+      // 获取对应内容区域的DOM元素
+      const tabContents = document.querySelectorAll(".tab-content");
+      let targetElement = null;
+
+      // 根据标签内容查找对应的内容区域
+      if (section === "活动流程") {
+        targetElement = tabContents[0]; // 第一个tab-content是活动流程
+      } else if (section === "活动内容") {
+        targetElement = tabContents[1]; // 第二个tab-content是活动内容
+      } else if (section === "活动规则") {
+        targetElement = tabContents[2]; // 第三个tab-content是活动规则
+      }
+
+      // 实现平滑滚动到对应区域
+      if (targetElement) {
+        targetElement.scrollIntoView({ behavior: "smooth" });
+      }
+    },
+  },
+};
 </script>
 
 <style scoped>
 .camp-detail-page {
   min-height: 100vh;
-  background-color: #f5f5f5;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  background-color: #f8f9fa;
+  font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", Helvetica,
+    Arial, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
 }
 
 /* 头部样式 */
 .header {
   background-color: white;
+  padding-top: env(safe-area-inset-top, 44px);
+  border-bottom: 1px solid #f0f0f0;
 }
 
 .nav-bar {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0 16px;
+  padding: 12px 16px 8px 16px;
   height: 44px;
 }
 
@@ -366,20 +473,20 @@ export default {
 }
 
 .subtitle {
-  padding: 0 16px;
-  font-size: 14px;
-  color: #666;
+  padding: 0 16px 12px 16px;
+  font-size: 13px;
+  color: #999;
   text-align: center;
-  margin-top: 8px;
+  background: white;
 }
 
 /* 主要内容区域 */
 .main-content {
-  padding: 16px 16px 80px 16px;
+  padding: 0 0 80px;
+  background: #f5f5f5;
 }
 
 .hero-image {
-  border-radius: 12px;
   overflow: hidden;
   margin-bottom: 16px;
 }
@@ -393,23 +500,77 @@ export default {
 /* 活动信息 */
 .camp-info {
   background: white;
-  border-radius: 12px;
-  padding: 16px;
-  margin-bottom: 16px;
+  border-radius: 16px;
+  padding: 20px;
+  margin-bottom: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
 }
 
 .camp-title {
-  font-size: 20px;
-  font-weight: 600;
+  font-size: 18px;
+  font-weight: 700;
   color: #333;
-  margin: 0 0 12px 0;
+  margin: 0 0 16px 0;
+  line-height: 1.4;
+}
+
+/* 价格区域 */
+.price-section {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.price-info {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+}
+
+.current-price {
+  font-size: 24px;
+  font-weight: 700;
+  color: #ff6b35;
+}
+
+.original-price {
+  font-size: 14px;
+  color: #999;
+  text-decoration: line-through;
+}
+
+.status-info {
+  font-size: 12px;
+  color: #666;
+}
+
+.quota {
+  background: #fff3cd;
+  padding: 4px 8px;
+  border-radius: 4px;
+  color: #856404;
+}
+
+/* 统计信息 */
+.stats-info {
+  display: flex;
+  gap: 16px;
+  margin-bottom: 12px;
+  padding: 8px 0;
+  border-top: 1px solid #f5f5f5;
+  border-bottom: 1px solid #f5f5f5;
+}
+
+.stat-item {
+  font-size: 12px;
+  color: #666;
 }
 
 .camp-meta {
   display: flex;
+  justify-content: space-between;
   align-items: center;
-  gap: 16px;
-  margin-bottom: 8px;
 }
 
 .rating {
@@ -419,39 +580,35 @@ export default {
 }
 
 .rating-icon {
-  font-size: 16px;
+  font-size: 14px;
 }
 
 .rating-text {
-  font-size: 14px;
-  color: #666;
-}
-
-.participants {
-  font-size: 14px;
+  font-size: 12px;
   color: #666;
 }
 
 .capacity-info {
   display: flex;
-  gap: 16px;
-  font-size: 14px;
+  gap: 12px;
+  font-size: 12px;
   color: #666;
 }
 
 /* 教练部分 */
 .coach-section {
   background: white;
-  border-radius: 12px;
-  padding: 16px;
-  margin-bottom: 16px;
+  border-radius: 16px;
+  padding: 20px;
+  margin-bottom: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
 }
 
 .section-title {
-  font-size: 16px;
+  font-size: 15px;
   font-weight: 600;
   color: #333;
-  margin: 0 0 12px 0;
+  margin: 0 0 14px 0;
 }
 
 .coach-card {
@@ -471,95 +628,118 @@ export default {
 }
 
 .coach-name {
-  font-size: 16px;
+  font-size: 14px;
   font-weight: 600;
   color: #333;
   margin-bottom: 4px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
 }
 
 .coach-tags {
   display: flex;
-  gap: 8px;
-  margin-bottom: 4px;
+  gap: 6px;
+  margin-bottom: 6px;
 }
 
 .tag {
-  background: #f0f0f0;
-  color: #666;
-  padding: 2px 8px;
-  border-radius: 12px;
-  font-size: 12px;
+  background: #fff3e0;
+  color: #f57c00;
+  padding: 2px 6px;
+  border-radius: 8px;
+  font-size: 10px;
+  font-weight: 500;
 }
 
 .coach-rating {
-  margin-bottom: 4px;
+  margin-bottom: 6px;
 }
 
 .stars {
   display: flex;
-  gap: 2px;
+  gap: 1px;
 }
 
 .star {
-  color: #ddd;
-  font-size: 14px;
+  color: #e0e0e0;
+  font-size: 12px;
 }
 
 .star.filled {
-  color: #ffa500;
+  color: #ffc107;
 }
 
 .coach-details {
-  font-size: 12px;
-  color: #666;
+  font-size: 10px;
+  color: #999;
   line-height: 1.4;
+  margin-top: 4px;
 }
 
 .location {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   gap: 4px;
 }
 
 /* 智慧家长新答 */
 .smart-parent-section {
   background: white;
-  border-radius: 12px;
-  padding: 16px;
-  margin-bottom: 16px;
+  border-radius: 16px;
+  padding: 20px;
+  margin-bottom: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
 }
 
 .parent-cards {
   display: flex;
-  gap: 12px;
+  gap: 8px;
   overflow-x: auto;
+  padding-bottom: 4px;
 }
 
 .parent-card {
   flex-shrink: 0;
   text-align: center;
+  min-width: 90px;
 }
 
 .parent-image {
-  width: 100px;
-  height: 80px;
-  border-radius: 8px;
+  width: 90px;
+  height: 70px;
+  border-radius: 6px;
   object-fit: cover;
-  margin-bottom: 8px;
+  margin-bottom: 6px;
 }
 
 .parent-text {
-  font-size: 12px;
+  font-size: 11px;
   color: #666;
   margin: 0;
+  line-height: 1.3;
 }
 
 /* 标签栏样式 */
 .tabs-section {
   background: white;
-  border-radius: 12px;
-  margin-bottom: 16px;
+  border-radius: 16px;
+  margin-bottom: 8px;
   overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+  transition: all 0.3s ease;
+  z-index: 10;
+}
+
+/* 固定在顶部的样式 */
+.tabs-section.sticky {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  border-radius: 0;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1);
+  padding-top: env(safe-area-inset-top, 0);
 }
 
 .tabs {
@@ -571,12 +751,13 @@ export default {
   flex: 1;
   background: none;
   border: none;
-  padding: 16px;
-  font-size: 16px;
+  padding: 14px;
+  font-size: 15px;
   color: #666;
   cursor: pointer;
   position: relative;
   transition: color 0.3s;
+  font-weight: 500;
 }
 
 .tab.active {
@@ -585,26 +766,25 @@ export default {
 }
 
 .tab.active::after {
-  content: '';
+  content: "";
   position: absolute;
   bottom: 0;
   left: 50%;
   transform: translateX(-50%);
-  width: 30px;
-  height: 3px;
-  background: #007AFF;
-  border-radius: 2px;
+  width: 24px;
+  height: 2px;
+  background: #ff6b35;
+  border-radius: 1px;
 }
 
 /* 标签内容样式 */
 .tab-content {
   background: white;
-  border-radius: 12px;
-  margin-bottom: 16px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
 }
 
 .content-section {
-  padding: 16px;
+  padding: 20px;
 }
 
 .flow-header {
@@ -623,7 +803,7 @@ export default {
 
 .detail-link {
   font-size: 14px;
-  color: #007AFF;
+  color: #007aff;
   cursor: pointer;
 }
 
@@ -642,7 +822,7 @@ export default {
 }
 
 .flow-step:not(:last-child)::after {
-  content: '';
+  content: "";
   position: absolute;
   left: 15px;
   top: 32px;
@@ -803,7 +983,7 @@ export default {
   display: flex;
   gap: 12px;
   border-top: 1px solid #e0e0e0;
-  box-shadow: 0 -2px 10px rgba(0,0,0,0.1);
+  box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
 }
 
 .action-btn {
@@ -832,12 +1012,13 @@ export default {
 }
 
 .action-btn.primary {
-  background: #007AFF;
+  background: linear-gradient(135deg, #ff6b35 0%, #f7931e 100%);
   color: white;
+  box-shadow: 0 4px 12px rgba(255, 107, 53, 0.3);
 }
 
 .action-btn.primary:hover {
-  background: #0056cc;
+  transform: translateY(-1px);
+  box-shadow: 0 6px 16px rgba(255, 107, 53, 0.4);
 }
-
 </style>
