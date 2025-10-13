@@ -156,7 +156,7 @@
       >
         <p class="text-3xl mb-1 text-shadow-2xs">生活唤醒师频道</p>
         <p
-          class="pl-2 text-xl border border-solid rounded-full flex items-center justify-between"
+          class="pl-2 text-lg border border-solid rounded-full flex items-center justify-between"
         >
           让你的热爱发光
           <span class="bg-amber-50 text-amber-700 rounded-full px-2">GO></span>
