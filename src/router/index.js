@@ -233,11 +233,11 @@ const routes = [
   },
   // 唤醒营详情页面路由
   {
-    path: '/camp-detail',
+    path: '/camp-detail/:id',
     name: 'CampDetail',
     component: CampDetailPage,
     meta: {
-      title: '唤醒营详情',
+      title: '免费体验活动详情',
       showInNav: false
     }
   },
