@@ -11,7 +11,7 @@
     </div>
 
     <!-- 内容信息 -->
-    <div class="p-3">
+    <div class="p-2">
       <h3 class="text-sm font-medium text-gray-800 line-clamp-2 mb-2">
         {{ content.title }}
       </h3>

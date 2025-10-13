@@ -188,14 +188,29 @@
 
           <!-- 冠军大师/非遗大师：卡片网格布局 -->
           <template v-else>
-            <div class="grid grid-cols-2 gap-3">
-              <ChampionMasterCard
-                v-for="master in championMasters"
-                :key="master.id"
-                :master="master"
-                @call="handleCall"
-              />
-            </div>
+            <!-- 大师卡片模式 -->
+            <template v-if="viewMode === 'master'">
+              <div class="grid grid-cols-2 gap-3">
+                <ChampionMasterCard
+                  v-for="master in championMasters"
+                  :key="master.id"
+                  :master="master"
+                  @call="handleCall"
+                />
+              </div>
+            </template>
+            
+            <!-- 作品内容模式 -->
+            <template v-else>
+              <div class="grid grid-cols-2 gap-3">
+                <ContentCard
+                  v-for="content in contentList"
+                  :key="content.id"
+                  :content="content"
+                  @like="handleLike"
+                />
+              </div>
+            </template>
           </template>
 
           <!-- 加载更多 -->
@@ -265,6 +280,8 @@ export default {
       selectedFilterTab: "all",
       showRules: false,
       loading: false,
+      // 显示模式：'master' 大师卡片模式，'content' 作品内容模式
+      viewMode: "master",
       // 人气大师的筛选标签
       popularFilterTabs: [
         { id: "all", name: "全部主理人", hasDropdown: true },
@@ -449,6 +466,68 @@ export default {
           avatar: "https://randomuser.me/api/portraits/men/35.jpg",
         },
       ],
+      contentList: [
+        {
+          id: 1,
+          title: "非遗剪纸服装秀 | 白鹅谭艺术中心",
+          author: {
+            name: "非遗剪纸张颖莹",
+            avatar: "https://randomuser.me/api/portraits/women/30.jpg",
+          },
+          image: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400",
+          likes: 0,
+        },
+        {
+          id: 2,
+          title: "当饰品遇到非遗-中国传统非遗纸鳖",
+          author: {
+            name: "灵境修猫",
+            avatar: "https://randomuser.me/api/portraits/men/31.jpg",
+          },
+          image: "https://images.unsplash.com/photo-1582735689369-4fe89db7114c?w=400",
+          likes: 0,
+        },
+        {
+          id: 3,
+          title: "京剧艺术传承精选表演",
+          author: {
+            name: "京剧大师王佩瑜",
+            avatar: "https://randomuser.me/api/portraits/women/32.jpg",
+          },
+          image: "https://images.unsplash.com/photo-1580477667995-2b94f01c9516?w=400",
+          likes: 0,
+        },
+        {
+          id: 4,
+          title: "景泰蓝工艺品鉴赏",
+          author: {
+            name: "景泰蓝大师",
+            avatar: "https://randomuser.me/api/portraits/men/33.jpg",
+          },
+          image: "https://images.unsplash.com/photo-1610701596007-11502861dcfa?w=400",
+          likes: 0,
+        },
+        {
+          id: 5,
+          title: "苏绣艺术展览",
+          author: {
+            name: "苏绣传承人",
+            avatar: "https://randomuser.me/api/portraits/women/34.jpg",
+          },
+          image: "https://images.unsplash.com/photo-1452860606245-08befc0ff44b?w=400",
+          likes: 0,
+        },
+        {
+          id: 6,
+          title: "紫砂壶制作工艺",
+          author: {
+            name: "紫砂壶大师",
+            avatar: "https://randomuser.me/api/portraits/men/35.jpg",
+          },
+          image: "https://images.unsplash.com/photo-1578749556568-bc2c40e68b61?w=400",
+          likes: 0,
+        },
+      ],
     };
   },
   computed: {
@@ -482,15 +561,33 @@ export default {
         this.selectedFilterTab = "all";
       } else {
         this.selectedFilterTab = "follow";
+        this.viewMode = "master"; // 重置为大师模式
       }
       // 重新加载数据
       this.loadData();
     },
 
     selectFilterTab(tabId) {
-      this.selectedFilterTab = tabId;
       console.log("切换筛选标签:", tabId);
-      // 可以在这里实现筛选功能
+      
+      // 在冠军/非遗大师页面，关注/推荐/附近 可以切换模式
+      if (this.selectedCategory !== "popular") {
+        // 如果点击的是当前已选中的标签，且是可切换标签，则切换模式
+        const toggleableTabs = ["follow", "recommend", "nearby"];
+        
+        if (this.selectedFilterTab === tabId && toggleableTabs.includes(tabId)) {
+          // 切换模式
+          this.viewMode = this.viewMode === "master" ? "content" : "master";
+        } else {
+          // 切换到新标签，默认显示大师模式
+          this.selectedFilterTab = tabId;
+          if (toggleableTabs.includes(tabId)) {
+            this.viewMode = "master";
+          }
+        }
+      } else {
+        this.selectedFilterTab = tabId;
+      }
     },
 
     getCurrentCategoryName() {
@@ -515,6 +612,15 @@ export default {
       console.log("打开搜索");
       // 跳转到搜索页面
       this.$router.push("/search");
+    },
+
+    handleLike(contentId) {
+      console.log("点赞内容:", contentId);
+      // 查找并更新点赞数
+      const content = this.contentList.find((c) => c.id === contentId);
+      if (content) {
+        content.likes++;
+      }
     },
 
     loadData() {
