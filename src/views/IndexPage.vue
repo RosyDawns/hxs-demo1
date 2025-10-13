@@ -15,13 +15,14 @@
       </div>
       <div class="relative flex-6 mx-3">
         <div class="relative">
-          <input
-            type="text"
-            placeholder="头疗"
-            class="w-full bg-gray-100 rounded-full pl-10 pr-24 py-2 focus:outline-none text-sm border border-orange-400"
-          />
+          <div
+            class="w-full bg-gray-100 rounded-full pl-10 pr-24 py-2 text-sm border border-orange-400 flex items-center cursor-pointer nav-action"
+            @click="$router.push('/search')"
+          >
+            <span class="text-gray-500 flex-1">头疗</span>
+          </div>
           <i
-            class="fa fa-search absolute left-3 top-1/2 transform -translate-y-1/2 text-gray"
+            class="fa fa-search absolute left-3 top-1/2 transform -translate-y-1/2 text-gray pointer-events-none"
           ></i>
           <button
             class="absolute right-2 top-1/2 transform -translate-y-1/2 bg-primary text-white text-xs py-1.5 px-3 rounded-full nav-action"

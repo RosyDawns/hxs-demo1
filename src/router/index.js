@@ -29,6 +29,8 @@ import HelpPage from '../views/HelpPage.vue' // 帮助中心页面
 import FeedbackPage from '../views/FeedbackPage.vue' // 意见反馈页面
 import AboutPage from '../views/AboutPage.vue' // 关于我们页面
 import ProductDetailPage from '../views/ProductDetailPage.vue' // 商品详情页面
+import SearchPage from '../views/SearchPage.vue' // 搜索页面
+import SearchResultsPage from '../views/SearchResultsPage.vue' // 搜索结果页面
 
 // 路由配置数组
 const routes = [
@@ -316,6 +318,26 @@ const routes = [
     component: AboutPage,
     meta: {
       title: '关于我们',
+      showInNav: false
+    }
+  },
+  // 搜索页面路由
+  {
+    path: '/search',
+    name: 'Search',
+    component: SearchPage,
+    meta: {
+      title: '搜索',
+      showInNav: false
+    }
+  },
+  // 搜索结果页面路由
+  {
+    path: '/search-results',
+    name: 'SearchResults',
+    component: SearchResultsPage,
+    meta: {
+      title: '搜索结果',
       showInNav: false
     }
   }
