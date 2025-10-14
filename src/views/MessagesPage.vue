@@ -103,138 +103,41 @@
 
       <!-- 消息列表 -->
       <div class="messages-list">
-        <!-- 系统消息 -->
-        <div class="message-item" @click="openChat('系统消息')">
+        <div 
+          v-for="message in filteredMessages" 
+          :key="message.id"
+          class="message-item" 
+          @click="openChat(message.name)"
+        >
           <div class="message-avatar">
-            <div class="avatar-icon system-icon">
+            <div v-if="message.type === 'system'" class="avatar-icon system-icon">
               <svg width="24" height="24" viewBox="0 0 24 24" fill="white">
-                <path
-                  d="M12 2L13.09 8.26L22 9L14.5 14L17 22L12 18.5L7 22L9.5 14L2 9L10.91 8.26L12 2Z"
-                />
+                <path d="M12 2L13.09 8.26L22 9L14.5 14L17 22L12 18.5L7 22L9.5 14L2 9L10.91 8.26L12 2Z"/>
               </svg>
             </div>
+            <img v-else :src="getImageUrl(message.avatar)" :alt="message.name" class="avatar-img" />
           </div>
           <div class="message-content">
             <div class="message-header">
-              <h3 class="sender-name">系统消息</h3>
-              <span class="message-time">2025-09-12</span>
+              <h3 class="sender-name">{{ message.name }}</h3>
+              <span class="message-time">{{ message.time }}</span>
             </div>
-            <p class="message-preview">快来参与唤醒兽体验调查</p>
-          </div>
-        </div>
-
-        <!-- 唤醒兽管家服务 -->
-        <div class="message-item" @click="openChat('唤醒兽管家服务')">
-          <div class="message-avatar">
-            <img src="@images/img-13.jpg" alt="管家" class="avatar-img" />
-          </div>
-          <div class="message-content">
-            <div class="message-header">
-              <h3 class="sender-name">唤醒兽管家服务</h3>
-              <span class="message-time">2025-10-18</span>
-            </div>
-            <p class="message-preview">最好的减脂餐是怎样的？截我了解详情吧~</p>
-          </div>
-        </div>
-
-        <!-- 健身减脂打卡群 -->
-        <div class="message-item" @click="openChat('健身减脂打卡群')">
-          <div class="message-avatar">
-            <img src="@images/img-20.jpg" alt="健身群" class="avatar-img" />
-          </div>
-          <div class="message-content">
-            <div class="message-header">
-              <h3 class="sender-name">健身减脂打卡群</h3>
-              <span class="message-time">昨天</span>
-            </div>
-            <p class="message-preview">“A.安远”加入群聊</p>
-            <div class="unread-badge">6</div>
-          </div>
-        </div>
-
-        <!-- 青浦徐沛羽毛球 -->
-        <div class="message-item" @click="openChat('青浦徐沛羽毛球')">
-          <div class="message-avatar">
-            <img src="@images/img-21.jpg" alt="羽毛球" class="avatar-img" />
-          </div>
-          <div class="message-content">
-            <div class="message-header">
-              <h3 class="sender-name">青浦徐沛羽毛球</h3>
-              <span class="message-time">昨天</span>
-            </div>
-            <p class="message-preview">“是伬！！！”加入群聊</p>
-            <div class="unread-badge">2</div>
-          </div>
-        </div>
-
-        <!-- 提你学咕啡的Joy -->
-        <div class="message-item" @click="openChat('提你学咕啡的Joy')">
-          <div class="message-avatar">
-            <img src="@images/img-22.jpg" alt="Joy" class="avatar-img" />
-          </div>
-          <div class="message-content">
-            <div class="message-header">
-              <h3 class="sender-name">提你学咕啡的Joy</h3>
-              <span class="message-time">2025-10-02</span>
-            </div>
-            <p class="message-preview">好的感谢您的咨询</p>
-            <div class="unread-badge">1</div>
-          </div>
-        </div>
-
-        <!-- 薯薯小羊卷 -->
-        <div class="message-item" @click="openChat('薯薯小羊卷')">
-          <div class="message-avatar">
-            <img src="@images/img-23.jpg" alt="小羊卷" class="avatar-img" />
-          </div>
-          <div class="message-content">
-            <div class="message-header">
-              <h3 class="sender-name">薯薯小羊卷</h3>
-              <span class="message-time">2025-10-01</span>
-            </div>
-            <p class="message-preview">谢谢你的赞</p>
-          </div>
-        </div>
-
-        <!-- 辣妈私教小南哥 -->
-        <div class="message-item" @click="openChat('辣妈私教小南哥')">
-          <div class="message-avatar">
-            <img src="@images/img-24.jpg" alt="小南哥" class="avatar-img" />
-          </div>
-          <div class="message-content">
-            <div class="message-header">
-              <h3 class="sender-name">辣妈私教小南哥</h3>
-              <span class="message-time">2025-9-28</span>
-            </div>
-            <p class="message-preview">好的，保持联系</p>
-          </div>
-        </div>
-
-        <!-- Boram -->
-        <div class="message-item" @click="openChat('Boram')">
-          <div class="message-avatar">
-            <img src="@images/img-25.jpg" alt="Boram" class="avatar-img" />
-          </div>
-          <div class="message-content">
-            <div class="message-header">
-              <h3 class="sender-name">Boram</h3>
-              <span class="message-time">2025-09-25</span>
-            </div>
-            <p class="message-preview">是一对一的定制服务呀</p>
+            <p class="message-preview">{{ message.preview }}</p>
+            <div v-if="message.unread > 0" class="unread-badge">{{ message.unread }}</div>
           </div>
         </div>
       </div>
     </div>
-
+    
     <!-- 底部导航 -->
     <FooterNav activePage="messages" />
   </div>
 </template>
 
 <script>
-import { ref } from "vue";
-import { useRouter } from "vue-router";
-import FooterNav from "../components/FooterNav.vue";
+import { ref, computed } from 'vue'
+import { useRouter } from 'vue-router'
+import FooterNav from '../components/FooterNav.vue'
 
 export default {
   name: "MessagesPage",
@@ -242,33 +145,145 @@ export default {
     FooterNav,
   },
   setup() {
-    const router = useRouter();
-    const searchQuery = ref("");
-
+    const router = useRouter()
+    const searchQuery = ref('')
+    const activeFilter = ref('all') // 当前活跃的过滤器
+    
+    // 消息数据
+    const allMessages = ref([
+      {
+        id: 1,
+        type: 'system',
+        name: '系统消息',
+        avatar: null,
+        time: '2025-09-12',
+        preview: '快来参与唤醒兽体验调查',
+        unread: 0
+      },
+      {
+        id: 2,
+        type: 'chat',
+        name: '唤醒兽管家服务',
+        avatar: 'img-13.jpg',
+        time: '2025-10-18',
+        preview: '最好的减脂餐是怎样的？截我了解详情吧~',
+        unread: 0
+      },
+      {
+        id: 3,
+        type: 'group',
+        name: '健身减脂打卡群',
+        avatar: 'img-20.jpg',
+        time: '昨天',
+        preview: '“A.安远”加入群聊',
+        unread: 6
+      },
+      {
+        id: 4,
+        type: 'group',
+        name: '青浦徐沛羽毛球',
+        avatar: 'img-21.jpg',
+        time: '昨天',
+        preview: '“是伬！！！”加入群聊',
+        unread: 2
+      },
+      {
+        id: 5,
+        type: 'chat',
+        name: '提你学咕啡的Joy',
+        avatar: 'img-22.jpg',
+        time: '2025-10-02',
+        preview: '好的感谢您的咨询',
+        unread: 1
+      },
+      {
+        id: 6,
+        type: 'chat',
+        name: '薯薯小羊卷',
+        avatar: 'img-23.jpg',
+        time: '2025-10-01',
+        preview: '谢谢你的赞',
+        unread: 0
+      },
+      {
+        id: 7,
+        type: 'chat',
+        name: '辣妈私教小南哥',
+        avatar: 'img-24.jpg',
+        time: '2025-9-28',
+        preview: '好的，保持联系',
+        unread: 0
+      },
+      {
+        id: 8,
+        type: 'chat',
+        name: 'Boram',
+        avatar: 'img-25.jpg',
+        time: '2025-09-25',
+        preview: '是一对一的定制服务呀',
+        unread: 0
+      }
+    ])
+    
+    // 过滤后的消息列表
+    const filteredMessages = computed(() => {
+      if (activeFilter.value === 'all') {
+        return allMessages.value
+      } else if (activeFilter.value === 'chat') {
+        return allMessages.value.filter(msg => msg.type === 'chat')
+      } else if (activeFilter.value === 'group') {
+        return allMessages.value.filter(msg => msg.type === 'group')
+      } else if (activeFilter.value === 'system') {
+        return allMessages.value.filter(msg => msg.type === 'system')
+      }
+      return allMessages.value
+    })
+    
     // 返回上一页
     const goBack = () => {
-      router.go(-1);
-    };
-
+      router.go(-1)
+    }
+    
     // 打开聊天页面
     const openChat = (username) => {
-      localStorage.setItem("chatUsername", username);
-      router.push("/chat");
-    };
-
+      localStorage.setItem('chatUsername', username)
+      router.push('/chat')
+    }
+    
+    // 切换过滤器
+    const setFilter = (filter) => {
+      activeFilter.value = filter
+    }
+    
+    // 获取图片URL
+    const getImageUrl = (imageName) => {
+      return new URL(`../assets/images/${imageName}`, import.meta.url).href
+    }
+    
     // 导航到分类页面
     const navigateToCategory = (category) => {
-      console.log("导航到分类:", category);
-      // 根据分类跳转到不同页面
-    };
-
+      const routes = {
+        'favorites': '/favorites',
+        'follow': '/follow',
+        'comments': '/comments',
+        'friends': '/add-friends'
+      }
+      if (routes[category]) {
+        router.push(routes[category])
+      }
+    }
+    
     return {
       searchQuery,
+      activeFilter,
+      filteredMessages,
       goBack,
       openChat,
-      navigateToCategory,
-    };
-  },
+      setFilter,
+      getImageUrl,
+      navigateToCategory
+    }
+  }
 };
 </script>
 

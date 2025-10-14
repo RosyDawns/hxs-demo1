@@ -31,6 +31,9 @@ import AboutPage from '../views/AboutPage.vue' // 关于我们页面
 import ProductDetailPage from '../views/ProductDetailPage.vue' // 商品详情页面
 import SearchPage from '../views/SearchPage.vue' // 搜索页面
 import SearchResultsPage from '../views/SearchResultsPage.vue' // 搜索结果页面
+import FollowPage from '../views/FollowPage.vue' // 新增关注页面
+import CommentsPage from '../views/CommentsPage.vue' // 评论和@页面
+import AddFriendsPage from '../views/AddFriendsPage.vue' // 添加好友页面
 
 // 路由配置数组
 const routes = [
@@ -338,6 +341,36 @@ const routes = [
     component: SearchResultsPage,
     meta: {
       title: '搜索结果',
+      showInNav: false
+    }
+  },
+  // 新增关注页面路由
+  {
+    path: '/follow',
+    name: 'Follow',
+    component: FollowPage,
+    meta: {
+      title: '新增关注',
+      showInNav: false
+    }
+  },
+  // 评论和@页面路由
+  {
+    path: '/comments',
+    name: 'Comments',
+    component: CommentsPage,
+    meta: {
+      title: '评论和@',
+      showInNav: false
+    }
+  },
+  // 添加好友页面路由
+  {
+    path: '/add-friends',
+    name: 'AddFriends',
+    component: AddFriendsPage,
+    meta: {
+      title: '添加好友',
       showInNav: false
     }
   }
