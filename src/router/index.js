@@ -36,6 +36,8 @@ import CommentsPage from '../views/CommentsPage.vue' // 评论和@页面
 import AddFriendsPage from '../views/AddFriendsPage.vue' // 添加好友页面
 import WeightManagementCampPage from '../views/WeightManagementCampPage.vue' // 体重管理唤醒营页面
 import CheckInPage from '../views/CheckInPage.vue' // 健康打卡页面
+import DailyPage from '../views/DailyPage.vue' // 日常页面
+import PublishActivityPage from '../views/PublishActivityPage.vue' // 发布动态页面
 
 // 路由配置数组
 const routes = [
@@ -393,6 +395,26 @@ const routes = [
     component: CheckInPage,
     meta: {
       title: '健康打卡',
+      showInNav: false
+    }
+  },
+  // 日常页面路由
+  {
+    path: '/daily',
+    name: 'Daily',
+    component: DailyPage,
+    meta: {
+      title: '日常',
+      showInNav: false
+    }
+  },
+  // 发布动态页面路由
+  {
+    path: '/publish-activity',
+    name: 'PublishActivity',
+    component: PublishActivityPage,
+    meta: {
+      title: '发布动态',
       showInNav: false
     }
   }
