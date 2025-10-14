@@ -15,26 +15,6 @@
           </svg>
         </button>
         <h1 class="title">免费体验活动详情</h1>
-        <div class="header-right">
-          <span class="view-count">
-            <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-              <path
-                d="M8 3C4.5 3 1.73 5.11 1 8c.73 2.89 3.5 5 7 5s6.27-2.11 7-5c-.73-2.89-3.5-5-7-5z"
-                stroke="#666"
-                stroke-width="1.5"
-              />
-              <circle cx="8" cy="8" r="2" stroke="#666" stroke-width="1.5" />
-            </svg>
-            49
-          </span>
-          <button class="more-btn">
-            <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
-              <circle cx="10" cy="5" r="1.5" fill="#666" />
-              <circle cx="10" cy="10" r="1.5" fill="#666" />
-              <circle cx="10" cy="15" r="1.5" fill="#666" />
-            </svg>
-          </button>
-        </div>
       </div>
       <div class="subtitle">青少年学习沟通如拉在家里户提供的人</div>
     </header>
@@ -273,16 +253,11 @@
 
     <!-- 底部操作按钮 -->
     <div class="bottom-actions">
-      <button class="action-btn secondary" @click="addToFavorites">
-        <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
-          <path
-            d="M10 15.27L16.18 19L14.54 11.97L20 7.24L12.81 6.63L10 0L7.19 6.63L0 7.24L5.46 11.97L3.82 19L10 15.27Z"
-            fill="currentColor"
-          />
-        </svg>
-        收藏关注
-      </button>
-      <button class="action-btn primary" @click="joinActivity">立即报名</button>
+      <div class="countdown-section">
+        <div class="countdown-label">距报名截至时间：</div>
+        <div class="countdown-timer">{{ countdownText }}</div>
+      </div>
+      <button class="action-btn primary" @click="joinActivity">我要报名</button>
     </div>
   </div>
 </template>
@@ -295,6 +270,9 @@ export default {
       activeTab: "活动流程",
       isSticky: false,
       stickyOffset: 0,
+      countdownText: "",
+      countdownTimer: null,
+      endTime: new Date(new Date().getTime() + 10 * 24 * 60 * 60 * 1000 + 22 * 60 * 60 * 1000 + 1 * 60 * 1000 + 21 * 1000), // 10天22小时01分21秒后
     };
   },
   mounted() {
@@ -302,10 +280,16 @@ export default {
     window.addEventListener("scroll", this.handleScroll);
     // 计算标签栏应该在何时变为固定定位
     this.setStickyOffset();
+    // 启动倒计时
+    this.startCountdown();
   },
   beforeUnmount() {
     // 移除滚动事件监听，防止内存泄漏
     window.removeEventListener("scroll", this.handleScroll);
+    // 清除倒计时定时器
+    if (this.countdownTimer) {
+      clearInterval(this.countdownTimer);
+    }
   },
   methods: {
     setStickyOffset() {
@@ -356,6 +340,33 @@ export default {
         targetElement.scrollIntoView({ behavior: "smooth" });
       }
     },
+    startCountdown() {
+      // 立即更新一次
+      this.updateCountdown();
+      // 每秒更新
+      this.countdownTimer = setInterval(() => {
+        this.updateCountdown();
+      }, 1000);
+    },
+    updateCountdown() {
+      const now = new Date().getTime();
+      const distance = this.endTime - now;
+
+      if (distance < 0) {
+        this.countdownText = "已结束";
+        if (this.countdownTimer) {
+          clearInterval(this.countdownTimer);
+        }
+        return;
+      }
+
+      const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+      this.countdownText = `${days}天${hours.toString().padStart(2, '0')}小时${minutes.toString().padStart(2, '0')}分${seconds.toString().padStart(2, '0')}秒`;
+    },
   },
 };
 </script>
@@ -379,7 +390,7 @@ export default {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 12px 16px 8px 16px;
+  padding: 12px 24px 8px 16px;
   height: 44px;
 }
 
@@ -421,9 +432,9 @@ export default {
 }
 
 .subtitle {
-  padding: 0 16px 12px 16px;
+  padding: 0 0 12px 16px;
   font-size: 13px;
-  color: #999;
+  color: orange;
   text-align: center;
   background: white;
 }
@@ -908,46 +919,59 @@ export default {
   left: 0;
   right: 0;
   background: white;
-  padding: 12px 16px;
+  padding: 10px 16px;
   display: flex;
+  align-items: center;
   gap: 12px;
-  border-top: 1px solid #e0e0e0;
-  box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
+  border-top: 1px solid #f0f0f0;
+  box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.06);
+  padding-bottom: calc(10px + env(safe-area-inset-bottom));
+}
+
+.countdown-section {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.countdown-label {
+  font-size: 13px;
+  color: #666;
+  font-weight: 400;
+}
+
+.countdown-timer {
+  font-size: 14px;
+  color: #333;
+  font-weight: 500;
+  letter-spacing: 0.5px;
 }
 
 .action-btn {
-  flex: 1;
-  height: 44px;
+  height: 48px;
   border: none;
-  border-radius: 22px;
-  font-size: 16px;
+  border-radius: 24px;
+  font-size: 17px;
   font-weight: 600;
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 8px;
   transition: all 0.3s;
-}
-
-.action-btn.secondary {
-  background: #f5f5f5;
-  color: #666;
-  flex: 0 0 120px;
-}
-
-.action-btn.secondary:hover {
-  background: #e8e8e8;
+  flex: 0 0 auto;
+  min-width: 140px;
+  padding: 0 32px;
 }
 
 .action-btn.primary {
-  background: linear-gradient(135deg, #ff6b35 0%, #f7931e 100%);
+  background: linear-gradient(90deg, #FFA726 0%, #FFB74D 100%);
   color: white;
-  box-shadow: 0 4px 12px rgba(255, 107, 53, 0.3);
+  box-shadow: 0 2px 8px rgba(255, 167, 38, 0.3);
 }
 
 .action-btn.primary:hover {
   transform: translateY(-1px);
-  box-shadow: 0 6px 16px rgba(255, 107, 53, 0.4);
+  box-shadow: 0 4px 12px rgba(255, 167, 38, 0.4);
 }
 </style>
