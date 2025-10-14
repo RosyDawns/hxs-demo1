@@ -64,18 +64,6 @@
           <span class="stat-item">14671人已报名</span>
           <span class="stat-item">33936人感兴趣</span>
         </div>
-
-        <!-- 评分和名额 -->
-        <div class="camp-meta">
-          <div class="rating">
-            <span class="rating-icon">🏆</span>
-            <span class="rating-text">0分</span>
-          </div>
-          <div class="capacity-info">
-            <span class="capacity">1对7人上课模式</span>
-            <span class="group-size">成班30人满课堂</span>
-          </div>
-        </div>
       </div>
 
       <!-- 教练信息 -->
@@ -84,10 +72,12 @@
         <div class="coach-card">
           <img src="@images/img-13.jpg" alt="李老师" class="coach-avatar" />
           <div class="coach-info">
-            <div class="coach-name">李老师</div>
-            <div class="coach-tags">
-              <span class="tag">体育课</span>
-              <span class="tag">游泳教学</span>
+            <div class="flex items-center">
+              <div class="coach-name">李老师</div>
+              <div class="coach-tags ml-2">
+                <span class="tag">体育课</span>
+                <span class="tag">游泳教学</span>
+              </div>
             </div>
             <div class="coach-rating">
               <div class="stars">
@@ -154,50 +144,8 @@
       </div>
 
       <!-- 活动流程 -->
-      <div class="tab-content">
-        <div class="content-section">
-          <div class="flow-header">
-            <h3 class="content-title">活动流程</h3>
-            <span class="detail-link">详情即时 ></span>
-          </div>
-
-          <div class="flow-steps">
-            <div class="flow-step">
-              <div class="step-number">1</div>
-              <div class="step-content">
-                <div class="step-title">免费报名</div>
-              </div>
-            </div>
-
-            <div class="flow-step">
-              <div class="step-number">2</div>
-              <div class="step-content">
-                <div class="step-title">中奖公布</div>
-              </div>
-            </div>
-
-            <div class="flow-step">
-              <div class="step-number">3</div>
-              <div class="step-content">
-                <div class="step-title">确前预约</div>
-              </div>
-            </div>
-
-            <div class="flow-step">
-              <div class="step-number">4</div>
-              <div class="step-content">
-                <div class="step-title">体验服务</div>
-              </div>
-            </div>
-
-            <div class="flow-step">
-              <div class="step-number">5</div>
-              <div class="step-content">
-                <div class="step-title">课程评价</div>
-              </div>
-            </div>
-          </div>
-        </div>
+      <div class="tab-content mb-3">
+        <img src="@images/hd-steps-bannaer.png" class="block" />
       </div>
 
       <!-- 活动内容 -->
@@ -482,13 +430,12 @@ export default {
 
 /* 主要内容区域 */
 .main-content {
-  padding: 0 0 80px;
+  padding: 0 0 50px;
   background: #f5f5f5;
 }
 
 .hero-image {
   overflow: hidden;
-  margin-bottom: 16px;
 }
 
 .camp-image {
@@ -500,8 +447,7 @@ export default {
 /* 活动信息 */
 .camp-info {
   background: white;
-  border-radius: 16px;
-  padding: 20px;
+  padding: 20px 20px 10px;
   margin-bottom: 12px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
 }
@@ -556,10 +502,8 @@ export default {
 .stats-info {
   display: flex;
   gap: 16px;
-  margin-bottom: 12px;
   padding: 8px 0;
   border-top: 1px solid #f5f5f5;
-  border-bottom: 1px solid #f5f5f5;
 }
 
 .stat-item {
@@ -588,20 +532,10 @@ export default {
   color: #666;
 }
 
-.capacity-info {
-  display: flex;
-  gap: 12px;
-  font-size: 12px;
-  color: #666;
-}
-
 /* 教练部分 */
 .coach-section {
   background: white;
-  border-radius: 16px;
   padding: 20px;
-  margin-bottom: 12px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
 }
 
 .section-title {
@@ -686,10 +620,8 @@ export default {
 /* 智慧家长新答 */
 .smart-parent-section {
   background: white;
-  border-radius: 16px;
   padding: 20px;
   margin-bottom: 12px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
 }
 
 .parent-cards {
@@ -723,10 +655,7 @@ export default {
 /* 标签栏样式 */
 .tabs-section {
   background: white;
-  border-radius: 16px;
-  margin-bottom: 8px;
   overflow: hidden;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
   transition: all 0.3s ease;
   z-index: 10;
 }
@@ -780,11 +709,11 @@ export default {
 /* 标签内容样式 */
 .tab-content {
   background: white;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
 }
 
 .content-section {
   padding: 20px;
+  margin-bottom: 12px;
 }
 
 .flow-header {
