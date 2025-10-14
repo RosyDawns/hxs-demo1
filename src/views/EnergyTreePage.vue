@@ -206,7 +206,7 @@
 
     <!-- 底部按钮组 -->
     <div
-      class="fixed left-0 right-0 bottom-20 px-6 flex items-center justify-between safe-bottom z-10"
+      class="fixed left-0 right-0 bottom-20 px-6 flex items-center justify-between safe-bottom z-10 gap-0.5"
     >
       <button
         id="dailyTasksBtn"
