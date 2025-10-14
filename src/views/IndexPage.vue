@@ -220,6 +220,7 @@
         </div>
         <div
           class="bg-white rounded-lg p-3 shadow relative nav-action cursor-pointer col-span-2"
+          @click="$router.push('/weight-management-camp')"
         >
           <div class="font-bold text-sm text-black">体重管理唤醒营</div>
           <div class="font-medium text-xs text-gray">

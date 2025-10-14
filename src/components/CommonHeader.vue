@@ -6,7 +6,7 @@
     <!-- 返回按钮 -->
     <button
       v-if="showBackButton"
-      class="nav-back mr-3 text-dark"
+      class="nav-back mr-3 text-dark absolute left-2 top-1/2 transform -translate-y-1/2"
       @click="handleBack"
     >
       <i
