@@ -66,6 +66,11 @@
 
         <!-- 我的服务 - 改为纵向卡片式布局 -->
         <div class="bg-light rounded-lg card-shadow">
+          <div class="flex items-center p-3 border-b border-gray-100 nav-action" @click="$router.push('/checkin')">
+            <i class="fa-solid fa-calendar-check text-primary mr-2"></i>
+            <span class="text-sm">健康打卡</span>
+            <i class="fa-solid fa-angle-right text-gray ml-auto"></i>
+          </div>
           <div class="flex items-center p-3 border-b border-gray-100 nav-action" @click="$router.push('/my-orders')">
             <i class="fa-solid fa-file-invoice text-primary mr-2"></i>
             <span class="text-sm">我的订单</span>

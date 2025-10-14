@@ -35,6 +35,7 @@ import FollowPage from '../views/FollowPage.vue' // 新增关注页面
 import CommentsPage from '../views/CommentsPage.vue' // 评论和@页面
 import AddFriendsPage from '../views/AddFriendsPage.vue' // 添加好友页面
 import WeightManagementCampPage from '../views/WeightManagementCampPage.vue' // 体重管理唤醒营页面
+import CheckInPage from '../views/CheckInPage.vue' // 健康打卡页面
 
 // 路由配置数组
 const routes = [
@@ -382,6 +383,16 @@ const routes = [
     component: WeightManagementCampPage,
     meta: {
       title: '体重管理唤醒营',
+      showInNav: false
+    }
+  },
+  // 健康打卡页面路由
+  {
+    path: '/checkin',
+    name: 'CheckIn',
+    component: CheckInPage,
+    meta: {
+      title: '健康打卡',
       showInNav: false
     }
   }
