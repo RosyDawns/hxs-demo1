@@ -1,7 +1,7 @@
 <template>
   <div class="messages-page bg-white">
     <!-- 顶部导航栏 -->
-    <header class="header">
+    <!-- <header class="header">
       <div class="nav-bar">
         <button class="back-btn" @click="goBack">
           <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
@@ -17,7 +17,7 @@
         <div class="title">消息</div>
         <button class="back-btn">&nbsp;&nbsp;</button>
       </div>
-    </header>
+    </header> -->
 
     <!-- 主要内容区域 -->
     <div class="main-content">
@@ -293,7 +293,7 @@ export default {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 12px 16px;
+  padding: 12px 16px 12px 16px;
   height: 44px;
 }
 
