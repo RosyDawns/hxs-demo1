@@ -18,16 +18,24 @@
       <!-- 用户信息卡片 -->
       <div class="bg-gradient-to-r from-primary to-orange-500 p-4 text-white">
         <div class="flex items-center">
-          <img src="@/assets/images/img-12.jpg" alt="用户头像" class="w-16 h-16 rounded-full border-2 border-white">
+          <img
+            src="@/assets/images/img-12.jpg"
+            alt="用户头像"
+            class="w-16 h-16 rounded-full border-2 border-white"
+          />
           <div class="ml-3">
             <h3 class="font-bold text-lg">小乖狼</h3>
             <div class="flex items-center mt-1">
-              <span class="text-xs bg-white/30 px-2 py-0.5 rounded-full">L1 新手</span>
+              <span class="text-xs bg-white/30 px-2 py-0.5 rounded-full"
+                >L1 新手</span
+              >
               <i class="fa-solid fa-qrcode ml-2 text-xs"></i>
             </div>
           </div>
           <div class="ml-auto">
-            <button class="bg-white/20 text-white text-sm px-3 py-1 rounded-full">
+            <button
+              class="bg-white/20 text-white text-sm px-3 py-1 rounded-full"
+            >
               <i class="fa-solid fa-plus mr-1"></i> 编辑资料
             </button>
           </div>
@@ -38,7 +46,9 @@
       <div class="mt-3 p-3 space-y-3">
         <!-- 我的能量 -->
         <div class="bg-light rounded-lg card-shadow">
-          <div class="flex justify-between items-center p-3 border-b border-gray-100">
+          <div
+            class="flex justify-between items-center p-3 border-b border-gray-100"
+          >
             <div class="flex items-center">
               <i class="fa-solid fa-tree text-primary mr-2"></i>
               <span class="text-sm">我的能量</span>
@@ -66,32 +76,43 @@
 
         <!-- 我的服务 - 改为纵向卡片式布局 -->
         <div class="bg-light rounded-lg card-shadow">
-          <div class="flex items-center p-3 border-b border-gray-100 nav-action" @click="$router.push('/daily')">
+          <div
+            class="flex items-center p-3 border-b border-gray-100 nav-action"
+            @click="$router.push('/daily')"
+          >
             <i class="fa-solid fa-chart-line text-primary mr-2"></i>
             <span class="text-sm">日常</span>
             <i class="fa-solid fa-angle-right text-gray ml-auto"></i>
           </div>
-          <div class="flex items-center p-3 border-b border-gray-100 nav-action" @click="$router.push('/checkin')">
-            <i class="fa-solid fa-calendar-check text-primary mr-2"></i>
-            <span class="text-sm">健康打卡</span>
-            <i class="fa-solid fa-angle-right text-gray ml-auto"></i>
-          </div>
-          <div class="flex items-center p-3 border-b border-gray-100 nav-action" @click="$router.push('/my-orders')">
+
+          <div
+            class="flex items-center p-3 border-b border-gray-100 nav-action"
+            @click="$router.push('/my-orders')"
+          >
             <i class="fa-solid fa-file-invoice text-primary mr-2"></i>
             <span class="text-sm">我的订单</span>
             <i class="fa-solid fa-angle-right text-gray ml-auto"></i>
           </div>
-          <div class="flex items-center p-3 border-b border-gray-100 nav-action" @click="$router.push('/coupons')">
+          <div
+            class="flex items-center p-3 border-b border-gray-100 nav-action"
+            @click="$router.push('/coupons')"
+          >
             <i class="fa-solid fa-ticket text-primary mr-2"></i>
             <span class="text-sm">优惠券</span>
             <i class="fa-solid fa-angle-right text-gray ml-auto"></i>
           </div>
-          <div class="flex items-center p-3 border-b border-gray-100 nav-action" @click="$router.push('/favorites')">
+          <div
+            class="flex items-center p-3 border-b border-gray-100 nav-action"
+            @click="$router.push('/favorites')"
+          >
             <i class="fa-solid fa-heart text-primary mr-2"></i>
             <span class="text-sm">我的收藏</span>
             <i class="fa-solid fa-angle-right text-gray ml-auto"></i>
           </div>
-          <div class="flex items-center p-3 nav-action" @click="$router.push('/address')">
+          <div
+            class="flex items-center p-3 nav-action"
+            @click="$router.push('/address')"
+          >
             <i class="fa-solid fa-map-marker-alt text-primary mr-2"></i>
             <span class="text-sm">收货地址</span>
             <i class="fa-solid fa-angle-right text-gray ml-auto"></i>
@@ -100,22 +121,34 @@
 
         <!-- 帮助与支持 - 改为纵向卡片式布局 -->
         <div class="bg-light rounded-lg card-shadow">
-          <div class="flex items-center p-3 border-b border-gray-100 nav-action" @click="$router.push('/help')">
+          <div
+            class="flex items-center p-3 border-b border-gray-100 nav-action"
+            @click="$router.push('/help')"
+          >
             <i class="fa-solid fa-circle-question text-primary mr-2"></i>
             <span class="text-sm">帮助中心</span>
             <i class="fa-solid fa-angle-right text-gray ml-auto"></i>
           </div>
-          <div class="flex items-center p-3 border-b border-gray-100 nav-action" @click="$router.push('/feedback')">
+          <div
+            class="flex items-center p-3 border-b border-gray-100 nav-action"
+            @click="$router.push('/feedback')"
+          >
             <i class="fa-solid fa-comment-dots text-primary mr-2"></i>
             <span class="text-sm">意见反馈</span>
             <i class="fa-solid fa-angle-right text-gray ml-auto"></i>
           </div>
-          <div class="flex items-center p-3 border-b border-gray-100 nav-action" @click="$router.push('/about')">
+          <div
+            class="flex items-center p-3 border-b border-gray-100 nav-action"
+            @click="$router.push('/about')"
+          >
             <i class="fa-solid fa-circle-info text-primary mr-2"></i>
             <span class="text-sm">关于我们</span>
             <i class="fa-solid fa-angle-right text-gray ml-auto"></i>
           </div>
-          <div class="flex items-center p-3 nav-action" @click="$router.push('/signin')">
+          <div
+            class="flex items-center p-3 nav-action"
+            @click="$router.push('/signin')"
+          >
             <i class="fa-solid fa-right-from-bracket text-primary mr-2"></i>
             <span class="text-sm">退出登录</span>
             <i class="fa-solid fa-angle-right text-gray ml-auto"></i>
@@ -152,12 +185,12 @@
 </template>
 
 <script>
-import FooterNav from '../components/FooterNav.vue'
+import FooterNav from "../components/FooterNav.vue";
 
 export default {
-  name: 'MePage',
+  name: "MePage",
   components: {
-    FooterNav
-  }
-}
+    FooterNav,
+  },
+};
 </script>
