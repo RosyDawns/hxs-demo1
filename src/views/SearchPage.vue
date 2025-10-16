@@ -126,7 +126,7 @@
       <!-- 默认内容 -->
       <div v-else class="px-4 py-4">
         <!-- 历史搜索 -->
-        <div v-if="searchHistory.length > 0" class="mb-4">
+        <template v-if="searchHistory.length > 0">
           <div class="flex items-center justify-between mb-3">
             <h3 class="text-base font-medium text-gray-900">历史搜索</h3>
             <button @click="clearHistory" class="text-gray-400">
@@ -153,16 +153,16 @@
               ></i>
             </button>
           </div>
-        </div>
+        </template>
 
         <!-- 猜你喜欢 -->
-        <div class="mb-4">
+        <div class="pt-6">
           <h3 class="text-base font-medium text-gray-900 mb-3">猜你喜欢</h3>
           <div class="grid grid-cols-2 gap-3">
             <button
               v-for="item in likeItems"
               :key="item"
-              class="text-left px-3 py-2 bg-white rounded-lg text-[14px] text-gray-700 hover:bg-gray-50 transition-colors shadow-sm"
+              class="text-left pt-1 text-[15px] text-gray-700 hover:bg-gray-50 transition-colors"
               @click="handleLikeClick(item)"
             >
               {{ item }}
@@ -171,7 +171,7 @@
         </div>
 
         <!-- 城市大师 -->
-        <div>
+        <div class="pt-6">
           <h3 class="text-base font-medium text-gray-900 mb-3">城市大师</h3>
           <div class="grid grid-cols-2 gap-3">
             <CoachListCard
@@ -517,22 +517,22 @@ export default {
     },
 
     switchToAll() {
-      if (this.searchMode !== 'all') {
+      if (this.searchMode !== "all") {
         this.resetSearchData();
-        this.searchMode = 'all';
+        this.searchMode = "all";
       }
     },
 
     switchToAI() {
-      if (this.searchMode !== 'ai') {
+      if (this.searchMode !== "ai") {
         this.resetSearchData();
-        this.searchMode = 'ai';
+        this.searchMode = "ai";
       }
     },
 
     resetSearchData() {
       // 重置搜索相关数据
-      this.searchQuery = '';
+      this.searchQuery = "";
       this.showSearchResults = false;
       this.isSearching = false;
       this.searchResults = [];
