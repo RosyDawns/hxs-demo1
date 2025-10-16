@@ -79,7 +79,7 @@ export default {
   methods: {
     handleRegister() {
       // 跳转到报名页面
-      this.$router.push("/camp-register");
+      this.$router.push("/daily");
     },
   },
 };

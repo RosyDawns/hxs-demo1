@@ -51,7 +51,7 @@
       <DailyCoach v-else-if="activeTab === 'coach'" />
     </main>
 
-    <FooterNav activePage="me" />
+    <!-- <FooterNav activePage="me" /> -->
   </div>
 </template>
 
