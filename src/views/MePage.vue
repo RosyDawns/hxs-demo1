@@ -30,7 +30,7 @@
       <div>
         <div class="flex items-start">
           <img
-            src="https://picsum.photos/id/1005/120/120"
+            src="@images/img-15.jpg"
             alt="用户头像"
             class="w-20 h-20 rounded-full border-2 border-gray-200"
           />

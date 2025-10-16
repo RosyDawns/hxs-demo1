@@ -44,7 +44,7 @@
       <div class="px-4 py-4 text-white relative z-1">
         <div class="flex items-center mb-5 relative">
           <img
-            src="https://picsum.photos/id/1005/120/120"
+            src="@images/img-15.jpg"
             alt="李教练"
             class="w-20 h-20 rounded-full border-2 border-white"
           />
