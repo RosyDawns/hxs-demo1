@@ -15,7 +15,9 @@
       ></i>
     </button>
     <!-- 中间自定义内容区域 -->
-    <div class="flex-1 flex items-center justify-center min-w-0">
+    <div
+      class="flex-1 flex items-center justify-center min-w-0 pl-10 pr-4"
+    >
       <slot name="center"></slot>
     </div>
     <!-- 右侧可操作按钮 -->

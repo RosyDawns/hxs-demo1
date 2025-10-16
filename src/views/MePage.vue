@@ -85,54 +85,70 @@
       <div class="bg-white mt-3 px-4 py-4 rounded-2xl shadow-sm">
         <div class="grid grid-cols-4 gap-4 text-center">
           <div class="nav-action" @click="$router.push('/my-orders')">
-            <i class="fa-solid fa-file-invoice text-primary text-3xl"></i>
-            <p class="text-sm text-black mt-1">订单</p>
+            <div
+              class="w-12 h-12 rounded-lg bg-orange-500 flex items-center justify-center mx-auto mb-2"
+            >
+              <i class="fa-solid fa-file-invoice text-xl text-white"></i>
+            </div>
+            <p class="text-xs text-gray-700">订单</p>
           </div>
           <div class="nav-action" @click="$router.push('/favorites')">
-            <i class="fa-solid fa-star text-primary text-3xl"></i>
-            <p class="text-sm text-black mt-1">收藏</p>
+            <div
+              class="w-12 h-12 rounded-lg bg-orange-500 flex items-center justify-center mx-auto mb-2"
+            >
+              <i class="fa-solid fa-star text-xl text-white"></i>
+            </div>
+            <p class="text-xs text-gray-700">收藏</p>
           </div>
           <div class="nav-action" @click="$router.push('/pending-review')">
-            <i class="fa-solid fa-comment-dots text-primary text-3xl"></i>
-            <p class="text-sm text-black mt-1">待评价</p>
+            <div
+              class="w-12 h-12 rounded-lg bg-orange-500 flex items-center justify-center mx-auto mb-2"
+            >
+              <i class="fa-solid fa-comment-dots text-xl text-white"></i>
+            </div>
+            <p class="text-xs text-gray-700">待评价</p>
           </div>
           <div class="nav-action" @click="$router.push('/my-reviews')">
-            <i class="fa-solid fa-check-circle text-primary text-3xl"></i>
-            <p class="text-sm text-black mt-1">真实评价</p>
+            <div
+              class="w-12 h-12 rounded-lg bg-orange-500 flex items-center justify-center mx-auto mb-2"
+            >
+              <i class="fa-solid fa-check-circle text-xl text-white"></i>
+            </div>
+            <p class="text-xs text-gray-700">真实评价</p>
           </div>
         </div>
       </div>
 
       <!-- 全部功能 -->
       <div class="bg-white mt-3 px-4 py-3 rounded-2xl shadow-sm">
-        <div class="flex items-center mb-3 text-sm">
+        <div class="flex items-center justify-between mb-3 text-sm">
           <h3 class="font-bold">全部功能</h3>
-          <i class="fa-solid fa-angle-right text-gray-600 mr-2"></i>
+          <i class="fa-solid fa-angle-right text-gray-400"></i>
         </div>
         <div class="grid grid-cols-4 gap-4 text-center">
           <div class="nav-action" @click="$router.push('/wallet')">
             <div class="flex justify-center mb-2">
-              <i class="fa-solid fa-wallet text-3xl text-gray-600"></i>
+              <i class="fa-solid fa-wallet text-4xl text-gray-800"></i>
             </div>
-            <p class="text-xs text-black mt-1">我的钱包</p>
+            <p class="text-xs text-gray-700">我的钱包</p>
           </div>
           <div class="nav-action" @click="$router.push('/register-waker')">
             <div class="flex justify-center mb-2">
-              <i class="fa-solid fa-user-check text-3xl text-gray-600"></i>
+              <i class="fa-solid fa-user-check text-4xl text-gray-800"></i>
             </div>
-            <p class="text-xs text-black mt-1">注册唤醒师</p>
+            <p class="text-xs text-gray-700">注册唤醒师</p>
           </div>
           <div class="nav-action" @click="$router.push('/waker-alliance')">
             <div class="flex justify-center mb-2">
-              <i class="fa-solid fa-cube text-3xl text-gray-600"></i>
+              <i class="fa-solid fa-cube text-4xl text-gray-800"></i>
             </div>
-            <p class="text-xs text-black mt-1">唤醒联盟</p>
+            <p class="text-xs text-gray-700">唤醒联盟</p>
           </div>
           <div class="nav-action" @click="$router.push('/team')">
             <div class="flex justify-center mb-2">
-              <i class="fa-solid fa-users text-3xl text-gray-600"></i>
+              <i class="fa-solid fa-users text-4xl text-gray-800"></i>
             </div>
-            <p class="text-xs text-black mt-1">醒狮团队</p>
+            <p class="text-xs text-gray-700">醒狮团队</p>
           </div>
         </div>
       </div>
@@ -143,7 +159,7 @@
           <div class="flex space-x-6">
             <button
               :class="[
-                'pb-2 text-sm font-medium transition-colors',
+                'pb-2 text-sm font-medium transition-colors flex items-center',
                 activeTab === 'dynamics'
                   ? 'text-orange-500 border-b-2 border-orange-500'
                   : 'text-gray-500',
@@ -154,18 +170,18 @@
             </button>
             <button
               :class="[
-                'pb-2 text-sm font-medium transition-colors',
+                'pb-2 text-sm font-medium transition-colors flex items-center',
                 activeTab === 'follow'
                   ? 'text-orange-500 border-b-2 border-orange-500'
                   : 'text-gray-500',
               ]"
-              @click="activeTab = 'follow'"
+              @click="handleFollowClick"
             >
-              关注
+              关注 <i class="fa-solid fa-right-left ml-1" style="font-size: 10px"></i>
             </button>
             <button
               :class="[
-                'pb-2 text-sm font-medium transition-colors',
+                'pb-2 text-sm font-medium transition-colors flex items-center',
                 activeTab === 'showcase'
                   ? 'text-orange-500 border-b-2 border-orange-500'
                   : 'text-gray-500',
@@ -176,7 +192,7 @@
             </button>
             <button
               :class="[
-                'pb-2 text-sm font-medium transition-colors',
+                'pb-2 text-sm font-medium transition-colors flex items-center',
                 activeTab === 'recommend'
                   ? 'text-orange-500 border-b-2 border-orange-500'
                   : 'text-gray-500',
@@ -188,14 +204,89 @@
           </div>
         </div>
 
-        <!-- 动态内容区 -->
+        <!-- 内容区 -->
         <div class="px-3 py-3">
-          <div class="grid grid-cols-2 gap-2">
+          <!-- 动态内容 -->
+          <div v-if="activeTab === 'dynamics'" class="grid grid-cols-2 gap-2">
             <DynamicListItem
               v-for="item in dynamicList"
               :key="item.id"
               :item="item"
               @click="handleDynamicClick"
+            />
+          </div>
+
+          <!-- 关注内容 -->
+          <div v-else-if="activeTab === 'follow'">
+            <!-- 模式1：CoachListCard模式 -->
+            <div v-if="followViewMode === 'mode1'" class="grid grid-cols-2 gap-3">
+              <CoachListCard
+                v-for="coach in followCoachesList"
+                :key="coach.id"
+                :coach="coach"
+                @click="$router.push('/ouyang')"
+              />
+            </div>
+            <!-- 模式2：CoachContentCard模式 -->
+            <div v-else class="grid grid-cols-2 gap-3">
+              <CoachContentCard
+                v-for="coach in followCoachesListMode2"
+                :key="coach.id"
+                :coach="coach"
+                @click="$router.push('/ouyang')"
+                @like="handleCoachLike"
+              />
+            </div>
+          </div>
+
+          <!-- 橱窗内容 -->
+          <div
+            v-else-if="activeTab === 'showcase'"
+            class="grid grid-cols-2 gap-4 mt-3"
+          >
+            <div
+              v-for="product in products"
+              :key="product.id"
+              class="bg-white rounded-lg overflow-hidden shadow-md"
+              @click="handleProductClick(product.id)"
+            >
+              <div class="relative">
+                <img
+                  :src="product.image"
+                  :alt="product.title"
+                  class="w-full h-48 object-cover"
+                />
+                <div
+                  v-if="product.isNew"
+                  class="absolute top-2 left-2 bg-red-500 text-white text-xs px-2 py-1 rounded"
+                >
+                  新品
+                </div>
+              </div>
+              <div class="p-2">
+                <h3 class="text-xs font-medium line-clamp-2 mb-1">
+                  {{ product.title }}
+                </h3>
+                <div class="flex items-center justify-between">
+                  <div class="text-red-500 font-bold text-sm">
+                    ¥{{ product.price }}
+                  </div>
+                  <div class="text-xs text-gray-400">
+                    已售 {{ product.sales }}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 推荐橱窗内容 -->
+          <div v-else-if="activeTab === 'recommend'" class="space-y-4">
+            <hxs-item
+              v-for="coach in recommendCoaches"
+              :key="coach.id"
+              :coach="coach"
+              className="bg-white"
+              @view-profile="handleViewProfile"
             />
           </div>
         </div>
@@ -216,16 +307,23 @@
 <script>
 import FooterNav from "../components/FooterNav.vue";
 import DynamicListItem from "../components/DynamicListItem.vue";
+import HxsItem from "@/components/hxs-item.vue";
+import CoachListCard from "@/components/CoachListCard.vue";
+import CoachContentCard from "@/components/CoachContentCard.vue";
 
 export default {
   name: "MePage",
   components: {
     FooterNav,
     DynamicListItem,
+    HxsItem,
+    CoachListCard,
+    CoachContentCard,
   },
   data() {
     return {
       activeTab: "dynamics",
+      followViewMode: "mode1", // mode1 或 mode2
       dynamicList: [
         {
           id: 1,
@@ -244,6 +342,168 @@ export default {
           likes: 256,
         },
       ],
+      // 关注的教练列表 - mode1
+      followCoachesList: [
+        {
+          id: "coach1",
+          name: "李教练",
+          type: "游泳教练",
+          title: "国家二级运动员 | 8年教学经验",
+          rating: 4.8,
+          distance: 1.2,
+          image: "https://picsum.photos/id/1005/100/100",
+          prices: {
+            trial: 88,
+            single: 200,
+            tenPack: 1680,
+          },
+        },
+        {
+          id: "coach2",
+          name: "王老师",
+          type: "瑜伽导师",
+          title: "10年教学经验",
+          rating: 4.9,
+          distance: 0.8,
+          image: "https://picsum.photos/id/1027/100/100",
+          prices: {
+            trial: 98,
+            single: 180,
+            tenPack: 1500,
+          },
+        },
+        {
+          id: "coach3",
+          name: "赵教练",
+          type: "健身教练",
+          title: "专业私教 | 6年教学经验",
+          rating: 4.7,
+          distance: 1.5,
+          image: "https://picsum.photos/id/1011/100/100",
+          prices: {
+            trial: 80,
+            single: 180,
+            tenPack: 1500,
+          },
+        },
+      ],
+      // 关注的教练列表 - mode2
+      followCoachesListMode2: [
+        {
+          id: "coach1",
+          name: "李教练",
+          avatar: "https://picsum.photos/id/1059/300/300",
+          qualification: "专业力量训练，器材齐全环境超棒",
+          type: "游泳教练",
+          rating: 4.8,
+          level: "高级教练",
+          price: 200,
+          label: "到店服务",
+          pic: "https://picsum.photos/id/1005/100/100",
+        },
+        {
+          id: "coach2",
+          name: "王老师",
+          avatar: "https://picsum.photos/id/1060/300/300",
+          qualification: "高蛋白低脂餐单推荐，帮你高效增肌减脂",
+          type: "瑜伽导师",
+          rating: 4.9,
+          level: "专业教练",
+          price: 180,
+          label: "上门服务",
+          pic: "https://picsum.photos/id/1027/100/100",
+        },
+        {
+          id: "coach3",
+          name: "赵教练",
+          avatar: "https://picsum.photos/id/1061/300/300",
+          qualification: "专业力量训练，器材齐全环境超棒",
+          type: "健身教练",
+          rating: 4.7,
+          level: "初级教练",
+          price: 180,
+          label: "到店服务",
+          pic: "https://picsum.photos/id/1011/100/100",
+        },
+      ],
+      products: [
+        {
+          id: "product1",
+          title: "蛙泳/自由泳（体验卡）",
+          price: 38,
+          sales: 5680,
+          image: "https://picsum.photos/id/1065/300/300",
+          isNew: false,
+        },
+        {
+          id: "product2",
+          title: "自由泳60分钟（单次卡）",
+          price: 200,
+          sales: 890,
+          image: "https://picsum.photos/id/1066/300/300",
+          isNew: true,
+        },
+        {
+          id: "product3",
+          title: "蛙泳/自由泳（10次卡）",
+          price: 1680,
+          sales: 538,
+          image: "https://picsum.photos/id/1067/300/300",
+          isNew: false,
+        },
+        {
+          id: "product4",
+          title: "蛙泳/自由泳（20次卡）",
+          price: 2980,
+          sales: 136,
+          image: "https://picsum.photos/id/1068/300/300",
+          isNew: true,
+        },
+      ],
+      recommendCoaches: [
+        {
+          id: "coach1",
+          name: "李教练",
+          type: "游泳教练",
+          title: "国家二级运动员 | 8年教学经验",
+          rating: 4.8,
+          distance: 1.2,
+          image: "https://picsum.photos/id/1005/100/100",
+          prices: {
+            trial: 88,
+            single: 200,
+            tenPack: 1680,
+          },
+        },
+        {
+          id: "coach2",
+          name: "赵教练",
+          type: "游泳教练",
+          title: "国家一级运动员 | 10年教学经验",
+          rating: 4.9,
+          distance: 1.5,
+          image: "https://picsum.photos/id/1011/100/100",
+          prices: {
+            trial: 98,
+            single: 220,
+            tenPack: 1880,
+          },
+        },
+        {
+          id: "coach3",
+          name: "张教练",
+          type: "游泳教练",
+          title: "国家二级运动员 | 6年教学经验",
+          rating: 4.6,
+          distance: 1.5,
+          image: "https://picsum.photos/id/1012/100/100",
+          prices: {
+            trial: 80,
+            single: 180,
+            tenPack: 1580,
+          },
+        },
+      ],
     };
   },
   methods: {
@@ -252,6 +512,25 @@ export default {
     },
     handlePublish() {
       this.$router.push("/publish-activity");
+    },
+    handleFollowClick() {
+      // 如果当前已经在关注标签，切换模式
+      if (this.activeTab === 'follow') {
+        this.followViewMode = this.followViewMode === 'mode1' ? 'mode2' : 'mode1';
+      } else {
+        // 切换到关注标签，重置为mode1
+        this.activeTab = 'follow';
+        this.followViewMode = 'mode1';
+      }
+    },
+    handleCoachLike(coachId, isLiked) {
+      console.log(`教练 ${coachId} 点赞状态:`, isLiked);
+    },
+    handleProductClick(productId) {
+      this.$router.push(`/product-detail/${productId}`);
+    },
+    handleViewProfile(coachId) {
+      this.$router.push({ path: "/ouyang", params: { id: coachId } });
     },
   },
 };
