@@ -586,8 +586,7 @@ export default {
     };
 
     const handleDynamicClick = (dynamicId) => {
-      console.log(`查看动态详情: ${dynamicId}`);
-      router.push(`/ouyang`); // 暂时使用教练详情页路由
+      router.push(`/dynamic-detail/${dynamicId}`);
     };
 
     return {

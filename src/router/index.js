@@ -46,6 +46,7 @@ import TeamPage from '../views/TeamPage.vue' // 醒狮团队页面
 import PendingReviewPage from '../views/PendingReviewPage.vue' // 待评价页面
 import MyReviewsPage from '../views/MyReviewsPage.vue' // 真实评价页面
 import WriteReviewPage from '../views/WriteReviewPage.vue' // 写评价页面
+import DynamicDetailPage from '../views/DynamicDetailPage.vue' // 动态详情页面
 
 // 路由配置数组
 const routes = [
@@ -503,6 +504,16 @@ const routes = [
     component: WriteReviewPage,
     meta: {
       title: '评价',
+      showInNav: false
+    }
+  },
+  // 动态详情页面路由
+  {
+    path: '/dynamic-detail/:id',
+    name: 'DynamicDetail',
+    component: DynamicDetailPage,
+    meta: {
+      title: '动态详情',
       showInNav: false
     }
   }

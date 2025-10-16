@@ -309,15 +309,14 @@
         </div>
       </template>
 
-      <!-- 模式2：内容卡片模式 -->
+      <!-- 模式2：动态卡片模式 -->
       <template v-else>
         <div class="grid grid-cols-2 gap-3">
-          <CoachContentCard
-            v-for="coach in coaches1"
-            :key="coach.id"
-            :coach="coach"
-            @click="$router.push('/ouyang')"
-            @like="handleCoachLike"
+          <DynamicListItem
+            v-for="item in dynamicList"
+            :key="item.id"
+            :item="item"
+            @click="handleDynamicClick"
           />
         </div>
       </template>
@@ -330,9 +329,11 @@
 
 <script>
 import { ref, computed, onUnmounted } from "vue";
+import { useRouter } from "vue-router";
 import FooterNav from "../components/FooterNav.vue";
 import CoachListCard from "../components/CoachListCard.vue";
 import CoachContentCard from "../components/CoachContentCard.vue";
+import DynamicListItem from "../components/DynamicListItem.vue";
 
 // 导入本地图片资源
 import user1 from "@images/user_1.png";
@@ -355,8 +356,11 @@ export default {
     FooterNav,
     CoachListCard,
     CoachContentCard,
+    DynamicListItem,
   },
   setup() {
+    const router = useRouter();
+    
     // 当前选中的分类
     const selectedCategory = ref("推荐");
     // 显示模式：'mode1' 列表模式（默认），'mode2' 内容卡片模式
@@ -527,7 +531,7 @@ export default {
         id: 2,
         name: "赵2教练",
         avatar: avatr40,
-        qualification: "高蛋白低脂餐单推荐，帮你高效增肌减脂黛西",
+        qualification: "高蛋白低脂餐单推荐，帮你高效增肌减脂黑西",
         skills: "仰泳/自由泳",
         rating: 4.9,
         level: "高级教练",
@@ -537,7 +541,7 @@ export default {
       },
       {
         id: 3,
-        name: "王3教练",
+        name: "珋3教练",
         avatar: avatr41,
         qualification: "专业力量训练，器材齐全环境超棒的32小乖狼",
         skills: "蝶泳/混合泳",
@@ -551,13 +555,49 @@ export default {
         id: 4,
         name: "孙4教练",
         avatar: avatr42,
-        qualification: "高蛋白低脂餐单推荐，帮你高效增肌减脂12321321黛西",
+        qualification: "高蛋白低脂餐单推荐，帮你高效增肌减脂12321321黑西",
         skills: "蛙泳/自由泳",
         rating: 4.7,
         level: "初级教练",
         price: 168,
         label: "到店服务",
         pic: avatr4,
+      },
+    ]);
+
+    // 动态列表数据
+    const dynamicList = ref([
+      {
+        id: 1,
+        title: "9月的仪式感, 从纵身跃入泳池开始",
+        image: avatr39,
+        avatar: avatr1,
+        author: "李教练",
+        likes: 128,
+      },
+      {
+        id: 2,
+        title: "始于兴趣, 终于坚持, 让游泳成为一种习惯",
+        image: avatr40,
+        avatar: avatr2,
+        author: "赵教练",
+        likes: 256,
+      },
+      {
+        id: 3,
+        title: "健身路上没有捷径，只有坚持和努力",
+        image: avatr41,
+        avatar: avatr3,
+        author: "王教练",
+        likes: 203,
+      },
+      {
+        id: 4,
+        title: "早起晨跑，迎接美好的一天",
+        image: avatr42,
+        avatar: avatr4,
+        author: "孙教练",
+        likes: 95,
       },
     ]);
 
@@ -586,13 +626,20 @@ export default {
       console.log(`教练 ${coachId} 点赞状态:`, isLiked);
     };
 
+    // 处理动态点击
+    const handleDynamicClick = (dynamicId) => {
+      router.push(`/dynamic-detail/${dynamicId}`);
+    };
+
     return {
       selectedCategory,
       viewMode,
       coaches,
       coaches1,
+      dynamicList,
       handleCategoryClick,
       handleCoachLike,
+      handleDynamicClick,
       headerOpacity,
       showCityPicker,
       selectedCity,

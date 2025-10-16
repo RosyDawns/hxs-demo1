@@ -227,14 +227,13 @@
                 @click="$router.push('/ouyang')"
               />
             </div>
-            <!-- 模式2：CoachContentCard模式 -->
-            <div v-else class="grid grid-cols-2 gap-3">
-              <CoachContentCard
-                v-for="coach in followCoachesListMode2"
-                :key="coach.id"
-                :coach="coach"
-                @click="$router.push('/ouyang')"
-                @like="handleCoachLike"
+            <!-- 模式2：动态列表模式 -->
+            <div v-else class="grid grid-cols-2 gap-2">
+              <DynamicListItem
+                v-for="item in followDynamicsList"
+                :key="item.id"
+                :item="item"
+                @click="handleDynamicClick"
               />
             </div>
           </div>
@@ -388,7 +387,42 @@ export default {
           label: "线上服务",
         },
       ],
-      // 关注的教练列表 - mode2
+      // 关注的动态列表 - mode2
+      followDynamicsList: [
+        {
+          id: 1,
+          title: "今天完成了人生第一个5公里，坚持就是胜利！",
+          image: img39,
+          avatar: img1,
+          author: "李教练",
+          likes: 88,
+        },
+        {
+          id: 2,
+          title: "瑜伽让我找到了内心的平静，分享给大家",
+          image: img40,
+          avatar: img2,
+          author: "王老师",
+          likes: 156,
+        },
+        {
+          id: 3,
+          title: "健身路上没有捷径，只有坚持和努力",
+          image: img6,
+          avatar: img3,
+          author: "赵教练",
+          likes: 203,
+        },
+        {
+          id: 4,
+          title: "早起晨跑，迎接美好的一天",
+          image: img4,
+          avatar: img1,
+          author: "张小明",
+          likes: 95,
+        },
+      ],
+      // 关注的教练列表 - mode2 (备用)
       followCoachesListMode2: [
         {
           id: "coach1",
@@ -509,7 +543,7 @@ export default {
   },
   methods: {
     handleDynamicClick(id) {
-      console.log("点击动态:", id);
+      this.$router.push(`/dynamic-detail/${id}`);
     },
     handlePublish() {
       this.$router.push("/publish-activity");
