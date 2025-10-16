@@ -12,7 +12,7 @@
     />
     
     <!-- 教练信息 -->
-    <div class="px-2 py-2">
+    <div class="px-1 py-2">
       <!-- 姓名和头像 -->
       <div class="flex items-center mb-2">
         <img

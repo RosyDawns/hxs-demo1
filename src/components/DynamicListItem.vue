@@ -8,7 +8,7 @@
       :alt="item.title"
       class="w-full h-40 object-cover"
     />
-    <div class="px-3 py-2">
+    <div class="px-2 py-2">
       <p class="text-sm text-black mb-2 line-clamp-2">{{ item.title }}</p>
       <div class="flex items-center justify-between">
         <div class="flex items-center">

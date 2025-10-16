@@ -25,7 +25,7 @@
     </header>
 
     <!-- 主要内容区 -->
-    <main class="flex-1 overflow-y-auto p-2">
+    <main class="flex-1 overflow-y-auto py-2 px-3">
       <!-- 用户信息区 -->
       <div>
         <div class="flex items-start">
@@ -209,7 +209,7 @@
             <!-- 模式1：CoachListCard模式 -->
             <div
               v-if="followViewMode === 'mode1'"
-              class="grid grid-cols-2 gap-3"
+              class="grid grid-cols-2 gap-2"
             >
               <CoachListCard
                 v-for="coach in followCoachesList"
