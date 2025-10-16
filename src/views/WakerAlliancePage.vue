@@ -235,35 +235,40 @@
                 </div>
 
                 <!-- 价格和按钮 -->
-                <div class="flex items-end justify-between">
-                  <div>
-                    <div class="flex items-baseline mb-2">
-                      <span class="text-base font-bold text-black">
-                        ￥{{ product.price }}
-                      </span>
-                      <span class="text-xs text-gray-400 ml-2">
-                        昨日售 {{ product.sales }}
-                      </span>
-                    </div>
+                <div class="mt-2">
+                  <div class="flex items-baseline mb-1">
+                    <span class="text-base font-bold text-black">
+                      ￥{{ product.price }}
+                    </span>
+                    <span class="text-xs text-gray-400 ml-2">
+                      昨日售 {{ product.sales }}
+                    </span>
+                  </div>
+                  <div class="flex items-center justify-between">
                     <div
                       class="flex items-center mt-1 space-x-2 pr-2 border border-orange-500 rounded-sm"
                     >
                       <span
-                        class="bg-orange-500 text-white text-xs px-1 py-0.5 rounded"
+                        class="bg-orange-500 text-white px-1 py-0.5 rounded"
+                        style="font-size: 10px"
                       >
                         唤醒高佣 {{ product.commission }}%
                       </span>
-                      <span class="text-orange-500 text-xs font-medium">
+                      <span
+                        class="text-orange-500 font-medium"
+                        style="font-size: 10px"
+                      >
                         赚￥{{ product.earn }}
                       </span>
                     </div>
+                    <button
+                      class="px-3 py-1 border border-orange-500 text-orange-500 rounded-full nav-action"
+                      @click="handleAddToShowcase(product.id)"
+                      style="font-size: 10px"
+                    >
+                      加橱窗
+                    </button>
                   </div>
-                  <button
-                    class="px-3 py-1 border border-orange-500 text-orange-500 text-xs rounded-full nav-action"
-                    @click="handleAddToShowcase(product.id)"
-                  >
-                    加橱窗
-                  </button>
                 </div>
               </div>
             </div>
