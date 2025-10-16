@@ -2,11 +2,6 @@
   <div class="page" id="page-ouyang">
     <!-- 顶部导航 -->
     <CommonHeader arrowColor="#fff">
-      <!-- <template #left>
-        <button>
-          <i class="fa fa-arrow-left text-xl"></i>
-        </button>
-      </template> -->
       <template #center></template>
       <template #right>
         <button class="text-white">
@@ -93,7 +88,7 @@
           </div>
 
           <!-- 数据统计 -->
-          <div class="flex items-center justify-between mt-4 py-3">
+          <div class="flex items-center justify-between mt-4 py-1">
             <div class="text-center">
               <p class="text-xl font-bold">280</p>
               <p class="text-xs">关注</p>
@@ -124,62 +119,60 @@
             </div>
           </div>
 
-          <!-- 营业信息 -->
-          <div class="mt-3">
-            <div class="flex items-center justify-between w-full">
-              <span class="text-sm font-medium">营业中 10:00-22:00</span>
-              <button class="text-white flex items-center text-sm">
-                <span>信息/设施</span>
-                <i class="fa fa-angle-right"></i>
-              </button>
+          <template v-if="variant == '1'">
+            <div class="mt-3">
+              <div class="flex items-center justify-between w-full">
+                <span class="text-sm font-medium">营业中 10:00-22:00</span>
+                <button class="text-white flex items-center text-sm">
+                  <span>信息/设施</span>
+                  <i class="fa fa-angle-right"></i>
+                </button>
+              </div>
+              <p class="text-sm mt-2">
+                <span
+                  class="py-1 mr-1 px-2 rounded-full"
+                  style="background-color: rgba(255, 255, 255, 0.2)"
+                >
+                  有登山机
+                </span>
+                <span
+                  class="py-1 mr-1 px-2 rounded-full"
+                  style="background-color: rgba(255, 255, 255, 0.2)"
+                >
+                  按月付费
+                </span>
+                <span
+                  class="py-1 mr-1 px-2 rounded-full"
+                  style="background-color: rgba(255, 255, 255, 0.2)"
+                >
+                  恒温泳池
+                </span>
+                <span
+                  class="py-1 px-2 rounded-full"
+                  style="background-color: rgba(255, 255, 255, 0.2)"
+                >
+                  休息区
+                </span>
+              </p>
             </div>
-            <p class="text-sm mt-2">
-              <span
-                class="py-1 mr-1 px-2 rounded-full"
-                style="background-color: rgba(255, 255, 255, 0.2)"
-              >
-                有登山机
-              </span>
-              <span
-                class="py-1 mr-1 px-2 rounded-full"
-                style="background-color: rgba(255, 255, 255, 0.2)"
-              >
-                按月付费
-              </span>
-              <span
-                class="py-1 mr-1 px-2 rounded-full"
-                style="background-color: rgba(255, 255, 255, 0.2)"
-              >
-                恒温泳池
-              </span>
-              <span
-                class="py-1 px-2 rounded-full"
-                style="background-color: rgba(255, 255, 255, 0.2)"
-              >
-                休息区
-              </span>
-            </p>
-          </div>
 
-          <div class="flex items-center justify-between mt-4">
-            <div>
-              <p class="text-sm">徐泾镇叶联路333弄金地天御18号001</p>
-              <p class="text-xs">驾车1km,需约3分钟</p>
+            <div class="flex items-center justify-between mt-3">
+              <div>
+                <p class="text-sm">徐泾镇叶联路333弄金地天御18号001</p>
+                <p class="text-xs">驾车1km,需约3分钟</p>
+              </div>
+              <div class="flex justify-end items-center">
+                <button class="bg-gray-100 p-2 rounded-full mr-3 w-10 h-10">
+                  <i class="fa fa-comment text-gray-600"></i>
+                </button>
+                <button class="bg-gray-100 p-2 rounded-full w-10 h-10">
+                  <i class="fa fa-phone text-gray-600"></i>
+                </button>
+              </div>
             </div>
-            <div class="flex justify-end">
-              <button class="bg-gray-100 p-2 rounded-full mr-3 w-10 h-10">
-                <i class="fa fa-comment text-gray-600"></i>
-              </button>
-              <button class="bg-gray-100 p-2 rounded-full w-10 h-10">
-                <i class="fa fa-phone text-gray-600"></i>
-              </button>
-            </div>
-          </div>
 
-          <!-- 课程卡片 -->
-          <div class="mt-4">
             <div
-              class="p-2 rounded-lg overflow-hidden"
+              class="p-2 rounded-lg overflow-hidden mt-3"
               style="background-color: rgba(255, 255, 255, 0.4)"
             >
               <div class="grid grid-cols-3 gap-2">
@@ -250,7 +243,214 @@
                 </div>
               </div>
             </div>
-          </div>
+          </template>
+
+          <template v-if="variant == 2">
+            <div class="mt-3 space-y-2 text-sm">
+              <div class="flex items-center">
+                <div class="flex-1">
+                  <div class="flex items-center">
+                    <span class="text-sm font-medium">营业中 10:00-22:00</span>
+                    <button class="text-white flex items-center text-sm">
+                      <span>其他</span>
+                      <i class="fa fa-angle-right"></i>
+                    </button>
+                  </div>
+                  <div class="flex items-start">
+                    <span class="w-16 text-gray-200/90">服务项目</span>
+                    <div class="flex flex-wrap gap-2">
+                      <span
+                        class="px-2 py-0.5 rounded-full"
+                        style="background-color: rgba(255, 255, 255, 0.2)"
+                      >
+                        游泳教学｜体能教学
+                      </span>
+                    </div>
+                  </div>
+                </div>
+                <button
+                  class="border border-white text-xs py-1 px-2 rounded-full"
+                  style="background-color: rgba(255, 255, 255, 0.2)"
+                >
+                  <i class="fa-solid fa-video mr-1"></i>
+                  <span>验真</span>
+                </button>
+              </div>
+
+              <div class="flex items-center mt-3">
+                <div class="flex-1">
+                  <div class="flex items-start mb-1">
+                    <span class="w-16 text-gray-200/90">服务区域</span>
+                    <div class="flex flex-wrap gap-2">
+                      <span
+                        class="px-2 py-0.5 rounded-full"
+                        style="background-color: rgba(255, 255, 255, 0.2)"
+                      >
+                        静安区｜黄埔区
+                      </span>
+                    </div>
+                  </div>
+                  <div class="flex items-start">
+                    <span class="w-16 text-gray-200/90">服务场地</span>
+                    <div class="flex flex-wrap gap-2">
+                      <span
+                        v-for="t in serviceSites"
+                        :key="t"
+                        class="px-2 py-0.5 rounded-full"
+                        style="background-color: rgba(255, 255, 255, 0.2)"
+                        >{{ t }}</span
+                      >
+                    </div>
+                  </div>
+                </div>
+                <div class="flex justify-end items-center">
+                  <button class="bg-gray-100 p-2 rounded-full mr-3 w-10 h-10">
+                    <i class="fa fa-comment text-gray-600"></i>
+                  </button>
+                  <button class="bg-gray-100 p-2 rounded-full w-10 h-10">
+                    <i class="fa fa-phone text-gray-600"></i>
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <div
+              class="p-2 rounded-lg overflow-hidden mt-3"
+              style="background-color: rgba(255, 255, 255, 0.4)"
+            >
+              <div class="grid grid-cols-3 gap-2">
+                <div
+                  class="bg-gray-50 rounded-lg overflow-hidden relative text-center"
+                >
+                  <img
+                    class="w-full h-22 object-cover"
+                    src="@images/img_40.jpg"
+                  />
+                  <p class="text-xs text-black bg-white py-1">体验课</p>
+                  <p
+                    class="text-white w-full absolute top-0 left-0 py-1 text-xs"
+                    style="
+                      background-image: linear-gradient(
+                        to bottom,
+                        #000,
+                        rgba(255, 255, 255, 0)
+                      );
+                    "
+                  >
+                    体验卡：¥100
+                  </p>
+                </div>
+                <div
+                  class="bg-gray-50 rounded-lg overflow-hidden relative text-center"
+                >
+                  <img
+                    class="w-full h-22 object-cover"
+                    src="@images/img_40.jpg"
+                    alt=""
+                  />
+                  <p class="text-xs text-black bg-white py-1">单次课</p>
+                  <p
+                    class="text-xs text-white w-full absolute top-0 left-0 py-0.5"
+                    style="
+                      background-image: linear-gradient(
+                        to bottom,
+                        #000,
+                        rgba(255, 255, 255, 0)
+                      );
+                    "
+                  >
+                    体验卡：¥200
+                  </p>
+                </div>
+                <div
+                  class="bg-gray-50 rounded-lg overflow-hidden relative text-center"
+                >
+                  <img
+                    class="w-full h-22 object-cover"
+                    src="@images/img_40.jpg"
+                    alt=""
+                  />
+                  <p class="text-xs text-black bg-white py-1">10次卡</p>
+                  <p
+                    class="text-xs text-white w-full absolute top-0 left-0 py-0.5"
+                    style="
+                      background-image: linear-gradient(
+                        to bottom,
+                        #000,
+                        rgba(255, 255, 255, 0)
+                      );
+                    "
+                  >
+                    体验卡：¥300
+                  </p>
+                </div>
+              </div>
+            </div>
+          </template>
+
+          <template v-if="variant === '3'">
+            <div class="flex items-center justify-between mt-4 text-sm">
+              <div class="flex-1">
+                <div class="flex items-center">
+                  <span class="font-medium mr-3"> 营业中 10:00-22:00 </span>
+                  <button class="text-white flex items-center text-sm">
+                    <span>信息/设施</span>
+                    <i class="fa fa-angle-right"></i>
+                  </button>
+                </div>
+                <div class="flex items-center">
+                  <span>服务项目</span>
+                  <div></div>
+                  <div class="flex flex-wrap gap-2 ml-1">
+                    <span
+                      class="px-2 py-0.5 rounded-full"
+                      style="background-color: rgba(255, 255, 255, 0.2)"
+                    >
+                      品牌设计｜平面设计｜包装设计
+                    </span>
+                  </div>
+                </div>
+              </div>
+              <div class="flex justify-end items-center">
+                <button class="bg-gray-100 p-2 rounded-full mr-3 w-10 h-10">
+                  <i class="fa fa-comment text-gray-600"></i>
+                </button>
+                <button class="bg-gray-100 p-2 rounded-full w-10 h-10">
+                  <i class="fa fa-phone text-gray-600"></i>
+                </button>
+              </div>
+            </div>
+            <div class="text-white/95 text-xl mb-2 mt-4">线上服务</div>
+            <div
+              class="rounded-2xl overflow-hidden flex items-center p-3"
+              style="background-color: rgba(255, 255, 255, 0.2)"
+            >
+              <img
+                class="w-28 h-20 object-cover rounded-xl"
+                src="https://picsum.photos/seed/brand/300/200"
+                alt="线上服务"
+              />
+              <div class="ml-2 flex-1">
+                <div class="text-white">
+                  <div class="text-lg font-semibold">品牌设计</div>
+                  <div class="text-xs opacity-90 mt-0.5 mb-1">
+                    logo+VI基础+VI应用
+                  </div>
+                </div>
+                <div class="flex items-center justify-between">
+                  <div class="text-right text-white flex items-center">
+                    <div class="text-xl font-bold">2W</div>
+                    <div class="text-xs opacity-90">元/起</div>
+                  </div>
+                  <button
+                    class="bg-red-500 text-white text-sm px-3 py-1 rounded-full"
+                  >
+                    立即购买
+                  </button>
+                </div>
+              </div>
+            </div>
+          </template>
         </div>
       </div>
     </div>
@@ -311,7 +511,6 @@ export default {
   },
   data() {
     return {
-      // 不需要activeTab了，因为我们现在使用页面跳转而不是标签切换
       // 动态内容数组
       notes: [
         {
@@ -343,11 +542,13 @@ export default {
           isVideo: false,
         },
       ],
+      serviceSites: ["双方协商", "10公里内免费"],
     };
   },
   setup() {
     return {
       BgImage,
+      variant: Math.random() * 3 > 1 ? "1" : Math.random() * 2 > 1 ? "2" : "3",
     };
   },
 };
