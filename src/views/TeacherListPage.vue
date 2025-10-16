@@ -1,7 +1,7 @@
 <template>
   <div class="page pt-12" id="page-teacher-list">
     <!-- 顶部导航 -->
-    <CommonHeader arrowColor="#000" class="border-b border-gray-100">
+    <CommonHeader arrowColor="#000" bgColor="#fff" class="border-b border-gray-100">
       <template #center>
         <div class="w-full pr-10">
           <div class="flex-1 flex items-center justify-around">

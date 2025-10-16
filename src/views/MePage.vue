@@ -85,36 +85,20 @@
       <div class="bg-white mt-3 px-4 py-4 rounded-2xl shadow-sm">
         <div class="grid grid-cols-4 gap-4 text-center">
           <div class="nav-action" @click="$router.push('/my-orders')">
-            <div
-              class="w-12 h-12 rounded-lg bg-orange-500 flex items-center justify-center mx-auto mb-2"
-            >
-              <i class="fa-solid fa-file-invoice text-xl text-white"></i>
-            </div>
-            <p class="text-xs text-gray-700">订单</p>
+            <i class="fa-solid fa-file-invoice text-2xl text-primary mb-2"></i>
+            <p class="text-xs text-black">订单</p>
           </div>
           <div class="nav-action" @click="$router.push('/favorites')">
-            <div
-              class="w-12 h-12 rounded-lg bg-orange-500 flex items-center justify-center mx-auto mb-2"
-            >
-              <i class="fa-solid fa-star text-xl text-white"></i>
-            </div>
-            <p class="text-xs text-gray-700">收藏</p>
+            <i class="fa-solid fa-star text-2xl text-primary mb-2"></i>
+            <p class="text-xs text-black">收藏</p>
           </div>
           <div class="nav-action" @click="$router.push('/pending-review')">
-            <div
-              class="w-12 h-12 rounded-lg bg-orange-500 flex items-center justify-center mx-auto mb-2"
-            >
-              <i class="fa-solid fa-comment-dots text-xl text-white"></i>
-            </div>
-            <p class="text-xs text-gray-700">待评价</p>
+            <i class="fa-solid fa-comment-dots text-2xl text-primary mb-2"></i>
+            <p class="text-xs text-black">待评价</p>
           </div>
           <div class="nav-action" @click="$router.push('/my-reviews')">
-            <div
-              class="w-12 h-12 rounded-lg bg-orange-500 flex items-center justify-center mx-auto mb-2"
-            >
-              <i class="fa-solid fa-check-circle text-xl text-white"></i>
-            </div>
-            <p class="text-xs text-gray-700">真实评价</p>
+            <i class="fa-solid fa-check-circle text-2xl text-primary mb-2"></i>
+            <p class="text-xs text-black">真实评价</p>
           </div>
         </div>
       </div>
@@ -128,25 +112,25 @@
         <div class="grid grid-cols-4 gap-4 text-center">
           <div class="nav-action" @click="$router.push('/wallet')">
             <div class="flex justify-center mb-2">
-              <i class="fa-solid fa-wallet text-4xl text-gray-800"></i>
+              <i class="fa-solid fa-wallet text-xl text-gray-800"></i>
             </div>
             <p class="text-xs text-gray-700">我的钱包</p>
           </div>
           <div class="nav-action" @click="$router.push('/register-waker')">
             <div class="flex justify-center mb-2">
-              <i class="fa-solid fa-user-check text-4xl text-gray-800"></i>
+              <i class="fa-solid fa-user-check text-xl text-gray-800"></i>
             </div>
             <p class="text-xs text-gray-700">注册唤醒师</p>
           </div>
           <div class="nav-action" @click="$router.push('/waker-alliance')">
             <div class="flex justify-center mb-2">
-              <i class="fa-solid fa-cube text-4xl text-gray-800"></i>
+              <i class="fa-solid fa-cube text-xl text-gray-800"></i>
             </div>
             <p class="text-xs text-gray-700">唤醒联盟</p>
           </div>
           <div class="nav-action" @click="$router.push('/team')">
             <div class="flex justify-center mb-2">
-              <i class="fa-solid fa-users text-4xl text-gray-800"></i>
+              <i class="fa-solid fa-users text-xl text-gray-800"></i>
             </div>
             <p class="text-xs text-gray-700">醒狮团队</p>
           </div>
@@ -177,7 +161,11 @@
               ]"
               @click="handleFollowClick"
             >
-              关注 <i class="fa-solid fa-right-left ml-1" style="font-size: 10px"></i>
+              关注
+              <i
+                class="fa-solid fa-right-left ml-1"
+                style="font-size: 10px"
+              ></i>
             </button>
             <button
               :class="[
@@ -219,7 +207,10 @@
           <!-- 关注内容 -->
           <div v-else-if="activeTab === 'follow'">
             <!-- 模式1：CoachListCard模式 -->
-            <div v-if="followViewMode === 'mode1'" class="grid grid-cols-2 gap-3">
+            <div
+              v-if="followViewMode === 'mode1'"
+              class="grid grid-cols-2 gap-3"
+            >
               <CoachListCard
                 v-for="coach in followCoachesList"
                 :key="coach.id"
@@ -550,12 +541,13 @@ export default {
     },
     handleFollowClick() {
       // 如果当前已经在关注标签，切换模式
-      if (this.activeTab === 'follow') {
-        this.followViewMode = this.followViewMode === 'mode1' ? 'mode2' : 'mode1';
+      if (this.activeTab === "follow") {
+        this.followViewMode =
+          this.followViewMode === "mode1" ? "mode2" : "mode1";
       } else {
         // 切换到关注标签，重置为mode1
-        this.activeTab = 'follow';
-        this.followViewMode = 'mode1';
+        this.activeTab = "follow";
+        this.followViewMode = "mode1";
       }
     },
     handleCoachLike(coachId, isLiked) {
