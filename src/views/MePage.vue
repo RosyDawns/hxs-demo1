@@ -25,7 +25,7 @@
     </header>
 
     <!-- 主要内容区 -->
-    <main class="flex-1 overflow-y-auto p-4">
+    <main class="flex-1 overflow-y-auto p-2">
       <!-- 用户信息区 -->
       <div>
         <div class="flex items-start">
@@ -193,7 +193,7 @@
         </div>
 
         <!-- 内容区 -->
-        <div class="px-3 py-3">
+        <div class="px-2 py-2">
           <!-- 动态内容 -->
           <div v-if="activeTab === 'dynamics'" class="grid grid-cols-2 gap-2">
             <DynamicListItem
@@ -232,7 +232,7 @@
           <!-- 橱窗内容 -->
           <div
             v-else-if="activeTab === 'showcase'"
-            class="grid grid-cols-2 gap-4 mt-3"
+            class="grid grid-cols-2 gap-4 mt-2"
           >
             <div
               v-for="product in products"
