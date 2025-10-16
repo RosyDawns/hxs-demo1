@@ -311,6 +311,19 @@ import HxsItem from "@/components/hxs-item.vue";
 import CoachListCard from "@/components/CoachListCard.vue";
 import CoachContentCard from "@/components/CoachContentCard.vue";
 
+// 导入本地图片资源
+import img1 from "@/assets/images/img-1.jpg";
+import img2 from "@/assets/images/img-2.jpg";
+import img3 from "@/assets/images/img-3.jpg";
+import img4 from "@/assets/images/img-4.jpg";
+import img5 from "@/assets/images/img-5.jpg";
+import img6 from "@/assets/images/img-6.jpg";
+import img13 from "@/assets/images/img-13.jpg";
+import img14 from "@/assets/images/img-14.jpg";
+import img15 from "@/assets/images/img-15.jpg";
+import img39 from "@/assets/images/img_39.jpg";
+import img40 from "@/assets/images/img_40.jpg";
+
 export default {
   name: "MePage",
   components: {
@@ -328,16 +341,16 @@ export default {
         {
           id: 1,
           title: "9月的仪式感, 从纵身跃入泳池开始",
-          image: "https://picsum.photos/id/1059/400/300",
-          avatar: "https://picsum.photos/id/1005/80/80",
+          image: img39,
+          avatar: img1,
           author: "张小明",
           likes: 128,
         },
         {
           id: 2,
           title: "始于兴趣, 终于坚持, 让游泳成为一种习惯",
-          image: "https://picsum.photos/id/1060/400/300",
-          avatar: "https://picsum.photos/id/1005/80/80",
+          image: img40,
+          avatar: img1,
           author: "张小明",
           likes: 256,
         },
@@ -347,44 +360,32 @@ export default {
         {
           id: "coach1",
           name: "李教练",
-          type: "游泳教练",
-          title: "国家二级运动员 | 8年教学经验",
+          avatar: img39,
+          pic: img1,
+          qualification: "国家二级运动员",
+          skills: "游泳/长泳/自由泳",
           rating: 4.8,
-          distance: 1.2,
-          image: "https://picsum.photos/id/1005/100/100",
-          prices: {
-            trial: 88,
-            single: 200,
-            tenPack: 1680,
-          },
+          label: "到店服务",
         },
         {
           id: "coach2",
           name: "王老师",
-          type: "瑜伽导师",
-          title: "10年教学经验",
+          avatar: img40,
+          pic: img2,
+          qualification: "专业瑜伽导师",
+          skills: "瑜伽/冥想/塑形",
           rating: 4.9,
-          distance: 0.8,
-          image: "https://picsum.photos/id/1027/100/100",
-          prices: {
-            trial: 98,
-            single: 180,
-            tenPack: 1500,
-          },
+          label: "上门服务",
         },
         {
           id: "coach3",
           name: "赵教练",
-          type: "健身教练",
-          title: "专业私教 | 6年教学经验",
+          avatar: img6,
+          pic: img3,
+          qualification: "专业健身私教",
+          skills: "力量训练/增肌/减脂",
           rating: 4.7,
-          distance: 1.5,
-          image: "https://picsum.photos/id/1011/100/100",
-          prices: {
-            trial: 80,
-            single: 180,
-            tenPack: 1500,
-          },
+          label: "线上服务",
         },
       ],
       // 关注的教练列表 - mode2
@@ -392,38 +393,38 @@ export default {
         {
           id: "coach1",
           name: "李教练",
-          avatar: "https://picsum.photos/id/1059/300/300",
+          avatar: img39,
           qualification: "专业力量训练，器材齐全环境超棒",
           type: "游泳教练",
           rating: 4.8,
           level: "高级教练",
           price: 200,
           label: "到店服务",
-          pic: "https://picsum.photos/id/1005/100/100",
+          pic: img13,
         },
         {
           id: "coach2",
           name: "王老师",
-          avatar: "https://picsum.photos/id/1060/300/300",
+          avatar: img40,
           qualification: "高蛋白低脂餐单推荐，帮你高效增肌减脂",
           type: "瑜伽导师",
           rating: 4.9,
           level: "专业教练",
           price: 180,
           label: "上门服务",
-          pic: "https://picsum.photos/id/1027/100/100",
+          pic: img14,
         },
         {
           id: "coach3",
           name: "赵教练",
-          avatar: "https://picsum.photos/id/1061/300/300",
+          avatar: img6,
           qualification: "专业力量训练，器材齐全环境超棒",
           type: "健身教练",
           rating: 4.7,
           level: "初级教练",
           price: 180,
           label: "到店服务",
-          pic: "https://picsum.photos/id/1011/100/100",
+          pic: img15,
         },
       ],
       products: [
@@ -432,7 +433,7 @@ export default {
           title: "蛙泳/自由泳（体验卡）",
           price: 38,
           sales: 5680,
-          image: "https://picsum.photos/id/1065/300/300",
+          image: img4,
           isNew: false,
         },
         {
@@ -440,7 +441,7 @@ export default {
           title: "自由泳60分钟（单次卡）",
           price: 200,
           sales: 890,
-          image: "https://picsum.photos/id/1066/300/300",
+          image: img5,
           isNew: true,
         },
         {
@@ -448,7 +449,7 @@ export default {
           title: "蛙泳/自由泳（10次卡）",
           price: 1680,
           sales: 538,
-          image: "https://picsum.photos/id/1067/300/300",
+          image: img6,
           isNew: false,
         },
         {
@@ -456,7 +457,7 @@ export default {
           title: "蛙泳/自由泳（20次卡）",
           price: 2980,
           sales: 136,
-          image: "https://picsum.photos/id/1068/300/300",
+          image: img39,
           isNew: true,
         },
       ],
@@ -468,7 +469,7 @@ export default {
           title: "国家二级运动员 | 8年教学经验",
           rating: 4.8,
           distance: 1.2,
-          image: "https://picsum.photos/id/1005/100/100",
+          image: img1,
           prices: {
             trial: 88,
             single: 200,
@@ -482,7 +483,7 @@ export default {
           title: "国家一级运动员 | 10年教学经验",
           rating: 4.9,
           distance: 1.5,
-          image: "https://picsum.photos/id/1011/100/100",
+          image: img3,
           prices: {
             trial: 98,
             single: 220,
@@ -496,7 +497,7 @@ export default {
           title: "国家二级运动员 | 6年教学经验",
           rating: 4.6,
           distance: 1.5,
-          image: "https://picsum.photos/id/1012/100/100",
+          image: img2,
           prices: {
             trial: 80,
             single: 180,

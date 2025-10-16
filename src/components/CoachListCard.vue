@@ -90,6 +90,7 @@ export default {
     },
     
     handleImageError(event) {
+      console.log(1);
       event.target.src = 'https://via.placeholder.com/300x300?text=暂无图片';
     }
   }
