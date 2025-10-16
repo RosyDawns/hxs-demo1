@@ -246,10 +246,10 @@
                   </div>
                   <div class="flex items-center justify-between">
                     <div
-                      class="flex items-center mt-1 space-x-2 pr-2 border border-orange-500 rounded-sm"
+                      class="flex items-center space-x-2 pr-2 border border-orange-500 rounded-sm overflow-hidden"
                     >
                       <span
-                        class="bg-orange-500 text-white px-1 py-0.5 rounded"
+                        class="bg-orange-500 text-white px-1 py-0.5"
                         style="font-size: 10px"
                       >
                         唤醒高佣 {{ product.commission }}%
@@ -262,7 +262,7 @@
                       </span>
                     </div>
                     <button
-                      class="px-3 py-1 border border-orange-500 text-orange-500 rounded-full nav-action"
+                      class="px-3 py-0.5 border border-orange-500 text-orange-500 rounded-full nav-action"
                       @click="handleAddToShowcase(product.id)"
                       style="font-size: 10px"
                     >
