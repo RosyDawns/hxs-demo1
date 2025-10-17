@@ -2,7 +2,7 @@
   <div class="page" id="page-index">
     <!-- 顶部导航栏 -->
     <header
-      class="fixed w-full top-0 z-50 p-3 flex items-center justify-between transition-all duration-300"
+      class="fixed w-full top-2 z-50 p-3 flex items-center justify-between transition-all duration-300"
       :style="{ backgroundColor: `rgba(255, 255, 255, ${headerOpacity})` }"
     >
       <div
@@ -13,22 +13,23 @@
         <div class="text-sm font-medium">{{ selectedCity || "上海" }}</div>
         <i class="fa fa-angle-down text-sm ml-0.5"></i>
       </div>
-      <div class="relative flex-6 mx-3">
+      <div class="relative flex-4 mx-4">
         <div class="relative">
           <div
-            class="w-full bg-gray-100 rounded-full pl-10 pr-24 py-2 text-sm border border-orange-400 flex items-center cursor-pointer nav-action"
+            class="w-full bg-gray-100 rounded-full pl-10 pr-24 py-3 text-sm border border-orange-400 flex items-center cursor-pointer nav-action"
             @click="$router.push('/search')"
           >
-            <span class="text-gray-500 flex-1">头疗</span>
+            <span class="text-gray-500 flex-1 text-base">头疗</span>
           </div>
           <i
             class="fa fa-search absolute left-3 top-1/2 transform -translate-y-1/2 text-gray pointer-events-none"
           ></i>
           <button
-            class="absolute right-2 top-1/2 transform -translate-y-1/2 bg-primary text-white text-xs py-1.5 px-3 rounded-full nav-action"
+            class="absolute right-2 top-1/2 transform -translate-y-1/2 bg-primary text-white py-1.5 px-3 rounded-full nav-action"
+            style="font-size: 10px"
             @click="$router.push('/ai-assistant')"
           >
-            一键匹配
+            一键<br />匹配
           </button>
         </div>
       </div>
@@ -161,7 +162,7 @@
             $router.push({ path: '/teacher-list', query: { top: 'city' } })
           "
         >
-          让你的热爱发光
+          同城找人，找靠谱的人！
           <span class="bg-amber-50 text-amber-700 rounded-full px-2">GO></span>
         </p>
       </div>
@@ -220,8 +221,8 @@
           class="bg-white rounded-lg p-3 shadow nav-action cursor-pointer"
           @click="$router.push('/ranking')"
         >
-          <div class="font-bold text-sm text-black">城市大神</div>
-          <div class="font-medium text-xs text-gray">老狮榜单</div>
+          <div class="font-bold text-sm text-black">城市大师</div>
+          <div class="font-medium text-xs text-gray">大师榜单</div>
           <div class="flex justify-end mt-1" style="color: orange">
             <i class="fa-solid fa-map-location-dot"></i>
           </div>
@@ -230,7 +231,7 @@
           class="bg-white rounded-lg p-3 shadow nav-action cursor-pointer"
           @click="$router.push('/camp-register')"
         >
-          <div class="font-bold text-sm text-black">免费试</div>
+          <div class="font-bold text-sm text-black">免费体验</div>
           <div class="font-medium text-xs text-gray">试试就试试</div>
           <div class="flex justify-end mt-1">
             <div class="bg-yellow-500 text-white text-xs p-0.5 rounded-full">
@@ -239,13 +240,21 @@
           </div>
         </div>
         <div
-          class="bg-white rounded-lg p-3 shadow relative nav-action cursor-pointer col-span-2"
+          class="bg-white rounded-lg py-3 px-2 shadow relative nav-action cursor-pointer col-span-2"
           @click="$router.push('/weight-management-camp')"
         >
-          <div class="font-bold text-sm text-black">体重管理唤醒营</div>
-          <div class="font-medium text-xs text-gray">
-            唤醒瘦 · 科学瘦 · 坚持瘦
+          <div class="flex items-center">
+            <div class="text-primary mr-1">
+              <i class="fa-solid fa-volleyball text-2xl"></i>
+            </div>
+            <div class="flex-1">
+              <div class="font-bold text-sm text-black">体重管理唤醒营</div>
+              <div class="font-medium text-xs text-gray">
+                唤醒瘦 · 科学瘦 · 坚持瘦
+              </div>
+            </div>
           </div>
+
           <div class="flex justify-end mt-1" style="color: orange">
             <i class="fa-solid fa-map-location-dot"></i>
           </div>
