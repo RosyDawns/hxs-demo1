@@ -1,18 +1,23 @@
 <template>
   <div class="dynamic-tab">
     <div class="grid grid-cols-2 gap-2 p-1">
-      <NotesContent v-for="item in dynamicList" :key="item.id" :item="item" />
+      <NotesContent
+        @handleClick="handleClick"
+        v-for="item in dynamicList"
+        :key="item.id"
+        :item="item"
+      />
     </div>
   </div>
 </template>
 
 <script>
-import NotesContent from './NotesContent.vue'
+import NotesContent from "./NotesContent.vue";
 
 export default {
-  name: 'DynamicTab',
+  name: "DynamicTab",
   components: {
-    NotesContent
+    NotesContent,
   },
   data() {
     return {
@@ -59,10 +64,15 @@ export default {
           isTop: false,
           isVideo: false,
         },
-      ]
-    }
-  }
-}
+      ],
+    };
+  },
+  methods: {
+    handleClick(id) {
+      this.$router.push(`/dynamic-detail/${id}`);
+    },
+  },
+};
 </script>
 
 <style scoped>
