@@ -172,8 +172,9 @@
         <div class="grid grid-cols-3 gap-3">
           <div
             class="bg-white text-black shadow flex flex-col items-center justify-center rounded-xl nav-action cursor-pointer overflow-hidden"
-            @click="$router.push('/leader-channel')"
+            @click="$router.push('/teacher-list')"
           >
+            <!-- @click="$router.push('/leader-channel')" -->
             <img src="@images/user_1.png" class="w-full object-contain" />
             <div class="text-base py-1">主理人频道</div>
           </div>
@@ -186,8 +187,9 @@
           </div>
           <div
             class="bg-white text-black shadow flex flex-col items-center justify-center rounded-xl nav-action cursor-pointer overflow-hidden"
-            @click="$router.push('/buddy-waker')"
+            @click="$router.push('/teacher-list')"
           >
+            <!-- @click="$router.push('/buddy-waker')" -->
             <img src="@images/user_3.png" class="w-full object-contain" />
             <div class="text-base py-1">搭子唤醒狮</div>
           </div>
@@ -360,7 +362,7 @@ export default {
   },
   setup() {
     const router = useRouter();
-    
+
     // 当前选中的分类
     const selectedCategory = ref("推荐");
     // 显示模式：'mode1' 列表模式（默认），'mode2' 内容卡片模式
@@ -605,9 +607,12 @@ export default {
     const handleCategoryClick = (category) => {
       // 可切换模式的分类
       const toggleableCategories = ["关注", "推荐", "附近"];
-      
+
       // 如果点击的是当前已选中的分类，且是可切换分类，则切换模式
-      if (selectedCategory.value === category && toggleableCategories.includes(category)) {
+      if (
+        selectedCategory.value === category &&
+        toggleableCategories.includes(category)
+      ) {
         // 在两种模式间切换
         viewMode.value = viewMode.value === "mode1" ? "mode2" : "mode1";
         console.log(`切换到${category}分类 - 模式${viewMode.value}`);
