@@ -48,6 +48,7 @@ import PendingReviewPage from '../views/PendingReviewPage.vue' // 待评价页�
 import MyReviewsPage from '../views/MyReviewsPage.vue' // 真实评价页面
 import WriteReviewPage from '../views/WriteReviewPage.vue' // 写评价页面
 import DynamicDetailPage from '../views/DynamicDetailPage.vue' // 动态详情页面
+import FriendRankingPage from '../views/FriendRankingPage.vue' // 好友排行页面
 
 // 路由配置数组
 const routes = [
@@ -526,6 +527,16 @@ const routes = [
     component: DynamicDetailPage,
     meta: {
       title: '动态详情',
+      showInNav: false
+    }
+  },
+  // 好友排行页面路由
+  {
+    path: '/friend-ranking',
+    name: 'FriendRanking',
+    component: FriendRankingPage,
+    meta: {
+      title: '好友排行',
       showInNav: false
     }
   }

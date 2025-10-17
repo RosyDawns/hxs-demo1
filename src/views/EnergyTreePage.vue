@@ -38,7 +38,7 @@
     <!-- 顶部左侧聊天提示 -->
     <div
       class="absolute z-1 left-4 top-30 flex items-center"
-      @click="$router.push('/ouyang')"
+      @click="$router.push('/call')"
     >
       <div class="relative z-1">
         <img
@@ -694,47 +694,7 @@ export default {
 
     // 显示好友排行
     const showFriendRanking = () => {
-      const content = `
-        <div class="space-y-4">
-          <div class="flex items-center p-3 bg-yellow-50 rounded-lg">
-            <div class="w-8 h-8 bg-yellow-400 rounded-full flex items-center justify-center text-white font-bold mr-3">1</div>
-            <img src="https://i.pravatar.cc/64?img=1" class="w-12 h-12 rounded-full mr-3" alt="avatar">
-            <div class="flex-1">
-              <div class="font-medium">李浩然</div>
-              <div class="text-xs text-gray-500">能量值: 980</div>
-            </div>
-            <div class="text-xs bg-primary/10 text-primary px-2 py-1 rounded">查看</div>
-          </div>
-          <div class="flex items-center p-3 bg-gray-50 rounded-lg">
-            <div class="w-8 h-8 bg-gray-300 rounded-full flex items-center justify-center text-white font-bold mr-3">2</div>
-            <img src="https://i.pravatar.cc/64?img=2" class="w-12 h-12 rounded-full mr-3" alt="avatar">
-            <div class="flex-1">
-              <div class="font-medium">王小花</div>
-              <div class="text-xs text-gray-500">能量值: 860</div>
-            </div>
-            <div class="text-xs bg-primary/10 text-primary px-2 py-1 rounded">查看</div>
-          </div>
-          <div class="flex items-center p-3 bg-gray-50 rounded-lg">
-            <div class="w-8 h-8 bg-gray-300 rounded-full flex items-center justify-center text-white font-bold mr-3">3</div>
-            <img src="https://i.pravatar.cc/64?img=3" class="w-12 h-12 rounded-full mr-3" alt="avatar">
-            <div class="flex-1">
-              <div class="font-medium">张大山</div>
-              <div class="text-xs text-gray-500">能量值: 750</div>
-            </div>
-            <div class="text-xs bg-primary/10 text-primary px-2 py-1 rounded">查看</div>
-          </div>
-          <div class="flex items-center p-3 bg-gray-50 rounded-lg">
-            <div class="w-8 h-8 bg-gray-200 rounded-full flex items-center justify-center text-gray-600 font-bold mr-3">4</div>
-            <img src="https://i.pravatar.cc/64?img=40" class="w-12 h-12 rounded-full mr-3" alt="avatar">
-            <div class="flex-1">
-              <div class="font-medium">你</div>
-              <div class="text-xs text-gray-500">能量值: 520</div>
-            </div>
-            <div class="text-xs bg-primary/10 text-primary px-2 py-1 rounded">查看</div>
-          </div>
-        </div>
-      `;
-      createPopup("好友排行", content);
+      router.push('/friend-ranking');
     };
 
     // 显示能量道具
