@@ -1,7 +1,7 @@
 <template>
   <div style="padding-bottom: 60px">
     <footer
-      class="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-100 flex justify-around items-center py-2 z-40"
+      class="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-100 flex justify-around items-center h-16 z-40"
     >
       <button
         class="flex-1 flex-col justify-center items-center"

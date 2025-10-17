@@ -37,8 +37,8 @@
       </div>
     </header>
 
-    <!-- 用户信息区域 -->
-    <div class="absolute top-22 left-4 z-20">
+    <!-- 用户信息区域（仅在打Call tab显示） -->
+    <div v-if="activeTab === '打Call'" class="absolute top-22 left-4 z-20">
       <div
         class="flex items-center gap-3 rounded-l-full"
         style="
@@ -83,8 +83,9 @@
       </div>
     </div>
 
-    <!-- 主体：能量树 -->
+    <!-- 主体：能量树（仅在打Call tab显示） -->
     <main
+      v-if="activeTab === '打Call'"
       class="absolute top-0 left-0 w-full h-full inset-0 flex items-center justify-center"
     >
       <!-- 能量树图片 -->
@@ -138,8 +139,27 @@
       </div>
     </main>
 
-    <!-- 底部交互区域 -->
-    <div class="absolute bottom-20 left-0 right-0 z-30 px-4">
+    <!-- 内容区域（当选中动态、橱窗、星推官tab时显示） -->
+    <div
+      v-if="activeTab !== '打Call'"
+      class="absolute bottom-16 top-20 left-0 right-0 bg-white rounded-t-3xl z-30"
+      style="overflow-y: auto"
+    >
+      <div class="p-4">
+        <!-- 动态Tab -->
+        <DynamicTab v-if="activeTab === '动态'" />
+        <!-- 橱窗Tab -->
+        <StoreTab v-else-if="activeTab === '橱窗'" />
+        <!-- 星推官Tab -->
+        <StarTab v-else-if="activeTab === '星推官'" />
+      </div>
+    </div>
+
+    <!-- 底部交互区域（仅在打Call tab显示） -->
+    <div
+      v-if="activeTab === '打Call'"
+      class="absolute bottom-20 left-0 right-0 z-30 px-4"
+    >
       <div class="flex items-center gap-3">
         <!-- 语音按钮 -->
         <button
@@ -156,7 +176,7 @@
             v-model="messageText"
             type="text"
             placeholder="发消息"
-            class="w-full h-full e text-gray-500 placeholder-gray-500 border-none outline-none text-sm"
+            class="w-full h-full text-gray-500 placeholder-gray-500 border-none outline-none text-sm"
           />
         </div>
 
@@ -170,7 +190,7 @@
       </div>
     </div>
 
-    <FooterNav />
+    <FooterNav activePage="call" />
   </div>
 </template>
 
@@ -294,11 +314,17 @@
 import { ref } from "vue";
 import { useRouter } from "vue-router";
 import FooterNav from "../components/FooterNav.vue";
+import DynamicTab from "../components/DynamicTab.vue";
+import StoreTab from "../components/StoreTab.vue";
+import StarTab from "../components/StarTab.vue";
 
 export default {
   name: "CallPage",
   components: {
     FooterNav,
+    DynamicTab,
+    StoreTab,
+    StarTab,
   },
   setup() {
     const router = useRouter();
