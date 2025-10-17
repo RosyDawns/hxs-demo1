@@ -4,6 +4,7 @@ import { createRouter, createWebHistory } from 'vue-router'
 import IndexPage from '../views/IndexPage.vue' // 首页 - 对应hss_v3.html中的page-index
 import AIAssistantPage from '../views/AIAssistantPage.vue' // AI管家（大狮兄）页面 - 对应hss_v3.html中的page-ai-assistant
 import EnergyTreePage from '../views/EnergyTreePage.vue' // 能量树页面 - 对应hss_v3.html中的page-energy-tree
+import CallPage from '../views/CallPage.vue' // 打Call页面
 import TeacherListPage from '../views/TeacherListPage.vue' // 唤醒狮列表页面
 import LeaderChannelPage from '../views/LeaderChannelPage.vue' // 主理人频道页面
 import BuddyWakerPage from '../views/BuddyWakerPage.vue' // 搭子唤醒师页面
@@ -80,6 +81,17 @@ const routes = [
     meta: {
       title: '能量树',
       icon: 'fa-tree',
+      showInNav: true
+    }
+  },
+  // 打Call页面路由
+  {
+    path: '/call',
+    name: 'Call',
+    component: CallPage,
+    meta: {
+      title: '打Call',
+      icon: 'fa-phone',
       showInNav: true
     }
   },

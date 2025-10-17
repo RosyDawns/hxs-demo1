@@ -5,12 +5,19 @@
     >
       <button
         class="flex-1 flex-col justify-center items-center"
-        :class="activePage === 'index' || activePage === 'teachers' ? 'text-primary' : 'text-gray'"
+        :class="
+          activePage === 'index' || activePage === 'teachers'
+            ? 'text-primary'
+            : 'text-gray'
+        "
         @click="handleWakerLionClick"
       >
         <i class="fa-solid fa-paw text-lg"></i>
         <p class="text-xs mt-1 flex items-center justify-center">
-          唤醒狮<i class="fa-solid fa-right-left ml-0.5" style="font-size: 10px"></i>
+          唤醒狮<i
+            class="fa-solid fa-right-left ml-0.5"
+            style="font-size: 10px"
+          ></i>
         </p>
       </button>
       <button
@@ -37,6 +44,14 @@
       <i class="fa-solid fa-heartbeat text-lg"></i>
       <p class="text-xs mt-1">唤醒营</p>
     </button> -->
+      <!-- <button
+        class="flex-1 flex-col justify-center items-center"
+        :class="activePage === 'call' ? 'text-primary' : 'text-gray'"
+        @click="$router.push('/call')"
+      >
+        <i class="fa-solid fa-phone text-lg"></i>
+        <p class="text-xs mt-1">打Call</p>
+      </button> -->
       <button
         class="flex-1 flex-col justify-center items-center"
         :class="activePage === 'messages' ? 'text-primary' : 'text-gray'"
@@ -69,15 +84,15 @@ export default {
   methods: {
     handleWakerLionClick() {
       // 如果当前在首页，则跳转到唤醒狮列表页；如果在唤醒狮列表页，则跳转到首页
-      if (this.activePage === 'index') {
-        this.$router.push('/teacher-list');
-      } else if (this.activePage === 'teachers') {
-        this.$router.push('/');
+      if (this.activePage === "index") {
+        this.$router.push("/teacher-list");
+      } else if (this.activePage === "teachers") {
+        this.$router.push("/");
       } else {
         // 默认跳转到首页
-        this.$router.push('/');
+        this.$router.push("/");
       }
-    }
-  }
+    },
+  },
 };
 </script>

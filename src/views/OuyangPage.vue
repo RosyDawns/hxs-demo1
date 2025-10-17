@@ -463,21 +463,27 @@
         <div class="flex items-center justify-between">
           <div class="flex pt-3">
             <button
-              class="tab-button px-5 py-2 mr-2 text-center font-medium text-sm text-primary border-b-2 border-primary"
+              class="tab-button px-5 py-2 text-center font-medium text-sm text-primary border-b-2 border-primary"
             >
               动态
             </button>
             <button
-              class="tab-button px-5 py-2 mr-2 text-center font-medium text-sm"
+              class="tab-button px-5 py-2 text-center font-medium text-sm"
               @click="$router.push('/store')"
             >
               橱窗
             </button>
             <button
-              class="tab-button px-5 py-2 mr-2 text-center font-medium text-sm"
+              class="tab-button px-5 py-2 text-center font-medium text-sm"
               @click="$router.push('/services')"
             >
               星推官
+            </button>
+            <button
+              class="tab-button px-5 py-2 text-center font-medium text-sm"
+              @click="$router.push('/call')"
+            >
+              打Call
             </button>
           </div>
           <div class="flex items-center">

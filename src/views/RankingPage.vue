@@ -199,7 +199,7 @@
                 />
               </div>
             </template>
-            
+
             <!-- 作品内容模式 -->
             <template v-else>
               <div class="grid grid-cols-2 gap-3">
@@ -474,7 +474,8 @@ export default {
             name: "非遗剪纸张颖莹",
             avatar: "https://randomuser.me/api/portraits/women/30.jpg",
           },
-          image: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400",
+          image:
+            "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400",
           likes: 0,
         },
         {
@@ -484,7 +485,8 @@ export default {
             name: "灵境修猫",
             avatar: "https://randomuser.me/api/portraits/men/31.jpg",
           },
-          image: "https://images.unsplash.com/photo-1582735689369-4fe89db7114c?w=400",
+          image:
+            "https://images.unsplash.com/photo-1582735689369-4fe89db7114c?w=400",
           likes: 0,
         },
         {
@@ -494,7 +496,8 @@ export default {
             name: "京剧大师王佩瑜",
             avatar: "https://randomuser.me/api/portraits/women/32.jpg",
           },
-          image: "https://images.unsplash.com/photo-1580477667995-2b94f01c9516?w=400",
+          image:
+            "https://images.unsplash.com/photo-1580477667995-2b94f01c9516?w=400",
           likes: 0,
         },
         {
@@ -504,7 +507,8 @@ export default {
             name: "景泰蓝大师",
             avatar: "https://randomuser.me/api/portraits/men/33.jpg",
           },
-          image: "https://images.unsplash.com/photo-1610701596007-11502861dcfa?w=400",
+          image:
+            "https://images.unsplash.com/photo-1610701596007-11502861dcfa?w=400",
           likes: 0,
         },
         {
@@ -514,7 +518,8 @@ export default {
             name: "苏绣传承人",
             avatar: "https://randomuser.me/api/portraits/women/34.jpg",
           },
-          image: "https://images.unsplash.com/photo-1452860606245-08befc0ff44b?w=400",
+          image:
+            "https://images.unsplash.com/photo-1452860606245-08befc0ff44b?w=400",
           likes: 0,
         },
         {
@@ -524,7 +529,8 @@ export default {
             name: "紫砂壶大师",
             avatar: "https://randomuser.me/api/portraits/men/35.jpg",
           },
-          image: "https://images.unsplash.com/photo-1578749556568-bc2c40e68b61?w=400",
+          image:
+            "https://images.unsplash.com/photo-1578749556568-bc2c40e68b61?w=400",
           likes: 0,
         },
       ],
@@ -569,13 +575,16 @@ export default {
 
     selectFilterTab(tabId) {
       console.log("切换筛选标签:", tabId);
-      
+
       // 在冠军/非遗大师页面，关注/推荐/附近 可以切换模式
       if (this.selectedCategory !== "popular") {
         // 如果点击的是当前已选中的标签，且是可切换标签，则切换模式
         const toggleableTabs = ["follow", "recommend", "nearby"];
-        
-        if (this.selectedFilterTab === tabId && toggleableTabs.includes(tabId)) {
+
+        if (
+          this.selectedFilterTab === tabId &&
+          toggleableTabs.includes(tabId)
+        ) {
           // 切换模式
           this.viewMode = this.viewMode === "master" ? "content" : "master";
         } else {
@@ -600,7 +609,7 @@ export default {
     handleCall(masterId) {
       console.log("打Call给大师:", masterId);
       // 模拟打Call动画效果
-      alert(`已为大师 ${masterId} 打Call！`);
+      this.$router.push("/call");
     },
 
     handleViewProfile(masterId) {
