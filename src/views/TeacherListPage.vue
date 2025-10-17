@@ -360,7 +360,8 @@
 </template>
 
 <script>
-import { ref, watch } from "vue";
+import { ref, watch, onMounted } from "vue";
+import { useRoute } from "vue-router";
 import router from "@/router";
 import FooterNav from "../components/FooterNav.vue";
 import CommonHeader from "../components/CommonHeader.vue";
@@ -390,6 +391,7 @@ export default {
     DynamicListItem,
   },
   setup() {
+    const route = useRoute();
     // 顶部标签页（发现/上海/关注）
     const topTab = ref("discover");
 
@@ -579,6 +581,30 @@ export default {
         selectedTab.value = "动态";
       }
     });
+
+    // 根据路由查询参数设置初始tab
+    const applyRouteQuery = () => {
+      const q = route.query || {};
+      const top = typeof q.top === 'string' ? q.top : undefined;
+      const tab = typeof q.tab === 'string' ? q.tab : undefined;
+      if (top && ["discover", "city", "follow"].includes(top)) {
+        topTab.value = top;
+      }
+      if (tab) {
+        selectedTab.value = tab;
+      }
+    };
+
+    onMounted(() => {
+      applyRouteQuery();
+    });
+
+    watch(
+      () => route.query,
+      () => {
+        applyRouteQuery();
+      }
+    );
 
     const handleCoachClick = (coachId) => {
       console.log(`查看教练详情: ${coachId}`);

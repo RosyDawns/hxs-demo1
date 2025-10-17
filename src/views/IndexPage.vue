@@ -157,6 +157,9 @@
         <p class="text-3xl mb-1 text-shadow-2xs">生活唤醒师频道</p>
         <p
           class="pl-2 text-lg border border-solid rounded-full flex items-center justify-between"
+          @click="
+            $router.push({ path: '/teacher-list', query: { top: 'city' } })
+          "
         >
           让你的热爱发光
           <span class="bg-amber-50 text-amber-700 rounded-full px-2">GO></span>
@@ -172,7 +175,12 @@
         <div class="grid grid-cols-3 gap-3">
           <div
             class="bg-white text-black shadow flex flex-col items-center justify-center rounded-xl nav-action cursor-pointer overflow-hidden"
-            @click="$router.push('/teacher-list')"
+            @click="
+              $router.push({
+                path: '/teacher-list',
+                query: { tab: '主理人', top: 'discover' },
+              })
+            "
           >
             <!-- @click="$router.push('/leader-channel')" -->
             <img src="@images/user_1.png" class="w-full object-contain" />
@@ -180,14 +188,24 @@
           </div>
           <div
             class="bg-white text-black shadow flex flex-col items-center justify-center rounded-xl nav-action cursor-pointer overflow-hidden"
-            @click="$router.push('/teacher-list')"
+            @click="
+              $router.push({
+                path: '/teacher-list',
+                query: { tab: '生活技能', top: 'discover' },
+              })
+            "
           >
             <img src="@images/user_2.png" class="w-full object-contain" />
             <div class="text-base py-1">技能唤醒狮</div>
           </div>
           <div
             class="bg-white text-black shadow flex flex-col items-center justify-center rounded-xl nav-action cursor-pointer overflow-hidden"
-            @click="$router.push('/teacher-list')"
+            @click="
+              $router.push({
+                path: '/teacher-list',
+                query: { tab: '生活搭子', top: 'discover' },
+              })
+            "
           >
             <!-- @click="$router.push('/buddy-waker')" -->
             <img src="@images/user_3.png" class="w-full object-contain" />
