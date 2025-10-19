@@ -2,7 +2,7 @@
   <div class="pb-4 pt-0">
     <div class="px-4">
       <!-- 饮食打卡宣传卡片 -->
-      <h3 class="text-xl text-center font-bold mb-2">饮食低热量，成功一大半</h3>
+      <h3 class="text-lg text-center font-bold mb-2">饮食低热量，成功一大半</h3>
 
       <div class="rounded-xl text-white my-4">
         <img
@@ -20,8 +20,12 @@
           v-for="meal in mealTypes"
           :key="meal.type"
           @click="selectMealType(meal.type)"
-          :class="selectedMealType === meal.type ? 'ring-2 ring-primary' : ''"
-          class="flex flex-col items-center nav-action cursor-pointer transition-all"
+          :class="
+            selectedMealType === meal.type
+              ? 'border border-primary rounded-lg'
+              : 'border border-transparent'
+          "
+          class="py-2 flex flex-col items-center nav-action cursor-pointer transition-all"
         >
           <div
             :class="meal.bgColor"

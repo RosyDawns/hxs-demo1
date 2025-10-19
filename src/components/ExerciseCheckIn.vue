@@ -1,7 +1,7 @@
 <template>
   <div class="pb-4 pt-0">
     <div class="px-4">
-      <div class="text-xl font-bold mb-2 text-center">
+      <div class="text-lg font-bold mb-2 text-center">
         你的每一滴汗水都是脂肪的眼泪
       </div>
 
@@ -23,9 +23,11 @@
           :key="exercise.type"
           @click="selectExerciseType(exercise.type)"
           :class="
-            selectedExerciseType === exercise.type ? 'ring-2 ring-primary' : ''
+            selectedExerciseType === exercise.type
+              ? 'border border-primary rounded-lg'
+              : 'border border-transparent'
           "
-          class="flex flex-col items-center nav-action cursor-pointer transition-all"
+          class="py-2 flex flex-col items-center nav-action cursor-pointer transition-all"
         >
           <div
             :class="exercise.bgColor"
