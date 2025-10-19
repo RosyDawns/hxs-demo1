@@ -36,6 +36,8 @@
 
 <script>
 import CoachListCard from "./CoachListCard.vue";
+import pic1 from "@/assets/images/img-12.jpg";
+import avatar1 from "@/assets/images/img-11.jpg";
 
 export default {
   name: "DailyCoach",
@@ -62,10 +64,6 @@ export default {
       // this.$router.push('/coach/search')
     },
     getCoaches() {
-      // 图片路径
-      const avatar1 = "/src/assets/images/img-11.jpg";
-      const pic1 = "/src/assets/images/img-12.jpg";
-
       return [
         {
           id: "1",

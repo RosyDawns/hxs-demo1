@@ -114,7 +114,7 @@
         </div>
         <div class="flex items-center" @click="$router.push('/checkin')">
           <span>去打卡</span>
-          <i class="fa-solid fa-angle-right text-xs text-gray-400 ml-1"></i>
+          <i class="fa-solid fa-angle-right text-xs text-primary ml-0.5"></i>
         </div>
       </div>
 
