@@ -7,13 +7,9 @@
       </template>
     </CommonHeader>
 
-    <img src="@images/hxy/hxy-1.png" class="block" />
-    <img src="@images/hxy/hxy-2.png" class="block" />
-    <img src="@images/hxy/hxy-3.png" class="block" />
-    <img src="@images/hxy/hxy-4.png" class="block" />
-    <img src="@images/hxy/hxy-5.png" class="block" />
-    <img src="@images/hxy/hxy-6.png" class="block" />
-    <img src="@images/hxy/hxy-7.png" class="block" />
+    <img src="@images/hxy/hxy_1.png" class="block" />
+    <img src="@images/hxy/hxy_2.png" class="block" />
+    <img src="@images/hxy/hxy_3.png" class="block" />
 
     <!-- 价格与报名 -->
     <div
