@@ -38,114 +38,8 @@
       </div>
     </div>
 
+    <!-- 动态按钮 -->
     <div class="px-4">
-      <!-- 已选择的餐食信息 -->
-      <div
-        v-if="selectedMealType"
-        class="bg-white rounded-xl p-4 mb-4 card-shadow"
-      >
-        <h4 class="font-bold text-sm mb-3">{{ getMealTypeLabel() }}</h4>
-
-        <!-- 照片上传区 -->
-        <div class="mb-4">
-          <div
-            v-if="!uploadedImage"
-            @click="triggerFileUpload"
-            class="border-2 border-dashed border-gray-300 rounded-lg p-8 text-center cursor-pointer hover:border-primary transition-colors"
-          >
-            <i class="fa fa-camera text-3xl text-gray-400 mb-2"></i>
-            <p class="text-sm text-gray-500">点击上传食物照片</p>
-          </div>
-          <div v-else class="relative">
-            <img
-              :src="uploadedImage"
-              alt="食物照片"
-              class="w-full h-48 object-cover rounded-lg"
-            />
-            <button
-              @click="removeImage"
-              class="absolute top-2 right-2 bg-red-500 text-white w-8 h-8 rounded-full flex items-center justify-center hover:bg-red-600"
-            >
-              <i class="fa fa-times"></i>
-            </button>
-          </div>
-          <input
-            ref="fileInput"
-            type="file"
-            accept="image/*"
-            @change="handleFileUpload"
-            class="hidden"
-          />
-        </div>
-
-        <!-- 食物信息输入 -->
-        <div class="space-y-3">
-          <div>
-            <label class="text-xs text-gray-500 mb-1 block">食物名称</label>
-            <input
-              v-model="foodName"
-              type="text"
-              placeholder="例如：鸡胸肉沙拉"
-              class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-primary"
-            />
-          </div>
-
-          <div class="grid grid-cols-2 gap-3">
-            <div>
-              <label class="text-xs text-gray-500 mb-1 block"
-                >热量 (kcal)</label
-              >
-              <input
-                v-model.number="calories"
-                type="number"
-                placeholder="300"
-                class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-primary"
-              />
-            </div>
-            <div>
-              <label class="text-xs text-gray-500 mb-1 block">份量 (g)</label>
-              <input
-                v-model.number="portion"
-                type="number"
-                placeholder="250"
-                class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-primary"
-              />
-            </div>
-          </div>
-
-          <div>
-            <label class="text-xs text-gray-500 mb-1 block">备注</label>
-            <textarea
-              v-model="notes"
-              rows="2"
-              placeholder="记录一下今天的饮食心得..."
-              class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-primary resize-none"
-            ></textarea>
-          </div>
-        </div>
-
-        <!-- 营养成分快捷选择 -->
-        <div class="mt-3">
-          <p class="text-xs text-gray-500 mb-2">营养标签</p>
-          <div class="flex flex-wrap gap-2">
-            <button
-              v-for="tag in nutritionTags"
-              :key="tag"
-              @click="toggleTag(tag)"
-              :class="
-                selectedTags.includes(tag)
-                  ? 'bg-primary text-white'
-                  : 'bg-gray-100 text-gray-600'
-              "
-              class="px-3 py-1 rounded-full text-xs transition-colors"
-            >
-              {{ tag }}
-            </button>
-          </div>
-        </div>
-      </div>
-
-      <!-- 动态按钮 -->
       <div class="flex gap-3">
         <button
           @click="submitCheckIn('public')"
@@ -204,7 +98,7 @@ export default {
       "素食",
     ];
 
-    const selectedMealType = ref("");
+    const selectedMealType = ref("breakfast");
     const uploadedImage = ref("");
     const foodName = ref("");
     const calories = ref(0);
@@ -223,7 +117,7 @@ export default {
     });
 
     const canSubmit = computed(() => {
-      return selectedMealType.value && (foodName.value || uploadedImage.value);
+      return selectedMealType.value;
     });
 
     const selectMealType = (type) => {

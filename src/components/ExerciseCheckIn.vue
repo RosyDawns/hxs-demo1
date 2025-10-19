@@ -44,120 +44,9 @@
       </div>
     </div>
 
+    <!-- 动态按钮 -->
+
     <div class="px-4">
-      <!-- 已选择的运动信息 -->
-      <div
-        v-if="selectedExerciseType"
-        class="bg-white rounded-xl p-4 mb-4 card-shadow"
-      >
-        <h4 class="font-bold text-sm mb-3">{{ getExerciseTypeLabel() }}</h4>
-
-        <!-- 运动详情输入 -->
-        <div class="space-y-3">
-          <div>
-            <label class="text-xs text-gray-500 mb-1 block">运动名称</label>
-            <input
-              v-model="exerciseName"
-              type="text"
-              :placeholder="getExercisePlaceholder()"
-              class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-primary"
-            />
-          </div>
-
-          <div class="grid grid-cols-2 gap-3">
-            <div>
-              <label class="text-xs text-gray-500 mb-1 block"
-                >时长 (分钟)</label
-              >
-              <input
-                v-model.number="duration"
-                type="number"
-                placeholder="30"
-                @input="calculateCalories"
-                class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-primary"
-              />
-            </div>
-            <div>
-              <label class="text-xs text-gray-500 mb-1 block"
-                >消耗 (kcal)</label
-              >
-              <input
-                v-model.number="caloriesBurned"
-                type="number"
-                placeholder="200"
-                class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-primary"
-              />
-            </div>
-          </div>
-
-          <!-- 强度选择 -->
-          <div>
-            <label class="text-xs text-gray-500 mb-1 block">运动强度</label>
-            <div class="flex gap-2">
-              <button
-                v-for="level in intensityLevels"
-                :key="level.value"
-                @click="intensity = level.value"
-                :class="
-                  intensity === level.value
-                    ? 'bg-primary text-white'
-                    : 'bg-gray-100 text-gray-600'
-                "
-                class="flex-1 py-2 rounded-lg text-sm transition-colors"
-              >
-                {{ level.label }}
-              </button>
-            </div>
-          </div>
-
-          <div>
-            <label class="text-xs text-gray-500 mb-1 block">运动心得</label>
-            <textarea
-              v-model="notes"
-              rows="2"
-              placeholder="记录一下今天的运动感受..."
-              class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-primary resize-none"
-            ></textarea>
-          </div>
-        </div>
-
-        <!-- 运动照片上传 -->
-        <div class="mt-3">
-          <label class="text-xs text-gray-500 mb-1 block"
-            >运动照片（可选）</label
-          >
-          <div
-            v-if="!uploadedImage"
-            @click="triggerFileUpload"
-            class="border-2 border-dashed border-gray-300 rounded-lg p-6 text-center cursor-pointer hover:border-primary transition-colors"
-          >
-            <i class="fa fa-camera text-2xl text-gray-400 mb-1"></i>
-            <p class="text-xs text-gray-500">点击上传运动照片</p>
-          </div>
-          <div v-else class="relative">
-            <img
-              :src="uploadedImage"
-              alt="运动照片"
-              class="w-full h-48 object-cover rounded-lg"
-            />
-            <button
-              @click="removeImage"
-              class="absolute top-2 right-2 bg-red-500 text-white w-8 h-8 rounded-full flex items-center justify-center hover:bg-red-600"
-            >
-              <i class="fa fa-times"></i>
-            </button>
-          </div>
-          <input
-            ref="fileInput"
-            type="file"
-            accept="image/*"
-            @change="handleFileUpload"
-            class="hidden"
-          />
-        </div>
-      </div>
-
-      <!-- 动态按钮 -->
       <div class="flex gap-3">
         <button
           @click="submitCheckIn('public')"
@@ -240,7 +129,7 @@ export default {
       outdoor: 6,
     };
 
-    const selectedExerciseType = ref("");
+    const selectedExerciseType = ref("custom");
     const exerciseName = ref("");
     const duration = ref(0);
     const caloriesBurned = ref(0);
@@ -255,9 +144,7 @@ export default {
     const exerciseCount = ref(1);
 
     const canSubmit = computed(() => {
-      return (
-        selectedExerciseType.value && exerciseName.value && duration.value > 0
-      );
+      return selectedExerciseType.value;
     });
 
     const selectExerciseType = (type) => {

@@ -25,9 +25,7 @@
           :key="status.value"
           @click="selectStatus(status.value)"
           :class="[
-            selectedStatus === status.value
-              ? 'border border-primary rounded-lg scale-105'
-              : 'border border-transparent opacity-70',
+            selectedStatus === status.value ? ' scale-105' : ' opacity-70',
             selectedStatus === status.value ? '' : '',
           ]"
           class="py-3 flex flex-col items-center nav-action cursor-pointer transition-all"
@@ -99,7 +97,7 @@ export default {
       { value: "difficult", label: "困难", emoji: "😣" },
     ];
 
-    const selectedStatus = ref("");
+    const selectedStatus = ref("smooth");
     const metabolismCount = ref(1);
     const metabolismTime = ref(new Date().toTimeString().slice(0, 5));
     const notes = ref("");

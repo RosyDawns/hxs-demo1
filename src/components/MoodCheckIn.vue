@@ -41,66 +41,9 @@
       </div>
     </div>
 
+    <!-- 动态按钮 -->
+
     <div class="px-4">
-      <!-- 心情详情记录 -->
-      <div v-if="selectedMood" class="bg-white rounded-xl p-3 mb-4 card-shadow">
-        <h4 class="font-bold text-sm mb-3">记录你的心情</h4>
-
-        <div class="space-y-3">
-          <div>
-            <label class="text-xs text-gray-500 mb-1 block"
-              >今天发生了什么？</label
-            >
-            <textarea
-              v-model="moodNote"
-              rows="4"
-              placeholder="写下今天的心情故事..."
-              class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-primary resize-none"
-            ></textarea>
-          </div>
-
-          <!-- 情绪标签 -->
-          <div>
-            <label class="text-xs text-gray-500 mb-2 block">情绪标签</label>
-            <div class="flex flex-wrap gap-2">
-              <button
-                v-for="tag in emotionTags"
-                :key="tag"
-                @click="toggleTag(tag)"
-                :class="
-                  selectedTags.includes(tag)
-                    ? 'bg-pink-500 text-white'
-                    : 'bg-gray-100 text-gray-600'
-                "
-                class="px-3 py-1 rounded-full text-xs transition-colors"
-              >
-                {{ tag }}
-              </button>
-            </div>
-          </div>
-
-          <!-- 心情等级 -->
-          <div>
-            <label class="text-xs text-gray-500 mb-2 block"
-              >心情指数: {{ moodLevel }}/10</label
-            >
-            <input
-              v-model.number="moodLevel"
-              type="range"
-              min="1"
-              max="10"
-              class="w-full"
-            />
-            <div class="flex justify-between text-xs text-gray-400 mt-1">
-              <span>😢 低落</span>
-              <span>😐 一般</span>
-              <span>😊 开心</span>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- 动态按钮 -->
       <div class="flex gap-3">
         <button
           @click="submitCheckIn('private')"
@@ -171,15 +114,13 @@ export default {
       "满足",
     ];
 
-    const selectedMood = ref("");
+    const selectedMood = ref("happy");
     const moodNote = ref("");
     const moodLevel = ref(5);
     const selectedTags = ref([]);
 
     const canSubmit = computed(() => {
-      return (
-        selectedMood.value && (moodNote.value || selectedTags.value.length > 0)
-      );
+      return selectedMood.value;
     });
 
     const selectMood = (mood) => {
