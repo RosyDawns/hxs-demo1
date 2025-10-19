@@ -2,7 +2,7 @@
   <div class="page" id="page-index">
     <!-- 顶部导航栏 -->
     <header
-      class="fixed w-full top-2 z-50 p-3 flex items-center justify-between transition-all duration-300"
+      class="fixed w-full top-0 z-50 px-3 py-4 flex items-center justify-between transition-all duration-300"
       :style="{ backgroundColor: `rgba(255, 255, 255, ${headerOpacity})` }"
     >
       <div
@@ -19,7 +19,7 @@
             class="w-full bg-gray-100 rounded-full pl-10 pr-24 h-10 text-sm border border-orange-400 flex items-center cursor-pointer nav-action"
             @click="$router.push('/search')"
           >
-            <span class="text-gray-500 flex-1 text-base">头疗</span>
+            <span class="text-gray-500 flex-1 text-base">健身计划</span>
           </div>
           <i
             class="fa fa-search absolute left-3 top-1/2 transform -translate-y-1/2 text-gray pointer-events-none"
@@ -153,7 +153,7 @@
     <div class="banner relative">
       <img src="@images/img_39.jpg" class="block w-full relative z-1" />
       <div
-        class="slogn absolute top-1/2 -translate-y-1/2 left-[20px] z-10 text-white font-bold font-italic"
+        class="slogn absolute top-1/2 -translate-y-2/3 left-[20px] z-10 text-white font-bold font-italic"
       >
         <p class="text-3xl mb-1 text-shadow-2xs">生活唤醒师频道</p>
         <p

@@ -22,29 +22,39 @@
       </div>
     </div>
 
-    <!-- 对话记录列表 - 根据showConversationList状态显示/隐藏 -->
-    <div v-if="showConversationList" class="px-4 mb-4">
-      <div class="bg-white rounded-xl p-4 shadow-md">
-        <h3 class="text-sm font-bold mb-3">历史对话</h3>
-        <div class="space-y-2">
+    <!-- 对话记录列表 - 全屏遮罩显示 -->
+    <div
+      v-if="showConversationList"
+      class="fixed inset-0 bg-black/50 z-50 flex items-start justify-center pt-20"
+      @click.self="toggleConversationList"
+    >
+      <div
+        class="bg-white rounded-3xl p-6 mx-4 w-full max-w-md shadow-2xl max-h-[70vh] overflow-y-auto"
+      >
+        <div class="flex items-center justify-between mb-4">
+          <h3 class="text-lg font-bold">历史对话</h3>
+          <button
+            class="w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center"
+            @click="toggleConversationList"
+          >
+            <i class="fa-solid fa-xmark text-gray-600"></i>
+          </button>
+        </div>
+        <div class="space-y-3">
           <div
             v-for="(conversation, index) in conversationHistory"
             :key="index"
-            class="p-2 rounded-lg hover:bg-gray-50 cursor-pointer text-sm"
+            class="p-3 rounded-xl hover:bg-gray-50 cursor-pointer border border-gray-100 transition-all"
             @click="selectConversation(index)"
           >
-            {{ conversation.query }}
-            <span class="text-xs text-gray-400 block">{{
+            <p class="text-sm font-medium text-gray-800">
+              {{ conversation.query }}
+            </p>
+            <span class="text-xs text-gray-400 mt-1 block">{{
               conversation.time
             }}</span>
           </div>
         </div>
-        <button
-          class="text-xs text-primary mt-2"
-          @click="toggleConversationList"
-        >
-          关闭
-        </button>
       </div>
     </div>
 
@@ -60,43 +70,180 @@
       </div>
 
       <!-- 快速查询卡片模块 - 只在未显示推荐列表时显示 -->
-      <div v-if="!showRecommendations" class="mb-6 flex px-3">
-        <!-- 健身唤醒师推荐卡片 -->
-        <div
-          class="flex-1 bg-white rounded-4xl px-4 py-5 shadow-sm border-6 border-pink-100 relative overflow-hidden -rotate-z-6 z-1"
-          @click="handleRecommendationClick('帮我推荐一位附近的健身唤醒师💪')"
-        >
-          <div class="pb-2">
-            <p class="text-pink-100 text-6xl">“</p>
-            <p class="text-base font-medium">帮我推荐一位附近的健身唤醒师💪</p>
-          </div>
-          <div class="flex justify-end mt-8">
-            <button
-              class="bg-black text-white text-xs py-1 px-3 rounded-full flex items-center"
+      <template v-if="!showRecommendations">
+        <div class="mb-6 relative">
+          <!-- 轮播容器 -->
+          <div
+            class="overflow-hidden py-3 px-3"
+            @touchstart="handleTouchStart"
+            @touchmove="handleTouchMove"
+            @touchend="handleTouchEnd"
+          >
+            <div
+              class="flex transition-transform duration-300 ease-in-out"
+              :style="{ transform: `translateX(-${currentSlide * 100}%)` }"
             >
-              <i class="fa-solid fa-comment-dots"></i>试试
-            </button>
-          </div>
-        </div>
+              <!-- 第一页 - 两个卡片 -->
+              <div class="w-full flex-shrink-0 flex px-3">
+                <!-- 健身唤醒师推荐卡片 -->
+                <div
+                  class="flex-1 bg-white rounded-4xl px-4 py-2 shadow-sm border-6 border-pink-100 relative overflow-hidden -rotate-z-6 z-1"
+                  @click="
+                    handleRecommendationClick('帮我推荐一位附近的健身唤醒师💪')
+                  "
+                >
+                  <div class="pb-2">
+                    <p class="text-pink-100 text-6xl">"</p>
+                    <p class="text-sm font-medium">
+                      帮我推荐一位附近的健身唤醒师💪
+                    </p>
+                  </div>
+                  <div class="flex justify-end mt-2">
+                    <button
+                      class="bg-black text-white text-xs py-1 px-3 rounded-full flex items-center"
+                    >
+                      <i class="fa-solid fa-comment-dots mr-1"></i>试试
+                    </button>
+                  </div>
+                </div>
 
-        <!-- 瑜伽老师推荐卡片 -->
-        <div
-          class="flex-1 bg-white rounded-4xl px-4 py-5 shadow-sm border-6 border-blue-100 relative overflow-hidden rotate-z-6"
-          @click="handleRecommendationClick('找瑜伽老师学习基础动作🧘')"
-        >
-          <div class="pb-2">
-            <p class="text-blue-100 text-6xl">“</p>
-            <p class="text-base font-medium">找瑜伽老师学习基础动作🧘</p>
+                <!-- 瑜伽老师推荐卡片 -->
+                <div
+                  class="flex-1 bg-white rounded-4xl px-4 py-5 shadow-sm border-6 border-blue-100 relative overflow-hidden rotate-z-6"
+                  @click="handleRecommendationClick('找瑜伽老师学习基础动作🧘')"
+                >
+                  <div class="pb-2">
+                    <p class="text-blue-100 text-6xl">"</p>
+                    <p class="text-sm font-medium">找瑜伽老师学习基础动作🧘</p>
+                  </div>
+                  <div class="flex justify-end mt-2">
+                    <button
+                      class="bg-black text-white text-xs py-1 px-3 rounded-full flex items-center"
+                    >
+                      <i class="fa-solid fa-comment-dots mr-1"></i>试试
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+              <!-- 第二页 - 两个卡片 -->
+              <div class="w-full flex-shrink-0 flex px-3">
+                <!-- 游泳教练推荐卡片 -->
+                <div
+                  class="flex-1 bg-white rounded-4xl px-4 py-2 shadow-sm border-6 border-green-100 relative overflow-hidden -rotate-z-6 z-1"
+                  @click="
+                    handleRecommendationClick('想找一位游泳教练学习蛙泳🏊')
+                  "
+                >
+                  <div class="pb-2">
+                    <p class="text-green-100 text-6xl">"</p>
+                    <p class="text-sm font-medium">
+                      想找一位游泳教练学习蛙泳🏊
+                    </p>
+                  </div>
+                  <div class="flex justify-end mt-2">
+                    <button
+                      class="bg-black text-white text-xs py-1 px-3 rounded-full flex items-center"
+                    >
+                      <i class="fa-solid fa-comment-dots mr-1"></i>试试
+                    </button>
+                  </div>
+                </div>
+
+                <!-- 篮球教练推荐卡片 -->
+                <div
+                  class="flex-1 bg-white rounded-4xl px-4 py-5 shadow-sm border-6 border-orange-100 relative overflow-hidden rotate-z-6"
+                  @click="
+                    handleRecommendationClick('找个篮球私教提升投篮技巧🏀')
+                  "
+                >
+                  <div class="pb-2">
+                    <p class="text-orange-100 text-6xl">"</p>
+                    <p class="text-sm font-medium">
+                      找个篮球私教提升投篮技巧🏀
+                    </p>
+                  </div>
+                  <div class="flex justify-end mt-2">
+                    <button
+                      class="bg-black text-white text-xs py-1 px-3 rounded-full flex items-center"
+                    >
+                      <i class="fa-solid fa-comment-dots mr-1"></i>试试
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+              <!-- 第三页 - 两个卡片 -->
+              <div class="w-full flex-shrink-0 flex px-3">
+                <!-- 舞蹈教练推荐卡片 -->
+                <div
+                  class="flex-1 bg-white rounded-4xl px-4 py-2 shadow-sm border-6 border-purple-100 relative overflow-hidden -rotate-z-6 z-1"
+                  @click="handleRecommendationClick('想学习街舞找个专业老师💃')"
+                >
+                  <div class="pb-2">
+                    <p class="text-purple-100 text-6xl">"</p>
+                    <p class="text-sm font-medium">想学习街舞找个专业老师💃</p>
+                  </div>
+                  <div class="flex justify-end mt-2">
+                    <button
+                      class="bg-black text-white text-xs py-1 px-3 rounded-full flex items-center"
+                    >
+                      <i class="fa-solid fa-comment-dots mr-1"></i>试试
+                    </button>
+                  </div>
+                </div>
+
+                <!-- 羽毛球教练推荐卡片 -->
+                <div
+                  class="flex-1 bg-white rounded-4xl px-4 py-5 shadow-sm border-6 border-red-100 relative overflow-hidden rotate-z-6"
+                  @click="handleRecommendationClick('想提升羽毛球水平找教练🏸')"
+                >
+                  <div class="pb-2">
+                    <p class="text-red-100 text-6xl">"</p>
+                    <p class="text-sm font-medium">想提升羽毛球水平找教练🏸</p>
+                  </div>
+                  <div class="flex justify-end mt-2">
+                    <button
+                      class="bg-black text-white text-xs py-1 px-3 rounded-full flex items-center"
+                    >
+                      <i class="fa-solid fa-comment-dots mr-1"></i>试试
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
-          <div class="flex justify-end mt-8">
+
+          <!-- 左右切换按钮 -->
+          <button
+            v-if="currentSlide > 0"
+            @click="previousSlide"
+            class="absolute left-0 top-1/2 -translate-y-1/2 w-8 h-8 bg-white/90 rounded-full shadow-lg flex items-center justify-center z-10"
+          >
+            <i class="fa-solid fa-chevron-left text-sm"></i>
+          </button>
+          <button
+            v-if="currentSlide < totalSlides - 1"
+            @click="nextSlide"
+            class="absolute right-0 top-1/2 -translate-y-1/2 w-8 h-8 bg-white/90 rounded-full shadow-lg flex items-center justify-center z-10"
+          >
+            <i class="fa-solid fa-chevron-right text-sm"></i>
+          </button>
+
+          <!-- 页面指示器 -->
+          <div class="flex justify-center mt-4 space-x-2">
             <button
-              class="bg-black text-white text-xs py-1 px-3 rounded-full flex items-center"
-            >
-              <i class="fa-solid fa-comment-dots"></i>试试
-            </button>
+              v-for="index in totalSlides"
+              :key="index"
+              @click="goToSlide(index - 1)"
+              class="w-2 h-2 rounded-full transition-all duration-300"
+              :class="
+                currentSlide === index - 1 ? 'bg-primary w-6' : 'bg-gray-300'
+              "
+            ></button>
           </div>
         </div>
-      </div>
+      </template>
 
       <!-- 对话区域 - 只在显示推荐列表时显示 -->
       <div v-if="showRecommendations" class="mb-2">
@@ -238,6 +385,13 @@ export default {
     const inputText = ref("");
     // 对话记录列表显示状态
     const showConversationList = ref(false);
+    // 轮播相关状态
+    const currentSlide = ref(0);
+    const totalSlides = ref(3); // 总共3页，每页2个卡片
+    // 触摸滑动相关状态
+    const touchStartX = ref(0);
+    const touchEndX = ref(0);
+    const minSwipeDistance = 50; // 最小滑动距离（像素）
     // 模拟对话历史记录
     const conversationHistory = ref([
       {
@@ -512,6 +666,49 @@ export default {
       toggleConversationList();
     };
 
+    // 轮播控制方法
+    const nextSlide = () => {
+      if (currentSlide.value < totalSlides.value - 1) {
+        currentSlide.value++;
+      }
+    };
+
+    const previousSlide = () => {
+      if (currentSlide.value > 0) {
+        currentSlide.value--;
+      }
+    };
+
+    const goToSlide = (index) => {
+      currentSlide.value = index;
+    };
+
+    // 触摸事件处理
+    const handleTouchStart = (e) => {
+      touchStartX.value = e.touches[0].clientX;
+    };
+
+    const handleTouchMove = (e) => {
+      touchEndX.value = e.touches[0].clientX;
+    };
+
+    const handleTouchEnd = () => {
+      const swipeDistance = touchStartX.value - touchEndX.value;
+
+      // 向左滑动（显示下一页）
+      if (swipeDistance > minSwipeDistance) {
+        nextSlide();
+      }
+      // 向右滑动（显示上一页）
+      else if (swipeDistance < -minSwipeDistance) {
+        previousSlide();
+      }
+
+      // 重置触摸位置
+      touchStartX.value = 0;
+      touchEndX.value = 0;
+    };
+
     return {
       isRecording,
       showRecommendations,
@@ -521,6 +718,8 @@ export default {
       showConversationList,
       conversationHistory,
       recommendedCoaches,
+      currentSlide,
+      totalSlides,
       startVoiceRecording,
       stopVoiceRecording,
       toggleInputMode,
@@ -535,6 +734,12 @@ export default {
       handleGoSearch,
       handleNewConversation,
       handleSwitchConversation,
+      nextSlide,
+      previousSlide,
+      goToSlide,
+      handleTouchStart,
+      handleTouchMove,
+      handleTouchEnd,
     };
   },
 };
