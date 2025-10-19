@@ -13,7 +13,7 @@
     <main class="flex-1 overflow-y-auto pt-5">
       <div class="px-3 border-b border-gray-100">
         <!-- 图片上传区域 -->
-        <div class="flex items-start gap-3 mb-5">
+        <div class="flex items-start flex-wrap gap-3 mb-5">
           <!-- 已上传图片 -->
           <div
             v-for="(image, index) in uploadedImages"
@@ -273,6 +273,7 @@
 </template>
 
 <script>
+import demoImage from "@/assets/images/img-11.jpg";
 export default {
   name: "PublishActivityPage",
   data() {
@@ -498,7 +499,7 @@ export default {
     // ========== 其他交互 ==========
     handleAddImage() {
       console.log("添加图片");
-      const demoImage = "/src/assets/images/img-11.jpg";
+      // const demoImage = demoImage;
       this.uploadedImages.push(demoImage);
     },
     removeImage(index) {
