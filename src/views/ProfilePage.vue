@@ -23,15 +23,15 @@
       <div class="flex justify-center py-7">
         <div class="relative">
           <img
-            src="https://picsum.photos/id/20/200/200"
+            src="@images/img-15.jpg"
             class="w-[90px] h-[90px] rounded-full object-cover"
             alt="头像"
           />
           <button
-            class="absolute right-[2px] bottom-[2px] w-[20px] h-[20px] rounded-full bg-white shadow-md flex items-center justify-center border-2 border-white"
+            class="absolute right-[2px] bottom-[2px] w-[20px] h-[20px] rounded-full bg-black shadow-md flex items-center justify-center"
             @click="handleAvatarClick"
           >
-            <i class="fa-solid fa-camera text-gray-500 text-[10px]"></i>
+            <i class="fa-solid fa-camera text-white text-[10px]"></i>
           </button>
         </div>
       </div>
