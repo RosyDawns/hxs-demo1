@@ -242,7 +242,7 @@ export default {
       const checked = isChecked(day);
 
       if (isToday && checked) {
-        return "bg-primary text-white border-2 border-primary font-bold";
+        return "bg-green-100 text-green-600 border-1 border-green-300 font-bold";
       } else if (checked) {
         return "border-1 border-green-300 bg-green-100 text-green-600";
       } else if (isToday) {
