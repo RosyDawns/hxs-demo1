@@ -16,7 +16,7 @@
       <div class="relative flex-4 mx-4">
         <div class="relative">
           <div
-            class="w-full bg-gray-100 rounded-full pl-10 pr-24 py-3 text-sm border border-orange-400 flex items-center cursor-pointer nav-action"
+            class="w-full bg-gray-100 rounded-full pl-10 pr-24 h-10 text-sm border border-orange-400 flex items-center cursor-pointer nav-action"
             @click="$router.push('/search')"
           >
             <span class="text-gray-500 flex-1 text-base">头疗</span>
@@ -25,7 +25,7 @@
             class="fa fa-search absolute left-3 top-1/2 transform -translate-y-1/2 text-gray pointer-events-none"
           ></i>
           <button
-            class="absolute right-2 top-1/2 transform -translate-y-1/2 bg-primary text-white py-1.5 px-3 rounded-full nav-action"
+            class="absolute right-2 top-1/2 transform -translate-y-1/2 bg-primary text-white h-8 w-8 rounded-full nav-action leading-none"
             style="font-size: 10px"
             @click="$router.push('/ai-assistant')"
           >

@@ -4,251 +4,299 @@
     <header class="header">
       <div class="nav-bar">
         <button class="back-btn" @click="goBack">
-          <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
-            <path d="M12.5 15L7.5 10L12.5 5" stroke="#333" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+            <path
+              d="M15 18L9 12L15 6"
+              stroke="#333"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
           </svg>
         </button>
         <h1 class="title">添加好友</h1>
-        <div class="header-right"></div>
       </div>
     </header>
 
-    <!-- 搜索框 -->
-    <div class="search-section">
-      <div class="search-box">
-        <svg width="20" height="20" viewBox="0 0 20 20" fill="none" class="search-icon">
-          <path d="M9 17A8 8 0 1 0 9 1a8 8 0 0 0 0 16z" stroke="#999" stroke-width="1.5" fill="none"/>
-          <path d="M19 19l-4.35-4.35" stroke="#999" stroke-width="1.5" stroke-linecap="round"/>
+    <!-- 功能按钮区 -->
+    <div class="action-buttons">
+      <button class="action-btn">
+        <svg width="22" height="22" viewBox="0 0 32 32" fill="none">
+          <rect
+            x="4"
+            y="4"
+            width="10"
+            height="10"
+            stroke="#333"
+            stroke-width="2"
+            fill="none"
+          />
+          <rect
+            x="18"
+            y="4"
+            width="10"
+            height="10"
+            stroke="#333"
+            stroke-width="2"
+            fill="none"
+          />
+          <rect
+            x="4"
+            y="18"
+            width="10"
+            height="10"
+            stroke="#333"
+            stroke-width="2"
+            fill="none"
+          />
+          <rect x="20" y="20" width="6" height="6" fill="#333" />
         </svg>
-        <input 
-          type="text" 
-          placeholder="搜索用户名/手机号" 
-          class="search-input"
-          v-model="searchQuery"
-          @input="handleSearch"
-        />
-      </div>
+        <span>扫一扫</span>
+      </button>
+      <button class="action-btn">
+        <svg width="22" height="22" viewBox="0 0 32 32" fill="none">
+          <rect x="6" y="8" width="4" height="16" fill="#333" />
+          <rect x="14" y="8" width="4" height="16" fill="#333" />
+          <rect x="22" y="8" width="4" height="16" fill="#333" />
+        </svg>
+        <span>我的名片</span>
+      </button>
     </div>
 
-    <!-- 推荐好友列表 -->
+    <!-- 发现好友 -->
     <div class="main-content">
-      <h3 class="section-title">推荐好友</h3>
+      <h3 class="section-title">发现好友</h3>
       <div class="friends-list">
-        <div v-for="item in filteredFriends" :key="item.id" class="friend-item">
-          <img :src="getImageUrl(item.avatar)" :alt="item.name" class="user-avatar" />
+        <div
+          v-for="item in friendsList"
+          :key="item.id"
+          @click="$router.push('ouyang')"
+          class="friend-item"
+        >
+          <img
+            :src="getImageUrl(item.avatar)"
+            :alt="item.name"
+            class="user-avatar"
+          />
           <div class="user-info">
             <h3 class="user-name">{{ item.name }}</h3>
             <p class="user-desc">{{ item.description }}</p>
             <div class="user-tags">
-              <span v-for="tag in item.tags" :key="tag" class="tag">{{ tag }}</span>
+              <span v-for="tag in item.tags" :key="tag" class="tag">
+                {{ tag }}
+              </span>
             </div>
           </div>
-          <button 
-            :class="['add-btn', { added: item.isAdded }]"
-            @click="toggleAdd(item)"
-          >
-            {{ item.isAdded ? '已添加' : '+ 添加' }}
+          <button class="follow-btn" @click="toggleFollow(item)">
+            {{ item.isFollowed ? "已关注" : "关注" }}
           </button>
         </div>
       </div>
     </div>
-    
-    <FooterNav activePage="messages" />
   </div>
 </template>
 
 <script>
-import { ref, computed } from 'vue'
-import { useRouter } from 'vue-router'
-import FooterNav from '../components/FooterNav.vue'
+import { ref } from "vue";
+import { useRouter } from "vue-router";
+import FooterNav from "../components/FooterNav.vue";
 
 export default {
-  name: 'AddFriendsPage',
+  name: "AddFriendsPage",
   components: {
-    FooterNav
+    FooterNav,
   },
   setup() {
-    const router = useRouter()
-    const searchQuery = ref('')
-    
+    const router = useRouter();
+
     const friendsList = ref([
       {
         id: 1,
-        name: '健身教练Alex',
-        avatar: 'img-20.jpg',
-        description: '专业健身教练 · AASFP认证',
-        tags: ['健身', '减脂', '增肌'],
-        isAdded: false
+        name: "提你学咖啡的Joy",
+        avatar: "img-20.jpg",
+        description: "SCAA中级咖啡师，排行当地前15名",
+        tags: ["已签约", "主理人", "到店服务"],
+        isFollowed: false,
       },
       {
         id: 2,
-        name: '瑜伽导师Sarah',
-        avatar: 'img-21.jpg',
-        description: '瑜伽导师 · RYT500认证',
-        tags: ['瑜伽', '冥想', '理疗'],
-        isAdded: false
+        name: "咖啡拉花Crazy",
+        avatar: "img-21.jpg",
+        description: "SCA精品咖啡协会签约导师",
+        tags: ["已签约", "技能派", "到店服务"],
+        isFollowed: false,
       },
       {
         id: 3,
-        name: '跑步教练David',
-        avatar: 'img-22.jpg',
-        description: '马拉松教练 · 国家二级运动员',
-        tags: ['跑步', '马拉松', '耐力'],
-        isAdded: true
+        name: "猫豆爱健身",
+        avatar: "img-22.jpg",
+        description: "产后宝妈，减脂塑形，排行当地前256名",
+        tags: ["已签约", "搭子人", "上门服务"],
+        isFollowed: false,
       },
       {
         id: 4,
-        name: '营养师Emily',
-        avatar: 'img-23.jpg',
-        description: '注册营养师 · 健康管理专家',
-        tags: ['营养', '减肥', '健康'],
-        isAdded: false
+        name: "健身教练Iris",
+        avatar: "img-23.jpg",
+        description: "10年私人教练，，排行当地前38名",
+        tags: ["已签约", "技能派", "上门服务"],
+        isFollowed: false,
       },
       {
         id: 5,
-        name: '私教Jack',
-        avatar: 'img-24.jpg',
-        description: '私人教练 · 5年经验',
-        tags: ['私教', '塑形', '康复'],
-        isAdded: false
+        name: "Michael教游泳",
+        avatar: "img-24.jpg",
+        description: "8年游泳爱好者，现任自由教练",
+        tags: ["已签约", "技能派", "上门服务"],
+        isFollowed: false,
       },
       {
         id: 6,
-        name: '舞蹈老师Lily',
-        avatar: 'img-25.jpg',
-        description: '舞蹈教练 · 拉丁舞专业',
-        tags: ['舞蹈', '拉丁', '形体'],
-        isAdded: false
-      }
-    ])
-    
-    const filteredFriends = computed(() => {
-      if (!searchQuery.value) {
-        return friendsList.value
-      }
-      return friendsList.value.filter(friend => 
-        friend.name.toLowerCase().includes(searchQuery.value.toLowerCase()) ||
-        friend.description.toLowerCase().includes(searchQuery.value.toLowerCase()) ||
-        friend.tags.some(tag => tag.includes(searchQuery.value))
-      )
-    })
-    
+        name: "游泳的烧烧",
+        avatar: "img-25.jpg",
+        description: "大学游泳教师，排行当地前78名",
+        tags: ["已签约", "技能派", "到店服务"],
+        isFollowed: false,
+      },
+    ]);
+
     const goBack = () => {
-      router.go(-1)
-    }
-    
-    const toggleAdd = (item) => {
-      item.isAdded = !item.isAdded
-    }
-    
-    const handleSearch = () => {
-      // 搜索逻辑已在computed中处理
-    }
-    
+      router.go(-1);
+    };
+
+    const toggleFollow = (item) => {
+      item.isFollowed = !item.isFollowed;
+    };
+
     const getImageUrl = (imageName) => {
-      return new URL(`../assets/images/${imageName}`, import.meta.url).href
-    }
-    
+      return new URL(`../assets/images/${imageName}`, import.meta.url).href;
+    };
+
     return {
-      searchQuery,
       friendsList,
-      filteredFriends,
       goBack,
-      toggleAdd,
-      handleSearch,
-      getImageUrl
-    }
-  }
-}
+      toggleFollow,
+      getImageUrl,
+    };
+  },
+};
 </script>
 
 <style scoped>
 .add-friends-page {
   min-height: 100vh;
-  background-color: #f8f9fa;
-  padding-bottom: 80px;
+  background-color: #f5f5f5;
 }
 
+/* 顶部导航 */
 .header {
   background-color: white;
-  border-bottom: 1px solid #f0f0f0;
+  border-bottom: 1px solid #e8e8e8;
 }
 
 .nav-bar {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 12px 16px;
-  height: 44px;
+  padding: 0 16px;
+  height: 56px;
 }
 
 .back-btn {
   background: none;
   border: none;
-  padding: 8px;
+  padding: 4px;
   cursor: pointer;
+  display: flex;
+  align-items: center;
 }
 
 .title {
-  font-size: 18px;
+  font-size: 17px;
   font-weight: 600;
-  color: #333;
+  color: #1a1a1a;
   margin: 0;
-  flex: 1;
-  text-align: center;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
 }
 
 .header-right {
-  width: 40px;
-}
-
-.search-section {
-  padding: 12px 16px;
-  background: white;
-  border-bottom: 1px solid #f0f0f0;
-}
-
-.search-box {
   display: flex;
   align-items: center;
-  background: #f5f5f5;
-  border-radius: 20px;
-  padding: 0 16px;
-  height: 40px;
+  gap: 8px;
 }
 
-.search-icon {
-  margin-right: 8px;
+.rating {
+  display: flex;
+  align-items: center;
+  gap: 4px;
 }
 
-.search-input {
-  flex: 1;
-  border: none;
+.rating-text {
+  font-size: 15px;
+  font-weight: 500;
+  color: #1a1a1a;
+}
+
+.circle-btn {
   background: none;
-  outline: none;
-  font-size: 14px;
-  color: #333;
+  border: none;
+  padding: 4px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
 }
 
-.search-input::placeholder {
-  color: #999;
-}
-
-.main-content {
+/* 功能按钮区 */
+.action-buttons {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
   padding: 16px;
+  background: white;
+}
+
+.action-btn {
+  background: #f5f5f5;
+  border: none;
+  border-radius: 12px;
+  padding: 15px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.action-btn:active {
+  transform: scale(0.98);
+  background: #ebebeb;
+}
+
+.action-btn span {
+  font-size: 15px;
+  font-weight: 500;
+  color: #1a1a1a;
+}
+
+/* 主要内容区 */
+.main-content {
+  padding: 0;
+  background: white;
 }
 
 .section-title {
-  font-size: 16px;
+  font-size: 15px;
   font-weight: 600;
-  color: #333;
-  margin: 0 0 12px 0;
+  color: #1a1a1a;
+  margin: 0;
+  padding: 16px 16px 12px;
 }
 
 .friends-list {
   background: white;
-  border-radius: 12px;
-  overflow: hidden;
 }
 
 .friend-item {
@@ -264,63 +312,64 @@ export default {
 }
 
 .user-avatar {
-  width: 54px;
-  height: 54px;
+  width: 48px;
+  height: 48px;
   border-radius: 50%;
   object-fit: cover;
+  flex-shrink: 0;
 }
 
 .user-info {
   flex: 1;
+  min-width: 0;
 }
 
 .user-name {
-  font-size: 15px;
-  font-weight: 600;
-  color: #333;
+  padding-top: 2px;
+  font-size: 14px;
+  font-weight: 500;
+  color: #1a1a1a;
   margin: 0 0 4px 0;
 }
 
 .user-desc {
-  font-size: 13px;
-  color: #666;
-  margin: 0 0 8px 0;
+  font-size: 11px;
+  color: #8a8a8a;
+  margin: 0 0 4px 0;
+  line-height: 1.4;
 }
 
 .user-tags {
   display: flex;
-  gap: 6px;
+  gap: 8px;
   flex-wrap: wrap;
 }
 
 .tag {
-  padding: 2px 8px;
-  background: #f0f0f0;
-  border-radius: 10px;
+  padding: 4px 8px;
+  background: #f5f5f5;
+  border-radius: 4px;
   font-size: 11px;
   color: #666;
-}
-
-.add-btn {
-  padding: 6px 16px;
-  border-radius: 20px;
-  font-size: 13px;
-  font-weight: 500;
-  cursor: pointer;
-  transition: all 0.3s;
-  border: 1px solid #ff6b35;
-  background: #ff6b35;
-  color: white;
   white-space: nowrap;
 }
 
-.add-btn.added {
+.follow-btn {
+  padding: 4px 20px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s;
+  border: 1px solid #ff6b35;
   background: white;
-  border-color: #e0e0e0;
-  color: #999;
+  color: #ff6b35;
+  white-space: nowrap;
+  flex-shrink: 0;
+  margin-top: 4px;
 }
 
-.add-btn:hover {
-  transform: scale(1.05);
+.follow-btn:active {
+  transform: scale(0.96);
 }
 </style>
