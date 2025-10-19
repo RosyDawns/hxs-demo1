@@ -2,7 +2,7 @@
   <div class="page flex flex-col h-screen bg-gray-50" id="page-daily">
     <!-- 顶部导航 -->
     <header
-      class="sticky top-0 z-50 bg-white border-b border-gray-100 px-2 flex items-center"
+      class="sticky top-0 z-50 bg-white border-b border-gray-100 pl-2 pr-8 flex items-center"
     >
       <button class="nav-back mr-3 text-dark" @click="$router.back()">
         <i class="fa-solid fa-angle-left text-xl"></i>
@@ -20,7 +20,7 @@
           主页
         </button>
         <button
-          class="px-3 py-3 text-sm ml-4"
+          class="px-3 py-3 text-sm ml-5"
           :class="
             activeTab === 'activity'
               ? 'text-primary border-b-2 border-primary font-bold'
@@ -31,7 +31,7 @@
           动态
         </button>
         <button
-          class="px-3 py-3 text-sm ml-4"
+          class="px-3 py-3 text-sm ml-5"
           :class="
             activeTab === 'coach'
               ? 'text-primary border-b-2 border-primary font-bold'
