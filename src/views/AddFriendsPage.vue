@@ -87,7 +87,7 @@
               </span>
             </div>
           </div>
-          <button class="follow-btn" @click="toggleFollow(item)">
+          <button class="follow-btn" @click.stop="toggleFollow(item)">
             {{ item.isFollowed ? "已关注" : "关注" }}
           </button>
         </div>

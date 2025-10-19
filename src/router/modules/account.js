@@ -31,6 +31,54 @@ const routes = [
     meta: { title: '设置', requiresAuth: true }
   },
   {
+    path: '/profile',
+    name: 'Profile',
+    component: () => import('../../views/ProfilePage.vue'),
+    meta: { title: '个人资料', requiresAuth: true }
+  },
+  {
+    path: '/account-security',
+    name: 'AccountSecurity',
+    component: () => import('../../views/AccountSecurityPage.vue'),
+    meta: { title: '账号与安全', requiresAuth: true }
+  },
+  {
+    path: '/notification-settings',
+    name: 'NotificationSettings',
+    component: () => import('../../views/NotificationSettingsPage.vue'),
+    meta: { title: '消息通知设置', requiresAuth: true }
+  },
+  {
+    path: '/privacy',
+    name: 'Privacy',
+    component: () => import('../../views/PrivacyPage.vue'),
+    meta: { title: '隐私管理', requiresAuth: true }
+  },
+  {
+    path: '/general',
+    name: 'General',
+    component: () => import('../../views/GeneralPage.vue'),
+    meta: { title: '通用', requiresAuth: true }
+  },
+  {
+    path: '/privacy-policy',
+    name: 'PrivacyPolicy',
+    component: () => import('../../views/PrivacyPolicyPage.vue'),
+    meta: { title: '隐私政策' }
+  },
+  {
+    path: '/data-collection',
+    name: 'DataCollection',
+    component: () => import('../../views/DataCollectionPage.vue'),
+    meta: { title: '个人信息收集清单' }
+  },
+  {
+    path: '/data-sharing',
+    name: 'DataSharing',
+    component: () => import('../../views/DataSharingPage.vue'),
+    meta: { title: '第三方信息共享' }
+  },
+  {
     path: '/wallet',
     name: 'Wallet',
     component: () => import('../../views/WalletPage.vue'),

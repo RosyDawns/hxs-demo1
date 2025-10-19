@@ -62,7 +62,7 @@ export default {
         { label: "第三方信息数据共享", route: "/data-sharing" },
         { label: "意见反馈", route: "/feedback" },
         { label: "关于我们", route: "/about" },
-        { label: "热线电话", value: "10000100", route: "/hotline" },
+        { label: "热线电话", value: "10000100" },
       ],
     };
   },
