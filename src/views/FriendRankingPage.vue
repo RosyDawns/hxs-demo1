@@ -15,9 +15,11 @@
     ></div>
 
     <!-- 内容层 -->
-    <div class="relative z-10">
+    <div class="relative z-10 pt-20">
       <!-- 顶部导航栏 -->
-      <header class="bg-white/80 backdrop-blur-md sticky top-0 z-20 shadow-sm">
+      <header
+        class="bg-white/80 backdrop-blur-md z-20 shadow-sm fixed top-0 left-0 w-full"
+      >
         <div class="flex items-center px-4 py-3">
           <button
             @click="$router.go(-1)"
@@ -141,7 +143,7 @@
       </div>
 
       <!-- 排行榜列表 -->
-      <main class="px-4 pb-20">
+      <main class="px-4 pb-4">
         <div
           class="bg-white/80 backdrop-blur-md rounded-2xl shadow-lg p-4 mb-4"
         >
@@ -274,6 +276,8 @@
 <script>
 import { ref } from "vue";
 import { useRouter } from "vue-router";
+import pic38 from "@images/img_38.jpeg";
+import pic39 from "@images/img_39.jpeg";
 
 export default {
   name: "FriendRankingPage",
@@ -285,49 +289,49 @@ export default {
       {
         id: 1,
         name: "李浩然",
-        avatar: "https://i.pravatar.cc/64?img=1",
+        avatar: pic38,
         energy: 980,
       },
       {
         id: 2,
         name: "王小花",
-        avatar: "https://i.pravatar.cc/64?img=2",
+        avatar: pic39,
         energy: 860,
       },
       {
         id: 3,
         name: "张大山",
-        avatar: "https://i.pravatar.cc/64?img=3",
+        avatar: pic38,
         energy: 750,
       },
       {
         id: 4,
         name: "你",
-        avatar: "https://i.pravatar.cc/64?img=40",
+        avatar: pic39,
         energy: 520,
       },
       {
         id: 5,
         name: "赵小红",
-        avatar: "https://i.pravatar.cc/64?img=5",
+        avatar: pic38,
         energy: 480,
       },
       {
         id: 6,
         name: "刘明",
-        avatar: "https://i.pravatar.cc/64?img=6",
+        avatar: pic39,
         energy: 420,
       },
       {
         id: 7,
         name: "陈思思",
-        avatar: "https://i.pravatar.cc/64?img=7",
+        avatar: pic39,
         energy: 380,
       },
       {
         id: 8,
         name: "周杰",
-        avatar: "https://i.pravatar.cc/64?img=8",
+        avatar: pic39,
         energy: 320,
       },
     ]);

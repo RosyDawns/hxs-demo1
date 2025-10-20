@@ -6,7 +6,7 @@
     >
       <button
         @click="$router.back()"
-        class="w-10 h-10 flex items-center justify-center -ml-2"
+        class="w-10 h-10 flex items-center justify-center -ml-2 relative z-1"
       >
         <i class="fa-solid fa-chevron-left text-gray-900 text-[18px]"></i>
       </button>
@@ -98,7 +98,9 @@
       </div>
 
       <div class="bg-white mt-2.5">
-        <div class="flex items-center justify-between px-4 h-[52px]">
+        <div
+          class="flex items-center justify-between px-4 h-[52px] active:bg-gray-50 transition cursor-pointer border-b border-[#f0f0f0]"
+        >
           <span class="text-[15px] text-gray-900 font-normal">
             记住登录信息
           </span>
