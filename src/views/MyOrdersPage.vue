@@ -51,7 +51,7 @@
       <div
         v-for="order in orders"
         :key="order.id"
-        class="bg-white mb-2 rounded-xl"
+        class="bg-white mb-3 rounded-xl"
       >
         <!-- 订单头部 -->
         <div class="p-3 flex items-center">
