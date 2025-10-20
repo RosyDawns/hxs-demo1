@@ -427,7 +427,7 @@
             >
               <img
                 class="w-28 h-20 object-cover rounded-xl"
-                src="https://picsum.photos/seed/brand/300/200"
+                src="@images/img_40.jpg"
                 alt="线上服务"
               />
               <div class="ml-2 flex-1">

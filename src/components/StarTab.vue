@@ -144,7 +144,7 @@ export default {
 }
 
 .filter-btn {
-  padding: 4px 12px;
+  padding: 4px 8px;
   font-size: 13px;
   color: #666;
   transition: all 0.3s;

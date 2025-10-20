@@ -2,14 +2,7 @@
   <div
     class="page relative h-screen overflow-hidden"
     id="page-call"
-    style="
-      background: linear-gradient(
-        to bottom,
-        #1d4ed8 0%,
-        #60a5fa 60%,
-        #a9d0fe 100%
-      );
-    "
+    style="background: linear-gradient(to bottom, #1d7df0 0%, #79c6f9 100%)"
   >
     <!-- 顶部导航栏 -->
     <header class="absolute top-0 left-0 right-0 z-30 px-2 py-4">
@@ -145,7 +138,7 @@
       class="absolute bottom-16 top-20 left-0 right-0 bg-white rounded-t-3xl z-30"
       style="overflow-y: auto"
     >
-      <div class="p-4">
+      <div class="py-4 px-2">
         <!-- 动态Tab -->
         <DynamicTab v-if="activeTab === '动态'" />
         <!-- 橱窗Tab -->

@@ -2,7 +2,7 @@
   <div class="store-tab">
     <!-- 筛选标签栏 -->
     <div class="flex items-center justify-between pb-3">
-      <div class="flex gap-2">
+      <div class="flex">
         <button
           v-for="filter in filters"
           :key="filter.key"
@@ -19,7 +19,7 @@
     </div>
 
     <!-- 商品列表 -->
-    <div class="grid grid-cols-2 gap-3 mt-3">
+    <div class="grid grid-cols-2 gap-2 mt-3">
       <div
         v-for="product in products"
         :key="product.id"
@@ -65,8 +65,8 @@ export default {
         { key: "recommend", label: "综合" },
         { key: "sales", label: "销量" },
         { key: "new", label: "新品" },
-        { key: "priceAsc", label: "价格↑" },
-        { key: "priceDesc", label: "价格↓" },
+        { key: "priceAsc", label: "价格升序" },
+        { key: "priceDesc", label: "价格降序" },
       ],
       originalProducts: [
         {
@@ -162,7 +162,7 @@ export default {
 }
 
 .filter-btn {
-  padding: 4px 12px;
+  padding: 4px 8px;
   font-size: 13px;
   color: #666;
   transition: all 0.3s;

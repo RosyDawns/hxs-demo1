@@ -72,12 +72,7 @@
       class="relative overflow-hidden"
       style="
         height: calc(100vh - 60px);
-        background: linear-gradient(
-          to bottom,
-          #1d4ed8 0%,
-          #60a5fa 60%,
-          #a9d0fe 100%
-        );
+        background: linear-gradient(to bottom, #1d7df0 0%, #79c6f9 100%);
       "
     >
       <!-- 背景装饰 -->
@@ -694,7 +689,7 @@ export default {
 
     // 显示好友排行
     const showFriendRanking = () => {
-      router.push('/friend-ranking');
+      router.push("/friend-ranking");
     };
 
     // 显示能量道具
