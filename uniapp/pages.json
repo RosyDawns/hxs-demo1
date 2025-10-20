@@ -116,7 +116,8 @@
     {
       "path": "pages/my-orders/index",
       "style": {
-        "navigationBarTitleText": "我的订单"
+        "navigationBarTitleText": "我的订单",
+        "navigationStyle": "custom"
       }
     },
     {
@@ -158,7 +159,8 @@
     {
       "path": "pages/ranking/index",
       "style": {
-        "navigationBarTitleText": "城市大神老狮榜单"
+        "navigationBarTitleText": "城市大神老狮榜单",
+        "navigationStyle": "custom"
       }
     },
     {
@@ -260,7 +262,8 @@
     {
       "path": "pages/settings/index",
       "style": {
-        "navigationBarTitleText": "设置"
+        "navigationBarTitleText": "设置",
+        "navigationStyle": "custom"
       }
     },
     {
@@ -291,6 +294,62 @@
       "path": "pages/matching/index",
       "style": {
         "navigationBarTitleText": "智能匹配"
+      }
+    },
+    {
+      "path": "pages/profile/index",
+      "style": {
+        "navigationBarTitleText": "编辑资料",
+        "navigationStyle": "custom"
+      }
+    },
+    {
+      "path": "pages/account-security/index",
+      "style": {
+        "navigationBarTitleText": "账号与安全",
+        "navigationStyle": "custom"
+      }
+    },
+    {
+      "path": "pages/general/index",
+      "style": {
+        "navigationBarTitleText": "通用",
+        "navigationStyle": "custom"
+      }
+    },
+    {
+      "path": "pages/notification-settings/index",
+      "style": {
+        "navigationBarTitleText": "消息通知设置",
+        "navigationStyle": "custom"
+      }
+    },
+    {
+      "path": "pages/privacy/index",
+      "style": {
+        "navigationBarTitleText": "隐私管理",
+        "navigationStyle": "custom"
+      }
+    },
+    {
+      "path": "pages/privacy-policy/index",
+      "style": {
+        "navigationBarTitleText": "隐私政策",
+        "navigationStyle": "custom"
+      }
+    },
+    {
+      "path": "pages/data-collection/index",
+      "style": {
+        "navigationBarTitleText": "个人信息收集清单",
+        "navigationStyle": "custom"
+      }
+    },
+    {
+      "path": "pages/data-sharing/index",
+      "style": {
+        "navigationBarTitleText": "第三方信息共享",
+        "navigationStyle": "custom"
       }
     }
   ],

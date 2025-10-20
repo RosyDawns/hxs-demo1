@@ -201,6 +201,9 @@ export default {
       if (routes[category]) {
         uni.navigateTo({ url: routes[category] })
       }
+      if (routes[category]) {
+        uni.navigateTo({ url: routes[category] })
+      }
     }
   }
 }
