@@ -25,7 +25,8 @@
     {
       "path": "pages/call/index",
       "style": {
-        "navigationBarTitleText": "打Call"
+        "navigationBarTitleText": "打Call",
+        "navigationStyle": "custom"
       }
     },
     {

@@ -239,19 +239,19 @@ export default {
     },
     
     showWallet() {
-      uni.showToast({ title: '我的钱包', icon: 'none' })
+      uni.navigateTo({ url: '/pages/wallet/index' })
     },
     
     showGifts() {
-      uni.showToast({ title: '我的礼物', icon: 'none' })
+      uni.showToast({ title: '礼物功能开发中', icon: 'none' })
     },
     
     showPosts() {
-      uni.showToast({ title: '我的帖子', icon: 'none' })
+      uni.showToast({ title: '帖子功能开发中', icon: 'none' })
     },
     
     showDailyTasks() {
-      uni.showToast({ title: '每日任务', icon: 'none' })
+      uni.navigateTo({ url: '/pages/daily/index' })
     },
     
     showFriendRanking() {
@@ -259,11 +259,11 @@ export default {
     },
     
     showEnergyItems() {
-      uni.showToast({ title: '能量道具', icon: 'none' })
+      uni.showToast({ title: '能量道具功能开发中', icon: 'none' })
     },
     
     showSpiritBeast() {
-      uni.showToast({ title: '灵兽宇宙', icon: 'none' })
+      uni.showToast({ title: '灵兽宇宙功能开发中', icon: 'none' })
     }
   }
 }
