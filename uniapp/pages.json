@@ -50,7 +50,8 @@
     {
       "path": "pages/me/index",
       "style": {
-        "navigationBarTitleText": "我的"
+        "navigationBarTitleText": "我的",
+        "navigationStyle": "custom"
       }
     },
     {
@@ -364,15 +365,15 @@
     "color": "#999999",
     "selectedColor": "#FF6B6B",
     "backgroundColor": "#FFFFFF",
-    "borderStyle": "black",
+    "borderStyle": "white",
     "list": [
       {
         "pagePath": "pages/index/index",
-        "text": "首页"
+        "text": "唤醒狮"
       },
       {
         "pagePath": "pages/ai-assistant/index",
-        "text": "AI管家"
+        "text": "大狮兄"
       },
       {
         "pagePath": "pages/energy-tree/index",

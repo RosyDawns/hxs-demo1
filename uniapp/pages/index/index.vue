@@ -1,139 +1,134 @@
 <template>
   <view class="page">
-    <!-- 顶部导航栏 -->
-    <view class="header" :style="{ backgroundColor: `rgba(255, 255, 255, ${headerOpacity})` }">
-      <view class="header-left" @tap="showCityPicker = true">
-        <text class="city-text">{{ selectedCity || '上海' }}</text>
-        <text class="icon-down">▼</text>
+    <!-- 顶部导航 -->
+    <view class="header" :style="{paddingTop: statusBarHeight + 'px', backgroundColor: `rgba(255,255,255,${headerOpacity})`}">
+      <view class="city-btn" :style="{color: headerOpacity > 0.5 ? '#000' : '#fff'}" @tap="showCityModal = true">
+        <text>{{ selectedCity || '上海' }}</text>
+        <text class="arrow">▼</text>
       </view>
-      
-      <view class="search-wrapper">
+      <view class="search-area">
         <view class="search-box" @tap="goToSearch">
-          <text class="search-icon">🔍</text>
-          <text class="search-placeholder">健身计划</text>
-          <view class="match-btn" @tap.stop="goToAI">
-            一键匹配
-          </view>
+          <text class="icon">🔍</text>
+          <text class="placeholder">健身计划</text>
+          <view class="match-btn" @tap.stop="goToAI">一键<text>匹配</text></view>
         </view>
       </view>
     </view>
 
     <!-- Banner -->
     <view class="banner">
-      <image src="/static/images/img_39.jpg" class="banner-img" mode="aspectFill" />
-      <view class="banner-slogan">
-        <text class="slogan-title">生活唤醒师频道</text>
-        <view class="slogan-subtitle" @tap="goToTeacherList">
+      <image src="/static/images/img_39.jpg" mode="aspectFill" class="banner-img" />
+      <view class="banner-text">
+        <text class="title">生活唤醒师频道</text>
+        <view class="subtitle" @tap="goToTeacherList">
           <text>同城找人，找靠谱的人！</text>
-          <text class="go-btn">GO></text>
+          <text class="go-tag">GO></text>
         </view>
       </view>
     </view>
 
-    <!-- 核心功能区 -->
+    <!-- 核心功能 -->
     <view class="core-section">
       <view class="core-card">
         <view class="grid-3">
-          <view class="func-item" @tap="goToChannel('主理人')">
-            <image src="/static/images/user_1.png" class="func-img" mode="aspectFill" />
-            <text class="func-text">主理人频道</text>
+          <view class="item" @tap="goToChannel('主理人')">
+            <image src="/static/images/user_1.png" mode="aspectFill" class="item-img" />
+            <text class="item-text">主理人频道</text>
           </view>
-          <view class="func-item" @tap="goToChannel('生活技能')">
-            <image src="/static/images/user_2.png" class="func-img" mode="aspectFill" />
-            <text class="func-text">技能唤醒狮</text>
+          <view class="item" @tap="goToChannel('生活技能')">
+            <image src="/static/images/user_2.png" mode="aspectFill" class="item-img" />
+            <text class="item-text">技能唤醒狮</text>
           </view>
-          <view class="func-item" @tap="goToChannel('生活搭子')">
-            <image src="/static/images/user_3.png" class="func-img" mode="aspectFill" />
-            <text class="func-text">搭子唤醒狮</text>
+          <view class="item" @tap="goToChannel('生活搭子')">
+            <image src="/static/images/user_3.png" mode="aspectFill" class="item-img" />
+            <text class="item-text">搭子唤醒狮</text>
           </view>
         </view>
       </view>
 
       <!-- 快捷入口 -->
-      <view class="quick-entry">
-        <view class="entry-item entry-small" @tap="goToRanking">
-          <text class="entry-title">城市大师</text>
-          <text class="entry-desc">大师榜单</text>
-          <text class="entry-icon">📍</text>
+      <view class="quick-grid">
+        <view class="quick-item" @tap="goToRanking">
+          <text class="q-title">城市大师</text>
+          <text class="q-desc">大师榜单</text>
+          <text class="q-icon">📍</text>
         </view>
-        <view class="entry-item entry-small" @tap="goToCampRegister">
-          <text class="entry-title">免费体验</text>
-          <text class="entry-desc">试试就试试</text>
-          <view class="entry-badge">0元</view>
+        <view class="quick-item" @tap="goToCamp">
+          <text class="q-title">免费体验</text>
+          <text class="q-desc">试试就试试</text>
+          <view class="q-badge">0元</view>
         </view>
-        <view class="entry-item entry-large" @tap="goToWeightCamp">
-          <view class="entry-flex">
-            <text class="entry-ball">⚽</text>
-            <view class="entry-info">
-              <text class="entry-title">体重管理唤醒营</text>
-              <text class="entry-desc">唤醒瘦 · 科学瘦</text>
+        <view class="quick-item wide" @tap="goToWeightCamp">
+          <view class="q-flex">
+            <text class="q-ball">⚽</text>
+            <view class="q-info">
+              <text class="q-title">体重管理唤醒营</text>
+              <text class="q-desc">唤醒瘦 · 科学瘦 · 坚持瘦</text>
             </view>
           </view>
         </view>
       </view>
     </view>
 
-    <!-- 分类标签栏 -->
-    <view class="category-tabs">
+    <!-- 分类标签 -->
+    <scroll-view scroll-x class="tabs-scroll">
       <view 
         v-for="tab in tabs" 
         :key="tab" 
-        class="tab-item"
-        :class="{ 'tab-active': selectedCategory === tab }"
-        @tap="handleCategoryClick(tab)"
+        :class="['tab', selectedTab === tab ? 'active' : '']"
+        @tap="selectTab(tab)"
       >
-        <text>{{ tab }}</text>
-        <text v-if="tab !== '直播'" class="tab-icon">⇄</text>
+        {{ tab }} <text v-if="tab !== '直播'" class="tab-arrow">⇄</text>
       </view>
-    </view>
+    </scroll-view>
 
     <!-- 教练列表 -->
     <view class="coach-list">
-      <view class="coach-grid">
+      <view class="grid-2">
         <view 
           v-for="coach in coaches" 
           :key="coach.id"
           class="coach-card"
-          @tap="goToCoachDetail(coach.id)"
+          @tap="goToDetail(coach.id)"
         >
-          <image :src="coach.avatar" class="coach-avatar" mode="aspectFill" />
+          <image :src="coach.avatar" mode="aspectFill" class="coach-img" />
           <view class="coach-info">
             <view class="coach-header">
-              <image :src="coach.pic" class="coach-pic" mode="aspectFill" />
+              <image :src="coach.pic" mode="aspectFill" class="coach-pic" />
               <text class="coach-name">{{ coach.name }}</text>
             </view>
-            <text class="coach-qualification">{{ coach.qualification }}</text>
-            <text class="coach-skills">擅长: {{ coach.skills }}</text>
+            <text class="coach-title">{{ coach.qualification }}</text>
+            <text class="coach-skill">擅长: {{ coach.skills }}</text>
             <view class="coach-footer">
-              <view class="coach-rating">
-                <text class="rating-text">{{ coach.rating }}</text>
+              <view class="rating">
+                <text>{{ coach.rating }}</text>
                 <text class="star">⭐</text>
               </view>
-              <view class="coach-label">{{ coach.label }}</view>
+              <view class="label">{{ coach.label }}</view>
             </view>
           </view>
         </view>
       </view>
     </view>
 
-    <!-- 城市选择弹窗 -->
-    <view v-if="showCityPicker" class="city-modal" @tap="showCityPicker = false">
+    <!-- 城市选择 -->
+    <view v-if="showCityModal" class="modal-mask" @tap="showCityModal = false">
       <view class="city-content" @tap.stop>
         <view class="modal-header">
           <text class="modal-title">选择城市</text>
-          <text class="modal-close" @tap="showCityPicker = false">✕</text>
+          <text class="modal-close" @tap="showCityModal = false">✕</text>
         </view>
         <view class="hot-cities">
-          <text class="section-title">热门城市</text>
-          <view class="city-tags">
-            <view 
+          <text class="section-label">热门城市</text>
+          <view class="cities-grid">
+            <text 
               v-for="city in hotCities" 
-              :key="city"
+              :key="city" 
               class="city-tag"
               @tap="selectCity(city)"
             >
               {{ city }}
-            </view>
+            </text>
           </view>
         </view>
       </view>
@@ -145,35 +140,23 @@
 export default {
   data() {
     return {
+      statusBarHeight: 44,
       headerOpacity: 0,
-      showCityPicker: false,
+      showCityModal: false,
       selectedCity: '',
-      selectedCategory: '推荐',
+      selectedTab: '推荐',
       tabs: ['关注', '推荐', '附近', '筛选', '直播'],
-      hotCities: ['上海', '北京', '广州', '深圳', '杭州', '南京'],
+      hotCities: ['上海', '北京', '广州', '深圳', '杭州', '南京', '成都', '武汉'],
       coaches: [
-        {
-          id: 1,
-          name: '李教练',
-          avatar: '/static/images/img-18.jpg',
-          pic: '/static/images/img-13.jpg',
-          qualification: '国家一级游泳运动员',
-          skills: '长泳/自由泳',
-          rating: 4.8,
-          label: '到店服务'
-        },
-        {
-          id: 2,
-          name: '赵教练',
-          avatar: '/static/images/img-19.jpg',
-          pic: '/static/images/img-14.jpg',
-          qualification: '国家一级游泳运动员',
-          skills: '仰泳/自由泳',
-          rating: 4.9,
-          label: '上门服务'
-        }
+        { id: 1, name: '李教练', avatar: '/static/images/img-18.jpg', pic: '/static/images/img-13.jpg', qualification: '国家一级游泳运动员', skills: '长泳/自由泳', rating: 4.8, label: '到店服务' },
+        { id: 2, name: '赵教练', avatar: '/static/images/img-19.jpg', pic: '/static/images/img-14.jpg', qualification: '国家一级游泳运动员', skills: '仰泳/自由泳', rating: 4.9, label: '上门服务' }
       ]
     }
+  },
+  
+  onLoad() {
+    const info = uni.getSystemInfoSync()
+    this.statusBarHeight = info.statusBarHeight || 44
   },
   
   onPageScroll(e) {
@@ -201,7 +184,7 @@ export default {
       uni.navigateTo({ url: '/pages/ranking/index' })
     },
     
-    goToCampRegister() {
+    goToCamp() {
       uni.navigateTo({ url: '/pages/camp-register/index' })
     },
     
@@ -209,413 +192,84 @@ export default {
       uni.navigateTo({ url: '/pages/weight-management-camp/index' })
     },
     
-    goToCoachDetail(coachId) {
-      uni.navigateTo({ url: `/pages/ouyang/index?id=${coachId}` })
+    goToDetail(id) {
+      uni.navigateTo({ url: `/pages/ouyang/index?id=${id}` })
     },
     
-    handleCategoryClick(tab) {
-      this.selectedCategory = tab
+    selectTab(tab) {
+      this.selectedTab = tab
     },
     
     selectCity(city) {
       this.selectedCity = city
-      this.showCityPicker = false
+      this.showCityModal = false
     }
   }
 }
 </script>
 
-<style lang="scss" scoped>
-@import "@/uni.scss";
+<style scoped>
+.page { min-height: 100vh; background: #f5f5f5; }
 
-.page {
-  background-color: $uni-bg-color-grey;
-  min-height: 100vh;
-  padding-bottom: 120rpx;
-}
+.header { position: fixed; top: 0; left: 0; right: 0; z-index: 999; display: flex; align-items: center; padding: 16rpx 24rpx; }
+.city-btn { display: flex; align-items: center; font-size: 28rpx; font-weight: 500; }
+.arrow { margin-left: 8rpx; font-size: 20rpx; }
+.search-area { flex: 1; margin: 0 16rpx; }
+.search-box { position: relative; background: #f5f5f5; border-radius: 48rpx; border: 2rpx solid #ff6b6b; padding: 16rpx 180rpx 16rpx 60rpx; display: flex; align-items: center; }
+.icon { position: absolute; left: 20rpx; font-size: 28rpx; }
+.placeholder { font-size: 28rpx; color: #999; }
+.match-btn { position: absolute; right: 8rpx; top: 8rpx; bottom: 8rpx; width: 120rpx; background: #ff6b6b; color: #fff; border-radius: 50%; display: flex; flex-direction: column; align-items: center; justify-content: center; font-size: 20rpx; line-height: 1.2; }
 
-/* 顶部导航 */
-.header {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  z-index: 999;
-  padding: calc(var(--status-bar-height) + 20rpx) 30rpx 20rpx;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
+.banner { position: relative; height: 400rpx; margin-top: calc(var(--status-bar-height, 44px) + 140rpx); }
+.banner-img { width: 100%; height: 100%; }
+.banner-text { position: absolute; top: 50%; left: 40rpx; transform: translateY(-50%); color: #fff; }
+.title { font-size: 48rpx; font-weight: bold; display: block; margin-bottom: 20rpx; text-shadow: 0 2rpx 8rpx rgba(0,0,0,0.3); }
+.subtitle { display: flex; align-items: center; padding: 16rpx 24rpx; border: 2rpx solid #fff; border-radius: 48rpx; font-size: 28rpx; }
+.go-tag { margin-left: 20rpx; background: rgba(255,255,255,0.3); padding: 4rpx 16rpx; border-radius: 20rpx; }
 
-.header-left {
-  display: flex;
-  align-items: center;
-  font-size: 28rpx;
-}
+.core-section { padding: 24rpx; margin-top: -160rpx; position: relative; z-index: 10; }
+.core-card { background: #fff; border-radius: 24rpx; padding: 24rpx; margin-bottom: 16rpx; box-shadow: 0 4rpx 12rpx rgba(0,0,0,0.05); }
+.grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16rpx; }
+.item { background: #fff; border-radius: 16rpx; overflow: hidden; box-shadow: 0 2rpx 8rpx rgba(0,0,0,0.05); }
+.item-img { width: 100%; height: 200rpx; }
+.item-text { display: block; text-align: center; padding: 16rpx 0; font-size: 28rpx; }
 
-.city-text {
-  font-weight: 500;
-}
+.quick-grid { display: grid; grid-template-columns: 1fr 1fr 2fr; gap: 16rpx; }
+.quick-item { background: #fff; border-radius: 16rpx; padding: 24rpx; position: relative; box-shadow: 0 2rpx 8rpx rgba(0,0,0,0.05); }
+.q-title { font-size: 28rpx; font-weight: bold; display: block; margin-bottom: 8rpx; }
+.q-desc { font-size: 24rpx; color: #999; display: block; }
+.q-icon { position: absolute; bottom: 20rpx; right: 20rpx; font-size: 32rpx; color: #ff9500; }
+.q-badge { position: absolute; bottom: 20rpx; right: 20rpx; background: #ffd700; color: #fff; font-size: 20rpx; padding: 4rpx 12rpx; border-radius: 20rpx; }
+.q-flex { display: flex; align-items: center; }
+.q-ball { font-size: 48rpx; margin-right: 16rpx; color: #ff6b6b; }
+.q-info { flex: 1; }
 
-.icon-down {
-  margin-left: 10rpx;
-  font-size: 24rpx;
-}
+.tabs-scroll { white-space: nowrap; padding: 24rpx; border-bottom: 1rpx solid #eee; }
+.tab { display: inline-block; padding: 12rpx 20rpx; margin-right: 20rpx; font-size: 28rpx; color: #666; }
+.tab.active { color: #ff6b6b; border-bottom: 4rpx solid #ff6b6b; }
+.tab-arrow { font-size: 20rpx; margin-left: 8rpx; }
 
-.search-wrapper {
-  flex: 1;
-  margin: 0 20rpx;
-}
+.coach-list { padding: 24rpx; }
+.grid-2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16rpx; }
+.coach-card { background: #fff; border-radius: 16rpx; overflow: hidden; box-shadow: 0 2rpx 8rpx rgba(0,0,0,0.05); }
+.coach-img { width: 100%; height: 360rpx; }
+.coach-info { padding: 20rpx; }
+.coach-header { display: flex; align-items: center; margin-bottom: 12rpx; }
+.coach-pic { width: 48rpx; height: 48rpx; border-radius: 50%; margin-right: 12rpx; }
+.coach-name { font-size: 28rpx; font-weight: 500; }
+.coach-title { font-size: 24rpx; font-weight: bold; display: block; margin-bottom: 12rpx; }
+.coach-skill { font-size: 24rpx; color: #999; display: block; margin-bottom: 16rpx; }
+.coach-footer { display: flex; justify-content: space-between; align-items: center; }
+.rating { display: flex; align-items: center; font-size: 24rpx; }
+.star { margin-left: 8rpx; }
+.label { background: #ff6b6b; color: #fff; font-size: 20rpx; padding: 4rpx 16rpx; border-radius: 20rpx; }
 
-.search-box {
-  position: relative;
-  background-color: $uni-bg-color-grey;
-  border-radius: 50rpx;
-  padding: 16rpx 180rpx 16rpx 60rpx;
-  border: 2rpx solid $uni-color-primary;
-  display: flex;
-  align-items: center;
-}
-
-.search-icon {
-  position: absolute;
-  left: 20rpx;
-}
-
-.search-placeholder {
-  color: $uni-text-color-grey;
-  font-size: 28rpx;
-}
-
-.match-btn {
-  position: absolute;
-  right: 8rpx;
-  top: 8rpx;
-  bottom: 8rpx;
-  background-color: $uni-color-primary;
-  color: white;
-  border-radius: 50%;
-  width: 120rpx;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 20rpx;
-}
-
-/* Banner */
-.banner {
-  position: relative;
-  height: 400rpx;
-  margin-top: calc(var(--status-bar-height) + 140rpx);
-}
-
-.banner-img {
-  width: 100%;
-  height: 100%;
-}
-
-.banner-slogan {
-  position: absolute;
-  top: 50%;
-  left: 40rpx;
-  transform: translateY(-50%);
-  color: white;
-}
-
-.slogan-title {
-  font-size: 48rpx;
-  font-weight: bold;
-  display: block;
-  margin-bottom: 20rpx;
-  text-shadow: 0 2rpx 4rpx rgba(0, 0, 0, 0.3);
-}
-
-.slogan-subtitle {
-  display: flex;
-  align-items: center;
-  padding: 16rpx 24rpx;
-  border: 2rpx solid white;
-  border-radius: 50rpx;
-  font-size: 28rpx;
-}
-
-.go-btn {
-  margin-left: 20rpx;
-  background-color: rgba(255, 255, 255, 0.3);
-  padding: 4rpx 16rpx;
-  border-radius: 50rpx;
-}
-
-/* 核心功能区 */
-.core-section {
-  padding: 30rpx;
-  margin-top: -160rpx;
-  position: relative;
-  z-index: 10;
-}
-
-.core-card {
-  background-color: white;
-  border-radius: 24rpx;
-  padding: 30rpx;
-  box-shadow: $uni-shadow-base;
-  margin-bottom: 20rpx;
-}
-
-.grid-3 {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 20rpx;
-}
-
-.func-item {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  background-color: white;
-  border-radius: 24rpx;
-  overflow: hidden;
-  box-shadow: $uni-shadow-sm;
-}
-
-.func-img {
-  width: 100%;
-  height: 150rpx;
-}
-
-.func-text {
-  padding: 20rpx;
-  font-size: 28rpx;
-  text-align: center;
-}
-
-/* 快捷入口 */
-.quick-entry {
-  display: grid;
-  grid-template-columns: 1fr 1fr 2fr;
-  gap: 20rpx;
-}
-
-.entry-item {
-  background-color: white;
-  border-radius: 16rpx;
-  padding: 30rpx 20rpx;
-  box-shadow: $uni-shadow-sm;
-  position: relative;
-}
-
-.entry-title {
-  font-size: 28rpx;
-  font-weight: bold;
-  display: block;
-  margin-bottom: 8rpx;
-}
-
-.entry-desc {
-  font-size: 24rpx;
-  color: $uni-text-color-grey;
-  display: block;
-}
-
-.entry-icon {
-  position: absolute;
-  bottom: 20rpx;
-  right: 20rpx;
-  font-size: 32rpx;
-}
-
-.entry-badge {
-  position: absolute;
-  bottom: 20rpx;
-  right: 20rpx;
-  background-color: #ffd700;
-  color: white;
-  font-size: 20rpx;
-  padding: 4rpx 12rpx;
-  border-radius: 20rpx;
-}
-
-.entry-flex {
-  display: flex;
-  align-items: center;
-}
-
-.entry-ball {
-  font-size: 48rpx;
-  margin-right: 16rpx;
-}
-
-.entry-info {
-  flex: 1;
-}
-
-/* 分类标签 */
-.category-tabs {
-  display: flex;
-  padding: 30rpx;
-  overflow-x: auto;
-}
-
-.tab-item {
-  padding: 16rpx 24rpx;
-  white-space: nowrap;
-  font-size: 28rpx;
-  margin-right: 20rpx;
-  
-  &.tab-active {
-    color: $uni-color-primary;
-    border-bottom: 4rpx solid $uni-color-primary;
-  }
-}
-
-.tab-icon {
-  font-size: 20rpx;
-  margin-left: 8rpx;
-}
-
-/* 教练列表 */
-.coach-list {
-  padding: 0 30rpx 30rpx;
-}
-
-.coach-grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 20rpx;
-}
-
-.coach-card {
-  background-color: white;
-  border-radius: 16rpx;
-  overflow: hidden;
-  box-shadow: $uni-shadow-sm;
-}
-
-.coach-avatar {
-  width: 100%;
-  height: 360rpx;
-}
-
-.coach-info {
-  padding: 20rpx;
-}
-
-.coach-header {
-  display: flex;
-  align-items: center;
-  margin-bottom: 16rpx;
-}
-
-.coach-pic {
-  width: 48rpx;
-  height: 48rpx;
-  border-radius: 50%;
-  margin-right: 12rpx;
-}
-
-.coach-name {
-  font-size: 28rpx;
-  font-weight: 500;
-}
-
-.coach-qualification {
-  font-size: 24rpx;
-  font-weight: bold;
-  display: block;
-  margin-bottom: 12rpx;
-}
-
-.coach-skills {
-  font-size: 24rpx;
-  color: $uni-text-color-grey;
-  display: block;
-  margin-bottom: 16rpx;
-}
-
-.coach-footer {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.coach-rating {
-  display: flex;
-  align-items: center;
-  font-size: 24rpx;
-}
-
-.rating-text {
-  margin-right: 8rpx;
-}
-
-.star {
-  font-size: 24rpx;
-}
-
-.coach-label {
-  background-color: $uni-color-primary;
-  color: white;
-  font-size: 20rpx;
-  padding: 4rpx 16rpx;
-  border-radius: 20rpx;
-}
-
-/* 城市选择弹窗 */
-.city-modal {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: rgba(0, 0, 0, 0.5);
-  z-index: 9999;
-  display: flex;
-  align-items: flex-end;
-}
-
-.city-content {
-  background-color: white;
-  width: 100%;
-  border-radius: 32rpx 32rpx 0 0;
-  padding: 40rpx;
-  max-height: 80vh;
-  overflow-y: auto;
-}
-
-.modal-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 40rpx;
-}
-
-.modal-title {
-  font-size: 36rpx;
-  font-weight: bold;
-}
-
-.modal-close {
-  font-size: 48rpx;
-  color: $uni-text-color-grey;
-}
-
-.section-title {
-  font-size: 28rpx;
-  color: $uni-text-color-grey;
-  display: block;
-  margin-bottom: 20rpx;
-}
-
-.city-tags {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 20rpx;
-}
-
-.city-tag {
-  padding: 16rpx 30rpx;
-  background-color: $uni-bg-color-grey;
-  border-radius: 50rpx;
-  font-size: 28rpx;
-}
+.modal-mask { position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.5); z-index: 9999; display: flex; align-items: flex-end; }
+.city-content { background: #fff; width: 100%; border-radius: 32rpx 32rpx 0 0; padding: 40rpx; max-height: 80vh; }
+.modal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 32rpx; }
+.modal-title { font-size: 36rpx; font-weight: bold; }
+.modal-close { font-size: 48rpx; color: #999; }
+.section-label { font-size: 28rpx; color: #999; display: block; margin-bottom: 20rpx; }
+.cities-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16rpx; }
+.city-tag { padding: 16rpx; background: #f5f5f5; border-radius: 12rpx; text-align: center; font-size: 26rpx; }
 </style>
