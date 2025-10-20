@@ -14,7 +14,7 @@
     <div class="relative">
       <div class="pt-10 pb-16 relative">
         <div
-          class="absolute w-full h-full left-0 top-0 blur-xs"
+          class="absolute w-full h-full left-0 top-0"
           style="
             background-position: center top;
             background-repeat: no-repeat;
