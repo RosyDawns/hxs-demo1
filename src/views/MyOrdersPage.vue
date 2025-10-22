@@ -146,6 +146,7 @@
 </template>
 
 <script>
+import Pic1 from '@images/img_39.jpeg';
 export default {
   name: "MyOrdersPage",
   data() {
@@ -158,7 +159,7 @@ export default {
           title: "1对1游泳零基础蛙泳/自由泳...",
           price: "38.0",
           date: "2025-10-18  21:32",
-          image: "https://picsum.photos/id/1005/300/300",
+          image: Pic1,
           statusText: "可使用",
           statusClass: "text-primary",
           showReview: false,
@@ -168,7 +169,7 @@ export default {
           title: "1对1蝶泳/自由泳单次卡...",
           price: "160.0",
           date: "2025-08-13  15:05",
-          image: "https://picsum.photos/id/1010/300/300",
+          image: Pic1,
           statusText: "已成交",
           statusClass: "text-primary",
           showReview: true,
@@ -178,7 +179,7 @@ export default {
           title: "1对160分钟线上瑜伽课...",
           price: "28.0",
           date: "2025-10-18  21:32",
-          image: "https://picsum.photos/id/1011/300/300",
+          image: Pic1,
           statusText: "退款成功",
           statusClass: "text-primary",
           showReview: false,
