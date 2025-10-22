@@ -1,68 +1,61 @@
 <template>
-  <div class="page flex flex-col h-screen bg-gradient-to-b from-orange-50 to-gray-50" id="page-pending-review">
-    <CommonHeader>
-      <template #center>
-        <h2 class="text-base font-bold text-black">待评价</h2>
-      </template>
-    </CommonHeader>
-
-    <main class="flex-1 overflow-y-auto pt-12 pb-4">
-      <div v-if="pendingOrders.length === 0" class="flex flex-col items-center justify-center py-20">
-        <div class="w-24 h-24 rounded-full bg-gradient-to-br from-orange-100 to-orange-50 flex items-center justify-center mb-4">
-          <i class="fa-solid fa-comment-dots text-4xl text-orange-300"></i>
+  <div class="page flex flex-col h-screen bg-gray-50" id="page-pending-review">
+    <!-- 顶部导航栏 -->
+    <header class="flex items-center justify-between px-4 py-3 bg-white">
+      <button class="text-3xl text-gray-800 nav-action" @click="$router.back()">
+        <i class="fa-solid fa-angle-left"></i>
+      </button>
+      <h1 class="text-lg font-medium text-gray-800">待评价</h1>
+      <div class="flex items-center gap-2">
+        <div class="flex items-center gap-1">
+          <i class="fa-solid fa-star text-gray-800 text-sm"></i>
+          <span class="text-sm font-medium text-gray-800">4.9</span>
         </div>
+        <button class="w-6 h-6 rounded-full bg-gray-800"></button>
+      </div>
+    </header>
+
+    <!-- 筛选标签 -->
+    <div class="px-4 py-3 bg-white">
+      <span class="inline-block px-4 py-1.5 bg-orange-50 text-orange-500 text-sm rounded-full">全部</span>
+    </div>
+
+    <!-- 主内容区 -->
+    <main class="flex-1 overflow-y-auto px-3 pt-3">
+      <div v-if="pendingOrders.length === 0" class="flex flex-col items-center justify-center py-20">
         <p class="text-base font-medium text-gray-600">暂无待评价订单</p>
-        <p class="text-xs text-gray-400 mt-2">完成服务后就可以来评价啦</p>
       </div>
 
-      <div v-else class="px-4 space-y-4 mt-4">
+      <div v-else class="space-y-3">
         <div
           v-for="order in pendingOrders"
           :key="order.id"
-          class="bg-white rounded-3xl overflow-hidden shadow-sm hover:shadow-md transition-shadow"
+          class="bg-white rounded-2xl p-3 flex gap-3"
         >
-          <!-- 订单信息 -->
-          <div class="p-5">
-            <div class="flex items-center mb-4">
-              <div class="relative">
-                <img :src="order.teacherAvatar" alt="" class="w-14 h-14 rounded-full object-cover ring-2 ring-orange-100">
-                <div class="absolute -bottom-1 -right-1 w-6 h-6 rounded-full bg-orange-500 flex items-center justify-center">
-                  <i class="fa-solid fa-check text-white text-xs"></i>
-                </div>
-              </div>
-              <div class="ml-3 flex-1">
-                <p class="text-sm font-bold">{{ order.teacherName }}</p>
-                <p class="text-xs text-gray-500 mt-1 flex items-center">
-                  <i class="fa-solid fa-certificate text-orange-400 mr-1"></i>
-                  {{ order.skill }}
-                </p>
-              </div>
-              <span class="text-xs px-3 py-1.5 bg-gradient-to-r from-green-100 to-green-50 text-green-600 rounded-full font-medium">
-                <i class="fa-solid fa-circle-check mr-1"></i>已完成
-              </span>
+          <!-- 左侧图片 -->
+          <img :src="order.cover" alt="" class="w-20 h-20 rounded-xl object-cover flex-shrink-0">
+          
+          <!-- 中间内容区 -->
+          <div class="flex-1 flex flex-col justify-between">
+            <div>
+              <h3 class="text-sm font-medium text-gray-800 mb-1.5 line-clamp-2">{{ order.title }}</h3>
+              <p class="text-xs text-gray-400">{{ order.location }} {{ order.category }}</p>
             </div>
-            
-            <div class="bg-gray-50 rounded-2xl p-4 mb-3">
-              <div class="flex items-start justify-between">
-                <div class="flex-1">
-                  <p class="text-sm font-medium text-gray-800 mb-2">{{ order.serviceName }}</p>
-                  <p class="text-xs text-gray-400">
-                    <i class="fa-regular fa-clock mr-1"></i>
-                    完成于 {{ order.completedTime }}
-                  </p>
-                </div>
-                <p class="text-base font-bold text-orange-500 ml-3">￥{{ order.price }}</p>
-              </div>
+            <div class="flex items-center justify-between">
+              <span class="text-xs text-gray-500">{{ order.date }} 消费</span>
+              <button class="px-3 py-1 text-xs text-gray-600 border border-gray-300 rounded-full nav-action" @click="viewOrder(order.id)">去主页</button>
             </div>
+          </div>
 
-            <!-- 评价按钮 -->
+          <!-- 右侧操作区 -->
+          <div class="flex flex-col items-end justify-between">
             <button
-              class="w-full bg-gradient-to-r from-orange-500 to-orange-400 text-white py-3 rounded-full text-sm font-bold nav-action shadow-md hover:shadow-lg transition-all hover:scale-[1.02]"
+              class="px-4 py-1.5 bg-orange-500 text-white text-sm rounded-full nav-action whitespace-nowrap"
               @click="handleReview(order)"
             >
-              <i class="fa-solid fa-pen-to-square mr-2"></i>
-              立即评价
+              写评价
             </button>
+            <span class="text-xs text-orange-500 whitespace-nowrap">写评价获取能量币</span>
           </div>
         </div>
       </div>
@@ -71,43 +64,64 @@
 </template>
 
 <script>
-import CommonHeader from "@/components/CommonHeader.vue";
-
 export default {
   name: "PendingReviewPage",
-  components: {
-    CommonHeader,
-  },
   data() {
     return {
       pendingOrders: [
         {
           id: 1,
-          teacherName: "李教练",
-          teacherAvatar: "https://picsum.photos/id/1005/100/100",
-          skill: "游泳教练",
-          serviceName: "成人自由泳培训课程（10节）",
-          price: 1999,
-          completedTime: "2024-01-15 18:30",
+          title: "1对1游泳零基础蛙泳/自由泳...",
+          location: "青浦区/徐泾镇",
+          category: "游泳健身",
+          date: "2025-10-18",
+          cover: "https://images.unsplash.com/photo-1519315901367-f34ff9154487?w=300&h=300&fit=crop",
         },
         {
           id: 2,
-          teacherName: "王老师",
-          teacherAvatar: "https://picsum.photos/id/1027/100/100",
-          skill: "瑜伽导师",
-          serviceName: "私教瑜伽体验课",
-          price: 199,
-          completedTime: "2024-01-14 10:00",
+          title: "60分钟自由泳（单次卡）...",
+          location: "青浦区/徐泾镇",
+          category: "游泳健身",
+          date: "2025-10-10",
+          cover: "https://images.unsplash.com/photo-1560089000-7433a4ebbd64?w=300&h=300&fit=crop",
+        },
+        {
+          id: 3,
+          title: "蛙泳/自由泳（10次卡）",
+          location: "上门服务",
+          category: "游泳健身",
+          date: "2025-08-13",
+          cover: "https://images.unsplash.com/photo-1576610616656-d3aa5d1f4534?w=300&h=300&fit=crop",
+        },
+        {
+          id: 4,
+          title: "1对1咖啡拉花体验课...",
+          location: "青浦区/徐泾镇",
+          category: "培训课程",
+          date: "2025-08-11",
+          cover: "https://images.unsplash.com/photo-1511920170033-f8396924c348?w=300&h=300&fit=crop",
+        },
+        {
+          id: 5,
+          title: "1对1游泳零基础蛙泳/自由泳...",
+          location: "线上服务",
+          category: "艺术设计",
+          date: "2025-08-05",
+          cover: "https://images.unsplash.com/photo-1561070791-2526d30994b5?w=300&h=300&fit=crop",
         },
       ],
     };
   },
   methods: {
+    viewOrder(id) {
+      // 跳转到主页
+      this.$router.push({ name: 'Home' });
+    },
     handleReview(order) {
       this.$router.push({
         name: 'WriteReview',
         params: { orderId: order.id },
-        query: { teacherName: order.teacherName }
+        query: { title: order.title }
       });
     },
   },

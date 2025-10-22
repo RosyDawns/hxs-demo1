@@ -1,84 +1,84 @@
 <template>
-  <div class="page flex flex-col h-screen bg-gradient-to-b from-yellow-50 to-gray-50" id="page-my-reviews">
-    <CommonHeader>
-      <template #center>
-        <h2 class="text-base font-bold text-black">我的评价</h2>
-      </template>
-    </CommonHeader>
-
-    <main class="flex-1 overflow-y-auto pt-12 pb-4">
-      <div v-if="reviews.length === 0" class="flex flex-col items-center justify-center py-20">
-        <div class="w-24 h-24 rounded-full bg-gradient-to-br from-yellow-100 to-yellow-50 flex items-center justify-center mb-4">
-          <i class="fa-solid fa-star text-4xl text-yellow-400"></i>
+  <div class="page flex flex-col h-screen bg-white" id="page-my-reviews">
+    <!-- 顶部导航栏 -->
+    <header class="flex items-center justify-between px-4 py-3 bg-white border-b border-gray-100">
+      <button class="text-3xl text-gray-800 nav-action" @click="$router.back()">
+        <i class="fa-solid fa-angle-left"></i>
+      </button>
+      <h1 class="text-lg font-medium text-gray-800">真实评价</h1>
+      <div class="flex items-center gap-2">
+        <!-- <div class="flex items-center gap-1">
+          <i class="fa-solid fa-star text-gray-800 text-sm"></i>
+          <span class="text-sm font-medium text-gray-800">4.9</span>
         </div>
+        <button class="w-6 h-6 rounded-full bg-gray-800"></button> -->
+      </div>
+    </header>
+
+    <!-- 主内容区 -->
+    <main class="flex-1 overflow-y-auto">
+      <div v-if="reviews.length === 0" class="flex flex-col items-center justify-center py-20">
         <p class="text-base font-medium text-gray-600">暂无评价记录</p>
-        <p class="text-xs text-gray-400 mt-2">去体验服务后再来评价吧</p>
       </div>
 
-      <div v-else class="px-4 space-y-4 mt-4">
+      <div v-else class="space-y-0">
         <div
           v-for="review in reviews"
           :key="review.id"
-          class="bg-white rounded-3xl p-5 shadow-sm hover:shadow-md transition-shadow"
+          class="bg-white border-b-8 border-gray-50 px-4 pb-4"
         >
-          <!-- 教练信息和评分 -->
-          <div class="flex items-center mb-4">
-            <img :src="review.teacherAvatar" alt="" class="w-12 h-12 rounded-full object-cover ring-2 ring-yellow-100">
-            <div class="ml-3 flex-1">
-              <p class="text-sm font-bold">{{ review.teacherName }}</p>
-              <p class="text-xs text-gray-500 mt-1">{{ review.skill }}</p>
+          <!-- 左侧日期标签 -->
+          <div class="flex gap-4">
+            <div class="flex flex-col items-center justify-center">
+              <div class="text-2xl font-medium text-gray-800">{{ review.day }}日</div>
+              <div class="text-xs text-gray-400 mt-0.5">{{ review.month }}月</div>
             </div>
-            <div class="flex items-center bg-yellow-50 px-3 py-2 rounded-full">
-              <i class="fa-solid fa-star text-yellow-400 text-sm mr-1"></i>
-              <span class="text-sm font-bold text-yellow-600">{{ review.rating }}.0</span>
+
+            <!-- 右侧内容区 -->
+            <div class="flex-1 pt-4">
+              <!-- 服务评分 -->
+              <div class="flex items-center gap-2 mb-3">
+                <span class="text-orange-500 font-medium text-sm">服务评分</span>
+                <div class="flex gap-1">
+                  <i
+                    v-for="i in 5"
+                    :key="i"
+                    class="fa-solid fa-star text-orange-400 text-base"
+                  ></i>
+                </div>
+              </div>
+
+              <!-- 评价内容 -->
+              <p class="text-sm text-gray-800 leading-relaxed mb-3">{{ review.content }}</p>
+
+              <!-- 评价图片 -->
+              <div v-if="review.images && review.images.length > 0" class="grid grid-cols-3 gap-2 mb-3">
+                <img
+                  v-for="(img, index) in review.images"
+                  :key="index"
+                  :src="img"
+                  alt=""
+                  class="w-full h-24 object-cover rounded-lg"
+                >
+              </div>
+
+              <!-- 教练信息 -->
+              <div class="flex items-center gap-2 mb-3">
+                <img :src="review.teacherAvatar" alt="" class="w-8 h-8 rounded-full object-cover">
+                <span class="text-sm text-gray-800">{{ review.teacherName }}</span>
+                <span class="px-2 py-0.5 bg-orange-50 text-orange-500 text-xs rounded">{{ review.skill }}</span>
+                <span class="ml-auto text-sm text-gray-800">服务分 {{ review.rating }}</span>
+              </div>
+
+              <!-- 浏览和评论 -->
+              <div class="flex items-center justify-between text-xs text-gray-400">
+                <span>浏览 {{ review.views }}</span>
+                <button class="flex items-center gap-1 nav-action">
+                  <i class="fa-regular fa-message"></i>
+                  <span>评论</span>
+                </button>
+              </div>
             </div>
-          </div>
-
-          <!-- 评分星星 -->
-          <div class="flex items-center mb-3">
-            <i
-              v-for="i in 5"
-              :key="i"
-              :class="i <= review.rating ? 'fa-solid' : 'fa-regular'"
-              class="fa-star text-yellow-400 text-lg mr-1"
-            ></i>
-          </div>
-
-          <!-- 评价内容 -->
-          <div class="bg-gray-50 rounded-2xl p-4 mb-3">
-            <p class="text-sm text-gray-700 leading-relaxed">{{ review.content }}</p>
-          </div>
-
-          <!-- 评价图片 -->
-          <div v-if="review.images && review.images.length > 0" class="grid grid-cols-3 gap-2 mb-3">
-            <img
-              v-for="(img, index) in review.images"
-              :key="index"
-              :src="img"
-              alt=""
-              class="w-full h-24 object-cover rounded-xl shadow-sm"
-            >
-          </div>
-
-          <!-- 服务信息和时间 -->
-          <div class="flex items-center justify-between pt-3 border-t border-gray-100">
-            <span class="text-xs text-gray-500">
-              <i class="fa-solid fa-tag mr-1"></i>
-              {{ review.serviceName }}
-            </span>
-            <span class="text-xs text-gray-400">
-              <i class="fa-regular fa-clock mr-1"></i>
-              {{ review.reviewTime }}
-            </span>
-          </div>
-
-          <!-- 商家回复 -->
-          <div v-if="review.reply" class="mt-3 bg-gradient-to-r from-orange-50 to-orange-50/50 rounded-2xl p-4 border-l-4 border-orange-400">
-            <div class="flex items-center mb-2">
-              <i class="fa-solid fa-reply text-orange-500 mr-2"></i>
-              <p class="text-xs font-medium text-orange-600">商家回复</p>
-            </div>
-            <p class="text-sm text-gray-700 leading-relaxed">{{ review.reply }}</p>
           </div>
         </div>
       </div>
@@ -87,42 +87,58 @@
 </template>
 
 <script>
-import CommonHeader from "@/components/CommonHeader.vue";
-
 export default {
   name: "MyReviewsPage",
-  components: {
-    CommonHeader,
-  },
   data() {
     return {
       reviews: [
         {
           id: 1,
+          day: "18",
+          month: "10",
           teacherName: "李教练",
-          teacherAvatar: "https://picsum.photos/id/1005/100/100",
-          skill: "游泳教练",
-          serviceName: "成人自由泳培训",
-          rating: 5,
-          content: "教练非常专业，教学方法很好，短时间内就掌握了自由泳的技巧。游泳池环境也很不错，推荐！",
+          teacherAvatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&h=100&fit=crop",
+          skill: "游泳馆唤醒师",
+          rating: 4.8,
+          content: "教练特别有耐心，教学方法科学有效，在他指导下，我的泳姿标准了很多。",
           images: [
-            "https://picsum.photos/id/1059/300/300",
-            "https://picsum.photos/id/1060/300/300",
+            "https://images.unsplash.com/photo-1576610616656-d3aa5d1f4534?w=300&h=300&fit=crop",
+            "https://images.unsplash.com/photo-1519315901367-f34ff9154487?w=300&h=300&fit=crop",
+            "https://images.unsplash.com/photo-1560089000-7433a4ebbd64?w=300&h=300&fit=crop",
           ],
-          reviewTime: "2024-01-10 14:30",
-          reply: "感谢您的认可！期待下次继续为您服务~",
+          views: 248,
         },
         {
           id: 2,
-          teacherName: "王老师",
-          teacherAvatar: "https://picsum.photos/id/1027/100/100",
-          skill: "瑜伽导师",
-          serviceName: "私教瑜伽体验课",
-          rating: 5,
-          content: "老师很温柔，动作讲解得很细致，课程安排合理。上完课感觉身心都得到了放松。",
-          images: [],
-          reviewTime: "2024-01-08 16:20",
-          reply: null,
+          day: "16",
+          month: "09",
+          teacherName: "咖啡师Echo",
+          teacherAvatar: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=100&h=100&fit=crop",
+          skill: "咖啡馆唤醒师",
+          rating: 4.7,
+          content: "咖啡店环境很好，老师严谨又不失风趣。对奶泡厚度，融合手法等细节把控精准。",
+          images: [
+            "https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=300&h=300&fit=crop",
+            "https://images.unsplash.com/photo-1511920170033-f8396924c348?w=300&h=300&fit=crop",
+            "https://images.unsplash.com/photo-1512568400610-62da28bc8a13?w=300&h=300&fit=crop",
+          ],
+          views: 352,
+        },
+        {
+          id: 3,
+          day: "02",
+          month: "09",
+          teacherName: "设计师Alex",
+          teacherAvatar: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=100&h=100&fit=crop",
+          skill: "品牌设计师",
+          rating: 4.9,
+          content: "创意非凡，能赋予品牌独特灵魂。作品不仅好看，更具市场价值，合作非常愉快！",
+          images: [
+            "https://images.unsplash.com/photo-1626785774625-ddcddc3445e9?w=300&h=300&fit=crop",
+            "https://images.unsplash.com/photo-1561070791-2526d30994b5?w=300&h=300&fit=crop",
+            "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=300&h=300&fit=crop",
+          ],
+          views: 521,
         },
       ],
     };
