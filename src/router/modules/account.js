@@ -91,6 +91,12 @@ const routes = [
     meta: { title: '总资产', requiresAuth: true }
   },
   {
+    path: '/wallet-detail',
+    name: 'WalletDetail',
+    component: () => import('../../views/WalletDetailPage.vue'),
+    meta: { title: '唤醒兽支付·零钱', requiresAuth: true }
+  },
+  {
     path: '/identity-info',
     name: 'IdentityInfo',
     component: () => import('../../views/IdentityInfoPage.vue'),

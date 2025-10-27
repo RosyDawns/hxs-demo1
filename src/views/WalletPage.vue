@@ -42,7 +42,7 @@
 
         <!-- 资产明细 -->
         <div class="grid grid-cols-2 gap-4 mt-4">
-          <div class="py-2">
+          <div class="py-2 nav-action" @click="$router.push('/wallet-detail')">
             <div class="text-xs text-white mb-1">我的零钱</div>
             <div class="flex items-center">
               <div class="text-xl font-bold">10.80</div>
