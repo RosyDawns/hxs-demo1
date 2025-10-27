@@ -23,19 +23,21 @@
       <div
         class="bg-gradient-to-r from-orange-400 to-orange-500 mx-4 rounded-2xl p-5 text-white shadow-lg"
       >
-        <div class="flex items-center mb-2">
-          <div class="text-sm">总资产（元）</div>
-          <div
-            class="rounded-full px-2 py-0.5"
-            style="font-size: 10px; background-color: rgba(255, 255, 255, 0.2)"
-          >
-            <i class="fa-solid fa-shield-alt mr-1"></i>
-            <span>安全支付保障</span>
+        <div class="flex flex-col justify-between nav-action" @click="$router.push('/asset-detail')">
+          <div class="flex items-center mb-2">
+            <div class="text-sm">总资产（元）</div>
+            <div
+              class="rounded-full px-2 py-0.5"
+              style="font-size: 10px; background-color: rgba(255, 255, 255, 0.2)"
+            >
+              <i class="fa-solid fa-shield-alt mr-1"></i>
+              <span>安全支付保障</span>
+            </div>
           </div>
-        </div>
-        <div class="flex items-center justify-between">
-          <div class="text-4xl font-bold">98.10</div>
-          <span class="fa-solid fa-angle-right text-white"></span>
+          <div class="flex items-center justify-between">
+            <div class="text-4xl font-bold">98.10</div>
+            <span class="fa-solid fa-angle-right text-white"></span>
+          </div>
         </div>
 
         <!-- 资产明细 -->

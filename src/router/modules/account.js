@@ -85,6 +85,12 @@ const routes = [
     meta: { title: '我的钱包', requiresAuth: true }
   },
   {
+    path: '/asset-detail',
+    name: 'AssetDetail',
+    component: () => import('../../views/AssetDetailPage.vue'),
+    meta: { title: '总资产', requiresAuth: true }
+  },
+  {
     path: '/identity-info',
     name: 'IdentityInfo',
     component: () => import('../../views/IdentityInfoPage.vue'),
