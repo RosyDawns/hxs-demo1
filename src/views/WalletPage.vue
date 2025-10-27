@@ -60,7 +60,7 @@
 
         <!-- 虚拟货币 -->
         <div class="grid grid-cols-3 gap-5 border-t border-orange-400">
-          <div class="pt-4">
+          <div class="pt-4 nav-action" @click="$router.push('/energy-coin')">
             <div class="text-xs text-white mb-1">能量币</div>
             <div class="flex items-center">
               <div class="text-xl font-bold">12700</div>
