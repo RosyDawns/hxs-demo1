@@ -18,16 +18,28 @@
         class="w-full h-full object-cover"
       />
       <div
-        class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/40 to-transparent flex flex-col justify-center p-6"
+        class="absolute top-1/2 -translate-y-4/9 inset-0 p-6 flex items-center justify-start"
       >
-        <h1 class="text-white text-[24px] font-bold mb-2">成为唤醒师</h1>
-        <p class="text-white/90 text-xs flex items-center">
-          让你的热爱被看见，被兑现
-          <i class="fa-solid fa-arrow-right text-xs ml-1"></i>
-        </p>
+        <div>
+          <p
+            class="text-3xl mb-1 text-shadow-2xs text-white font-bold font-italic"
+          >
+            成为唤醒师
+          </p>
+          <p
+            class="pl-2 text-sm border border-solid rounded-full flex items-center text-white font-bold font-italic"
+            @click="
+              $router.push({ path: '/teacher-list', query: { top: 'city' } })
+            "
+          >
+            让你的热爱被看见，被兑现
+            <span class="bg-amber-50 text-amber-700 rounded-full px-2 ml-2"
+              >GO></span
+            >
+          </p>
+        </div>
         <button
           class="mt-4 absolute right-5 top-1/2 -translate-y-1/2 bg-[#FF6B00] text-white text-xs font-medium px-4 py-1.5 border boreder-white rounded-full shadow-lg nav-action"
-          @click="handleRegister"
         >
           立即注册
         </button>
@@ -38,7 +50,9 @@
       <div class="w-full rounded-xl -mt-14 overflow-hidden">
         <!-- 唤醒师模式选择 -->
         <div class="px-5 py-3 bg-white">
-          <h2 class="text-base font-bold mb-3 text-[#333]">选择你的唤醒师模式</h2>
+          <h2 class="text-base font-bold mb-3 text-[#333]">
+            选择你的唤醒师模式
+          </h2>
           <ul class="space-y-2">
             <li class="text-xs text-[#333] leading-5">
               · 成为生活主理人：给你的品牌和门店去宣传变现
