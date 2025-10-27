@@ -11,7 +11,8 @@
 
       <div
         style="font-size: 10px"
-        class="ml-2 text-black border border-gray-300 rounded-full px-2 py-0.5"
+        class="ml-2 text-black border border-gray-300 rounded-full px-2 py-0.5 nav-action"
+        @click="$router.push('/identity-info')"
       >
         身份信息管理
       </div>
@@ -41,14 +42,14 @@
         <div class="grid grid-cols-2 gap-4 mt-4">
           <div class="py-2">
             <div class="text-xs text-white mb-1">我的零钱</div>
-            <div class="flex items-center justify-between">
+            <div class="flex items-center">
               <div class="text-xl font-bold">10.80</div>
               <i class="fa-solid fa-angle-right text-white"></i>
             </div>
           </div>
           <div class="py-2">
             <div class="text-xs text-white mb-1">我的收入</div>
-            <div class="flex items-center justify-between">
+            <div class="flex items-center">
               <div class="text-xl font-bold">02.50</div>
               <i class="fa-solid fa-angle-right text-white"></i>
             </div>
@@ -57,23 +58,23 @@
 
         <!-- 虚拟货币 -->
         <div class="grid grid-cols-3 gap-5 border-t border-orange-400">
-          <div class="pt-4 pb-2">
+          <div class="pt-4">
             <div class="text-xs text-white mb-1">能量币</div>
-            <div class="flex items-center justify-between">
+            <div class="flex items-center">
               <div class="text-xl font-bold">12700</div>
               <i class="fa-solid fa-angle-right text-white"></i>
             </div>
           </div>
-          <div class="pt-4 pb-2">
+          <div class="pt-4">
             <div class="text-xs text-white mb-1">唤醒豆</div>
-            <div class="flex items-center justify-between">
+            <div class="flex items-center">
               <div class="text-xl font-bold">1830</div>
               <i class="fa-solid fa-angle-right text-white"></i>
             </div>
           </div>
-          <div class="pt-4 pb-2">
+          <div class="pt-4">
             <div class="text-xs text-white mb-1">随心推</div>
-            <div class="flex items-center justify-between">
+            <div class="flex items-center">
               <div class="text-xl font-bold">10273</div>
               <i class="fa-solid fa-angle-right text-white"></i>
             </div>

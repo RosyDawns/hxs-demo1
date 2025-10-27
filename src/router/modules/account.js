@@ -85,6 +85,12 @@ const routes = [
     meta: { title: '我的钱包', requiresAuth: true }
   },
   {
+    path: '/identity-info',
+    name: 'IdentityInfo',
+    component: () => import('../../views/IdentityInfoPage.vue'),
+    meta: { title: '身份信息管理', requiresAuth: true }
+  },
+  {
     path: '/my-reviews',
     name: 'MyReviews',
     component: () => import('../../views/MyReviewsPage.vue'),
