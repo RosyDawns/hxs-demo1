@@ -284,11 +284,11 @@
     </main>
 
     <div
-      class="fixed bottom-16 left-1/2 transform -translate-x-1/2 w-16 h-16 text-xs bg-orange-500 font-medium z-30 rounded-full flex flex-col items-center justify-center text-white"
+      class="fixed bottom-18 shadow-md left-1/2 transform -translate-x-1/2 w-12 h-12 text-xs bg-orange-500 z-30 rounded-full flex flex-col items-center justify-center text-white"
       @click="handlePublish"
     >
-      <i class="fa-solid fa-paper-plane text-lg mb-1"></i>
-      <span>发布</span>
+      <i class="fa-solid fa-paper-plane text-sm mb-1"></i>
+      <span style="font-size: 10px">发布</span>
     </div>
     <FooterNav activePage="me" />
   </div>
