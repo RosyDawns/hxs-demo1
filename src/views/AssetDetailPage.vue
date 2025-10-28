@@ -43,7 +43,7 @@
               </div>
             </div>
 
-            <div class="bg-gray-50 rounded-xl p-4 flex flex-col">
+            <div class="bg-gray-50 rounded-xl p-4 flex flex-col nav-action" @click="$router.push('/team')">
               <p class="text-gray-600 text-sm mb-2">醒狮团队</p>
               <p class="text-2xl font-bold text-gray-900 mb-1">0.00</p>
               <div class="flex items-center text-orange-500 text-xs mt-auto">
