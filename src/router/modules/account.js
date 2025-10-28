@@ -115,6 +115,12 @@ const routes = [
     meta: { title: '服务收入', requiresAuth: true }
   },
   {
+    path: '/star-promoter-income',
+    name: 'StarPromoterIncome',
+    component: () => import('../../views/StarPromoterIncomePage.vue'),
+    meta: { title: '星推官收入', requiresAuth: true }
+  },
+  {
     path: '/identity-info',
     name: 'IdentityInfo',
     component: () => import('../../views/IdentityInfoPage.vue'),

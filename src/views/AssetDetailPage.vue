@@ -25,7 +25,10 @@
           </div>
           <!-- 资产卡片网格 -->
           <div class="grid grid-cols-2 gap-4 mt-6">
-            <div class="bg-gray-50 rounded-xl p-4 flex flex-col nav-action" @click="$router.push('/service-income')">
+            <div
+              class="bg-gray-50 rounded-xl p-4 flex flex-col nav-action"
+              @click="$router.push('/service-income')"
+            >
               <p class="text-gray-600 text-sm mb-2">我的服务</p>
               <p class="text-2xl font-bold text-gray-900 mb-1">0.00</p>
               <div class="flex items-center text-orange-500 text-xs mt-auto">
@@ -34,7 +37,10 @@
               </div>
             </div>
 
-            <div class="bg-gray-50 rounded-xl p-4 flex flex-col">
+            <div
+              class="bg-gray-50 rounded-xl p-4 flex flex-col nav-action"
+              @click="$router.push('/star-promoter-income')"
+            >
               <p class="text-gray-600 text-sm mb-2">星推官推荐</p>
               <p class="text-2xl font-bold text-gray-900 mb-1">0.00</p>
               <div class="flex items-center text-orange-500 text-xs mt-auto">
@@ -43,7 +49,10 @@
               </div>
             </div>
 
-            <div class="bg-gray-50 rounded-xl p-4 flex flex-col nav-action" @click="$router.push('/team')">
+            <div
+              class="bg-gray-50 rounded-xl p-4 flex flex-col nav-action"
+              @click="$router.push('/team')"
+            >
               <p class="text-gray-600 text-sm mb-2">醒狮团队</p>
               <p class="text-2xl font-bold text-gray-900 mb-1">0.00</p>
               <div class="flex items-center text-orange-500 text-xs mt-auto">
@@ -52,7 +61,10 @@
               </div>
             </div>
 
-            <div class="bg-gray-50 rounded-xl p-4 flex flex-col nav-action" @click="$router.push('/gift-reward')">
+            <div
+              class="bg-gray-50 rounded-xl p-4 flex flex-col nav-action"
+              @click="$router.push('/gift-reward')"
+            >
               <p class="text-gray-600 text-sm mb-2">礼物打赏</p>
               <p class="text-2xl font-bold text-gray-900 mb-1">0.00</p>
               <div class="flex items-center text-orange-500 text-xs mt-auto">
@@ -72,10 +84,8 @@
       </div>
 
       <!-- 变现方式列表 -->
-      <div class="space-y-4">
-        <div
-          class="bg-gray-50 rounded-xl p-4 flex items-center justify-between"
-        >
+      <div class="bg-gray-50 rounded-xl py-3">
+        <div class="p-4 flex items-center justify-between">
           <div class="flex items-start">
             <div
               class="w-10 h-10 rounded-full bg-orange-100 flex items-center justify-center text-orange-500"
@@ -106,9 +116,7 @@
           </button>
         </div>
 
-        <div
-          class="bg-gray-50 rounded-xl p-4 flex items-center justify-between"
-        >
+        <div class="p-4 flex items-center justify-between">
           <div class="flex items-start">
             <div
               class="w-10 h-10 rounded-full bg-orange-100 flex items-center justify-center text-orange-500"
@@ -139,9 +147,7 @@
           </button>
         </div>
 
-        <div
-          class="bg-gray-50 rounded-xl p-4 flex items-center justify-between"
-        >
+        <div class="p-4 flex items-center justify-between">
           <div class="flex items-start">
             <div
               class="w-10 h-10 rounded-full bg-orange-100 flex items-center justify-center text-orange-500"
