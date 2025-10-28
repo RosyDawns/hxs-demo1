@@ -2,7 +2,7 @@
   <div class="page flex flex-col h-screen bg-gray-50" id="page-pending-review">
     <!-- 顶部导航栏 -->
     <header class="flex items-center justify-between pl-2 pr-10 py-3 bg-white">
-      <button class="text-3xl text-gray-800 nav-action" @click="$router.back()">
+      <button class="text-xl text-gray-800 nav-action" @click="$router.back()">
         <i class="fa-solid fa-angle-left"></i>
       </button>
       <h1 class="text-lg font-medium text-gray-800">待评价</h1>
