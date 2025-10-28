@@ -103,6 +103,12 @@ const routes = [
     meta: { title: '能量币', requiresAuth: true }
   },
   {
+    path: '/gift-reward',
+    name: 'GiftReward',
+    component: () => import('../../views/GiftRewardPage.vue'),
+    meta: { title: '礼物打赏', requiresAuth: true }
+  },
+  {
     path: '/identity-info',
     name: 'IdentityInfo',
     component: () => import('../../views/IdentityInfoPage.vue'),
