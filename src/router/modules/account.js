@@ -109,6 +109,12 @@ const routes = [
     meta: { title: '礼物打赏', requiresAuth: true }
   },
   {
+    path: '/service-income',
+    name: 'ServiceIncome',
+    component: () => import('../../views/ServiceIncomePage.vue'),
+    meta: { title: '服务收入', requiresAuth: true }
+  },
+  {
     path: '/identity-info',
     name: 'IdentityInfo',
     component: () => import('../../views/IdentityInfoPage.vue'),
