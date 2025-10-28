@@ -313,7 +313,7 @@
                 </div>
                 <div class="ml-3">
                   <div class="text-base font-medium text-gray-900">
-                    醍醐队员注册唤醒师
+                    醒狮队员注册唤醒狮
                   </div>
                   <div class="text-xs text-gray-500 mt-1">
                     采撷后可获得5枚能量币
@@ -388,7 +388,7 @@
                 </div>
                 <div class="ml-3">
                   <div class="text-base font-medium text-gray-900">
-                    掘一种神秘果实
+                    摇一摇神秘果实
                   </div>
                   <div class="text-xs text-gray-500 mt-1">
                     采撷后可获得随机能量币
