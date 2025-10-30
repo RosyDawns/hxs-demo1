@@ -121,6 +121,12 @@ const routes = [
     meta: { title: '星推官收入', requiresAuth: true }
   },
   {
+    path: '/my-promotion',
+    name: 'MyPromotion',
+    component: () => import('../../views/MyPromotionPage.vue'),
+    meta: { title: '邀请好友', requiresAuth: true }
+  },
+  {
     path: '/identity-info',
     name: 'IdentityInfo',
     component: () => import('../../views/IdentityInfoPage.vue'),

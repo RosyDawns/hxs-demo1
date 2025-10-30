@@ -185,10 +185,10 @@
             :key="product.id"
             class="bg-white rounded-2xl overflow-hidden shadow-sm"
           >
-            <div class="flex p-3">
+            <div class="flex py-3 px-2">
               <!-- 商品图片 -->
               <div
-                class="relative w-32 h-32 flex-shrink-0 rounded-lg overflow-hidden"
+                class="relative w-28 h-28 flex-shrink-0 rounded-lg overflow-hidden"
               >
                 <img
                   :src="product.image"
@@ -205,10 +205,10 @@
               </div>
 
               <!-- 商品信息 -->
-              <div class="flex-1 ml-3 flex flex-col justify-between">
+              <div class="flex-1 ml-2 flex flex-col justify-between">
                 <!-- 标题和价格信息 -->
                 <div>
-                  <h3 class="text-sm font-medium text-black line-clamp-2 mb-2">
+                  <h3 class="text-xs font-medium text-black line-clamp-2 mb-2">
                     {{ product.title }}
                   </h3>
 
@@ -216,7 +216,7 @@
                   <div class="flex items-center mb-1 mt-2">
                     <img
                       :src="product.coach.avatar"
-                      class="w-5 h-5 rounded-full object-cover"
+                      class="w-4 h-4 rounded-full object-cover"
                     />
                     <span class="text-xs text-gray-600 ml-1">
                       {{ product.coach.name }}

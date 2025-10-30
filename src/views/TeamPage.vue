@@ -104,8 +104,8 @@
       <div class="bg-white mt-3 rounded-xl px-4 pt-4">
         <div class="flex items-center justify-between mb-4">
           <h2 class="text-sm font-bold text-gray-900">我的团队</h2>
-          <div class="flex items-center">
-            <span class="text-xs text-gray-500">后台管理</span>
+          <div class="flex items-center nav-action" @click="$router.push('/my-promotion')">
+            <span class="text-xs text-gray-500">分享推广</span>
             <i class="fa-solid fa-angle-right text-xs text-gray-400 ml-1"></i>
           </div>
         </div>
