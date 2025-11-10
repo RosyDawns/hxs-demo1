@@ -158,6 +158,16 @@
           联系客服
         </button>
       </div>
+      
+      <!-- 隐私协议链接 -->
+      <div class="mt-8 text-center">
+        <div class="text-xs text-gray-500 flex justify-center space-x-4">
+          <a href="/privacy-policy" class="hover:text-amber-500 transition-colors">《隐私政策》</a>
+          <a href="/user-agreement" class="hover:text-amber-500 transition-colors">《用户服务协议》</a>
+          <a href="/user-agreement" class="hover:text-amber-500 transition-colors">《认证服务协议》</a>
+        </div>
+        <p class="text-xs text-gray-400 mt-2">© 2024 唤醒师平台 All Rights Reserved</p>
+      </div>
     </div>
   </div>
 </template>

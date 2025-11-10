@@ -67,6 +67,12 @@ const routes = [
     meta: { title: '隐私政策' }
   },
   {
+    path: '/user-agreement',
+    name: 'UserAgreement',
+    component: () => import('../../views/UserAgreementPage.vue'),
+    meta: { title: '用户协议' }
+  },
+  {
     path: '/data-collection',
     name: 'DataCollection',
     component: () => import('../../views/DataCollectionPage.vue'),
@@ -159,29 +165,23 @@ const routes = [
   },
   {
     path: '/register-waker/authenticate',
-    name: 'AuthenticateWaker',
-    component: () => import('../../views/RegisterWakerAuthenticate.vue'),
-    meta: { title: '选择认证方式' }
-  },
-  {
-    path: '/register-waker/map-claim',
-    name: 'MapClaim',
-    component: () => import('../../views/RegisterWakerMapClaim.vue'),
-    meta: { title: '地图认领认证' }
+    name: 'RegisterWakerAuthenticate',
+    component: () => import('../../views/RegisterWaker/AuthenticatePage.vue'),
+    meta: { title: '主理人认证' }
   },
   {    path: '/register-waker/license-input',    name: 'LicenseInput',    component: () => import('../../views/RegisterWaker/LicenseInputPage.vue'),    meta: { title: '执照信息认证' }  },
   {    path: '/register-waker/submit-success',    name: 'SubmitSuccess',    component: () => import('../../views/RegisterWaker/SubmitSuccessPage.vue'),    meta: { title: '提交成功' }  },
   {    path: '/register-waker/application-status',    name: 'ApplicationStatus',    component: () => import('../../views/RegisterWaker/ApplicationStatusPage.vue'),    meta: { title: '审核进度' }  },
   {
     path: '/register-waker/skill',
-    name: 'RegisterSkillWaker',
-    component: () => import('../../views/RegisterWakerAuthenticate.vue'),
+    name: 'RegisterWakerSkill',
+    component: () => import('../../views/RegisterWaker/SkillPage.vue'),
     meta: { title: '技能唤醒师注册' }
   },
   {
     path: '/register-waker/partner',
-    name: 'RegisterPartnerWaker',
-    component: () => import('../../views/RegisterWakerAuthenticate.vue'),
+    name: 'RegisterWakerPartner',
+    component: () => import('../../views/RegisterWaker/PartnerPage.vue'),
     meta: { title: '搭子唤醒师注册' }
   }
 ]

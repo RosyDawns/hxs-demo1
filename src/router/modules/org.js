@@ -5,7 +5,7 @@ const routes = [
     name: 'LeaderChannel',
     component: () => import('../../views/LeaderChannelPage.vue'),
     meta: { title: '主理人频道' }
-  },
+    },
   {
     path: '/buddy-waker',
     name: 'BuddyWaker',
@@ -33,37 +33,25 @@ const routes = [
   {
     path: '/register-waker/authenticate',
     name: 'RegisterWakerAuthenticate',
-    component: () => import('../../views/RegisterWakerAuthenticate.vue'),
+    component: () => import('../../views/RegisterWaker/AuthenticatePage.vue'),
     meta: { title: '主理人认证' }
   },
   {
     path: '/register-waker/map-claim',
     name: 'RegisterWakerMapClaim',
-    component: () => import('../../views/RegisterWakerMapClaim.vue'),
+    component: () => import('../../views/RegisterWaker/MapClaimPage.vue'),
     meta: { title: '地图认领' }
-  },
-  {
-    path: '/register-waker/license',
-    name: 'RegisterWakerLicense',
-    component: () => import('../../views/RegisterWakerLicense.vue'),
-    meta: { title: '执照认证' }
-  },
-  {
-    path: '/register-waker/success',
-    name: 'RegisterWakerSuccess',
-    component: () => import('../../views/RegisterWakerSuccess.vue'),
-    meta: { title: '认证申请成功' }
   },
   {
     path: '/register-waker/skill',
     name: 'RegisterWakerSkill',
-    component: () => import('../../views/RegisterWakerPage.vue'),
+    component: () => import('../../views/RegisterWaker/SkillPage.vue'),
     meta: { title: '技能唤醒师注册' }
   },
   {
     path: '/register-waker/partner',
     name: 'RegisterWakerPartner',
-    component: () => import('../../views/RegisterWakerPage.vue'),
+    component: () => import('../../views/RegisterWaker/PartnerPage.vue'),
     meta: { title: '搭子唤醒师注册' }
   },
   {
