@@ -9,6 +9,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@amap/amap-jsapi-loader": "^1.0.1",
     "@tailwindcss/vite": "^4.1.13",
     "autoprefixer": "^10.4.21",
     "less": "^4.4.1",

@@ -20,11 +20,13 @@
             <i class="fa-solid fa-search text-gray-400 text-sm"></i>
           </div>
           <input 
+            ref="searchInput"
             type="text" 
             v-model="searchKeyword" 
             class="flex-1 text-sm focus:outline-none" 
             placeholder="搜索店铺位置或地址"
             @focus="showSearchResults = false"
+            @input="handleInputChange"
           />
           <button 
             class="bg-amber-500 text-white text-sm px-4 py-1.5 rounded-full" 
@@ -49,7 +51,7 @@
             <div class="w-6 h-6 rounded-full bg-amber-100 flex items-center justify-center mr-2">
               <i class="fa-solid fa-location-dot text-amber-500 text-xs"></i>
             </div>
-            <div class="text-xs text-gray-600 max-w-[180px] truncate">{{ currentLocation || '正在定位...' }}</div>
+            <div class="text-xs text-gray-600 max-w-[180px] truncate">{{ currentLocation }}</div>
           </div>
         </div>
       </div>
@@ -221,6 +223,8 @@
 </template>
 
 <script>
+import AMapLoader from '@amap/amap-jsapi-loader';
+
 export default {
   name: "MapClaimPage",
   data() {
@@ -239,12 +243,37 @@ export default {
       errors: {},
       map: null, // 保存地图实例
       marker: null, // 保存地图标记
-      currentLocation: '', // 当前位置
+      currentLocation: '正在获取您的位置...', // 当前位置
       nearbyStores: [], // 附近商店列表
-      showSearchResults: false // 是否显示搜索结果弹框
+      showSearchResults: false, // 是否显示搜索结果弹框
+      AMap: null // 保存AMap对象
     }
   },
   methods: {
+    // 初始化输入提示
+    initAutocomplete() {
+      if (!this.AMap || !this.$refs.searchInput) return;
+      
+      const autoComplete = new this.AMap.Autocomplete({
+        input: this.$refs.searchInput, // 绑定到DOM元素
+        datatype: 'all' // 返回所有类型的POI点
+      });
+      
+      // 监听选择事件
+      autoComplete.on('select', (e) => {
+        console.log('选择了输入提示:', e.poi);
+        this.searchKeyword = e.poi.name;
+        // 自动搜索选中的位置
+        this.searchLocation();
+      });
+    },
+    
+    // 处理输入变化
+    handleInputChange() {
+      // 输入变化时的处理逻辑
+      console.log('输入变化:', this.searchKeyword);
+    },
+    
     // 处理营业执照上传
     handleLicenseUpload(event) {
       const file = event.target.files[0];
@@ -339,50 +368,67 @@ export default {
       this.$router.push('/register-waker/submit-success');
     },
     // 初始化高德地图
-    initMap() {
+    async initMap() {
       console.log('开始初始化高德地图');
       
-      // 动态加载高德地图API，添加更多需要的插件
-      const script = document.createElement('script');
-      script.type = 'text/javascript';
-      script.src = `https://webapi.amap.com/maps?v=1.4.15&key=2fcb35f32792fae4ae606e91cab5c879&plugin=AMap.Geocoder,AMap.Autocomplete,AMap.PlaceSearch,AMap.Geolocation`;
-      script.setAttribute('data-amap-appkey', 'test_map_app');
-      script.onerror = () => {
-        console.error('高德地图API加载失败');
-        alert('地图加载失败，请稍后重试');
-      };
-      script.onload = () => {
+      try {
+        // 使用@amap/amap-jsapi-loader加载地图
+        this.AMap = await AMapLoader.load({
+          key: '2fcb35f32792fae4ae606e91cab5c879',
+          version: '1.4.15',
+          plugins: ['AMap.Geocoder', 'AMap.Autocomplete', 'AMap.PlaceSearch', 'AMap.Geolocation', 'AMap.MouseTool', 'AMap.CitySearch'],
+          AMapUI: {
+            version: '1.1',
+            plugins: []
+          },
+          Loca: {
+            version: '1.3.2'
+          }
+        });
+        
         console.log('高德地图API加载成功');
-        this.initAMap();
-      };
-      document.head.appendChild(script);
+        this.initAMapInstance();
+      } catch (error) {
+        console.error('高德地图API加载失败:', error);
+        alert('地图加载失败，请稍后重试');
+        // 移除加载中提示
+        const loadingElement = document.querySelector('.map-loading');
+        if (loadingElement) {
+          loadingElement.style.display = 'none';
+        }
+      }
     },
     
     // 初始化地图实例
-    initAMap() {
-      if (!window.AMap) {
+    initAMapInstance() {
+      if (!this.AMap) {
         console.error('AMap 未定义');
         return;
       }
       
       try {
         // 创建地图实例
-        this.map = new AMap.Map('mapContainer', {
+        this.map = new this.AMap.Map('mapContainer', {
           zoom: 15,
           center: [116.404, 39.915], // 默认北京坐标
           resizeEnable: true
         });
         
         // 添加地图控件 - 只添加必要的定位控件
-        // this.map.addControl(new AMap.Scale()); // 移除可能有兼容性问题的控件
+        // this.map.addControl(new this.AMap.Scale()); // 移除可能有兼容性问题的控件
         
-        // 添加定位插件
-        const geolocation = new AMap.Geolocation({
-          enableHighAccuracy: true, // 是否使用高精度定位
-          timeout: 10000, // 超过10秒后停止定位
-          buttonOffset: new AMap.Pixel(10, 20), // 定位按钮与设置的停靠位置的偏移量
-          zoomToAccuracy: true, // 定位成功后是否自动缩放地图
-          buttonPosition: 'LB' // 定位按钮的位置
+        // 添加定位插件 - 优化配置以确保精确定位到用户当前位置
+        const geolocation = new this.AMap.Geolocation({
+          enableHighAccuracy: true, // 提高精度要求，确保定位到当前精确位置
+          timeout: 10000, // 设置合理的超时时间
+          maximumAge: 0, // 不使用缓存定位结果，确保每次都是最新位置
+          convert: true, // 自动偏移坐标
+          showButton: true, // 显示定位按钮
+          buttonPosition: 'LB',
+          buttonOffset: new this.AMap.Pixel(10, 20),
+          zoomToAccuracy: true,
+          panToLocation: true,
+          showCircle: true // 显示定位精度圈
         });
         
         this.map.addControl(geolocation);
@@ -392,18 +438,44 @@ export default {
           if (status === 'complete' && result.position) {
             const lnglat = result.position;
             this.map.setCenter(lnglat);
+            this.map.setZoom(17); // 放大到更精确的级别
             this.createMarker(lnglat);
             this.geocodeAddress(lnglat, true); // 传入true表示是定位结果
             console.log('定位成功:', result);
+            // 显示定位成功提示
+            this.currentLocation = '当前位置获取成功';
           } else {
             console.error('定位失败:', result);
-            this.currentLocation = '定位失败，显示默认位置';
+            // 显示定位失败提示
+            this.currentLocation = '正在尝试获取位置...';
+            // 使用IP定位作为降级方案
+            this.useIPLocation();
           }
           
           // 移除加载中提示
           const loadingElement = document.querySelector('.map-loading');
           if (loadingElement) {
             loadingElement.style.display = 'none';
+          }
+        });
+        
+        // 监听定位失败事件
+        geolocation.on('error', (e) => {
+          console.error('定位出错:', e);
+          this.currentLocation = '定位失败，正在尝试其他方式...';
+          // 使用IP定位作为降级方案
+          this.useIPLocation();
+        });
+        
+        // 监听定位按钮点击事件，重新定位
+        geolocation.on('complete', (result) => {
+          if (result && result.position) {
+            const lnglat = result.position;
+            this.map.setCenter(lnglat);
+            this.map.setZoom(17);
+            this.createMarker(lnglat);
+            this.geocodeAddress(lnglat, true);
+            console.log('定位按钮点击成功定位:', result);
           }
         });
         
@@ -429,15 +501,15 @@ export default {
       if (this.marker) {
         this.marker.setPosition(lnglat);
       } else {
-        this.marker = new AMap.Marker({
+        this.marker = new this.AMap.Marker({
           position: lnglat,
           map: this.map,
           draggable: true,
-          icon: new AMap.Icon({
-            size: new AMap.Size(36, 36),
+          icon: new this.AMap.Icon({
+            size: new this.AMap.Size(36, 36),
             image: '//webapi.amap.com/theme/v1.3/markers/n/mark_b.png',
-            imageSize: new AMap.Size(36, 36),
-            imageOffset: new AMap.Pixel(-18, -36)
+            imageSize: new this.AMap.Size(36, 36),
+            imageOffset: new this.AMap.Pixel(-18, -36)
           })
         });
         
@@ -450,7 +522,7 @@ export default {
     
     // 根据坐标获取地址信息
     geocodeAddress(lnglat, isLocation = false) {
-      const geocoder = new AMap.Geocoder({
+      const geocoder = new this.AMap.Geocoder({
         radius: 1000,
         extensions: "all"
       });
@@ -472,25 +544,38 @@ export default {
     
     // 搜索位置
     searchLocation() {
-      if (!this.searchKeyword) return;
+      if (!this.searchKeyword) {
+        alert('请输入搜索关键词');
+        return;
+      }
       
-      const placeSearch = new AMap.PlaceSearch({
+      console.log('搜索关键词:', this.searchKeyword);
+      
+      // 注意：Autocomplete需要在用户输入时实时提供提示，这里直接使用PlaceSearch进行搜索
+      // 对于实时输入提示功能，可以在input元素上添加input事件监听来实现
+      
+      const placeSearch = new this.AMap.PlaceSearch({
         map: null, // 不显示默认结果面板
-        pageSize: 10,
+        pageSize: 20,
         pageIndex: 1,
         autoFitView: true
       });
       
+      // 使用高德地图的搜索API进行搜索
       placeSearch.search(this.searchKeyword, (status, result) => {
-        if (status === 'complete' && result.poiList.pois.length > 0) {
+        console.log('搜索结果:', status, result);
+        
+        if (status === 'complete' && result.poiList && result.poiList.pois.length > 0) {
           // 转换为我们需要的格式
           this.nearbyStores = result.poiList.pois.map((poi, index) => ({
             id: index + 1,
             name: poi.name,
-            address: poi.address || poi.name,
-            location: poi.location
+            address: poi.address || poi.name || '暂无详细地址',
+            location: poi.location,
+            type: poi.type || '其他'
           }));
           
+          console.log('转换后的搜索结果:', this.nearbyStores);
           // 显示搜索结果弹框
           this.showSearchResults = true;
           
@@ -499,38 +584,112 @@ export default {
           this.map.setCenter(firstLocation);
           this.createMarker(firstLocation);
         } else {
+          console.log('未找到相关位置');
           this.nearbyStores = [];
           this.showSearchResults = true;
         }
       });
     },
     
-    // 搜索附近商店
+    // 使用IP定位作为降级方案
+    useIPLocation() {
+      console.log('使用IP定位作为降级方案');
+      // 尝试获取城市信息
+      const citySearch = new this.AMap.CitySearch();
+      citySearch.getLocalCity((status, result) => {
+        if (status === 'complete' && result && result.center) {
+          // 使用城市中心作为默认位置
+          const lnglat = result.center;
+          this.map.setCenter(lnglat);
+          this.map.setZoom(13); // 城市级别的合适缩放
+          this.createMarker(lnglat);
+          this.geocodeAddress(lnglat, true);
+          this.currentLocation = `${result.city} - 城市中心位置`;
+          console.log('IP定位成功，使用城市中心:', result.city, lnglat);
+          // 提示用户当前使用的是城市定位
+          setTimeout(() => {
+            if (this.currentLocation.includes('城市中心位置')) {
+              this.currentLocation += ' (点击定位按钮获取精确位置)';
+            }
+          }, 1000);
+        } else {
+          // 如果城市定位也失败，尝试浏览器定位API作为备选
+          if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(
+              (position) => {
+                // 浏览器定位成功
+                const lnglat = [position.coords.longitude, position.coords.latitude];
+                this.map.setCenter(lnglat);
+                this.map.setZoom(17);
+                this.createMarker(lnglat);
+                this.geocodeAddress(lnglat, true);
+                this.currentLocation = '浏览器定位成功';
+                console.log('浏览器定位成功:', lnglat);
+              },
+              (error) => {
+                // 所有定位方式都失败，使用全国中心位置（武汉）
+                console.error('浏览器定位也失败:', error);
+                const defaultLnglat = [114.30556, 30.592778];
+                this.map.setCenter(defaultLnglat);
+                this.map.setZoom(4); // 全国级别的缩放
+                this.createMarker(defaultLnglat);
+                this.geocodeAddress(defaultLnglat, true);
+                this.currentLocation = '无法获取位置，请手动选择或搜索';
+                console.log('所有定位都失败，使用默认位置');
+              },
+              {
+                enableHighAccuracy: true,
+                timeout: 10000,
+                maximumAge: 0
+              }
+            );
+          } else {
+            // 浏览器不支持定位
+            const defaultLnglat = [114.30556, 30.592778];
+            this.map.setCenter(defaultLnglat);
+            this.map.setZoom(4);
+            this.createMarker(defaultLnglat);
+            this.geocodeAddress(defaultLnglat, true);
+            this.currentLocation = '浏览器不支持定位，请手动选择或搜索';
+          }
+        }
+      });
+    },
+    
+    // 搜索附近商店和建筑
     searchNearbyStores(lnglat) {
+      console.log('搜索附近位置:', lnglat);
+      
       // 先获取地址信息
       this.geocodeAddress(lnglat);
       
-      const placeSearch = new AMap.PlaceSearch({
+      const placeSearch = new this.AMap.PlaceSearch({
         map: null,
-        pageSize: 10,
+        pageSize: 20,
         pageIndex: 1,
-        radius: 2000, // 搜索半径2000米
-        type: '餐饮服务|购物服务|体育休闲服务' // 搜索类型
+        radius: 1500, // 搜索半径调整为1500米
+        type: '餐饮服务|购物服务|体育休闲服务|商务住宅|科教文化服务|公司企业|风景名胜|医疗保健服务' // 扩大搜索类型
       });
       
-      placeSearch.searchNearBy('店铺', lnglat, 2000, (status, result) => {
-        if (status === 'complete' && result.poiList.pois.length > 0) {
+      // 搜索附近的所有POI点，使用空关键词获取更全面的结果
+      placeSearch.searchNearBy('', lnglat, 1500, (status, result) => {
+        console.log('附近搜索结果:', status, result);
+        
+        if (status === 'complete' && result.poiList && result.poiList.pois.length > 0) {
           // 转换为我们需要的格式
           this.nearbyStores = result.poiList.pois.map((poi, index) => ({
             id: index + 1,
             name: poi.name,
-            address: poi.address || poi.name,
-            location: poi.location
+            address: poi.address || poi.name || '暂无详细地址',
+            location: poi.location,
+            type: poi.type || '其他'
           }));
           
+          console.log('转换后的商店列表:', this.nearbyStores);
           // 显示搜索结果弹框
           this.showSearchResults = true;
         } else {
+          console.log('未找到附近的地点');
           this.nearbyStores = [];
           this.showSearchResults = true;
         }
@@ -554,11 +713,57 @@ export default {
     }
   },
   mounted() {
-    this.initMap();
-  }
+      this.initMap();
+    },
+    // 监听地图初始化成功后再初始化Autocomplete
+    watch: {
+      AMap: {
+        handler(newVal) {
+          if (newVal) {
+            // 地图API加载完成后初始化Autocomplete
+            setTimeout(() => {
+              this.initAutocomplete();
+            }, 500);
+          }
+        },
+        immediate: true
+      }
+    }
 };
 </script>
 
 <style scoped>
 /* 自定义样式 */
+      .map-loading {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background: rgba(255, 255, 255, 0.9);
+        padding: 10px 20px;
+        border-radius: 4px;
+        font-size: 14px;
+        z-index: 100;
+      }
+      
+      .location-status {
+        position: absolute;
+        bottom: 20px;
+        left: 50%;
+        transform: translateX(-50%);
+        background: rgba(255, 255, 255, 0.95);
+        padding: 8px 16px;
+        border-radius: 20px;
+        font-size: 12px;
+        color: #666;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        z-index: 99;
+        max-width: 80%;
+        text-align: center;
+      }
+      
+      .map {
+        width: 100%;
+        height: 100%;
+      }
 </style>
