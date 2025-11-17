@@ -213,17 +213,16 @@
         <span class="text-xs">活动广场</span>
       </button>
       <button class="flex flex-col items-center justify-center text-gray-500">
-        <div class="w-12 h-12 bg-orange-500 rounded-full flex items-center justify-center -mt-5">
-          <i class="fa fa-plus text-white text-xl"></i>
+        <div class="w-12 h-12 bg-orange-500 rounded-full flex items-center justify-center">
+          <i class="fa fa-plus text-white text-base"></i>
         </div>
-        <span class="text-xs mt-1">发布</span>
       </button>
       <button class="flex flex-col items-center justify-center text-gray-500">
-        <i class="fa fa-comment-o text-xl mb-1"></i>
+        <i class="fa-solid fa-comment text-xl mb-1"></i>
         <span class="text-xs">消息</span>
       </button>
       <button class="flex flex-col items-center justify-center text-gray-500">
-        <i class="fa fa-user-o text-xl mb-1"></i>
+        <i class="fa-solid fa-user text-xl mb-1"></i>
         <span class="text-xs">我的</span>
       </button>
     </footer>
