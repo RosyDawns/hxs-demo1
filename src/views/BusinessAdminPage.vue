@@ -5,6 +5,9 @@
       class="fixed top-0 left-0 right-0 bg-white z-50 border-b border-gray-100 px-4 py-3 flex items-center justify-between"
     >
       <div class="flex items-center">
+        <div class="mr-2" @click="goBack">
+          <i class="fa-solid fa-chevron-left text-gray-600"></i>
+        </div>
         <div
           class="w-8 h-8 rounded-full bg-gray-200 flex items-center justify-center mr-2"
         >
@@ -72,7 +75,10 @@
       <div class="bg-white mt-3 rounded-2xl p-4">
         <div class="grid grid-cols-5 gap-4">
           <!-- 第一行功能入口 -->
-          <div class="flex flex-col items-center" @click="$router.push('/verification')">
+          <div
+            class="flex flex-col items-center"
+            @click="$router.push('/verification')"
+          >
             <div
               class="w-14 h-14 rounded-xl bg-blue-50 flex items-center justify-center mb-1 cursor-pointer"
             >
@@ -262,6 +268,9 @@ export default {
   },
   methods: {
     // 可以根据需要添加方法
+    goBack() {
+      this.$router.back();
+    },
   },
   mounted() {
     // 页面加载时的初始化逻辑

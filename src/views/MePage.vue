@@ -122,6 +122,12 @@
             </div>
             <p class="text-xs text-gray-700">注册唤醒师</p>
           </div>
+          <div class="nav-action" @click="$router.push('/business-admin')">
+            <div class="flex justify-center mb-2">
+              <i class="fa-solid fa-user-check text-xl text-gray-800"></i>
+            </div>
+            <p class="text-xs text-gray-700">醒师掌柜</p>
+          </div>
           <div class="nav-action" @click="$router.push('/waker-alliance')">
             <div class="flex justify-center mb-2">
               <i class="fa-solid fa-cube text-xl text-gray-800"></i>
