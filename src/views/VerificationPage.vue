@@ -81,7 +81,7 @@
         <!-- 核销明细 -->
         <div
           class="flex items-center justify-between p-4 border-b border-gray-100 cursor-pointer"
-          @click="$router.push('/order-detail')"
+          @click="$router.push('/verification-detail')"
         >
           <div class="flex items-center">
             <div
@@ -97,6 +97,7 @@
         <!-- 买单明细 -->
         <div
           class="flex items-center justify-between p-4 border-b border-gray-100"
+          @click="$router.push('/order-detail')"
         >
           <div class="flex items-center">
             <div
@@ -111,7 +112,8 @@
 
         <!-- 处理售后 -->
         <div
-          class="flex items-center justify-between p-4 border-b border-gray-100"
+          class="flex items-center justify-between p-4 border-b border-gray-100 cursor-pointer"
+          @click="$router.push('/refund-process')"
         >
           <div class="flex items-center">
             <div

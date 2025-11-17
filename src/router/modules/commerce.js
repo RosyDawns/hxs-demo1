@@ -1,4 +1,3 @@
-// 服务与电商
 const routes = [
   {
     path: '/store',
@@ -77,6 +76,18 @@ const routes = [
     name: 'OrderDetail',
     component: () => import('../../views/OrderDetailPage.vue'),
     meta: { title: '买单明细', requiresAuth: true }
+  },
+  {
+    path: '/verification-detail',
+    name: 'VerificationDetail',
+    component: () => import('../../views/VerificationDetailPage.vue'),
+    meta: { title: '核销明细', requiresAuth: true }
+  },
+  {
+    path: '/refund-process',
+    name: 'RefundProcess',
+    component: () => import('../../views/RefundProcessPage.vue'),
+    meta: { title: '处理售后', requiresAuth: true }
   }
 ]
 
