@@ -309,15 +309,15 @@
         筛选 <i class="fa-solid fa-caret-down" style="font-size: 10px"></i>
       </button>
       <button
-        class="px-1 py-2 whitespace-nowrap text-sm font-medium nav-action cursor-pointer"
+        class="px-3 py-1 whitespace-nowrap text-sm font-medium nav-action cursor-pointer bg-orange-500 text-white rounded-full mr-2"
         :class="
-          selectedCategory === '直播'
-            ? 'text-primary border-b-2 border-primary text-orange'
-            : 'text-black'
+          selectedCategory === '组团去玩'
+            ? 'bg-orange-500 text-white'
+            : 'bg-orange-500 text-white'
         "
-        @click="handleCategoryClick('直播')"
+        @click="$router.push('/group-play')"
       >
-        直播
+        组团去玩
       </button>
       <button class="ml-auto text-gray">
         <i class="fa-solid fa-search"></i>

@@ -23,6 +23,12 @@ const routes = [
     name: 'Call',
     component: () => import('../../views/CallPage.vue'),
     meta: { title: '打Call', icon: 'fa-phone', showInNav: true }
+  },
+  {
+    path: '/group-play',
+    name: 'GroupPlay',
+    component: () => import('../../views/GroupPlayPage.vue'),
+    meta: { title: '组团去玩', icon: 'fa-users', showInNav: false }
   }
 ]
 
