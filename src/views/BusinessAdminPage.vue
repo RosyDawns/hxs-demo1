@@ -72,13 +72,13 @@
       <div class="bg-white mt-3 rounded-2xl p-4">
         <div class="grid grid-cols-5 gap-4">
           <!-- 第一行功能入口 -->
-          <div class="flex flex-col items-center">
+          <div class="flex flex-col items-center" @click="$router.push('/verification')">
             <div
-              class="w-14 h-14 rounded-xl bg-blue-50 flex items-center justify-center mb-1"
+              class="w-14 h-14 rounded-xl bg-blue-50 flex items-center justify-center mb-1 cursor-pointer"
             >
               <i class="fa-solid fa-qrcode text-blue-500 text-xl"></i>
             </div>
-            <span class="text-xs text-gray-600">验券及退款</span>
+            <span class="text-xs text-gray-600 cursor-pointer">验券及退款</span>
           </div>
           <div class="flex flex-col items-center">
             <div

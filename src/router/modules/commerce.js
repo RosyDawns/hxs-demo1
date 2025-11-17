@@ -59,6 +59,24 @@ const routes = [
     name: 'BusinessAdmin',
     component: () => import('../../views/BusinessAdminPage.vue'),
     meta: { title: '商家后台', requiresAuth: true }
+  },
+  {
+    path: '/verification',
+    name: 'Verification',
+    component: () => import('../../views/VerificationPage.vue'),
+    meta: { title: '验券及退款', requiresAuth: true }
+  },
+  {
+    path: '/refund',
+    name: 'Refund',
+    component: () => import('../../views/RefundPage.vue'),
+    meta: { title: '发起退款', requiresAuth: true }
+  },
+  {
+    path: '/order-detail',
+    name: 'OrderDetail',
+    component: () => import('../../views/OrderDetailPage.vue'),
+    meta: { title: '买单明细', requiresAuth: true }
   }
 ]
 
