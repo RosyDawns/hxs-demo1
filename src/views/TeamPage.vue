@@ -83,7 +83,7 @@
       <div class="bg-white mt-3 rounded-xl p-4">
         <div class="flex items-center justify-between mb-4">
           <h2 class="text-sm font-bold text-gray-900">佣金数据</h2>
-          <div class="flex items-center">
+          <div class="flex items-center nav-action" @click="$router.push('/business-admin')">
             <span class="text-xs text-gray-500">查看全部</span>
             <i class="fa-solid fa-angle-right text-xs text-gray-400 ml-1"></i>
           </div>

@@ -53,6 +53,12 @@ const routes = [
     name: 'Favorites',
     component: () => import('../../views/FavoritesPage.vue'),
     meta: { title: '我的收藏', requiresAuth: true }
+  },
+  {
+    path: '/business-admin',
+    name: 'BusinessAdmin',
+    component: () => import('../../views/BusinessAdminPage.vue'),
+    meta: { title: '商家后台', requiresAuth: true }
   }
 ]
 
