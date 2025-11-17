@@ -29,6 +29,18 @@ const routes = [
     name: 'GroupPlay',
     component: () => import('../../views/GroupPlayPage.vue'),
     meta: { title: '组团去玩', icon: 'fa-users', showInNav: false }
+  },
+  {
+    path: '/activity-detail/:id',
+    name: 'ActivityDetail',
+    component: () => import('../../views/ActivityDetailPage.vue'),
+    meta: { title: '活动详情', showInNav: false }
+  },
+  {
+    path: '/activity-signup/:id',
+    name: 'ActivitySignUp',
+    component: () => import('../../views/ActivitySignUpPage.vue'),
+    meta: { title: '活动报名', showInNav: false }
   }
 ]
 
