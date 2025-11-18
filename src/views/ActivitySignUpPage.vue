@@ -1,7 +1,7 @@
 <template>
-  <div class="page pb-32" id="activity-signup-page">
+  <div class="page pb-20" id="activity-signup-page">
     <!-- 顶部导航栏 -->
-    <header class="fixed top-0 left-0 right-0 bg-white z-50 px-4 py-3 flex items-center justify-between border-b border-gray-100">
+    <header class="fixed top-0 left-0 right-0 bg-white z-50 pl-4 pr-10 py-3 flex items-center justify-between border-b border-gray-100">
       <button class="w-8 h-8 flex items-center justify-center" @click="goBack">
         <i class="fa fa-chevron-left text-xl text-gray-700"></i>
       </button>

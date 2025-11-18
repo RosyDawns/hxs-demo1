@@ -65,6 +65,12 @@ const routes = [
     name: 'FriendRanking',
     component: () => import('../../views/FriendRankingPage.vue'),
     meta: { title: '好友排行' }
+  },
+  {
+    path: '/create-activity',
+    name: 'CreateActivity',
+    component: () => import('../../views/CreateActivityPage.vue'),
+    meta: { title: '创建活动', requiresAuth: true }
   }
 ]
 
