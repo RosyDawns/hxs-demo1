@@ -65,6 +65,12 @@ const routes = [
     name: 'Team',
     component: () => import('../../views/TeamPage.vue'),
     meta: { title: '醒狮团队' }
+  },
+  {
+    path: '/organization-verification',
+    name: 'OrganizationVerification',
+    component: () => import('../../views/OrganizationVerificationPage.vue'),
+    meta: { title: '机构认证' }
   }
 ]
 

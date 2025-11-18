@@ -139,6 +139,12 @@ const routes = [
     meta: { title: '身份信息管理', requiresAuth: true }
   },
   {
+    path: '/personal-verification',
+    name: 'PersonalVerification',
+    component: () => import('../../views/PersonalVerificationPage.vue'),
+    meta: { title: '个人认证', requiresAuth: true }
+  },
+  {
     path: '/my-reviews',
     name: 'MyReviews',
     component: () => import('../../views/MyReviewsPage.vue'),

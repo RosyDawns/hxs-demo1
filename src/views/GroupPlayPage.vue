@@ -344,7 +344,7 @@
             <h3>发活动</h3>
             <p>开始你的活动之旅</p>
           </button>
-          <button class="option-card orange-card" @click="showVerificationPrompt">
+          <button class="option-card orange-card" @click="publishDynamic">
             <h3>发动态</h3>
             <p>让更多伙伴看到你</p>
           </button>
@@ -359,8 +359,12 @@
         <h3 class="prompt-title">完成认证即可发布活动</h3>
         <p class="prompt-message">完成认证成为主理人后，即可发布活动</p>
         <div class="prompt-actions">
-          <button class="btn-cancel" @click="closeVerificationPrompt">取消</button>
-          <button class="btn-verify" @click="showVerificationTypeModal">立刻认证</button>
+          <button class="btn-cancel" @click="closeVerificationPrompt">
+            取消
+          </button>
+          <button class="btn-verify" @click="showVerificationTypeModal">
+            立刻认证
+          </button>
         </div>
       </div>
     </div>
@@ -382,7 +386,9 @@
             </div>
             <div class="type-info">
               <h3 class="type-title">机构认证</h3>
-              <p class="type-desc">适合有一定组织能力的兴趣团体，认证后可发布更多类型活动，同时有专属的俱乐部标识。</p>
+              <p class="type-desc">
+                适合有一定组织能力的兴趣团体，认证后可发布更多类型活动，同时有专属的俱乐部标识。
+              </p>
             </div>
             <button class="btn-go-verify" @click="goToOrgVerification">
               去认证
@@ -396,7 +402,9 @@
             </div>
             <div class="type-info">
               <h3 class="type-title">个人认证</h3>
-              <p class="type-desc">适合各类兴趣爱好者，认证后可发布兴趣活动。</p>
+              <p class="type-desc">
+                适合各类兴趣爱好者，认证后可发布兴趣活动。
+              </p>
             </div>
             <button class="btn-go-verify" @click="goToPersonalVerification">
               去认证
@@ -414,7 +422,7 @@ export default {
   data() {
     return {
       showCreateModal: false,
-      showVerificationPromptModal: false,
+      showVerificationPromptModal: true,
       showVerificationTypeSelect: false,
     };
   },
@@ -431,10 +439,13 @@ export default {
     closeCreateModal() {
       this.showCreateModal = false;
     },
+    publishDynamic() {
+      this.$router.push({ path: "/publish-activity" });
+      this.showCreateModal = false;
+    },
     createActivity() {
       this.$router.push({ path: "/create-activity" });
       this.showCreateModal = false;
-      // 留在当前页面，开始填写活动表单
     },
     // 显示认证提示弹框
     showVerificationPrompt() {
@@ -717,8 +728,10 @@ export default {
 .type-card {
   background: #f8f9fa;
   border-radius: 12px;
-  padding: 20px;
+  padding: 10px;
   position: relative;
+  display: flex;
+  align-items: center;
 }
 
 .type-icon {
@@ -743,25 +756,25 @@ export default {
 }
 
 .type-info {
-  margin-bottom: 16px;
+  flex: 1;
+  margin: 0 10px;
 }
 
 .type-title {
-  font-size: 18px;
+  font-size: 14px;
   font-weight: 600;
   color: #222;
-  margin-bottom: 8px;
+  margin-bottom: 4px;
 }
 
 .type-desc {
-  font-size: 13px;
+  font-size: 11px;
   color: #666;
-  line-height: 1.6;
+  line-height: 1.4;
 }
 
 .btn-go-verify {
-  width: 100%;
-  padding: 12px;
+  padding: 6px 14px;
   background: #ff6b35;
   color: white;
   border: none;
