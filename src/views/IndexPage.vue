@@ -24,13 +24,13 @@
           <i
             class="fa fa-search absolute left-3 top-1/2 transform -translate-y-1/2 text-gray pointer-events-none"
           ></i>
-          <button
+          <!-- <button
             class="absolute right-2 top-1/2 transform -translate-y-1/2 bg-primary text-white h-8 w-8 rounded-full nav-action leading-none"
             style="font-size: 10px"
             @click="$router.push('/ai-assistant')"
           >
             一键<br />匹配
-          </button>
+          </button> -->
         </div>
       </div>
       <div class="flex items-center flex-1">
@@ -155,14 +155,13 @@
       <div
         class="slogn absolute top-1/2 -translate-y-2/3 left-[20px] z-10 text-white font-bold font-italic"
       >
-        <p class="text-3xl mb-1 text-shadow-2xs">生活唤醒师频道</p>
+        <p class="text-3xl mb-1 text-shadow-2xs">爱运动，就到唤醒狮</p>
         <p
           class="pl-2 text-lg border border-solid rounded-full flex items-center justify-between"
-          @click="
-            $router.push({ path: '/teacher-list', query: { top: 'city' } })
-          "
+          @click="$router.push({ path: '/ai-assistant' })"
         >
-          同城找人，找靠谱的人！
+          <!-- $router.push({ path: '/teacher-list', query: { top: 'city' } }) -->
+          一键匹配，唤醒热爱
           <span class="bg-amber-50 text-amber-700 rounded-full px-2">GO></span>
         </p>
       </div>
