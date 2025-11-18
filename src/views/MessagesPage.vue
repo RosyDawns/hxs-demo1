@@ -752,7 +752,6 @@ export default {
 .tabs-section {
   display: flex;
   gap: 16px;
-  margin-bottom: 16px;
   padding: 4px 0;
 }
 
@@ -879,7 +878,7 @@ export default {
 
 /* 通知掌柜样式 */
 .notification-section {
-  margin-top: 16px;
+  margin-top: 6px;
 }
 
 .sub-tabs {
@@ -887,7 +886,7 @@ export default {
   gap: 20px;
   overflow-x: auto;
   padding: 0;
-  margin-bottom: 16px;
+  margin-bottom: 2px;
   -webkit-overflow-scrolling: touch;
   border-bottom: 1px solid #f0f0f0;
 }
@@ -936,8 +935,7 @@ export default {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 16px 0;
-  margin-bottom: 8px;
+  padding: 16px 0 0;
 }
 
 .filter-btn {
@@ -990,7 +988,7 @@ export default {
 }
 
 .notification-list {
-  margin-top: 16px;
+  /* margin-top: 6px; */
 }
 
 .notification-item {
@@ -1094,14 +1092,14 @@ export default {
 
 /* 接待消息样式 */
 .reception-section {
-  margin-top: 16px;
+  margin-top: 6px;
 }
 
 .reception-stats {
   display: flex;
   align-items: center;
   gap: 32px;
-  padding: 16px 0;
+  padding: 6px 0;
   border-bottom: 1px solid #f0f0f0;
 }
 
@@ -1212,7 +1210,7 @@ export default {
 }
 
 .reception-list {
-  margin-top: 16px;
+  margin-top: 6px;
 }
 
 .reception-item {
