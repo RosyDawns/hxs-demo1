@@ -8,15 +8,6 @@
       <div class="flex-1 text-center">
         <h1 class="text-lg font-medium text-gray-900">活动报名</h1>
       </div>
-      <div class="flex items-center space-x-2">
-        <div class="flex items-center space-x-1">
-          <i class="fa fa-star text-gray-700 text-sm"></i>
-          <span class="text-sm font-medium text-gray-700">4.9</span>
-        </div>
-        <button class="w-8 h-8 rounded-full bg-gray-900 flex items-center justify-center">
-          <i class="fa fa-ellipsis-h text-white text-sm"></i>
-        </button>
-      </div>
     </header>
 
     <!-- 页面内容 -->
