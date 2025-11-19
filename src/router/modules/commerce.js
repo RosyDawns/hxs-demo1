@@ -88,6 +88,18 @@ const routes = [
     name: 'RefundProcess',
     component: () => import('../../views/RefundProcessPage.vue'),
     meta: { title: '处理售后', requiresAuth: true }
+  },
+  {
+    path: '/financial-reconciliation',
+    name: 'FinancialReconciliation',
+    component: () => import('../../views/FinancialReconciliationPage.vue'),
+    meta: { title: '财务对账', requiresAuth: true }
+  },
+  {
+    path: '/energy-theater',
+    name: 'EnergyTheater',
+    component: () => import('../../views/EnergyTheaterPage.vue'),
+    meta: { title: '能量剧场', requiresAuth: true }
   }
 ]
 

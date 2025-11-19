@@ -136,13 +136,16 @@
             </div>
             <span class="text-xs text-gray-600">随心推</span>
           </div>
-          <div class="flex flex-col items-center">
+          <div
+            class="flex flex-col items-center"
+            @click="$router.push('/financial-reconciliation')"
+          >
             <div
-              class="w-14 h-14 rounded-xl bg-indigo-50 flex items-center justify-center mb-1"
+              class="w-14 h-14 rounded-xl bg-indigo-50 flex items-center justify-center mb-1 cursor-pointer"
             >
               <i class="fa-solid fa-wallet text-indigo-500 text-xl"></i>
             </div>
-            <span class="text-xs text-gray-600">财务对账</span>
+            <span class="text-xs text-gray-600 cursor-pointer">财务对账</span>
           </div>
           <div class="flex flex-col items-center">
             <div
@@ -176,7 +179,7 @@
             >
               <i class="fa-solid fa-ticket text-amber-500 text-xl"></i>
             </div>
-            <span class="text-xs text-gray-600">人气票</span>
+            <span class="text-xs text-gray-600">人气榜单</span>
           </div>
           <div class="flex flex-col items-center">
             <div
@@ -192,15 +195,18 @@
             >
               <i class="fa-solid fa-circle-nodes text-sky-500 text-xl"></i>
             </div>
-            <span class="text-xs text-gray-600">脉圈管理</span>
+            <span class="text-xs text-gray-600">组团活动</span>
           </div>
-          <div class="flex flex-col items-center">
+          <div
+            class="flex flex-col items-center"
+            @click="$router.push('/energy-theater')"
+          >
             <div
-              class="w-14 h-14 rounded-xl bg-emerald-50 flex items-center justify-center mb-1"
+              class="w-14 h-14 rounded-xl bg-emerald-50 flex items-center justify-center mb-1 cursor-pointer"
             >
               <i class="fa-solid fa-theater-masks text-emerald-500 text-xl"></i>
             </div>
-            <span class="text-xs text-gray-600">能量剧场</span>
+            <span class="text-xs text-gray-600 cursor-pointer">能量剧场</span>
           </div>
         </div>
       </div>
