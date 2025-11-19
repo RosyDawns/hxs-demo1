@@ -41,6 +41,18 @@ const routes = [
     name: 'ActivitySignUp',
     component: () => import('../../views/ActivitySignUpPage.vue'),
     meta: { title: '活动报名', showInNav: false }
+  },
+  {
+    path: '/activity-payment/:id',
+    name: 'ActivityPayment',
+    component: () => import('../../views/ActivityPaymentPage.vue'),
+    meta: { title: '待付款', showInNav: false }
+  },
+  {
+    path: '/activity-pending/:id',
+    name: 'ActivityPending',
+    component: () => import('../../views/ActivityPendingPage.vue'),
+    meta: { title: '待出行', showInNav: false }
   }
 ]
 

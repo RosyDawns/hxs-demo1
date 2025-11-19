@@ -161,8 +161,8 @@ export default {
         joinGroup: this.agreeJoinGroup
       });
       
-      // 这里添加实际的提交逻辑
-      alert("报名成功！");
+      // 跳转到支付页面
+      this.$router.push(`/activity-payment/${this.activityId}`);
     }
   }
 };
