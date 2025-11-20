@@ -150,21 +150,27 @@
             </div>
             <span class="text-xs text-gray-600 cursor-pointer">财务对账</span>
           </div>
-          <div class="flex flex-col items-center">
+          <div
+            class="flex flex-col items-center cursor-pointer"
+            @click="$router.push('/business-admin/data-center')"
+          >
             <div
               class="w-14 h-14 rounded-xl bg-teal-50 flex items-center justify-center mb-1"
             >
               <i class="fa-solid fa-chart-line text-teal-500 text-xl"></i>
             </div>
-            <span class="text-xs text-gray-600">数据中心</span>
+            <span class="text-xs text-gray-600 cursor-pointer">数据中心</span>
           </div>
-          <div class="flex flex-col items-center">
+          <div
+            class="flex flex-col items-center cursor-pointer"
+            @click="$router.push('/business-admin/free-trial')"
+          >
             <div
               class="w-14 h-14 rounded-xl bg-lime-50 flex items-center justify-center mb-1"
             >
               <i class="fa-solid fa-gift text-lime-500 text-xl"></i>
             </div>
-            <span class="text-xs text-gray-600">免费体验</span>
+            <span class="text-xs text-gray-600 cursor-pointer">免费体验</span>
           </div>
 
           <!-- 第三行功能入口 -->

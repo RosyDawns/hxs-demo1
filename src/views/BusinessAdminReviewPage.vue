@@ -15,7 +15,7 @@
         </div>
         <span class="text-sm font-medium text-gray-900">李教练</span>
       </div>
-      <div class="flex items-center space-x-2 text-xs text-gray-700">
+      <!-- <div class="flex items-center space-x-2 text-xs text-gray-700">
         <div
           class="flex items-center px-2 py-1 rounded-full bg-white shadow-sm"
         >
@@ -27,7 +27,7 @@
         >
           <i class="fa-regular fa-dot-circle text-gray-700 text-sm"></i>
         </button>
-      </div>
+      </div> -->
     </header>
 
     <main class="flex-1 overflow-y-auto pt-16 pb-16 px-4">

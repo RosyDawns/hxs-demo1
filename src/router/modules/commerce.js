@@ -60,6 +60,12 @@ const routes = [
     meta: { title: '商家后台', requiresAuth: true }
   },
   {
+    path: '/business-admin/data-center',
+    name: 'BusinessAdminDataCenter',
+    component: () => import('../../views/BusinessAdminDataCenterPage.vue'),
+    meta: { title: '数据中心', requiresAuth: true }
+  },
+  {
     path: '/business-admin/reviews',
     name: 'BusinessAdminReviews',
     component: () => import('../../views/BusinessAdminReviewPage.vue'),
@@ -106,6 +112,12 @@ const routes = [
     name: 'EnergyTheater',
     component: () => import('../../views/EnergyTheaterPage.vue'),
     meta: { title: '能量剧场', requiresAuth: true }
+  },
+  {
+    path: '/business-admin/free-trial',
+    name: 'BusinessAdminFreeTrial',
+    component: () => import('../../views/BusinessAdminFreeTrialPage.vue'),
+    meta: { title: '免费体验管理', requiresAuth: true }
   }
 ]
 
