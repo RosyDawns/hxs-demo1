@@ -60,6 +60,12 @@ const routes = [
     meta: { title: '商家后台', requiresAuth: true }
   },
   {
+    path: '/business-admin/reviews',
+    name: 'BusinessAdminReviews',
+    component: () => import('../../views/BusinessAdminReviewPage.vue'),
+    meta: { title: '评价管理', requiresAuth: true }
+  },
+  {
     path: '/verification',
     name: 'Verification',
     component: () => import('../../views/VerificationPage.vue'),

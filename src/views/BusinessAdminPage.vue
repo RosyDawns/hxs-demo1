@@ -110,7 +110,10 @@
             </div>
             <span class="text-xs text-gray-600">主页信息</span>
           </div>
-          <div class="flex flex-col items-center">
+          <div
+            class="flex flex-col items-center cursor-pointer"
+            @click="$router.push('/business-admin/reviews')"
+          >
             <div
               class="w-14 h-14 rounded-xl bg-pink-50 flex items-center justify-center mb-1"
             >
