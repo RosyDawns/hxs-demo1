@@ -378,7 +378,7 @@ import avatr2 from "@images/img-13.jpg";
 import avatr3 from "@images/img_39.jpeg";
 import avatr4 from "@images/img_38.jpeg";
 import img1 from "@images/img-12.jpg";
-import img2 from "@images/img-23.jpg";
+import img2 from "/src/assets/images/img-23.jpg";
 import img3 from "@images/img-5.jpg";
 import img4 from "@images/img_40.jpg";
 

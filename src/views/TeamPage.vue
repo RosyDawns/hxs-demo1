@@ -105,7 +105,7 @@
         <div class="flex items-center justify-between mb-4">
           <h2 class="text-sm font-bold text-gray-900">我的团队</h2>
           <div class="flex items-center nav-action" @click="$router.push('/my-promotion')">
-            <span class="text-xs text-gray-500">分享推广</span>
+            <span class="text-xs text-gray-500">去推广</span>
             <i class="fa-solid fa-angle-right text-xs text-gray-400 ml-1"></i>
           </div>
         </div>
@@ -115,12 +115,14 @@
           <div
             class="flex-1 text-center bg-yellow-50 text-orange-500 text-xs font-medium px-3 py-1.5 rounded-full"
           >
-            一级团队: 38人
+            直接管理: 38人 
+            <!-- 一级团队 -->
           </div>
           <div
             class="flex-1 text-center bg-white border border-gray-200 text-gray-600 text-xs font-medium px-3 py-1.5 rounded-full"
           >
-            二级团队: 398人
+            团队管理: 398人
+            <!-- 二级团队 -->
           </div>
         </div>
 

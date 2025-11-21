@@ -20,7 +20,7 @@
       <!-- 活动信息卡片 -->
       <div class="bg-white mt-2 mx-4 rounded-lg p-3 flex items-start space-x-3">
         <img 
-          src="/src/assets/vue.svg" 
+          src="/src/assets/images/img-23.jpg" 
           class="w-32 h-24 rounded-lg object-cover flex-shrink-0" 
           alt="活动图片" 
         />

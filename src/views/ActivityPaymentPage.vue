@@ -103,7 +103,7 @@
         <div class="flex items-center justify-between">
           <div class="flex items-center gap-3">
             <img 
-              src="/src/assets/vue.svg" 
+              src="/src/assets/images/img-23.jpg" 
               class="w-10 h-10 rounded-full object-cover" 
               alt="主理人头像"
             />

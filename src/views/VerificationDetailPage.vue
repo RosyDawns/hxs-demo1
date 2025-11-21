@@ -59,7 +59,7 @@
 
         <div class="flex items-center mb-3">
           <img
-            src="/src/assets/vue.svg"
+            src="/src/assets/images/img-23.jpg"
             alt="商品图片"
             class="w-16 h-16 object-cover rounded-md mr-3"
           />
@@ -114,7 +114,7 @@
 
         <div class="flex items-center mb-3">
           <img
-            src="/src/assets/vue.svg"
+            src="/src/assets/images/img-23.jpg"
             alt="商品图片"
             class="w-16 h-16 object-cover rounded-md mr-3"
           />

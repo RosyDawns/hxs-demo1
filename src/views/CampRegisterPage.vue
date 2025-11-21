@@ -20,7 +20,7 @@
     <div class="px-2 pt-0.5">
       <div class="relative mt-14 rounded-lg overflow-hidden">
         <img
-          src="@images/img-23.jpg"
+          src="/src/assets/images/img-23.jpg"
           alt="Daily Workout Tips"
           class="w-full h-48 object-cover"
         />

@@ -86,7 +86,10 @@
             </div>
             <span class="text-xs text-gray-600 cursor-pointer">验券及退款</span>
           </div>
-          <div class="flex flex-col items-center">
+          <div
+            class="flex flex-col items-center cursor-pointer"
+            @click="$router.push('/group-buying-orders')"
+          >
             <div
               class="w-14 h-14 rounded-xl bg-green-50 flex items-center justify-center mb-1"
             >
@@ -102,7 +105,10 @@
             </div>
             <span class="text-xs text-gray-600">服务管理</span>
           </div>
-          <div class="flex flex-col items-center">
+          <div
+            class="flex flex-col items-center cursor-pointer"
+            @click="$router.push('/business-admin/profile-edit')"
+          >
             <div
               class="w-14 h-14 rounded-xl bg-purple-50 flex items-center justify-center mb-1"
             >
@@ -123,7 +129,10 @@
           </div>
 
           <!-- 第二行功能入口 -->
-          <div class="flex flex-col items-center">
+          <div
+            class="flex flex-col items-center cursor-pointer"
+            @click="$router.push('/business-admin/star-promotion')"
+          >
             <div
               class="w-14 h-14 rounded-xl bg-red-50 flex items-center justify-center mb-1"
             >
@@ -131,7 +140,10 @@
             </div>
             <span class="text-xs text-gray-600">星推官带货</span>
           </div>
-          <div class="flex flex-col items-center">
+          <div
+            class="flex flex-col items-center cursor-pointer"
+            @click="$router.push('/business-admin/casual-promotion')"
+          >
             <div
               class="w-14 h-14 rounded-xl bg-yellow-50 flex items-center justify-center mb-1"
             >
@@ -177,12 +189,16 @@
           <div class="flex flex-col items-center">
             <div
               class="w-14 h-14 rounded-xl bg-rose-50 flex items-center justify-center mb-1"
+              @click="$router.push('/publish-activity')"
             >
               <i class="fa-solid fa-paper-plane text-rose-500 text-xl"></i>
             </div>
             <span class="text-xs text-gray-600">动态发布</span>
           </div>
-          <div class="flex flex-col items-center">
+          <div
+            class="flex flex-col items-center cursor-pointer"
+            @click="$router.push('/business-admin/popularity-ranking')"
+          >
             <div
               class="w-14 h-14 rounded-xl bg-amber-50 flex items-center justify-center mb-1"
             >
@@ -190,7 +206,10 @@
             </div>
             <span class="text-xs text-gray-600">人气榜单</span>
           </div>
-          <div class="flex flex-col items-center">
+          <div
+            class="flex flex-col items-center cursor-pointer"
+            @click="$router.push('/business-admin/sub-accounts')"
+          >
             <div
               class="w-14 h-14 rounded-xl bg-violet-50 flex items-center justify-center mb-1"
             >

@@ -58,7 +58,7 @@
         <div class="flex flex-col items-center py-6 border-t border-b border-gray-100 my-4">
           <div class="w-48 h-48 bg-white flex items-center justify-center">
             <img 
-              src="/src/assets/vue.svg" 
+              src="/src/assets/images/img-23.jpg" 
               class="w-full h-full" 
               alt="活动二维码"
             />

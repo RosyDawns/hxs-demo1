@@ -360,7 +360,7 @@
           数据看板
         </span>
       </button>
-      <button class="flex flex-col items-center" @click="activeNav = 'create'">
+      <button class="flex flex-col items-center" @click="navigateToCreate">
         <i
           class="fa-solid fa-circle-plus text-2xl mb-1"
           :class="activeNav === 'create' ? 'text-orange-500' : 'text-gray-400'"
@@ -372,7 +372,7 @@
           新建计划
         </span>
       </button>
-      <button class="flex flex-col items-center" @click="activeNav = 'finance'">
+      <button class="flex flex-col items-center" @click="navigateToFinance">
         <i
           class="fa-solid fa-file-invoice-dollar text-xl mb-1"
           :class="activeNav === 'finance' ? 'text-orange-500' : 'text-gray-400'"
@@ -400,6 +400,14 @@ export default {
   methods: {
     goBack() {
       this.$router.back();
+    },
+    navigateToFinance() {
+      this.activeNav = 'finance';
+      this.$router.push('/finance-management');
+    },
+    navigateToCreate() {
+      this.activeNav = 'create';
+      this.$router.push('/ad-plan-management');
     },
   },
 };

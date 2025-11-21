@@ -60,6 +60,12 @@ const routes = [
     meta: { title: '商家后台', requiresAuth: true }
   },
   {
+    path: '/business-admin/profile-edit',
+    name: 'BusinessProfileEdit',
+    component: () => import('../../views/BusinessProfileEditPage.vue'),
+    meta: { title: '主页装修', requiresAuth: true }
+  },
+  {
     path: '/business-admin/data-center',
     name: 'BusinessAdminDataCenter',
     component: () => import('../../views/BusinessAdminDataCenterPage.vue'),
@@ -114,10 +120,64 @@ const routes = [
     meta: { title: '能量剧场', requiresAuth: true }
   },
   {
+    path: '/finance-management',
+    name: 'FinanceManagement',
+    component: () => import('../../views/FinanceManagementPage.vue'),
+    meta: { title: '财务管理', requiresAuth: true }
+  },
+  {
+    path: '/ad-plan-management',
+    name: 'AdPlanManagement',
+    component: () => import('../../views/AdPlanManagementPage.vue'),
+    meta: { title: '新建广告计划', requiresAuth: true }
+  },
+  {
     path: '/business-admin/free-trial',
     name: 'BusinessAdminFreeTrial',
     component: () => import('../../views/BusinessAdminFreeTrialPage.vue'),
     meta: { title: '免费体验管理', requiresAuth: true }
+  },
+  {
+    path: '/business-admin/sub-accounts',
+    name: 'SubAccountManagement',
+    component: () => import('../../views/SubAccountManagementPage.vue'),
+    meta: { title: '子账户管理', requiresAuth: true }
+  },
+  {
+    path: '/business-admin/sub-accounts/:id',
+    name: 'SubAccountDetail',
+    component: () => import('../../views/SubAccountDetailPage.vue'),
+    meta: { title: '子账户详情', requiresAuth: true }
+  },
+  {
+    path: '/business-admin/popularity-ranking',
+    name: 'PopularityRanking',
+    component: () => import('../../views/PopularityRankingPage.vue'),
+    meta: { title: '人气榜单', requiresAuth: true }
+  },
+  {
+    path: '/business-admin/star-promotion',
+    name: 'StarPromotion',
+    component: () => import('../../views/StarPromotionPage.vue'),
+    meta: { title: '星推官带货', requiresAuth: true }
+  },
+  {
+    path: '/business-admin/star-promotion/plan',
+    name: 'StarPromotionPlan',
+    component: () => import('../../views/StarPromotionPlanPage.vue'),
+    meta: { title: '超级星推官定向计划', requiresAuth: true }
+  },
+  {
+    path: '/group-buying-orders',
+    name: 'GroupBuyingOrders',
+    component: () => import('../../views/GroupBuyingOrdersPage.vue'),
+    meta: { title: '团购订单管理', requiresAuth: true }
+  },
+  {
+    path: '/business-admin/casual-promotion',
+    name: 'CasualPromotion',
+    component: () => import('../../views/CasualPromotionPage.vue'),
+    meta: { title: '随心推', requiresAuth: true }
   }
 ]
 
