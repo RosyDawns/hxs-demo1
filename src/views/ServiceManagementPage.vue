@@ -429,10 +429,25 @@ export default {
       this.closeTypeModal();
     },
     handleNext() {
-      console.log("下一步", {
-        category: this.selectedCategory,
-        type: this.selectedType,
-      });
+      // 根据选择的服务类型跳转到不同的页面
+      const routeMap = {
+        "代金券": "/business-admin/voucher-create",
+        // 其他类型后续添加
+      };
+
+      const targetRoute = routeMap[this.selectedType];
+      if (targetRoute) {
+        this.$router.push({
+          path: targetRoute,
+          query: {
+            category: this.selectedCategory,
+            type: this.selectedType,
+          },
+        });
+      } else {
+        // 如果没有对应的页面，提示用户
+        console.log("该服务类型页面尚未开发");
+      }
     },
   },
 };

@@ -184,6 +184,12 @@ const routes = [
     name: 'ServiceManagement',
     component: () => import('../../views/ServiceManagementPage.vue'),
     meta: { title: '服务管理', requiresAuth: true }
+  },
+  {
+    path: '/business-admin/voucher-create',
+    name: 'VoucherCreate',
+    component: () => import('../../views/VoucherCreatePage.vue'),
+    meta: { title: '代金券创建', requiresAuth: true }
   }
 ]
 
