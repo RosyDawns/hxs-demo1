@@ -190,6 +190,36 @@ const routes = [
     name: 'VoucherCreate',
     component: () => import('../../views/VoucherCreatePage.vue'),
     meta: { title: '代金券创建', requiresAuth: true }
+  },
+  {
+    path: '/business-admin/times-card-create',
+    name: 'TimesCardCreate',
+    component: () => import('../../views/VoucherTimesCardPage.vue'),
+    meta: { title: '次卡创建', requiresAuth: true }
+  },
+  {
+    path: '/business-admin/discount-payment-create',
+    name: 'DiscountPaymentCreate',
+    component: () => import('../../views/DiscountPaymentPage.vue'),
+    meta: { title: '优惠买单创建', requiresAuth: true }
+  },
+  {
+    path: '/business-admin/free-trial-create',
+    name: 'FreeTrialCreate',
+    component: () => import('../../views/FreeTrialCreatePage.vue'),
+    meta: { title: '免费体验创建', requiresAuth: true }
+  },
+  {
+    path: '/business-admin/period-card-create',
+    name: 'PeriodCardCreate',
+    component: () => import('../../views/PeriodCardCreatePage.vue'),
+    meta: { title: '周期卡创建', requiresAuth: true }
+  },
+  {
+    path: '/business-admin/presale-voucher-create',
+    name: 'PresaleVoucherCreate',
+    component: () => import('../../views/PresaleVoucherPage.vue'),
+    meta: { title: '预售券创建', requiresAuth: true }
   }
 ]
 

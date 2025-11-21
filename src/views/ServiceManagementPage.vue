@@ -432,6 +432,11 @@ export default {
       // 根据选择的服务类型跳转到不同的页面
       const routeMap = {
         "代金券": "/business-admin/voucher-create",
+        "次卡": "/business-admin/times-card-create",
+        "优惠买单": "/business-admin/discount-payment-create",
+        "免费体验": "/business-admin/free-trial-create",
+        "周期卡": "/business-admin/period-card-create",
+        "预售券": "/business-admin/presale-voucher-create",
         // 其他类型后续添加
       };
 
