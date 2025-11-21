@@ -11,22 +11,12 @@
         </div>
         <h1 class="text-[17px] font-semibold text-gray-900">商品创建</h1>
       </div>
-      <div class="flex items-center gap-2">
-        <div class="flex items-center">
-          <i class="fa-solid fa-star text-gray-700 text-[13px] mr-1"></i>
-          <span class="text-[15px] font-medium text-gray-900">4.8</span>
-        </div>
-        <div
-          class="w-7 h-7 rounded-full bg-[#1C1C1E] flex items-center justify-center"
-        >
-          <div class="w-1.5 h-1.5 rounded-full bg-white"></div>
-        </div>
-      </div>
+      
     </header>
 
     <!-- Tab导航 -->
     <div
-      class="fixed top-[54px] left-0 right-0 bg-white z-40 flex"
+      class="fixed top-12 left-0 right-0 bg-white z-40 flex"
       style="border-bottom: 1px solid #E8E8E8;"
     >
       <div
@@ -45,7 +35,7 @@
     </div>
 
     <!-- 主内容区域 -->
-    <main class="flex-1 overflow-y-auto pt-[100px] pb-24 bg-[#F5F5F5]" ref="mainContent">
+    <main class="flex-1 overflow-y-auto pt-24 pb-24 bg-[#F5F5F5]" ref="mainContent">
       <div>
         <!-- 基础信息 -->
         <div id="section-basics" class="bg-white mt-3 mx-4 rounded-xl px-4 py-3">
