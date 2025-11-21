@@ -97,7 +97,10 @@
             </div>
             <span class="text-xs text-gray-600">交易查询</span>
           </div>
-          <div class="flex flex-col items-center">
+          <div
+            class="flex flex-col items-center cursor-pointer"
+            @click="$router.push('/business-admin/service-management')"
+          >
             <div
               class="w-14 h-14 rounded-xl bg-cyan-50 flex items-center justify-center mb-1"
             >

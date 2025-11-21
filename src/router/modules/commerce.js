@@ -178,6 +178,12 @@ const routes = [
     name: 'CasualPromotion',
     component: () => import('../../views/CasualPromotionPage.vue'),
     meta: { title: '随心推', requiresAuth: true }
+  },
+  {
+    path: '/business-admin/service-management',
+    name: 'ServiceManagement',
+    component: () => import('../../views/ServiceManagementPage.vue'),
+    meta: { title: '服务管理', requiresAuth: true }
   }
 ]
 
