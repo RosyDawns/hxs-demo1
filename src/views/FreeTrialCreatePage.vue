@@ -9,17 +9,9 @@
         <div class="mr-3" @click="goBack">
           <i class="fa-solid fa-chevron-left text-gray-700 text-base"></i>
         </div>
-        <h1 class="text-[17px] font-semibold text-gray-900">商品创建</h1>
+        <h1 class="text-[17px] font-semibold text-gray-900">赠送体验</h1>
       </div>
-      <div class="flex items-center gap-3">
-        <div class="flex items-center gap-1">
-          <i class="fa-solid fa-star text-yellow-400 text-sm"></i>
-          <span class="text-[14px] text-gray-700">4.9</span>
-        </div>
-        <button class="w-7 h-7 rounded-full bg-gray-100 flex items-center justify-center">
-          <i class="fa-solid fa-ellipsis text-gray-600 text-sm"></i>
-        </button>
-      </div>
+      
     </header>
 
     <!-- Tab导航 -->
@@ -27,11 +19,11 @@
       class="fixed top-12 left-0 right-0 bg-white z-40 overflow-x-auto"
       style="border-bottom: 1px solid #E8E8E8;"
     >
-      <div class="flex min-w-max">
+      <div class="flex justify-between px-3">
         <div
           v-for="tab in tabs"
           :key="tab.value"
-          class="px-4 py-3 relative cursor-pointer transition-colors whitespace-nowrap"
+          class="py-3 relative cursor-pointer transition-colors whitespace-nowrap"
           :class="activeTab === tab.value ? 'text-gray-900 font-medium' : 'text-gray-500'"
           @click="scrollToSection(tab.value)"
         >
@@ -170,7 +162,7 @@
               </div>
             </div>
             <div class="text-[13px] text-gray-400 mt-2 leading-relaxed">
-              用户需支持能量币数量为输入值+折扣<span class="text-[#FF6634]">处</span>
+              用户需支持能量币数量为<span class="text-[#FF6634]">输入值能量币</span>枚
             </div>
             <div class="text-[13px] text-gray-400 leading-relaxed">
               用户使用能量团购时将收到费用
@@ -282,46 +274,48 @@
                 <span class="text-red-500 ml-0.5 text-[14px]">*</span>
               </div>
               <div class="flex items-center gap-2">
-                <span class="text-[14px] text-gray-400">不与店内优惠同享</span>
                 <span class="text-[13px] text-[#FF6634]">编辑</span>
               </div>
+            </div>
+            <div class="text-[13px] text-gray-400 mt-1">
+              不与店内优惠同享
             </div>
           </div>
 
           <!-- 分隔线 -->
           <div class="border-t border-gray-100"></div>
 
-          <!-- 额外服务 -->
+          <!-- 额外消费 -->
           <div class="py-3.5">
-            <div class="text-[14px] text-gray-900 mb-3">额外服务</div>
+            <div class="text-[14px] text-gray-900 mb-3">额外消费</div>
 
             <!-- 保险费用 -->
             <div class="mb-3">
               <div class="text-[13px] text-gray-600 mb-2">保险费用</div>
-              <div class="flex gap-3">
-                <div class="flex items-center gap-2">
-                  <input type="radio" name="insurance" id="user-pay" class="w-4 h-4 text-[#FF6634]" />
-                  <label for="user-pay" class="text-[14px] text-gray-700">用户自费</label>
-                </div>
-                <div class="flex items-center gap-2">
-                  <input type="radio" name="insurance" id="merchant-include" class="w-4 h-4 text-[#FF6634]" />
-                  <label for="merchant-include" class="text-[14px] text-gray-700">商家包含</label>
-                </div>
+              <div class="flex gap-4">
+                <label class="flex items-center gap-2 cursor-pointer">
+                  <input type="radio" name="insurance" value="user" class="w-4 h-4 text-[#FF6634]" />
+                  <span class="text-[14px] text-gray-700">用户自费</span>
+                </label>
+                <label class="flex items-center gap-2 cursor-pointer">
+                  <input type="radio" name="insurance" value="merchant" class="w-4 h-4 text-[#FF6634]" />
+                  <span class="text-[14px] text-gray-700">商家包含</span>
+                </label>
               </div>
             </div>
 
             <!-- 上门服务 -->
             <div>
               <div class="text-[13px] text-gray-600 mb-2">上门服务</div>
-              <div class="flex gap-3">
-                <div class="flex items-center gap-2">
-                  <input type="radio" name="homeService" id="user-reimburse" class="w-4 h-4 text-[#FF6634]" />
-                  <label for="user-reimburse" class="text-[14px] text-gray-700">用户报销</label>
-                </div>
-                <div class="flex items-center gap-2">
-                  <input type="radio" name="homeService" id="merchant-cover" class="w-4 h-4 text-[#FF6634]" />
-                  <label for="merchant-cover" class="text-[14px] text-gray-700">商家包含</label>
-                </div>
+              <div class="flex gap-4">
+                <label class="flex items-center gap-2 cursor-pointer">
+                  <input type="radio" name="homeService" value="user" class="w-4 h-4 text-[#FF6634]" />
+                  <span class="text-[14px] text-gray-700">用户报销</span>
+                </label>
+                <label class="flex items-center gap-2 cursor-pointer">
+                  <input type="radio" name="homeService" value="merchant" class="w-4 h-4 text-[#FF6634]" />
+                  <span class="text-[14px] text-gray-700">商家包含</span>
+                </label>
               </div>
             </div>
           </div>
@@ -332,15 +326,16 @@
           <!-- 其他说明信息 -->
           <div class="py-3.5">
             <div class="text-[14px] text-gray-900 mb-2">其他说明信息</div>
-            <div class="text-[13px] text-gray-500 leading-relaxed mb-3 p-3 bg-gray-50 rounded-lg">
-              店铺需安全必须依据成员，无需在约诊预约后支持，不得转卖"高能"、"精轻"和"能量团委"等关键xxxx
+            <div class="text-[13px] text-gray-400 leading-relaxed mb-3">
+              若需填写多项可直接换行，无需在内容前标注序号。不得存在"美团"、"点评"、"最终解释权"等字样xxx
             </div>
             <textarea
-              rows="4"
-              placeholder="请输入其他说明规则，规则时与其他商品信息相同将方法被拒提交，请勿按图原内容填写此处功"
-              class="w-full px-3 py-2 border border-gray-200 rounded-lg text-[14px] focus:outline-none focus:border-[#FF6634] resize-none"
+              placeholder="请输入其他规则限制，规则需与其他商品信息前后一致，多条规则请用回车换行区分"
+              class="w-full h-24 border border-gray-200 rounded-lg px-3 py-2 text-[14px] text-gray-700 placeholder-gray-400 focus:outline-none focus:border-[#FF6634] resize-none"
             ></textarea>
-            <div class="text-right text-[13px] text-gray-400 mt-1">0/500</div>
+            <div class="text-right text-[13px] text-gray-400 mt-2">
+              0/500
+            </div>
           </div>
         </div>
 
