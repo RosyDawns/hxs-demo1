@@ -14,7 +14,7 @@
       >
         <i class="fa-solid fa-paw text-lg"></i>
         <p class="text-xs mt-1 flex items-center justify-center">
-          唤醒狮<i
+          <!-- 唤醒狮 -->首页<i
             class="fa-solid fa-right-left ml-0.5"
             style="font-size: 10px"
           ></i>

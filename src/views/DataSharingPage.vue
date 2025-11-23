@@ -23,7 +23,7 @@
               <div class="flex-1 min-w-0">
                 <h3 class="font-medium text-gray-900 mb-2">{{ item.name }}</h3>
                 <div class="text-xs text-gray-600 mb-2">
-                  <span class="font-medium">服务类型：</span>{{ item.type }}
+                  <span class="font-medium">商品类型：</span>{{ item.type }}
                 </div>
                 <div class="text-xs text-gray-600 mb-2">
                   <span class="font-medium">共享信息：</span>{{ item.data }}

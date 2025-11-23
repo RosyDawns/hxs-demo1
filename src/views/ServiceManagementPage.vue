@@ -35,13 +35,13 @@
           </div>
         </div>
 
-        <!-- 服务类型 -->
+        <!-- 商品类型 -->
         <div
           class="flex items-center justify-between py-3.5 cursor-pointer active:bg-gray-50"
           @click="selectType"
         >
           <div class="flex items-center">
-            <span class="text-[15px] text-gray-900">服务类型</span>
+            <span class="text-[15px] text-gray-900">商品类型</span>
             <span class="text-red-500 ml-0.5 text-[15px]">*</span>
           </div>
           <div class="flex items-center gap-2">
@@ -79,7 +79,7 @@
     <!-- 服务品类弹框 -->
     <div
       v-if="showCategoryModal"
-      class="fixed inset-0 bg-black bg-opacity-40 z-50 flex items-end"
+      class="fixed inset-0 bg-black bg-opacity-10 z-50 flex items-end"
       @click="closeCategoryModal"
     >
       <div
@@ -167,10 +167,10 @@
       </div>
     </div>
 
-    <!-- 服务类型弹框 -->
+    <!-- 商品类型弹框 -->
     <div
       v-if="showTypeModal"
-      class="fixed inset-0 bg-black bg-opacity-40 z-50 flex items-end"
+      class="fixed inset-0 bg-black/80 z-50 flex items-end"
       @click="closeTypeModal"
     >
       <div
@@ -437,6 +437,7 @@ export default {
         "免费体验": "/business-admin/free-trial-create",
         "周期卡": "/business-admin/period-card-create",
         "预售券": "/business-admin/presale-voucher-create",
+        "团购套餐": "/business-admin/group-buying-package-create",
         // 其他类型后续添加
       };
 
@@ -451,7 +452,7 @@ export default {
         });
       } else {
         // 如果没有对应的页面，提示用户
-        alert("该服务类型页面尚未开发");
+        alert("该商品类型页面尚未开发");
       }
     },
   },

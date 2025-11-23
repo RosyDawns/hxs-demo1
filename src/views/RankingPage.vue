@@ -307,14 +307,14 @@ export default {
           image: User1,
         },
         {
-          id: "champion",
-          name: "冠军大师",
-          image: User2,
-        },
-        {
           id: "heritage",
           name: "非遗大师",
           image: User3,
+        },
+        {
+          id: "champion",
+          name: "冠军大师",
+          image: User2,
         },
       ],
       subCategories: [

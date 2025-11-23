@@ -161,7 +161,7 @@
           @click="$router.push({ path: '/ai-assistant' })"
         >
           <!-- $router.push({ path: '/teacher-list', query: { top: 'city' } }) -->
-          一键匹配，唤醒热爱
+          一键匹配，就是靠谱
           <span class="bg-amber-50 text-amber-700 rounded-full px-2">GO></span>
         </p>
       </div>

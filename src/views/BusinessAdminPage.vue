@@ -106,7 +106,7 @@
             >
               <i class="fa-solid fa-briefcase text-cyan-500 text-xl"></i>
             </div>
-            <span class="text-xs text-gray-600">服务管理</span>
+            <span class="text-xs text-gray-600">商品管理</span>
           </div>
           <div
             class="flex flex-col items-center cursor-pointer"

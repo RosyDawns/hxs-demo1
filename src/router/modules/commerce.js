@@ -220,6 +220,12 @@ const routes = [
     name: 'PresaleVoucherCreate',
     component: () => import('../../views/PresaleVoucherPage.vue'),
     meta: { title: '预售券创建', requiresAuth: true }
+  },
+  {
+    path: '/business-admin/group-buying-package-create',
+    name: 'GroupBuyingPackageCreate',
+    component: () => import('../../views/GroupBuyingPackagePage.vue'),
+    meta: { title: '团购套餐创建', requiresAuth: true }
   }
 ]
 
