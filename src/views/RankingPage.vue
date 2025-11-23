@@ -57,7 +57,7 @@
             class="rounded-t-xl -mt-6 relative z-10 px-2 pt-2 bg-white"
             style="margin-top: -50px"
           >
-            <div class="grid grid-cols-3 gap-3 mb-4">
+            <div class="grid grid-cols-4 gap-3 mb-4">
               <div
                 v-for="(category, index) in masterCategories"
                 :key="index"
@@ -70,14 +70,14 @@
               >
                 <div class="w-full">
                   <img
-                    class="w-full h-22 block"
+                    class="w-full h-16 block"
                     :src="category.image"
                     :alt="category.name"
                   />
                 </div>
-                <span class="font-medium text-base py-1">{{
-                  category.name
-                }}</span>
+                <span class="font-medium text-sm py-1">
+                  {{ category.name }}
+                </span>
               </div>
             </div>
           </div>
@@ -101,9 +101,14 @@
             </button>
           </div>
 
-          <!-- 二级分类标签（仅人气大师显示） -->
+          <!-- 二级分类标签（所有大师分类都显示） -->
           <div
-            v-if="selectedCategory === 'popular'"
+            v-if="
+              selectedCategory === 'popular' ||
+              selectedCategory === 'service' ||
+              selectedCategory === 'professional' ||
+              selectedCategory === 'champion'
+            "
             class="flex items-center space-x-2 overflow-x-auto scrollbar-hide"
           >
             <button
@@ -126,7 +131,7 @@
         <div class="border-b border-gray-100 px-3">
           <div class="flex items-center justify-between">
             <div
-              class="flex-1 flex items-center space-x-4 overflow-x-auto scrollbar-hide"
+              class="flex-1 flex items-center space-x-3 overflow-x-auto scrollbar-hide"
             >
               <button
                 v-for="(tab, index) in currentFilterTabs"
@@ -139,21 +144,18 @@
                 "
                 @click="selectFilterTab(tab.id)"
               >
-                {{ tab.name }}
-                <!-- 人气大师：下拉箭头 -->
-                <i
+                {{ tab.name
+                }}<i
                   v-if="tab.hasDropdown"
-                  class="fa-solid fa-chevron-down text-xs ml-1"
-                ></i>
-                <!-- 更多按钮：右箭头 -->
-                <i
+                  class="fa-solid fa-chevron-down text-xs"
+                ></i
+                ><i
                   v-if="tab.id === 'more'"
-                  class="fa-solid fa-chevron-right text-xs ml-1"
-                ></i>
-                <!-- 冠军/非遗大师：排序图标 -->
-                <i
+                  class="fa-solid fa-chevron-right text-xs"
+                ></i
+                ><i
                   v-if="tab.iconType === 'sort'"
-                  class="fa-solid fa-right-left text-xs ml-1"
+                  class="fa-solid fa-right-left text-xs"
                 ></i>
                 <span
                   v-if="selectedFilterTab === tab.id"
@@ -161,21 +163,19 @@
                 ></span>
               </button>
             </div>
-            <!-- 搜索图标（仅冠军大师和非遗大师显示） -->
-            <button
-              v-if="selectedCategory !== 'popular'"
-              class="px-2 text-gray-400 hover:text-gray-600 transition-colors flex-shrink-0"
-              @click="handleSearch"
-            >
-              <i class="fa-solid fa-magnifying-glass text-base"></i>
-            </button>
           </div>
         </div>
 
         <!-- 排行榜列表区域 -->
         <div class="px-3 py-3">
-          <!-- 人气大师：列表布局 -->
-          <template v-if="selectedCategory === 'popular'">
+          <!-- 人气大师、服务大师、专业大师：列表布局 -->
+          <template
+            v-if="
+              selectedCategory === 'popular' ||
+              selectedCategory === 'service' ||
+              selectedCategory === 'professional'
+            "
+          >
             <RankingCard
               v-for="(master, index) in rankedMasters"
               :key="master.id"
@@ -186,31 +186,26 @@
             />
           </template>
 
-          <!-- 冠军大师/非遗大师：卡片网格布局 -->
+          <!-- 冠军大师：卡片网格布局 -->
           <template v-else>
             <!-- 大师卡片模式 -->
-            <template v-if="viewMode === 'master'">
-              <div class="grid grid-cols-2 gap-3">
-                <ChampionMasterCard
-                  v-for="master in championMasters"
-                  :key="master.id"
-                  :master="master"
-                  @call="handleCall"
-                />
-              </div>
-            </template>
+            <div class="grid grid-cols-2 gap-3">
+              <ChampionMasterCard
+                v-for="master in championMasters"
+                :key="master.id"
+                :master="master"
+                @call="handleCall"
+              />
+            </div>
 
-            <!-- 作品内容模式 -->
-            <template v-else>
-              <div class="grid grid-cols-2 gap-3">
-                <ContentCard
-                  v-for="content in contentList"
-                  :key="content.id"
-                  :content="content"
-                  @like="handleLike"
-                />
-              </div>
-            </template>
+            <!-- <div class="grid grid-cols-2 gap-3">
+              <ContentCard
+                v-for="content in contentList"
+                :key="content.id"
+                :content="content"
+                @like="handleLike"
+              />
+            </div> -->
           </template>
 
           <!-- 加载更多 -->
@@ -280,26 +275,18 @@ export default {
       selectedFilterTab: "all",
       showRules: false,
       loading: false,
-      // 显示模式：'master' 大师卡片模式，'content' 作品内容模式
-      viewMode: "master",
+      // 所有分类统一视图模式，无需单独配置
       // 人气大师的筛选标签
       popularFilterTabs: [
         { id: "all", name: "全部主理人", hasDropdown: true },
         { id: "industry", name: "行业", hasDropdown: true },
-        { id: "food", name: "餐饮美食", hasDropdown: false },
-        { id: "sports", name: "运动健康", hasDropdown: false },
-        { id: "kids", name: "少儿培训", hasDropdown: false },
-        { id: "art", name: "艺术", hasDropdown: false },
+        { id: "food", name: "运动场馆", hasDropdown: false },
+        { id: "kids", name: "培训机构", hasDropdown: false },
+        { id: "art", name: "活动组织", hasDropdown: false },
+        { id: "sport", name: "运动", hasDropdown: false },
         { id: "more", name: "更多", hasDropdown: false },
       ],
-      // 冠军大师/非遗大师的筛选标签
-      championFilterTabs: [
-        { id: "follow", name: "关注", iconType: "sort" },
-        { id: "recommend", name: "推荐", iconType: "sort" },
-        { id: "nearby", name: "附近", iconType: "sort" },
-        { id: "screen", name: "筛选", hasDropdown: true },
-        { id: "live", name: "直播", iconType: "none" },
-      ],
+      // 所有分类共用一套筛选标签，无需单独定义冠军大师筛选标签
       masterCategories: [
         {
           id: "popular",
@@ -307,8 +294,13 @@ export default {
           image: User1,
         },
         {
-          id: "heritage",
-          name: "非遗大师",
+          id: "service",
+          name: "服务大师",
+          image: User2,
+        },
+        {
+          id: "professional",
+          name: "专业大师",
           image: User3,
         },
         {
@@ -422,50 +414,7 @@ export default {
           avatar: "https://randomuser.me/api/portraits/women/25.jpg",
         },
       ],
-      heritageMastersList: [
-        {
-          id: 1,
-          name: "非遗剪纸张颖莹",
-          title: "非遗剪纸艺术家",
-          specialty: "非遗剪纸/艺术创作",
-          avatar: "https://randomuser.me/api/portraits/women/30.jpg",
-        },
-        {
-          id: 2,
-          name: "非遗年画霍庆有",
-          title: "非遗木版年画艺术家",
-          specialty: "非遗木版年画",
-          avatar: "https://randomuser.me/api/portraits/men/31.jpg",
-        },
-        {
-          id: 3,
-          name: "京剧大师王佩瑜",
-          title: "非遗京剧传承人",
-          specialty: "京剧表演/传承",
-          avatar: "https://randomuser.me/api/portraits/women/32.jpg",
-        },
-        {
-          id: 4,
-          name: "景泰蓝大师",
-          title: "非遗景泰蓝工艺大师",
-          specialty: "景泰蓝工艺/创作",
-          avatar: "https://randomuser.me/api/portraits/men/33.jpg",
-        },
-        {
-          id: 5,
-          name: "苏绣传承人",
-          title: "非遗苏绣艺术家",
-          specialty: "苏绣/刺绣艺术",
-          avatar: "https://randomuser.me/api/portraits/women/34.jpg",
-        },
-        {
-          id: 6,
-          name: "紫砂壶大师",
-          title: "非遗紫砂壶工艺大师",
-          specialty: "紫砂壶制作",
-          avatar: "https://randomuser.me/api/portraits/men/35.jpg",
-        },
-      ],
+      // 非遗大师数据已移除
       contentList: [
         {
           id: 1,
@@ -542,33 +491,22 @@ export default {
       return this.rankedMastersList;
     },
     championMasters() {
-      // 根据分类返回对应的大师列表
-      if (this.selectedCategory === "champion") {
-        return this.championMastersList;
-      } else if (this.selectedCategory === "heritage") {
-        return this.heritageMastersList;
-      }
+      // 仅冠军大师返回对应的大师列表
       return this.championMastersList;
     },
     // 根据当前选中的分类返回对应的筛选标签
     currentFilterTabs() {
-      if (this.selectedCategory === "popular") {
-        return this.popularFilterTabs;
-      } else {
-        return this.championFilterTabs;
-      }
+      // 所有分类都使用相同的筛选标签
+      return this.popularFilterTabs;
     },
   },
   methods: {
     selectCategory(categoryId) {
       this.selectedCategory = categoryId;
-      // 切换分类时重置筛选标签到第一个
-      if (categoryId === "popular") {
-        this.selectedFilterTab = "all";
-      } else {
-        this.selectedFilterTab = "follow";
-        this.viewMode = "master"; // 重置为大师模式
-      }
+      // 所有分类都重置筛选标签到第一个
+      this.selectedFilterTab = "all";
+      // 重置子分类为默认值（主理人频道）
+      this.selectedSubCategory = "leader";
       // 重新加载数据
       this.loadData();
     },
@@ -576,27 +514,18 @@ export default {
     selectFilterTab(tabId) {
       console.log("切换筛选标签:", tabId);
 
-      // 在冠军/非遗大师页面，关注/推荐/附近 可以切换模式
-      if (this.selectedCategory !== "popular") {
-        // 如果点击的是当前已选中的标签，且是可切换标签，则切换模式
-        const toggleableTabs = ["follow", "recommend", "nearby"];
-
-        if (
-          this.selectedFilterTab === tabId &&
-          toggleableTabs.includes(tabId)
-        ) {
-          // 切换模式
-          this.viewMode = this.viewMode === "master" ? "content" : "master";
-        } else {
-          // 切换到新标签，默认显示大师模式
-          this.selectedFilterTab = tabId;
-          if (toggleableTabs.includes(tabId)) {
-            this.viewMode = "master";
-          }
-        }
+      // 所有分类使用统一的筛选标签切换逻辑
+      if (this.selectedFilterTab === tabId && tabId === "all") {
+        // 如果再次点击全部标签，可以添加特殊处理（如果需要）
       } else {
         this.selectedFilterTab = tabId;
       }
+
+      // 这里可以根据需要添加通用的筛选逻辑
+      // 重新加载数据
+      this.loadData();
+
+      // 筛选逻辑已在前面实现
     },
 
     getCurrentCategoryName() {
@@ -615,12 +544,6 @@ export default {
     handleViewProfile(masterId) {
       console.log("查看大师主页:", masterId);
       this.$router.push("/ouyang");
-    },
-
-    handleSearch() {
-      console.log("打开搜索");
-      // 跳转到搜索页面
-      this.$router.push("/search");
     },
 
     handleLike(contentId) {
