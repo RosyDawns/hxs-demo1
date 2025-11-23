@@ -11,15 +11,6 @@
         </div>
         <h1 class="text-[17px] font-semibold text-gray-900">服务创建</h1>
       </div>
-      <div class="flex items-center gap-3">
-        <div class="flex items-center gap-1">
-          <i class="fa-solid fa-star text-yellow-400 text-sm"></i>
-          <span class="text-[14px] text-gray-700">4.9</span>
-        </div>
-        <button class="w-7 h-7 rounded-full bg-gray-100 flex items-center justify-center">
-          <i class="fa-solid fa-ellipsis text-gray-600 text-sm"></i>
-        </button>
-      </div>
     </header>
 
     <!-- Tab导航 -->
@@ -27,11 +18,11 @@
       class="fixed top-12 left-0 right-0 bg-white z-40 overflow-x-auto"
       style="border-bottom: 1px solid #E8E8E8;"
     >
-      <div class="flex min-w-max">
+      <div class="flex justify-between px-3">
         <div
           v-for="tab in tabs"
           :key="tab.value"
-          class="px-4 py-3 relative cursor-pointer transition-colors whitespace-nowrap"
+          class=" py-3 relative cursor-pointer transition-colors whitespace-nowrap"
           :class="activeTab === tab.value ? 'text-gray-900 font-medium' : 'text-gray-500'"
           @click="scrollToSection(tab.value)"
         >
@@ -72,7 +63,7 @@
               <span class="text-[13px] text-gray-400">不可编辑</span>
             </div>
             <div class="text-[14px] text-gray-500">
-              服务套卡
+             团购套餐 
             </div>
           </div>
         </div>
@@ -119,13 +110,21 @@
           </div>
         </div>
 
-        <!-- 商品信息 -->
+        <!-- 服务信息 -->
         <div id="section-product" class="bg-white mt-3 mx-4 rounded-xl px-4 py-3">
-          <h2 class="text-[15px] font-semibold text-gray-900 mb-2">商品信息</h2>
+          <h2 class="text-[15px] font-semibold text-gray-900 mb-2">服务信息</h2>
 
-          <!-- 服务套卡类型 -->
+          <!-- 服务名称 -->
           <div class="py-3.5">
-            <div class="text-[14px] text-gray-900 mb-2">服务套卡类型</div>
+            <div class="flex items-center mb-2">
+              <span class="text-[14px] text-gray-900">服务名称</span>
+              <span class="text-red-500 ml-0.5 text-[14px]">*</span>
+            </div>
+            <input
+              type="text"
+              value="大樟健身房单次体验团购"
+              class="w-full px-3 py-2 border border-gray-200 rounded-lg text-[14px] focus:outline-none focus:border-[#FF6634]"
+            />
           </div>
 
           <!-- 分隔线 -->
@@ -133,26 +132,19 @@
 
           <!-- 服务方式 -->
           <div class="py-3.5">
-            <div class="flex items-center mb-3">
-              <span class="text-[14px] text-gray-900">服务方式</span>
-              <span class="text-red-500 ml-0.5 text-[14px]">*</span>
-            </div>
-            <div class="flex gap-3 flex-wrap">
+            <div class="text-[14px] text-gray-900 mb-3">服务方式</div>
+            <div class="flex gap-6">
               <div class="flex items-center gap-2">
-                <input type="radio" name="serviceWay" id="single" class="w-4 h-4 text-[#FF6634]" />
-                <label for="single" class="text-[14px] text-gray-700">单次</label>
+                <input type="radio" name="serviceMethod" id="inStore" class="w-4 h-4 text-[#FF6634]" />
+                <label for="inStore" class="text-[14px] text-gray-700">到店</label>
               </div>
               <div class="flex items-center gap-2">
-                <input type="radio" name="serviceWay" id="multiple" class="w-4 h-4 text-[#FF6634]" />
-                <label for="multiple" class="text-[14px] text-gray-700">多次</label>
+                <input type="radio" name="serviceMethod" id="homeService" class="w-4 h-4 text-[#FF6634]" />
+                <label for="homeService" class="text-[14px] text-gray-700">上门</label>
               </div>
               <div class="flex items-center gap-2">
-                <input type="radio" name="serviceWay" id="above" class="w-4 h-4 text-[#FF6634]" />
-                <label for="above" class="text-[14px] text-gray-700">以上</label>
-              </div>
-              <div class="flex items-center gap-2">
-                <input type="radio" name="serviceWay" id="course" class="w-4 h-4 text-[#FF6634]" />
-                <label for="course" class="text-[14px] text-gray-700">课程</label>
+                <input type="radio" name="serviceMethod" id="online" class="w-4 h-4 text-[#FF6634]" />
+                <label for="online" class="text-[14px] text-gray-700">线上</label>
               </div>
             </div>
           </div>
@@ -160,142 +152,117 @@
           <!-- 分隔线 -->
           <div class="border-t border-gray-100"></div>
 
-          <!-- 套餐 -->
+          <!-- 售价 -->
           <div class="py-3.5">
             <div class="flex items-center mb-2">
-              <span class="text-[14px] text-gray-900">套餐</span>
+              <span class="text-[14px] text-gray-900">售价</span>
               <span class="text-red-500 ml-0.5 text-[14px]">*</span>
             </div>
-            <div class="flex items-center gap-2">
-              <span class="text-[14px] text-[#FF6634]">请输入</span>
+            <div class="relative">
+              <input
+                type="text"
+                placeholder="请输入"
+                class="w-full pl-3 pr-8 py-2 border border-gray-200 rounded-lg text-[14px] focus:outline-none focus:border-[#FF6634] text-[#FF6634]"
+              />
+              <i class="fa-solid fa-chevron-right absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 text-xs"></i>
             </div>
             <div class="text-[13px] text-[#FF6634] mt-1">
-              填写折扣率或数
+              售价字段必填
             </div>
           </div>
 
           <!-- 分隔线 -->
           <div class="border-t border-gray-100"></div>
 
-          <!-- 全民健身费限额支撑 -->
+          <!-- 全民推官佣金 -->
           <div class="py-3.5">
-            <div class="text-[14px] text-gray-900 mb-2">全民健身费限额支撑</div>
-            <div class="flex items-center gap-2 mb-2">
-              <span class="text-[14px] text-[#FF6634]">输入人数</span>
-              <span class="text-[14px] text-gray-700">处</span>
+            <div class="flex items-center justify-between mb-2">
+              <span class="text-[14px] text-gray-900">全民推官佣金</span>
+              <span class="text-[13px] text-gray-400">分润金额，根据用户返利</span>
             </div>
-            <div class="text-[13px] text-gray-400 leading-relaxed">
-              (输入数据，可输入0~999)
-            </div>
-            
-            <!-- 添加按钮 -->
-            <div class="flex items-center gap-2 py-2 mt-2">
-              <div
-                class="w-8 h-8 rounded-full bg-[#F5F5F5] flex items-center justify-center cursor-pointer"
-              >
-                <i class="fa-solid fa-plus text-gray-500 text-sm"></i>
-              </div>
-              <span class="text-[14px] text-gray-500">添加活动</span>
+            <div class="flex items-center gap-2">
+              <input
+                type="text"
+                placeholder="输入比例"
+                class="flex-1 px-3 py-2 border border-gray-200 rounded-lg text-[14px] focus:outline-none focus:border-[#FF6634]"
+              />
+              <span class="text-[14px] text-gray-700">%</span>
             </div>
           </div>
 
           <!-- 分隔线 -->
           <div class="border-t border-gray-100"></div>
 
-          <!-- 能量币可抵扣限额定额 -->
+          <!-- 能量币可抵扣额度 -->
           <div class="py-3.5">
-            <div class="text-[14px] text-gray-900 mb-2">能量币可抵扣限额定额</div>
-            <div class="flex items-center gap-2 mb-1">
-              <span class="text-[14px] text-[#FF6634]">输入金额限</span>
+            <div class="flex items-center justify-between mb-2">
+              <span class="text-[14px] text-gray-900">能量币可抵扣额度</span>
+              <span class="text-[13px] text-gray-400">让更多用户得到优惠</span>
+            </div>
+            <div class="flex items-center gap-2">
+              <input
+                type="text"
+                placeholder="输入金额"
+                class="flex-1 px-3 py-2 border border-gray-200 rounded-lg text-[14px] focus:outline-none focus:border-[#FF6634]"
+              />
               <span class="text-[14px] text-gray-700">元</span>
             </div>
-            <div class="text-[13px] text-gray-400">
-              (输入数据，可输入大于或小于限额)
-            </div>
-            
-            <!-- 添加按钮 -->
-            <div class="flex items-center gap-2 py-2 mt-2">
-              <div
-                class="w-8 h-8 rounded-full bg-[#F5F5F5] flex items-center justify-center cursor-pointer"
-              >
-                <i class="fa-solid fa-plus text-gray-500 text-sm"></i>
-              </div>
-              <span class="text-[14px] text-gray-500">添加活动</span>
-            </div>
           </div>
 
           <!-- 分隔线 -->
           <div class="border-t border-gray-100"></div>
 
-          <!-- 大课 -->
+          <!-- 头图 -->
           <div class="py-3.5">
             <div class="flex items-center mb-2">
-              <span class="text-[14px] text-gray-900">大课</span>
+              <span class="text-[14px] text-gray-900">头图</span>
               <span class="text-red-500 ml-0.5 text-[14px]">*</span>
             </div>
-            <div class="text-[13px] text-gray-400 leading-relaxed mb-2">
-              为规者定至新增当规限商品填写能量币可抵扣额，<span class="text-[#FF6634]">查看需知</span>
+            <div class="text-[13px] text-gray-400 mb-3">
+              头图建议选用高清优质图片提升客流 <a href="#" class="text-[#FF6634]">查看示例</a>
             </div>
-            <div class="text-[13px] text-gray-400">
-              能量币抵扣额度
+            <div class="text-[13px] text-gray-400 mb-2">
+              图片比例建议3:4
             </div>
-            
-            <!-- 添加按钮 -->
-            <div class="flex items-center gap-2 py-2 mt-2">
-              <div
-                class="w-8 h-8 rounded-full bg-[#F5F5F5] flex items-center justify-center cursor-pointer"
-              >
-                <i class="fa-solid fa-plus text-gray-500 text-sm"></i>
-              </div>
-              <span class="text-[14px] text-gray-500">添加项目</span>
+            <div class="w-full h-40 border border-dashed border-gray-300 rounded-lg flex items-center justify-center cursor-pointer">
+              <i class="fa-solid fa-plus text-gray-400 text-2xl"></i>
+              <div class="text-[14px] text-gray-500 ml-2">添加图片</div>
             </div>
           </div>
 
           <!-- 分隔线 -->
           <div class="border-t border-gray-100"></div>
 
-          <!-- 辅助 -->
+          <!-- 辅助图 -->
           <div class="py-3.5">
             <div class="flex items-center mb-2">
-              <span class="text-[14px] text-gray-900">辅助</span>
+              <span class="text-[14px] text-gray-900">辅助图</span>
               <span class="text-red-500 ml-0.5 text-[14px]">*</span>
             </div>
-            <div class="text-[13px] text-gray-400 mb-2 leading-relaxed">
-              输入能量币可以抵扣的金额/或者能量值 <span class="text-[#FF6634]">添加专项</span>
+            <div class="text-[13px] text-gray-400 mb-2">
+              辅助图上传1-4张，每张图片不得超过5M <a href="#" class="text-[#FF6634]">查看示例</a>
             </div>
-            
-            <!-- 添加按钮 -->
-            <div class="flex items-center gap-2 py-2">
-              <div
-                class="w-8 h-8 rounded-full bg-[#F5F5F5] flex items-center justify-center cursor-pointer"
-              >
-                <i class="fa-solid fa-plus text-gray-500 text-sm"></i>
-              </div>
-              <span class="text-[14px] text-gray-500">添加项目</span>
+            <div class="w-full h-24 border border-dashed border-gray-300 rounded-lg flex items-center justify-center cursor-pointer">
+              <i class="fa-solid fa-plus text-gray-400 text-xl"></i>
+              <div class="text-[14px] text-gray-500 ml-2">添加图片</div>
             </div>
           </div>
 
           <!-- 分隔线 -->
           <div class="border-t border-gray-100"></div>
 
-          <!-- 环境 -->
+          <!-- 环境图 -->
           <div class="py-3.5">
-            <div class="text-[14px] text-gray-900 mb-2">环境</div>
-            <div class="text-[13px] text-gray-400 mb-2 leading-relaxed">
-              有利体与机构的规划制造可时尚环，且未来2个月 <span class="text-[#FF6634]">查看需知</span>
+            <div class="text-[14px] text-gray-900 mb-2">环境图</div>
+            <div class="text-[13px] text-gray-400 mb-2">
+              良好的环境也是用户的优先选择，最多可上传10张 <a href="#" class="text-[#FF6634]">查看示例</a>
             </div>
-            <div class="text-[13px] text-gray-400">
-              填写至少1个部门规划
+            <div class="text-[13px] text-gray-400 mb-2">
+              每张图片不得超过5M
             </div>
-            
-            <!-- 添加按钮 -->
-            <div class="flex items-center gap-2 py-2 mt-2">
-              <div
-                class="w-8 h-8 rounded-full bg-[#F5F5F5] flex items-center justify-center cursor-pointer"
-              >
-                <i class="fa-solid fa-plus text-gray-500 text-sm"></i>
-              </div>
-              <span class="text-[14px] text-gray-500">添加项目</span>
+            <div class="w-full h-24 border border-dashed border-gray-300 rounded-lg flex items-center justify-center cursor-pointer">
+              <i class="fa-solid fa-plus text-gray-400 text-xl"></i>
+              <div class="text-[14px] text-gray-500 ml-2">添加图片</div>
             </div>
           </div>
 
@@ -307,7 +274,7 @@
             <div class="text-[14px] text-gray-900 mb-2">项目补充说明</div>
             <textarea
               rows="4"
-              placeholder="如有需注意请填写时请，不少于10字"
+              placeholder="如有备注信息请说明，不少于10字"
               class="w-full px-3 py-2 border border-gray-200 rounded-lg text-[14px] focus:outline-none focus:border-[#FF6634] resize-none"
             ></textarea>
             <div class="text-right text-[13px] text-gray-400 mt-1">0/2000</div>
@@ -365,7 +332,7 @@
                 <span class="text-red-500 ml-0.5 text-[14px]">*</span>
               </div>
               <div class="flex items-center gap-2">
-                <span class="text-[14px] text-gray-400">自购买次日起365天</span>
+                <span class="text-[14px] text-gray-400">自购买次日起360天，购买当天默认可用</span>
                 <span class="text-[13px] text-[#FF6634]">编辑</span>
               </div>
             </div>
@@ -379,7 +346,7 @@
             <div class="flex items-center justify-between">
               <span class="text-[14px] text-gray-900">顾客不可消费日期</span>
               <div class="flex items-center gap-2">
-                <span class="text-[14px] text-gray-400">所有日期均可用</span>
+                <span class="text-[14px] text-gray-400">所有日期均可使用</span>
                 <span class="text-[13px] text-[#FF6634]">编辑</span>
               </div>
             </div>
@@ -410,8 +377,39 @@
             <div class="flex items-center justify-between">
               <span class="text-[14px] text-gray-900">限购规则</span>
               <div class="flex items-center gap-2">
-                <span class="text-[14px] text-gray-400">不限购</span>
-                <i class="fa-solid fa-chevron-right text-gray-400 text-xs"></i>
+                <span class="text-[14px] text-gray-400">不限</span>
+                <span class="text-[13px] text-[#FF6634]">编辑</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- 分隔线 -->
+          <div class="border-t border-gray-100"></div>
+
+          <!-- 预约规则 -->
+          <div class="py-3.5">
+            <div class="flex items-center justify-between">
+              <span class="text-[14px] text-gray-900">预约规则</span>
+              <div class="flex items-center gap-2">
+                <span class="text-[14px] text-gray-400">无需预约</span>
+                <span class="text-[13px] text-[#FF6634]">编辑</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- 分隔线 -->
+          <div class="border-t border-gray-100"></div>
+
+          <!-- 券码类型 -->
+          <div class="py-3.5">
+            <div class="flex items-center justify-between">
+              <div class="flex items-center">
+                <span class="text-[14px] text-gray-900">券码类型</span>
+                <span class="text-red-500 ml-0.5 text-[14px]">*</span>
+              </div>
+              <div class="flex items-center gap-2">
+                <span class="text-[14px] text-gray-400">唤醒券</span>
+                <span class="text-[13px] text-[#FF6634]">编辑</span>
               </div>
             </div>
           </div>
@@ -429,8 +427,8 @@
                 <span class="text-red-500 ml-0.5 text-[14px]">*</span>
               </div>
               <div class="flex items-center gap-2">
-                <span class="text-[14px] text-gray-400">不限购</span>
-                <i class="fa-solid fa-chevron-right text-gray-400 text-xs"></i>
+                <span class="text-[14px] text-gray-400">不与店内优惠同享</span>
+                <span class="text-[13px] text-[#FF6634]">编辑</span>
               </div>
             </div>
           </div>
@@ -438,66 +436,16 @@
           <!-- 分隔线 -->
           <div class="border-t border-gray-100"></div>
 
-          <!-- 券码规则 -->
+          <!-- 额外消费 -->
           <div class="py-3.5">
-            <div class="flex items-center justify-between">
-              <span class="text-[14px] text-gray-900">券码规则</span>
-              <div class="flex items-center gap-2">
-                <span class="text-[14px] text-gray-400">无需预约</span>
-                <i class="fa-solid fa-chevron-right text-gray-400 text-xs"></i>
-              </div>
-            </div>
-          </div>
-
-          <!-- 分隔线 -->
-          <div class="border-t border-gray-100"></div>
-
-          <!-- 券码类型 -->
-          <div class="py-3.5">
-            <div class="flex items-center justify-between">
-              <div class="flex items-center">
-                <span class="text-[14px] text-gray-900">券码类型</span>
-                <span class="text-red-500 ml-0.5 text-[14px]">*</span>
-              </div>
-              <div class="flex items-center gap-2">
-                <span class="text-[14px] text-gray-400">唤醒券</span>
-                <i class="fa-solid fa-chevron-right text-gray-400 text-xs"></i>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- 消费规则 -->
-        <div id="section-usage" class="bg-white mt-3 mx-4 rounded-xl px-4 py-3">
-          <h2 class="text-[15px] font-semibold text-gray-900 mb-2">消费规则</h2>
-
-          <!-- 虚拟其他优惠 -->
-          <div class="py-3.5">
-            <div class="flex items-center justify-between">
-              <div class="flex items-center">
-                <span class="text-[14px] text-gray-900">虚拟其他优惠</span>
-                <span class="text-red-500 ml-0.5 text-[14px]">*</span>
-              </div>
-              <div class="flex items-center gap-2">
-                <span class="text-[14px] text-gray-400">不限购</span>
-                <i class="fa-solid fa-chevron-right text-gray-400 text-xs"></i>
-              </div>
-            </div>
-          </div>
-
-          <!-- 分隔线 -->
-          <div class="border-t border-gray-100"></div>
-
-          <!-- 额外服务 -->
-          <div class="py-3.5">
-            <div class="text-[14px] text-gray-900 mb-3">额外服务</div>
+            <div class="text-[14px] text-gray-900 mb-3">额外消费</div>
 
             <!-- 保险费用 -->
             <div class="mb-3">
               <div class="text-[13px] text-gray-600 mb-2">保险费用</div>
               <div class="flex gap-3">
                 <div class="flex items-center gap-2">
-                  <input type="radio" name="insurance" id="user-pay" class="w-4 h-4 text-[#FF6634]" />
+                  <input type="radio" name="insurance" id="user-pay" class="w-4 h-4 text-[#FF6634]" checked />
                   <label for="user-pay" class="text-[14px] text-gray-700">用户自费</label>
                 </div>
                 <div class="flex items-center gap-2">
@@ -516,7 +464,7 @@
                   <label for="user-reimburse" class="text-[14px] text-gray-700">用户报销</label>
                 </div>
                 <div class="flex items-center gap-2">
-                  <input type="radio" name="homeService" id="merchant-cover" class="w-4 h-4 text-[#FF6634]" />
+                  <input type="radio" name="homeService" id="merchant-cover" class="w-4 h-4 text-[#FF6634]" checked />
                   <label for="merchant-cover" class="text-[14px] text-gray-700">商家包含</label>
                 </div>
               </div>
@@ -526,10 +474,10 @@
           <!-- 分隔线 -->
           <div class="border-t border-gray-100"></div>
 
-          <!-- 使用规则说明 -->
+          <!-- 使用张数限制 -->
           <div class="py-3.5">
-            <div class="flex items-center justify-between mb-2">
-              <span class="text-[14px] text-gray-900">使用规则说明</span>
+            <div class="flex items-center justify-between">
+              <span class="text-[14px] text-gray-900">使用张数限制</span>
               <label class="relative inline-flex items-center cursor-pointer">
                 <input type="checkbox" checked class="sr-only peer" />
                 <div class="w-11 h-6 bg-gray-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-[#FF6634]"></div>
@@ -540,9 +488,26 @@
           <!-- 分隔线 -->
           <div class="border-t border-gray-100"></div>
 
+          <!-- 单次消费最多使用张数 -->
+          <div class="py-3.5">
+            <div class="flex items-center justify-between">
+              <div class="flex items-center">
+                <span class="text-[14px] text-gray-900">单次消费最多使用张数</span>
+                <span class="text-red-500 ml-0.5 text-[14px]">*</span>
+              </div>
+              <div class="flex items-center gap-2">
+                <input type="text" placeholder="请输入" class="w-24 h-9 px-2 border border-gray-200 rounded text-[14px] text-[#FF6634] focus:outline-none focus:border-[#FF6634]" />
+                <span class="text-[14px] text-gray-700">张</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- 分隔线 -->
+          <div class="border-t border-gray-100"></div>
+
           <!-- 使用人数限制 -->
           <div class="py-3.5">
-            <div class="flex items-center justify-between mb-3">
+            <div class="flex items-center justify-between">
               <span class="text-[14px] text-gray-900">使用人数限制</span>
               <label class="relative inline-flex items-center cursor-pointer">
                 <input type="checkbox" checked class="sr-only peer" />
@@ -556,13 +521,13 @@
 
           <!-- 每张团购券最多可使用人数 -->
           <div class="py-3.5">
-            <div class="flex items-center justify-between mb-2">
+            <div class="flex items-center justify-between">
               <div class="flex items-center">
                 <span class="text-[14px] text-gray-900">每张团购券最多可使用人数</span>
                 <span class="text-red-500 ml-0.5 text-[14px]">*</span>
               </div>
               <div class="flex items-center gap-2">
-                <span class="text-[14px] text-[#FF6634]">输入人数</span>
+                <input type="text" placeholder="请输入" class="w-24 h-9 px-2 border border-gray-200 rounded text-[14px] text-[#FF6634] focus:outline-none focus:border-[#FF6634]" />
                 <span class="text-[14px] text-gray-700">人</span>
               </div>
             </div>
@@ -574,12 +539,12 @@
           <!-- 其他说明信息 -->
           <div class="py-3.5">
             <div class="text-[14px] text-gray-900 mb-2">其他说明信息</div>
-            <div class="text-[13px] text-gray-500 leading-relaxed mb-3 p-3 bg-gray-50 rounded-lg">
-              在实际场景中为直接依据成员，无需在约诊预约后支持，不得转卖"高能"、"精轻"和"能量团委"等关键xxxx
+            <div class="text-[13px] text-gray-500 mb-3">
+              若需填写多条可直接换行，无需在内容前标注序号。不得存在"美团"、"点评"、"最终解释权"等字样xxx
             </div>
             <textarea
               rows="4"
-              placeholder="请输入其他说明规则，规则时与其他商品信息相同将方法被拒提交，请勿按图原内容填写此处功"
+              placeholder="请输入其他规则限制，规则需与其他商品信息前后一致，多条规则请用回车换行区分"
               class="w-full px-3 py-2 border border-gray-200 rounded-lg text-[14px] focus:outline-none focus:border-[#FF6634] resize-none"
             ></textarea>
             <div class="text-right text-[13px] text-gray-400 mt-1">0/500</div>
@@ -614,7 +579,7 @@ const activeTab = ref('basics')
 const tabs = [
   { value: 'basics', label: '基础信息' },
   { value: 'merchant', label: '商家信息' },
-  { value: 'product', label: '商品信息' },
+  { value: 'product', label: '服务信息' },
   { value: 'sales', label: '售卖信息' },
   { value: 'trade', label: '交易规则' }
 ]
