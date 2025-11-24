@@ -167,7 +167,7 @@
         </div>
 
         <!-- 排行榜列表区域 -->
-        <div class="px-3 py-3">
+        <div class="px-2 py-3">
           <!-- 人气大师、服务大师、专业大师：列表布局 -->
           <template
             v-if="
@@ -176,7 +176,8 @@
               selectedCategory === 'professional'
             "
           >
-            <RankingCard
+            <!-- RankingCard -->
+            <MasterRankingCard
               v-for="(master, index) in rankedMasters"
               :key="master.id"
               :master="master"
@@ -254,7 +255,7 @@
 <script>
 import MasterCard from "@/components/MasterCard.vue";
 import ContentCard from "@/components/ContentCard.vue";
-import RankingCard from "@/components/RankingCard.vue";
+import MasterRankingCard from "@/components/MasterRankingCard.vue";
 import ChampionMasterCard from "@/components/ChampionMasterCard.vue";
 import User1 from "@images/user_1.png";
 import User2 from "@images/user_2.png";
@@ -265,7 +266,7 @@ export default {
   components: {
     MasterCard,
     ContentCard,
-    RankingCard,
+    MasterRankingCard,
     ChampionMasterCard,
   },
   data() {
