@@ -438,6 +438,7 @@ export default {
         "周期卡": "/business-admin/period-card-create",
         "预售券": "/business-admin/presale-voucher-create",
         "团购套餐": "/business-admin/group-buying-package-create",
+        "组团活动": "/create-activity",
         // 其他类型后续添加
       };
 
