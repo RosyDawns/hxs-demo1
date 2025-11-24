@@ -251,7 +251,7 @@ export default {
     return {
       selectedCategory: "运动场馆·健身房",
       selectedCategoryValue: "gym",
-      selectedType: "次卡",
+      selectedType: "优惠买单",
       showCategoryModal: false,
       showTypeModal: false,
       categorySearchText: "",
