@@ -40,8 +40,9 @@
         </button>
         <button
           class="flex items-center bg-white rounded-full px-3 py-1.5 text-sm mr-2"
+          @click="showTypeFilterModal"
         >
-          户外运动
+          {{ selectedType }}
           <i class="fa fa-angle-down ml-1 text-xs"></i>
         </button>
         <button
@@ -52,8 +53,9 @@
         </button>
         <button
           class="flex items-center bg-white rounded-full px-3 py-1.5 text-sm"
+          @click="showCostFilterModal"
         >
-          费用
+          {{ selectedCost }}
           <i class="fa fa-angle-down ml-1 text-xs"></i>
         </button>
       </div>
@@ -413,6 +415,86 @@
         </div>
       </div>
     </div>
+
+    <!-- 类型筛选弹框 -->
+    <div v-if="showTypeModal" class="filter-modal">
+      <div class="modal-overlay" @click="closeTypeFilterModal"></div>
+      <div class="filter-modal-content">
+        <div class="flex justify-between items-center mb-4">
+          <h3 class="text-lg font-bold text-gray-800">活动类型</h3>
+          <button class="w-10 h-10 flex items-center justify-center rounded-full text-gray-500 hover:bg-gray-100" @click="closeTypeFilterModal">
+            <i class="fa fa-times text-lg"></i>
+          </button>
+        </div>
+        
+        <!-- 一级分类 -->
+        <div class="mb-4">
+          <h4 class="text-sm font-semibold text-gray-600 mb-3">选择主分类</h4>
+          <div class="flex overflow-x-auto pb-2 -mx-1">
+            <button 
+              v-for="category in activityTypes" 
+              :key="category.category"
+              class="flex-shrink-0 px-5 py-2.5 mx-1 rounded-full text-sm font-medium transition-all duration-200 ease-in-out focus:outline-none"
+              :class="selectedCategory === category.category ? 'bg-orange-500 text-white shadow-md' : 'bg-gray-100 text-gray-700 hover:bg-gray-200'"
+              @click="selectCategory(category.category)"
+            >
+              {{ category.category }}
+            </button>
+          </div>
+        </div>
+        
+        <!-- 二级分类 -->
+        <div class="mb-6">
+          <h4 class="text-sm font-semibold text-gray-600 mb-3">选择子分类</h4>
+          <div class="grid grid-cols-3 gap-2">
+            <button 
+              v-for="item in currentSubCategories" 
+              :key="item"
+              class="py-3 px-2 rounded-lg text-sm font-medium transition-all duration-200 ease-in-out focus:outline-none text-center"
+              :class="selectedType === item ? 'bg-orange-500 text-white shadow-md' : 'bg-gray-100 text-gray-700 hover:bg-gray-200'"
+              @click="selectType(item)"
+            >
+              {{ item }}
+            </button>
+          </div>
+        </div>
+        
+        <div class="flex flex-col gap-3">
+          <button class="py-3.5 bg-gray-100 text-gray-700 rounded-lg font-semibold transition-all duration-200 ease-in-out hover:bg-gray-200" @click="resetFilters">重置</button>
+          <button class="py-3.5 bg-orange-500 text-white rounded-lg font-semibold transition-all duration-200 ease-in-out hover:bg-orange-600 shadow-md" @click="closeTypeFilterModal">确定</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- 费用筛选弹框 -->
+    <div v-if="showCostModal" class="filter-modal">
+      <div class="modal-overlay" @click="closeCostFilterModal"></div>
+      <div class="filter-modal-content">
+        <div class="flex justify-between items-center mb-4">
+          <h3 class="text-lg font-bold text-gray-800">费用类型</h3>
+          <button class="w-10 h-10 flex items-center justify-center rounded-full text-gray-500 hover:bg-gray-100" @click="closeCostFilterModal">
+            <i class="fa fa-times text-lg"></i>
+          </button>
+        </div>
+        
+        <div class="space-y-3 mb-6">
+          <button 
+            v-for="cost in costOptions" 
+            :key="cost"
+            class="w-full py-4 px-4 rounded-lg text-base font-medium transition-all duration-200 ease-in-out focus:outline-none text-left"
+            :class="selectedCost === cost ? 'bg-orange-500 text-white shadow-md' : 'bg-gray-100 text-gray-700 hover:bg-gray-200'"
+            @click="selectCost(cost)"
+          >
+            {{ cost }}
+          </button>
+        </div>
+        
+        <div class="flex flex-col gap-3">
+          <button class="py-3.5 bg-gray-100 text-gray-700 rounded-lg font-semibold transition-all duration-200 ease-in-out hover:bg-gray-200" @click="resetFilters">重置</button>
+          <button class="py-3.5 bg-orange-500 text-white rounded-lg font-semibold transition-all duration-200 ease-in-out hover:bg-orange-600 shadow-md" @click="closeCostFilterModal">确定</button>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -424,7 +506,40 @@ export default {
       showCreateModal: false,
       showVerificationPromptModal: true,
       showVerificationTypeSelect: false,
+      showTypeModal: false,
+      showCostModal: false,
+      selectedType: '户外运动',
+      selectedCost: '费用',
+      selectedCategory: '户外运动',
+      activityTypes: [
+        { category: '户外运动', items: ['跑步', '骑行', '徒步', '露营', '飞盘', '轮滑', '钓鱼', '爬山', '溯溪'] },
+        { category: '户外休闲', items: ['野餐', '摄影', '采摘', '观星'] },
+        { category: '室内娱乐', items: ['桌游', '密室逃脱', '剧本杀', 'K歌'] },
+        { category: '球类运动', items: ['篮球', '足球', '羽毛球', '乒乓球', '网球'] },
+        { category: '综合体育', items: ['健身', '瑜伽', '舞蹈'] },
+        { category: '二次元', items: ['漫展', 'Cosplay', '同人创作'] },
+        { category: '追星', items: ['演唱会', '粉丝见面会'] }
+      ],
+      costOptions: ['免费活动', '线下AA制', '付费活动']
     };
+  },
+  computed: {
+    // 计算当前选中分类的二级分类
+    currentSubCategories() {
+      // 确保activityTypes是数组且不为空
+      if (!Array.isArray(this.activityTypes) || this.activityTypes.length === 0) {
+        return [];
+      }
+      
+      // 查找当前选中的一级分类
+      const currentCategory = this.activityTypes.find(category => {
+        // 确保category存在且有category属性
+        return category && category.category === this.selectedCategory;
+      });
+      
+      // 确保currentCategory存在且有items属性
+      return currentCategory && Array.isArray(currentCategory.items) ? currentCategory.items : [];
+    }
   },
   methods: {
     goBack() {
@@ -472,6 +587,42 @@ export default {
     // 跳转到个人认证页面
     goToPersonalVerification() {
       this.$router.push({ path: "/personal-verification" });
+    },
+    // 显示类型筛选弹框
+    showTypeFilterModal() {
+      this.showTypeModal = true;
+    },
+    // 关闭类型筛选弹框
+    closeTypeFilterModal() {
+      this.showTypeModal = false;
+    },
+    // 显示费用筛选弹框
+    showCostFilterModal() {
+      this.showCostModal = true;
+    },
+    // 关闭费用筛选弹框
+    closeCostFilterModal() {
+      this.showCostModal = false;
+    },
+    // 选择活动类型
+    selectType(type) {
+      this.selectedType = type;
+      this.closeTypeFilterModal();
+    },
+    // 选择一级分类
+    selectCategory(category) {
+      this.selectedCategory = category;
+    },
+    // 选择费用类型
+    selectCost(cost) {
+      this.selectedCost = cost;
+      this.closeCostFilterModal();
+    },
+    // 重置筛选条件
+    resetFilters() {
+      this.selectedType = '户外运动';
+      this.selectedCost = '费用';
+      this.selectedCategory = '户外运动';
     },
   },
 };
@@ -787,5 +938,72 @@ export default {
 
 .btn-go-verify:active {
   opacity: 0.8;
+}
+
+/* 筛选弹框样式 */
+.filter-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 1000;
+  display: flex;
+  align-items: flex-end;
+}
+
+.filter-modal-content {
+    position: relative;
+    width: 100%;
+    background: white;
+    border-radius: 24px 24px 0 0;
+    padding: 20px;
+    padding-bottom: calc(20px + env(safe-area-inset-bottom));
+    animation: slideUp 0.35s ease-out;
+    max-height: 85vh;
+    overflow-y: auto;
+    box-shadow: 0 -8px 32px rgba(0, 0, 0, 0.1);
+    transform-origin: bottom center;
+  }
+
+.filter-modal-content::-webkit-scrollbar {
+  width: 0;
+}
+
+/* 横向滚动条隐藏 */
+.filter-modal-content ::-webkit-scrollbar {
+  height: 0;
+}
+
+@keyframes slideUp {
+  from {
+    transform: translateY(100%) scale(0.95);
+    opacity: 0;
+    box-shadow: 0 -4px 16px rgba(0, 0, 0, 0.05);
+  }
+  to {
+    transform: translateY(0) scale(1);
+    opacity: 1;
+    box-shadow: 0 -8px 32px rgba(0, 0, 0, 0.1);
+  }
+}
+
+.modal-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.6);
+  animation: fadeIn 0.35s ease-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
 </style>
