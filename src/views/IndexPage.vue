@@ -217,7 +217,7 @@
       <!-- 快捷入口 -->
       <div class="grid grid-cols-4 gap-2">
         <div
-          class="bg-white rounded-lg p-3 shadow nav-action cursor-pointer"
+          class="bg-white rounded-lg py-2 px-2 shadow nav-action cursor-pointer"
           @click="$router.push('/ranking')"
         >
           <div class="font-bold text-sm text-black">城市大师</div>
@@ -227,7 +227,7 @@
           </div>
         </div>
         <div
-          class="bg-white rounded-lg p-3 shadow nav-action cursor-pointer"
+          class="bg-white rounded-lg py-2 px-2 shadow nav-action cursor-pointer"
           @click="$router.push('/camp-register')"
         >
           <div class="font-bold text-sm text-black">免费体验</div>
@@ -239,7 +239,7 @@
           </div>
         </div>
         <div
-          class="bg-white rounded-lg py-3 px-2 shadow relative nav-action cursor-pointer col-span-2"
+          class="bg-white rounded-lg py-2 px-1 shadow relative nav-action cursor-pointer col-span-2"
           @click="$router.push('/weight-management-camp')"
         >
           <div class="flex items-center">
