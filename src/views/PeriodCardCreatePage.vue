@@ -11,15 +11,7 @@
         </div>
         <h1 class="text-[17px] font-semibold text-gray-900">商品创建</h1>
       </div>
-      <div class="flex items-center gap-3">
-        <div class="flex items-center gap-1">
-          <i class="fa-solid fa-star text-yellow-400 text-sm"></i>
-          <span class="text-[14px] text-gray-700">4.9</span>
-        </div>
-        <button class="w-7 h-7 rounded-full bg-gray-100 flex items-center justify-center">
-          <i class="fa-solid fa-ellipsis text-gray-600 text-sm"></i>
-        </button>
-      </div>
+      
     </header>
 
     <!-- Tab导航 -->
@@ -27,11 +19,11 @@
       class="fixed top-12 left-0 right-0 bg-white z-40 overflow-x-auto"
       style="border-bottom: 1px solid #E8E8E8;"
     >
-      <div class="flex min-w-max">
+      <div class="flex justify-between px-3">
         <div
           v-for="tab in tabs"
           :key="tab.value"
-          class="px-4 py-3 relative cursor-pointer transition-colors whitespace-nowrap"
+          class=" py-3 relative cursor-pointer transition-colors whitespace-nowrap"
           :class="activeTab === tab.value ? 'text-gray-900 font-medium' : 'text-gray-500'"
           @click="scrollToSection(tab.value)"
         >
@@ -125,14 +117,30 @@
 
           <!-- 商品名称 -->
           <div class="py-3.5">
-            <div class="flex items-center justify-between">
-              <div class="flex items-center">
-                <span class="text-[14px] text-gray-900">商品名称</span>
-                <span class="text-red-500 ml-0.5 text-[14px]">*</span>
-              </div>
+            <div class="flex items-center">
+              <span class="text-[14px] text-gray-900">商品名称</span>
+              <span class="text-red-500 ml-0.5 text-[14px]">*</span>
+            </div>
+            <div class="text-[13px] text-gray-400 mt-1 mb-2">
+              名称需与内容保持一致,不能包含除字母和数字外的特殊符号,建议包含适用场景及用餐人数
+            </div>
+            <input
+              type="text"
+              class="w-full px-3 py-2.5 border border-gray-200 rounded-lg text-[14px] focus:outline-none focus:border-[#FF6634]"
+              placeholder="请输入商品名称"
+            />
+          </div>
+
+          <!-- 分隔线 -->
+          <div class="border-t border-gray-100"></div>
+
+          <!-- 周期卡类型 -->
+          <div class="py-3.5">
+            <div class="flex items-center justify-between mb-2">
+              <span class="text-[14px] text-gray-900">周期卡类型</span>
               <div class="flex items-center gap-2">
-                <span class="text-[14px] text-gray-400">全年健身培训课程</span>
-                <i class="fa-solid fa-chevron-right text-gray-400 text-xs"></i>
+                <span class="text-[14px] text-gray-700">周卡 (到店开卡后开始计算有效期7天)</span>
+                <i class="fa-solid fa-chevron-up text-gray-400 text-xs"></i>
               </div>
             </div>
           </div>
@@ -140,111 +148,39 @@
           <!-- 分隔线 -->
           <div class="border-t border-gray-100"></div>
 
-          <!-- 周期卡种类 -->
+          <!-- 周期卡封面图 -->
           <div class="py-3.5">
-            <div class="flex items-center justify-between mb-3">
-              <div class="flex items-center">
-                <span class="text-[14px] text-gray-900">周期卡种类</span>
-                <span class="text-red-500 ml-0.5 text-[14px]">*</span>
-              </div>
-              <i class="fa-solid fa-chevron-up text-gray-400 text-xs"></i>
-            </div>
-            
-            <!-- 卡种类列表 -->
-            <div class="space-y-2">
-              <div class="flex items-center justify-between py-2">
-                <span class="text-[14px] text-gray-700">双月卡</span>
-                <span class="text-[13px] text-gray-400">仅限针对为相同的对象</span>
-              </div>
-              <div class="flex items-center justify-between py-2">
-                <span class="text-[14px] text-gray-700">双月卡</span>
-                <span class="text-[13px] text-gray-400">仅限区域购卡用于营</span>
-              </div>
-              <div class="flex items-center justify-between py-2">
-                <span class="text-[14px] text-gray-700">半年卡</span>
-                <span class="text-[13px] text-gray-400">只以区域选项加价使用</span>
-              </div>
-              <div class="flex items-center justify-between py-2">
-                <span class="text-[14px] text-gray-700">年卡</span>
-                <span class="text-[13px] text-gray-400">只以区域选项加价使用</span>
-              </div>
-            </div>
-          </div>
-
-          <!-- 分隔线 -->
-          <div class="border-t border-gray-100"></div>
-
-          <!-- 周期卡定价 -->
-          <div class="py-3.5">
-            <div class="flex items-center mb-2">
-              <span class="text-[14px] text-gray-900">周期卡定价</span>
+            <div class="flex items-center mb-1">
+              <span class="text-[14px] text-gray-900">周期卡封面图</span>
               <span class="text-red-500 ml-0.5 text-[14px]">*</span>
             </div>
-            <div class="flex items-center gap-2 mb-1">
-              <input
-                type="text"
-                placeholder="仅限针对为相同的对象"
-                class="flex-1 px-3 py-2 border border-gray-200 rounded-lg text-[14px] focus:outline-none focus:border-[#FF6634]"
-              />
+            <div class="text-[13px] text-gray-400 mt-1 mb-2">
+              封面图建议选用高清优质图提升客流 <span class="text-[#FF6634]">查看示例</span>
             </div>
-            <div class="text-[13px] text-[#FF6634]">
-              能量币可抵扣额度
+            <div class="text-[13px] text-gray-400 mb-3">
+              图片比例建议3:4
             </div>
-          </div>
-
-          <!-- 分隔线 -->
-          <div class="border-t border-gray-100"></div>
-
-          <!-- 能量币可抵扣额度列表 -->
-          <div class="py-3.5">
-            <div class="space-y-3">
-              <!-- 第一项 -->
-              <div>
-                <div class="flex items-center gap-2 mb-1">
-                  <input
-                    type="text"
-                    placeholder="仅限针对为相同的对象"
-                    class="flex-1 px-3 py-2 border border-gray-200 rounded-lg text-[14px] focus:outline-none focus:border-[#FF6634]"
-                  />
-                </div>
-                <div class="text-[13px] text-gray-400">
-                  能量币可抵扣额度
-                </div>
-              </div>
-
-              <!-- 添加按钮 -->
-              <div class="flex items-center gap-2 py-2">
-                <div
-                  class="w-8 h-8 rounded-full bg-[#F5F5F5] flex items-center justify-center cursor-pointer"
-                >
-                  <i class="fa-solid fa-plus text-gray-500 text-sm"></i>
-                </div>
-                <span class="text-[14px] text-gray-500">添加项目</span>
-              </div>
+            <div class="w-[120px] h-[160px] border border-dashed border-gray-300 rounded-lg flex flex-col items-center justify-center cursor-pointer">
+              <i class="fa-solid fa-plus text-gray-400 text-xl mb-1"></i>
+              <span class="text-[13px] text-gray-500">添加图片</span>
             </div>
           </div>
 
           <!-- 分隔线 -->
           <div class="border-t border-gray-100"></div>
 
-          <!-- 辅助 -->
+          <!-- 辅助图 -->
           <div class="py-3.5">
-            <div class="flex items-center mb-2">
-              <span class="text-[14px] text-gray-900">辅助</span>
+            <div class="flex items-center mb-1">
+              <span class="text-[14px] text-gray-900">辅助图</span>
               <span class="text-red-500 ml-0.5 text-[14px]">*</span>
             </div>
-            <div class="text-[13px] text-gray-400 mb-2 leading-relaxed">
-              输入能量币可以抵扣的金额/或者能量值 <span class="text-[#FF6634]">添加专项</span>
+            <div class="text-[13px] text-gray-400 mt-1 mb-3">
+              辅助图上传1-4张,每张图片不得超过5M <span class="text-[#FF6634]">查看示例</span>
             </div>
-            
-            <!-- 添加按钮 -->
-            <div class="flex items-center gap-2 py-2">
-              <div
-                class="w-8 h-8 rounded-full bg-[#F5F5F5] flex items-center justify-center cursor-pointer"
-              >
-                <i class="fa-solid fa-plus text-gray-500 text-sm"></i>
-              </div>
-              <span class="text-[14px] text-gray-500">添加项目</span>
+            <div class="w-[120px] h-[120px] border border-dashed border-gray-300 rounded-lg flex flex-col items-center justify-center cursor-pointer">
+              <i class="fa-solid fa-plus text-gray-400 text-xl mb-1"></i>
+              <span class="text-[13px] text-gray-500">添加图片</span>
             </div>
           </div>
         </div>
@@ -603,7 +539,6 @@ const tabs = [
   { value: 'product', label: '商品信息' },
   { value: 'sales', label: '售卖信息' },
   { value: 'trade', label: '交易规则' },
-  { value: 'consumption', label: '消费规则' }
 ]
 
 const goBack = () => {
