@@ -40,8 +40,9 @@
         </button>
         <button
           class="flex items-center bg-white rounded-full px-3 py-1.5 text-sm mr-2"
+          @click="showActivityTypeFilter"
         >
-          户外运动
+          {{ selectedActivityType }}
           <i class="fa fa-angle-down ml-1 text-xs"></i>
         </button>
         <button
@@ -52,8 +53,9 @@
         </button>
         <button
           class="flex items-center bg-white rounded-full px-3 py-1.5 text-sm"
+          @click="showCostTypeFilter"
         >
-          费用
+          {{ selectedCostType }}
           <i class="fa fa-angle-down ml-1 text-xs"></i>
         </button>
       </div>
@@ -413,6 +415,64 @@
         </div>
       </div>
     </div>
+
+    <!-- 筛选弹框 -->
+    <div v-if="showFilterModal" class="filter-modal">
+      <div class="filter-modal-overlay" @click="closeFilterModal"></div>
+      <div class="filter-modal-content">
+        <div class="filter-modal-header">
+          <h3 class="filter-modal-title">{{ filterType === 'activityType' ? '活动类型' : '费用类型' }}</h3>
+          <button class="filter-modal-close" @click="closeFilterModal">
+            <i class="fa fa-times"></i>
+          </button>
+        </div>
+        <div class="filter-modal-body">
+          <!-- 活动类型筛选 -->
+          <div v-if="filterType === 'activityType'" class="activity-type-filter">
+            <!-- 一级分类 -->
+            <div class="activity-type-level-1">
+              <div 
+                v-for="(type, index) in activityTypes" 
+                :key="index" 
+                class="activity-type-level-1-item" 
+                :class="{ active: selectedMainType === type.name }"
+                @click="selectedMainType = type.name"
+              >
+                {{ type.name }}
+              </div>
+            </div>
+            <!-- 二级分类 -->
+            <div class="activity-type-level-2">
+              <div 
+                v-for="subType in getCurrentSubTypes()" 
+                :key="subType" 
+                class="activity-type-level-2-item" 
+                :class="{ active: selectedActivityType === subType }"
+                @click="selectedActivityType = subType"
+              >
+                {{ subType }}
+              </div>
+            </div>
+          </div>
+          <!-- 费用类型筛选 -->
+          <div v-else-if="filterType === 'costType'" class="cost-type-filter">
+            <div 
+              v-for="(type, index) in costTypes" 
+              :key="index" 
+              class="cost-type-option" 
+              :class="{ active: selectedCostType === type }"
+              @click="selectedCostType = type"
+            >
+              {{ type }}
+            </div>
+          </div>
+        </div>
+        <div class="filter-modal-footer">
+          <button class="filter-modal-btn filter-modal-btn-reset" @click="resetFilters">重置</button>
+          <button class="filter-modal-btn filter-modal-btn-confirm" @click="confirmFilters">确定</button>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -424,6 +484,26 @@ export default {
       showCreateModal: false,
       showVerificationPromptModal: true,
       showVerificationTypeSelect: false,
+      // 筛选弹框状态管理
+      showFilterModal: false,
+      filterType: '', // 'activityType' 或 'costType'
+      // 活动类型数据
+      activityTypes: [
+        { id: 'outdoor', name: '户外运动', subTypes: ['跑步', '骑行', '徒步', '露营', '飞盘', '轮滑', '垂钓', '爬山', '溯溪'] },
+        { id: 'outdoor_leisure', name: '户外休闲', subTypes: ['野餐', '烧烤', '摄影', '赏花', '采摘', '自驾'] },
+        { id: 'indoor_entertainment', name: '室内娱乐', subTypes: ['桌游', '剧本杀', '密室逃脱', 'KTV', '观影', '电竞'] },
+        { id: 'ball_sports', name: '球类运动', subTypes: ['篮球', '足球', '羽毛球', '乒乓球', '网球', '排球'] },
+        { id: 'comprehensive_sports', name: '综合体育', subTypes: ['游泳', '瑜伽', '舞蹈', '拳击', '攀岩', '滑雪'] },
+        { id: 'fitness', name: '健身健美', subTypes: ['力量训练', '有氧训练', '普拉提', '动感单车', '拉伸', '体态矫正'] },
+        { id: 'anime', name: '二次元', subTypes: ['漫展', 'COS', '动漫观影', '周边交换', '手办制作', '声优见面会'] },
+        { id: 'star_chasing', name: '追星', subTypes: ['演唱会', '见面会', '应援活动', '粉丝聚会', '签名会', '生日会'] }
+      ],
+      // 费用类型数据
+      costTypes: ['免费活动', '线下AA制', '付费活动'],
+      // 选中的筛选条件
+      selectedActivityType: '户外运动',
+      selectedMainType: '户外运动', // 选中的一级分类
+      selectedCostType: '费用'
     };
   },
   methods: {
@@ -472,6 +552,43 @@ export default {
     // 跳转到个人认证页面
     goToPersonalVerification() {
       this.$router.push({ path: "/personal-verification" });
+    },
+    
+    // 筛选弹框相关方法
+    showActivityTypeFilter() {
+      this.filterType = 'activityType';
+      // 默认选中第一个一级分类
+      this.selectedMainType = this.activityTypes[0].name;
+      this.showFilterModal = true;
+    },
+    
+    showCostTypeFilter() {
+      this.filterType = 'costType';
+      this.showFilterModal = true;
+    },
+    
+    closeFilterModal() {
+      this.showFilterModal = false;
+    },
+    
+    // 获取当前选中一级分类的二级分类
+    getCurrentSubTypes() {
+      const currentType = this.activityTypes.find(type => type.name === this.selectedMainType);
+      return currentType ? currentType.subTypes : [];
+    },
+    
+    resetFilters() {
+      if (this.filterType === 'activityType') {
+        this.selectedMainType = this.activityTypes[0].name;
+        this.selectedActivityType = this.activityTypes[0].name;
+      } else if (this.filterType === 'costType') {
+        this.selectedCostType = '费用';
+      }
+    },
+    
+    confirmFilters() {
+      // 这里可以添加筛选逻辑，例如调用API获取筛选后的活动列表
+      this.showFilterModal = false;
     },
   },
 };
@@ -787,5 +904,260 @@ export default {
 
 .btn-go-verify:active {
   opacity: 0.8;
+}
+
+/* 筛选弹框样式 */
+.filter-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1000;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+}
+
+.filter-modal-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  animation: fadeIn 0.3s ease;
+}
+
+.filter-modal-content {
+  position: relative;
+  width: 100%;
+  max-height: 80vh;
+  background: #fff;
+  border-radius: 16px 16px 0 0;
+  transform: translateY(0);
+  animation: slideUp 0.3s ease;
+  display: flex;
+  flex-direction: column;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideUp {
+  from { transform: translateY(100%); }
+  to { transform: translateY(0); }
+}
+
+.filter-modal-header {
+  padding: 16px;
+  border-bottom: 1px solid #eee;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #fff;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.filter-modal-title {
+  font-size: 16px;
+  font-weight: 600;
+  color: #333;
+  margin: 0;
+  text-align: center;
+  flex: 1;
+}
+
+.filter-modal-close {
+  width: 24px;
+  height: 24px;
+  border: none;
+  background: transparent;
+  color: #999;
+  font-size: 18px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s;
+  border-radius: 50%;
+}
+
+.filter-modal-close:hover {
+  background: #f5f5f5;
+  color: #333;
+}
+
+.filter-modal-body {
+  padding: 0;
+  flex: 1;
+  overflow-y: auto;
+  background: #fff;
+}
+
+/* 活动类型筛选样式 */
+.activity-type-filter {
+  display: flex;
+  height: 400px;
+  gap: 0;
+  background: #fff;
+}
+
+/* 一级分类样式 */
+.activity-type-level-1 {
+  width: 100px;
+  background: #f7f7f7;
+  border-right: 1px solid #eee;
+  overflow-y: auto;
+}
+
+.activity-type-level-1-item {
+  padding: 14px 12px;
+  font-size: 14px;
+  color: #666;
+  cursor: pointer;
+  transition: all 0.3s;
+  text-align: center;
+  border-bottom: 1px solid #eee;
+  background: #f7f7f7;
+}
+
+.activity-type-level-1-item:hover {
+  background: #eaeaea;
+}
+
+.activity-type-level-1-item.active {
+  background: #fff;
+  color: #ff6b35;
+  font-weight: 600;
+  position: relative;
+}
+
+.activity-type-level-1-item.active::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 3px;
+  background: #ff6b35;
+}
+
+/* 二级分类样式 */
+.activity-type-level-2 {
+  flex: 1;
+  padding: 12px;
+  overflow-y: auto;
+  background: #fff;
+}
+
+.activity-type-level-2-item {
+  padding: 12px 16px;
+  margin-bottom: 8px;
+  background: #fff;
+  border: 1px solid #eee;
+  border-radius: 6px;
+  font-size: 14px;
+  color: #333;
+  cursor: pointer;
+  transition: all 0.3s;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.activity-type-level-2-item:hover {
+  background: #f5f5f5;
+}
+
+.activity-type-level-2-item.active {
+  background: #fff3e0;
+  border-color: #ff6b35;
+  color: #ff6b35;
+}
+
+.activity-type-level-2-item.active::after {
+  content: '✓';
+  font-size: 14px;
+  font-weight: bold;
+}
+
+/* 费用类型筛选样式 */
+.cost-type-filter {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 12px;
+}
+
+.cost-type-option {
+  padding: 14px 16px;
+  background: #fff;
+  border: 1px solid #eee;
+  border-radius: 6px;
+  font-size: 15px;
+  color: #333;
+  cursor: pointer;
+  transition: all 0.3s;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.cost-type-option:hover {
+  background: #f5f5f5;
+}
+
+.cost-type-option.active {
+  background: #fff3e0;
+  border-color: #ff6b35;
+  color: #ff6b35;
+}
+
+/* 底部按钮样式 */
+.filter-modal-footer {
+  padding: 12px;
+  border-top: 1px solid #eee;
+  display: flex;
+  gap: 12px;
+  background: #fff;
+  position: sticky;
+  bottom: 0;
+  z-index: 10;
+}
+
+.filter-modal-btn {
+  flex: 1;
+  padding: 12px;
+  border: none;
+  border-radius: 8px;
+  font-size: 15px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.filter-modal-btn-reset {
+  background: #f7f7f7;
+  color: #666;
+  border: 1px solid #eee;
+}
+
+.filter-modal-btn-reset:active {
+  background: #eaeaea;
+}
+
+.filter-modal-btn-confirm {
+  background: #ff6b35;
+  color: #fff;
+  border: none;
+}
+
+.filter-modal-btn-confirm:active {
+  background: #ff5a1f;
 }
 </style>
