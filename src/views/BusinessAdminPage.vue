@@ -17,41 +17,68 @@
       </div>
     </header>
 
-    <main class="flex-1 overflow-y-auto pt-14 pb-16 px-4 bg-[#f3f3f3]">
+    <main class="flex-1 overflow-y-auto pt-14 pb-16 px-2 bg-[#f3f3f3]">
       <!-- 服务分和统计数据 -->
-      <div class="bg-white mt-3 rounded-2xl p-5">
+      <div class="bg-white mt-3 rounded-2xl p-4">
         <div class="flex items-center justify-between">
           <div class="flex flex-col items-center mr-4">
             <div class="mb-2">
-              <p class="text-xs text-gray-500">服务分</p>
+              <p class="text-xs text-orange-500">服务分</p>
             </div>
             <div class="relative">
-              <div
-                class="w-16 h-16 rounded-full flex items-center justify-center bg-orange-100"
-              >
-                <span class="text-xl font-bold text-orange-500">4.8</span>
-              </div>
-              <div
-                class="absolute -bottom-1 -right-1 w-5 h-5 rounded-full bg-white flex items-center justify-center border-2 border-orange-500"
-              >
-                <span class="text-xs font-bold text-orange-500">S</span>
+              <!-- 圆形进度条 -->
+              <div class="w-16 h-16 rounded-full flex items-center justify-center">
+                <svg class="w-16 h-16" viewBox="0 0 100 100">
+                  <!-- 背景圆 -->
+                  <circle
+                    cx="50"
+                    cy="50"
+                    r="45"
+                    fill="none"
+                    stroke="#f5f5f5"
+                    stroke-width="8"
+                  ></circle>
+                  <!-- 进度圆（渐变效果） -->
+                  <circle
+                    cx="50"
+                    cy="50"
+                    r="45"
+                    fill="none"
+                    stroke="url(#progress-gradient)"
+                    stroke-width="8"
+                    stroke-linecap="round"
+                    stroke-dasharray="282.74"
+                    stroke-dashoffset="0"
+                    transform="rotate(-90 50 50)"
+                  ></circle>
+                  <!-- 渐变定义 -->
+                  <defs>
+                    <linearGradient id="progress-gradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                      <stop offset="0%" stop-color="#FF6634"></stop>
+                      <stop offset="100%" stop-color="#FF9985"></stop>
+                    </linearGradient>
+                  </defs>
+                </svg>
+                <div class="absolute inset-0 flex items-center justify-center">
+                  <span class="text-xl font-bold text-orange-500">4.8</span>
+                </div>
               </div>
             </div>
           </div>
           <div class="flex-1 grid grid-cols-3 gap-2">
             <div class="text-center">
-              <p class="text-lg font-bold text-gray-900">272.2元</p>
               <p class="text-xs text-gray-500">核销金额</p>
+              <p class="text-lg font-bold text-gray-900 my-1">272.2元</p>
               <p class="text-xs text-gray-400">昨日561.4元</p>
             </div>
             <div class="text-center">
-              <p class="text-lg font-bold text-gray-900">3</p>
               <p class="text-xs text-gray-500">核销券数</p>
+              <p class="text-lg font-bold text-gray-900 my-1">3</p>
               <p class="text-xs text-gray-400">昨日9</p>
             </div>
             <div class="text-center">
-              <p class="text-lg font-bold text-gray-900">0元</p>
               <p class="text-xs text-gray-500">成交金额</p>
+              <p class="text-lg font-bold text-gray-900 my-1">0元</p>
               <p class="text-xs text-gray-400">昨日0元</p>
             </div>
           </div>
@@ -62,12 +89,12 @@
           class="mt-4 bg-orange-50 rounded-lg p-3 flex items-center justify-between"
         >
           <div class="flex items-center">
-            <span class="text-xs text-orange-500 font-medium mr-2"
+            <span class="text-xs text-orange-500 font-medium bg-white px-2 py-0.5 rounded-full mr-2"
               >服务优秀</span
             >
             <p class="text-xs text-gray-600">好的服务是长久发展的基础</p>
           </div>
-          <i class="fa-solid fa-angle-right text-xs text-gray-400"></i>
+          <i class="fa-solid fa-chevron-right text-xs text-gray-400"></i>
         </div>
       </div>
 
