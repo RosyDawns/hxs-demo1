@@ -23,10 +23,12 @@
               </div>
             </div>
             <div class="text-right flex-shrink-0">
-              <div class="text-sm text-white/95 whitespace-nowrap">
-                唤醒币: <span class="font-semibold">200</span>
+              <div class="text-sm font-bold text-white/95 whitespace-nowrap">
+                唤醒豆: <span class="font-semibold">200</span>
               </div>
-              <div class="text-sm text-white/95 whitespace-nowrap">
+              <div
+                class="text-sm font-bold text-white/95 whitespace-nowrap mt-1"
+              >
                 能量币: <span class="font-semibold">35</span>
               </div>
             </div>
@@ -97,12 +99,10 @@
       ></div>
 
       <!-- 能量树背景图 -->
-      <div class="absolute lef-0 bottom-0 w-full inset-0">
-        <div class="absolute bottom-40 left-0 flex items-center justify-center">
-          <img src="@images/tree_2.png" class="w-full block" />
-          <!-- 能量果实（使用绝对定位） -->
+      <div class="absolute lef-0 bottom-0 w-full inset-0 tree-content">
+        <div class="absolute bottom-30 left-0 flex items-center justify-center">
+          <!-- <img src="@images/tree_2.png" class="w-full block" />
           <div class="absolute inset-0 pointer-events-none z-100">
-            <!-- 左上 - 赏金 -->
             <div class="absolute" style="left: 17%; top: 21%">
               <div
                 class="fruit fruit-green pointer-events-auto relative"
@@ -114,7 +114,6 @@
                 </div>
               </div>
             </div>
-            <!-- 中上 - 登录 -->
             <div class="absolute" style="left: 40%; top: 13%">
               <div
                 class="fruit fruit-orange pointer-events-auto relative"
@@ -126,7 +125,6 @@
                 <div class="minus-badge">-10%</div>
               </div>
             </div>
-            <!-- 中 - 动态 -->
             <div class="absolute" style="left: 57%; top: 29%">
               <div
                 class="fruit fruit-purple pointer-events-auto relative"
@@ -138,7 +136,6 @@
                 </div>
               </div>
             </div>
-            <!-- 右下 - 唤醒 -->
             <div class="absolute" style="left: 70%; top: 50%">
               <div
                 class="fruit fruit-red pointer-events-auto relative"
@@ -150,7 +147,6 @@
                 <div class="minus-badge">-10%</div>
               </div>
             </div>
-            <!-- 中左 - 灵兽孵化 -->
             <div class="absolute" style="left: 27%; top: 42%">
               <div
                 class="fruit fruit-blue pointer-events-auto relative"
@@ -162,7 +158,7 @@
                 </div>
               </div>
             </div>
-          </div>
+          </div> -->
         </div>
       </div>
 
@@ -249,7 +245,11 @@
   </div>
 </template>
 
-<style>
+<style lang="less" scoped>
+.tree-content {
+  background: #3F8EEC url("@/assets/images/tree-bg.jpg") center bottom no-repeat;
+  background-size: 100%;
+}
 /* 玻璃拟态效果 */
 .glass {
   background: linear-gradient(
