@@ -690,39 +690,7 @@ export default {
 
     // 显示每日任务
     const showDailyTasks = () => {
-      const content = `
-        <div class="space-y-4">
-          <div class="flex justify-between items-center p-3 bg-gray-50 rounded-lg">
-            <div>
-              <div class="font-medium">完成3次唤醒</div>
-              <div class="text-xs text-gray-500">帮助3位朋友唤醒潜能</div>
-            </div>
-            <div class="bg-primary/10 text-primary px-3 py-1 rounded-full text-sm">+10能量</div>
-          </div>
-          <div class="flex justify-between items-center p-3 bg-gray-50 rounded-lg">
-            <div>
-              <div class="font-medium">发布动态</div>
-              <div class="text-xs text-gray-500">分享今日感悟或收获</div>
-            </div>
-            <div class="bg-primary/10 text-primary px-3 py-1 rounded-full text-sm">+10能量</div>
-          </div>
-          <div class="flex justify-between items-center p-3 bg-gray-50 rounded-lg">
-            <div>
-              <div class="font-medium">邀请好友</div>
-              <div class="text-xs text-gray-500">成功邀请一位好友注册</div>
-            </div>
-            <div class="bg-primary/10 text-primary px-3 py-1 rounded-full text-sm">+20能量</div>
-          </div>
-          <div class="flex justify-between items-center p-3 bg-gray-50 rounded-lg">
-            <div>
-              <div class="font-medium">每日签到</div>
-              <div class="text-xs text-gray-500">连续签到30天有惊喜</div>
-            </div>
-            <div class="bg-success text-white px-3 py-1 rounded-full text-sm">已完成</div>
-          </div>
-        </div>
-      `;
-      createPopup("每日任务", content);
+      router.push('/daily-tasks');
     };
 
     // 显示好友排行

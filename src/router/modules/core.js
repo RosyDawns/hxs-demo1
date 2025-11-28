@@ -19,6 +19,12 @@ const routes = [
     meta: { title: '能量树', icon: 'fa-tree', showInNav: true }
   },
   {
+    path: '/daily-tasks',
+    name: 'DailyTasks',
+    component: () => import('../../views/DailyTasksPage.vue'),
+    meta: { title: '每日任务', icon: 'fa-tasks', showInNav: false }
+  },
+  {
     path: '/call',
     name: 'Call',
     component: () => import('../../views/CallPage.vue'),

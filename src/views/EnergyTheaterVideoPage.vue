@@ -401,6 +401,7 @@
 import { ref, reactive, computed, onMounted, onUnmounted } from "vue";
 import { useRouter, useRoute } from "vue-router";
 import CommonHeader from "../components/CommonHeader.vue";
+import videoUrl from "@/assets/video/sample-5s.mp4";
 
 export default {
   name: "EnergyTheaterVideoPage",
@@ -422,7 +423,7 @@ export default {
         id: 1,
         title: "耐克冬季跑鞋新品测评，保暖舒适，适合各种路况",
         description: "全新冬季跑鞋系列，采用最新科技，提供卓越的保暖性能和抓地力，让你在冬季也能享受跑步的乐趣。",
-        videoUrl: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
+        videoUrl,
         brandLogo: "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a6/Logo_NIKE.svg/1200px-Logo_NIKE.svg.png",
         brandName: "耐克环球港店",
         tags: ["#耐克", "#冬季跑鞋", "#新品测评"],
@@ -436,7 +437,7 @@ export default {
         id: 2,
         title: "绿洲智谷铁馆开业 99/月会员卡",
         description: "全新健身馆开业，专业设备，资深教练，现在办理会员卡仅需99元/月，名额有限，先到先得！",
-        videoUrl: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4",
+        videoUrl,
         brandLogo: "https://images.unsplash.com/photo-1517836357463-d25dfeac3438?w=20&h=20&fit=crop",
         brandName: "赵教练",
         tags: ["#健身", "#铁馆", "#优惠活动"],
@@ -450,7 +451,7 @@ export default {
         id: 3,
         title: "理想I6换新版测评 购置税抵扣",
         description: "理想I6换新版来袭，全新设计，强大性能，现在购买还可享受购置税抵扣优惠，机不可失！",
-        videoUrl: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4",
+        videoUrl,
         brandLogo: "https://images.unsplash.com/photo-1617093351178-03b13d03a91b?w=20&h=20&fit=crop",
         brandName: "理想汽车",
         tags: ["#理想汽车", "#I6", "#购置税抵扣"],
@@ -464,7 +465,7 @@ export default {
         id: 4,
         title: "十五全运会的运动员冠军系列",
         description: "十五全运会精彩瞬间，见证冠军诞生，感受运动魅力，为中国体育健儿加油！",
-        videoUrl: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerEscapes.mp4",
+        videoUrl,
         brandLogo: "https://images.unsplash.com/photo-1517836357463-d25dfeac3438?w=20&h=20&fit=crop",
         brandName: "卡尔美体育",
         tags: ["#全运会", "#运动员", "#冠军"],
