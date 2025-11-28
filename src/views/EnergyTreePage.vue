@@ -156,7 +156,7 @@
           style="height: 50%; bottom: 20%; opacity: 0;"
         >
           <div class="absolute inset-0 pointer-events-none z-100">
-            <div class="absolute" style="left: 12%; top: 44%">
+            <div class="absolute" style="left: 11%; top: 40%">
               <div
                 class="fruit fruit-green pointer-events-auto relative"
                 @click="clickFruit('赏金')"
@@ -167,7 +167,7 @@
                 </div>
               </div>
             </div>
-            <div class="absolute" style="left: 36%; top: 12%">
+            <div class="absolute" style="left: 36%; top: 10%">
               <div
                 class="fruit fruit-orange pointer-events-auto relative"
                 @click="clickFruit('登录')"
@@ -178,7 +178,7 @@
                 <div class="minus-badge">-10%</div>
               </div>
             </div>
-            <div class="absolute" style="left: 48%; top: 29%">
+            <div class="absolute" style="left: 48%; top: 27%">
               <div
                 class="fruit fruit-purple pointer-events-auto relative"
                 @click="clickFruit('动态')"
@@ -189,7 +189,7 @@
                 </div>
               </div>
             </div>
-            <div class="absolute" style="left: 68%; top: 48%">
+            <div class="absolute" style="left: 68%; top: 46%">
               <div
                 class="fruit fruit-red pointer-events-auto relative"
                 @click="clickFruit('唤醒')"
@@ -386,7 +386,7 @@
   }
 
   50% {
-    transform: translateY(-10px);
+    transform: translateY(-5px);
   }
 
   100% {
