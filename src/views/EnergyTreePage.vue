@@ -100,8 +100,9 @@
 
       <!-- 能量树背景图 -->
       <div class="absolute lef-0 bottom-0 w-full inset-0 tree-content">
-        <div class="absolute bottom-30 left-0 flex items-center justify-center">
-          <!-- <img src="@images/tree_2.png" class="w-full block" />
+        <!-- 旧能量树 -->
+        <!-- <div class="absolute bottom-30 left-0 flex items-center justify-center">
+          <img src="@images/tree_2.png" class="w-full block" />
           <div class="absolute inset-0 pointer-events-none z-100">
             <div class="absolute" style="left: 17%; top: 21%">
               <div
@@ -147,18 +148,59 @@
                 <div class="minus-badge">-10%</div>
               </div>
             </div>
-            <div class="absolute" style="left: 27%; top: 42%">
+          </div>
+        </div> -->
+
+        <div
+          class="absolute w-full left-0 flex items-center justify-center"
+          style="height: 50%; bottom: 20%; opacity: 0;"
+        >
+          <div class="absolute inset-0 pointer-events-none z-100">
+            <div class="absolute" style="left: 12%; top: 44%">
               <div
-                class="fruit fruit-blue pointer-events-auto relative"
-                @click="clickFruit('灵兽孵化')"
+                class="fruit fruit-green pointer-events-auto relative"
+                @click="clickFruit('赏金')"
               >
                 <div class="text-center text-white">
-                  <div class="text-xs font-bold">灵兽孵化</div>
-                  <div class="text-xs mt-0.5">10-4#</div>
+                  <div class="text-sm font-bold">赏金</div>
+                  <div class="text-xs mt-0.5">03:25</div>
                 </div>
               </div>
             </div>
-          </div> -->
+            <div class="absolute" style="left: 36%; top: 12%">
+              <div
+                class="fruit fruit-orange pointer-events-auto relative"
+                @click="clickFruit('登录')"
+              >
+                <div class="text-center text-white">
+                  <div class="text-sm font-bold">登录</div>
+                </div>
+                <div class="minus-badge">-10%</div>
+              </div>
+            </div>
+            <div class="absolute" style="left: 48%; top: 29%">
+              <div
+                class="fruit fruit-purple pointer-events-auto relative"
+                @click="clickFruit('动态')"
+              >
+                <div class="text-center text-white">
+                  <div class="text-sm font-bold">动态</div>
+                  <div class="text-xs mt-0.5">02:16</div>
+                </div>
+              </div>
+            </div>
+            <div class="absolute" style="left: 68%; top: 48%">
+              <div
+                class="fruit fruit-red pointer-events-auto relative"
+                @click="clickFruit('唤醒')"
+              >
+                <div class="text-center text-white">
+                  <div class="text-sm font-bold">唤醒</div>
+                </div>
+                <div class="minus-badge">-10%</div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
 
@@ -247,7 +289,7 @@
 
 <style lang="less" scoped>
 .tree-content {
-  background: #3F8EEC url("@/assets/images/tree-bg.jpg") center bottom no-repeat;
+  background: #3f8eec url("@/assets/images/tree-bg.jpg") center bottom no-repeat;
   background-size: 100%;
 }
 /* 玻璃拟态效果 */
@@ -769,7 +811,6 @@ export default {
         登录: "登录每日奖励 +10 能量！",
         动态: "发布动态获得 8 能量！",
         唤醒: "唤醒好友获得 12 能量！",
-        灵兽孵化: "灵兽孵化中，请耐心等待...",
       };
 
       // 显示提示
