@@ -698,43 +698,9 @@ export default {
       router.push("/friend-ranking");
     };
 
-    // 显示能量道具
+    // 跳转到能量道具页面
     const showEnergyItems = () => {
-      const content = `
-        <div class="space-y-4">
-          <div class="flex items-center p-3 bg-gray-50 rounded-lg">
-            <div class="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center mr-3">
-              <i class="fa fa-tree text-green-500 text-xl"></i>
-            </div>
-            <div class="flex-1">
-              <div class="font-medium">成长加速卡</div>
-              <div class="text-xs text-gray-500">让能量树成长速度提升20%</div>
-            </div>
-            <div class="text-xs bg-primary px-3 py-1 rounded-full text-white">使用</div>
-          </div>
-          <div class="flex items-center p-3 bg-gray-50 rounded-lg">
-            <div class="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center mr-3">
-              <i class="fa fa-shield text-purple-500 text-xl"></i>
-            </div>
-            <div class="flex-1">
-              <div class="font-medium">能量守护盾</div>
-              <div class="text-xs text-gray-500">24小时内防止好友偷取能量</div>
-            </div>
-            <div class="text-xs bg-gray-300 px-3 py-1 rounded-full text-white">50能量</div>
-          </div>
-          <div class="flex items-center p-3 bg-gray-50 rounded-lg">
-            <div class="w-12 h-12 bg-yellow-100 rounded-lg flex items-center justify-center mr-3">
-              <i class="fa fa-magic text-yellow-500 text-xl"></i>
-            </div>
-            <div class="flex-1">
-              <div class="font-medium">幸运果实</div>
-              <div class="text-xs text-gray-500">有机会获得双倍能量</div>
-            </div>
-            <div class="text-xs bg-primary px-3 py-1 rounded-full text-white">使用</div>
-          </div>
-        </div>
-      `;
-      createPopup("能量道具", content);
+      router.push("/energy-items");
     };
 
     // 跳转到能量剧场

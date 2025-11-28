@@ -25,6 +25,12 @@ const routes = [
     meta: { title: '每日任务', icon: 'fa-tasks', showInNav: false }
   },
   {
+    path: '/energy-items',
+    name: 'EnergyItems',
+    component: () => import('../../views/EnergyItemsPage.vue'),
+    meta: { title: '能量道具', icon: 'fa-box-open', showInNav: false }
+  },
+  {
     path: '/call',
     name: 'Call',
     component: () => import('../../views/CallPage.vue'),
