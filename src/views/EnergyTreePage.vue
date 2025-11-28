@@ -1,5 +1,5 @@
 <template>
-  <div class="page relative" id="page-energy-tree">
+  <div class="page relative" id="page-energy-tree" style="height: 100vh">
     <!-- 顶部用户信息 -->
     <header
       class="top-bar left-4 top-8 absolute z-10 rounded-l-full overflow-hidden"
@@ -63,7 +63,20 @@
           李浩然
           <span class="text-xs font-normal 0">18:20</span>
         </div>
-        <div class="text-xs mt-0.5">偷摘你的30能量</div>
+        <div class="text-xs mt-0.5">偷摘了你的能量果实</div>
+      </div>
+
+      <div class="absolute -right-14 top-2" @click.stop="goToMessages">
+        <div class="message-icon-wrapper relative cursor-pointer">
+          <div class="message-icon-bg relative">
+            <i class="fas fa-envelope text-white text-sm"></i>
+            <div
+              class="absolute top-1 right-0 bg-red-500 text-xs w-5 h-5 rounded-full flex items-center justify-center text-white font-bold shadow-lg border-2 border-white scale-40"
+            >
+              12
+            </div>
+          </div>
+        </div>
       </div>
     </div>
 
@@ -153,9 +166,7 @@
         </div>
       </div>
 
-      <!-- 能量树内容区域 -->
-      <div class="absolute top-0 left-0 w-full h-full">
-        <!-- 右侧工具垂直栏 -->
+      <!-- <div class="absolute top-0 left-0 w-full h-full">
         <div class="absolute right-1 top-1/6 flex flex-col gap-6 items-center">
           <div class="right-icon-item" @click="showWallet">
             <div class="right-icon-bg">
@@ -182,26 +193,12 @@
             </div>
           </div>
         </div>
-
-        <!-- 右下消息图标 -->
-        <div class="absolute right-0 bottom-40" @click="goToMessages">
-          <div class="message-icon-wrapper relative cursor-pointer">
-            <div class="message-icon-bg">
-              <i class="fas fa-envelope text-white text-2xl"></i>
-            </div>
-            <div
-              class="absolute top-1 right-0 bg-red-500 text-xs w-5 h-5 rounded-full flex items-center justify-center text-white font-bold shadow-lg border-2 border-white"
-            >
-              12
-            </div>
-          </div>
-        </div>
-      </div>
+      </div> -->
     </main>
 
     <!-- 底部按钮组 -->
     <div
-      class="fixed left-0 right-0 bottom-20 px-3 flex items-center justify-center safe-bottom z-10 gap-2"
+      class="fixed left-0 right-0 bottom-20 px-4 flex items-center justify-between safe-bottom z-10"
     >
       <button
         id="dailyTasksBtn"
@@ -395,8 +392,8 @@
 
 /* 底部按钮样式 */
 .bottom-small-btn {
-  width: 62px;
-  height: 62px;
+  width: 52px;
+  height: 52px;
   border-radius: 50%;
   background: linear-gradient(to bottom, #a1e9c5, #499f9b);
   border: 2px solid #fff;
@@ -412,8 +409,8 @@
 }
 
 .shake-btn {
-  width: 96px;
-  height: 96px;
+  width: 75px;
+  height: 75px;
   border-radius: 50%;
   background: linear-gradient(to bottom, #a1e9c5, #499f9b);
   border: 2.5px solid #fff;
@@ -442,12 +439,11 @@
 }
 
 .message-icon-bg {
-  width: 60px;
-  height: 50px;
-  border-radius: 50% 0 0 50%;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
   background: linear-gradient(to right, #a1e9c5, #499f9b);
-  border: 2px solid #fff;
-  border-right: none;
+  border: 1px solid #fff;
   display: flex;
   align-items: center;
   justify-content: center;
