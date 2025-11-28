@@ -34,11 +34,11 @@
         @click="$router.push('/energy-tree')"
       >
         <i class="fa-solid fa-tree text-lg"></i>
-        <p class="text-xs mt-1">能量树</p>
+        <p class="text-xs mt-1">能量</p>
       </button>
       <!-- <button class="flex-1 flex-col justify-center items-center" :class="activePage === 'teachers' ? 'text-primary' : 'text-gray'" @click="$router.push('/teacher-list')">
       <i class="fa-solid fa-user-circle text-lg"></i>
-      <p class="text-xs mt-1">唤醒狮</p>
+      <p class="text-xs mt-1">能量</p>
     </button>
     <button class="flex-1 flex-col justify-center items-center" :class="activePage === 'camp' ? 'text-primary' : 'text-gray'" @click="$router.push('/camp')">
       <i class="fa-solid fa-heartbeat text-lg"></i>
