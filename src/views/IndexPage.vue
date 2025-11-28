@@ -155,13 +155,13 @@
       <div
         class="slogn absolute top-1/2 -translate-y-2/3 left-[20px] z-10 text-white font-bold font-italic"
       >
-        <p class="text-3xl mb-1 text-shadow-2xs">爱运动，就到唤醒狮</p>
+        <p class="text-3xl mb-1 text-shadow-2xs">爱运动，就到唤醒兽</p>
         <p
           class="pl-2 text-lg border border-solid rounded-full flex items-center justify-between"
           @click="$router.push({ path: '/ai-assistant' })"
         >
           <!-- $router.push({ path: '/teacher-list', query: { top: 'city' } }) -->
-          一键匹配，就是靠谱
+          一键匹配，唤醒热爱
           <span class="bg-amber-50 text-amber-700 rounded-full px-2">GO></span>
         </p>
       </div>
@@ -184,7 +184,7 @@
           >
             <!-- @click="$router.push('/leader-channel')" -->
             <img src="@images/user_1.png" class="w-full object-contain" />
-            <div class="text-base py-1">主理人频道</div>
+            <div class="text-base py-1">生活主理人</div>
           </div>
           <div
             class="bg-white text-black shadow flex flex-col items-center justify-center rounded-xl nav-action cursor-pointer overflow-hidden"
@@ -196,7 +196,7 @@
             "
           >
             <img src="@images/user_2.png" class="w-full object-contain" />
-            <div class="text-base py-1">技能唤醒狮</div>
+            <div class="text-base py-1">技能唤醒师</div>
           </div>
           <div
             class="bg-white text-black shadow flex flex-col items-center justify-center rounded-xl nav-action cursor-pointer overflow-hidden"
@@ -209,7 +209,7 @@
           >
             <!-- @click="$router.push('/buddy-waker')" -->
             <img src="@images/user_3.png" class="w-full object-contain" />
-            <div class="text-base py-1">搭子唤醒狮</div>
+            <div class="text-base py-1">同城好搭子</div>
           </div>
         </div>
       </div>
