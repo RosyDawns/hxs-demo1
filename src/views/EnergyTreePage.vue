@@ -218,11 +218,11 @@
       </button>
 
       <div id="shakeBtn" class="shake-btn" @click="shakeTree">
-        <div class="text-xs text-white font-medium mb-0.5">摇一摇</div>
+        <div class="text-xs text-white font-medium">摇一摇</div>
         <div id="countdown" class="text-2xl font-bold text-white leading-none">
           {{ formattedCountdown }}
         </div>
-        <div id="leftCount" class="text-xs text-white/90 mt-0.5">
+        <div id="leftCount" class="text-xs text-white/90">
           剩余{{ remainingShakes }}次
         </div>
       </div>
@@ -392,8 +392,8 @@
 
 /* 底部按钮样式 */
 .bottom-small-btn {
-  width: 52px;
-  height: 52px;
+  width: 55px;
+  height: 55px;
   border-radius: 50%;
   background: linear-gradient(to bottom, #a1e9c5, #499f9b);
   border: 2px solid #fff;
@@ -409,8 +409,8 @@
 }
 
 .shake-btn {
-  width: 75px;
-  height: 75px;
+  width: 80px;
+  height: 80px;
   border-radius: 50%;
   background: linear-gradient(to bottom, #a1e9c5, #499f9b);
   border: 2.5px solid #fff;
