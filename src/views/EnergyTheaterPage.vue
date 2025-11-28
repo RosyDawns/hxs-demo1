@@ -402,7 +402,7 @@ export default {
     CommonHeader,
   },
   setup() {
-    const showPopup = ref(false);
+    const showPopup = ref(true);
     const router = useRouter();
 
     const showWatchVideoPopup = (videoId) => {
