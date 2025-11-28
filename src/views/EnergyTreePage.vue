@@ -243,8 +243,8 @@
         class="bottom-small-btn"
         @click="showSpiritBeast"
       >
-        <div class="text-xs font-semibold leading-tight">灵兽</div>
-        <div class="text-xs font-semibold leading-tight">宇宙</div>
+        <div class="text-xs font-semibold leading-tight">能量</div>
+        <div class="text-xs font-semibold leading-tight">剧场</div>
       </button>
     </div>
 
@@ -731,32 +731,9 @@ export default {
       createPopup("能量道具", content);
     };
 
-    // 显示灵兽宇宙
+    // 跳转到能量剧场
     const showSpiritBeast = () => {
-      const content = `
-        <div class="space-y-4">
-          <div class="text-center mb-4">
-            <div class="text-lg font-bold text-primary mb-2">灵兽孵化中</div>
-            <div class="w-32 h-32 mx-auto bg-gradient-to-br from-blue-400 to-purple-500 rounded-full flex items-center justify-center">
-              <div class="text-3xl text-white">10-4#</div>
-            </div>
-            <div class="text-sm mt-2">预计孵化时间还剩: <span class="text-primary">23小时24分钟</span></div>
-          </div>
-          <div class="p-4 bg-gray-50 rounded-lg">
-            <div class="font-medium mb-2">灵兽宇宙说明</div>
-            <div class="text-xs text-gray-600 leading-relaxed">
-              灵兽是能量树的守护者，不同的灵兽拥有不同的能力。孵化出的灵兽可以帮助你收集更多的能量，防止好友偷取，甚至可以协助你完成任务。
-              <br><br>
-              灵兽可以通过能量果实孵化获得，越稀有的果实孵化出稀有灵兽的概率越高。
-            </div>
-          </div>
-          <div class="flex justify-center space-x-4">
-            <button class="bg-primary/10 text-primary px-4 py-2 rounded-full text-sm">加速孵化</button>
-            <button class="bg-primary text-white px-4 py-2 rounded-full text-sm">查看孵化器</button>
-          </div>
-        </div>
-      `;
-      createPopup("灵兽宇宙", content);
+      router.push("/energy-theater");
     };
 
     // 跳转到消息页

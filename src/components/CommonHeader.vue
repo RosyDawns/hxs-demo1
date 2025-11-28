@@ -9,15 +9,17 @@
       class="nav-back mr-3 text-dark absolute left-2 top-1/2 transform -translate-y-1/2"
       @click="handleBack"
     >
-      <i
+      <!-- <i
         class="fa fa-circle-down text-xl relative rotate-z-90"
+        :style="{ color: arrowColor }"
+      ></i> -->
+      <i
+        class="fas fa-chevron-left text-base"
         :style="{ color: arrowColor }"
       ></i>
     </button>
     <!-- 中间自定义内容区域 -->
-    <div
-      class="flex-1 flex items-center justify-center min-w-0 pl-10 pr-4"
-    >
+    <div class="flex-1 flex items-center justify-center min-w-0 pl-10 pr-10">
       <slot name="center"></slot>
     </div>
     <!-- 右侧可操作按钮 -->

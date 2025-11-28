@@ -120,6 +120,12 @@ const routes = [
     meta: { title: '能量剧场', requiresAuth: true }
   },
   {
+    path: '/energy-theater/video/:id',
+    name: 'EnergyTheaterVideo',
+    component: () => import('../../views/EnergyTheaterVideoPage.vue'),
+    meta: { title: '视频详情', requiresAuth: true }
+  },
+  {
     path: '/finance-management',
     name: 'FinanceManagement',
     component: () => import('../../views/FinanceManagementPage.vue'),
