@@ -313,7 +313,7 @@
                 </div>
                 <div class="ml-3">
                   <div class="text-base font-medium text-gray-900">
-                    醒狮队员注册唤醒狮
+                    醒狮队员注册唤醒师
                   </div>
                   <div class="text-xs text-gray-500 mt-1">
                     采撷后可获得5枚能量币

@@ -31,7 +31,7 @@
             alt="Logo"
             class="w-20 h-20 rounded-2xl mx-auto shadow-md"
           />
-          <h1 class="font-extrabold text-2xl mt-3 tracking-wide">唤醒狮</h1>
+          <h1 class="font-extrabold text-2xl mt-3 tracking-wide">唤醒师</h1>
           <p class="text-xs text-gray mt-1">发现最好的自己</p>
         </div>
 

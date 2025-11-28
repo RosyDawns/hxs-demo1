@@ -10,7 +10,7 @@
       <!-- 应用信息 -->
       <div class="flex flex-col items-center py-8">
         <img src="https://picsum.photos/id/20/120/120" class="w-20 h-20 rounded-2xl shadow-lg mb-4" alt="Logo">
-        <h1 class="text-xl font-bold text-gray-900">唤醒狮</h1>
+        <h1 class="text-xl font-bold text-gray-900">唤醒兽</h1>
         <p class="text-sm text-gray-500 mt-1">发现最好的自己</p>
         <div class="mt-4 px-3 py-1 bg-primary/10 text-primary text-xs rounded-full">
           版本 1.0.0
@@ -19,9 +19,9 @@
 
       <!-- 应用介绍 -->
       <div class="mx-4 mb-4 bg-white rounded-xl shadow-sm p-4">
-        <h3 class="text-sm font-medium text-gray-700 mb-2">关于唤醒狮</h3>
+        <h3 class="text-sm font-medium text-gray-700 mb-2">关于唤醒兽</h3>
         <p class="text-xs text-gray-500 leading-relaxed">
-          唤醒狮是一款专注于个人成长和健康管理的应用，帮助用户养成良好习惯，提升生活品质。通过科学的训练计划和社区互动，让每个人都能发现并成就最好的自己。
+          唤醒兽是一款专注于个人成长和健康管理的应用，帮助用户养成良好习惯，提升生活品质。通过科学的训练计划和社区互动，让每个人都能发现并成就最好的自己。
         </p>
       </div>
 
@@ -67,7 +67,7 @@
 
       <!-- 版权信息 -->
       <div class="text-center text-xs text-gray-400 pb-6">
-        <p>© 2024 唤醒狮科技有限公司</p>
+        <p>© 2024 唤醒兽科技有限公司</p>
         <p class="mt-1">All Rights Reserved</p>
       </div>
     </main>

@@ -164,7 +164,7 @@ export default {
         },
         {
           id: 2,
-          title: "关注唤醒狮",
+          title: "关注唤醒师",
           description: "关注后可领取能量币",
           icon: "fa-solid fa-user-plus",
           status: "未完成",
@@ -188,7 +188,7 @@ export default {
         },
         {
           id: 5,
-          title: "为唤醒狮打Call",
+          title: "为唤醒师打Call",
           description: "购买后可获取能量币",
           icon: "fa-solid fa-phone",
           status: "未完成",
@@ -196,7 +196,7 @@ export default {
         },
         {
           id: 6,
-          title: "购买唤醒狮服务",
+          title: "购买唤醒师服务",
           description: "购买后可获取能量币",
           icon: "fa-solid fa-shopping-cart",
           status: "未完成",
@@ -236,7 +236,7 @@ export default {
         },
         {
           id: 11,
-          title: "唤醒狮队员注册唤醒狮",
+          title: "唤醒师队员注册唤醒师",
           description: "来体验可获取能量币",
           icon: "fa-solid fa-certificate",
           status: "未完成",
