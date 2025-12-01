@@ -2,7 +2,7 @@
   <div
     class="page relative h-screen overflow-hidden"
     id="page-call"
-    style="background: linear-gradient(to bottom, #1d7df0 0%, #79c6f9 100%)"
+    style="background: linear-gradient(to bottom, #4396E9 0%, #79c6f9 100%)"
   >
     <!-- 顶部导航栏 -->
     <header class="absolute top-0 left-0 right-0 z-30 px-2 py-4">
@@ -77,60 +77,65 @@
     </div>
 
     <!-- 主体：能量树（仅在打Call tab显示） -->
-    <main
+    <div
+      class="relative"
+      style="height: calc(100vh - 60px)"
       v-if="activeTab === '打Call'"
-      class="absolute top-0 left-0 w-full h-full inset-0 flex items-center justify-center"
     >
-      <!-- 能量树图片 -->
-      <div class="relative w-full">
-        <img
-          src="@images/tree_2.png"
-          class="block w-full h-full object-contain object-bottom"
-        />
-
-        <div class="absolute top-0 left-0 w-full h-full inset-0">
-          <!-- 登入果实 -->
-          <div class="absolute" style="left: 18%; top: 25%">
-            <div class="fruit fruit-orange" @click="clickFruit('登入')">
-              <div class="text-xs font-bold text-white">登入</div>
-              <div class="minus-badge">-10%</div>
+      <div class="absolute lef-0 bottom-0 w-full inset-0 tree-content">
+        <div
+          class="absolute w-full left-0 flex items-center justify-center"
+          style="height: 50%; bottom: 20%; opacity: 0"
+        >
+          <div class="absolute inset-0 pointer-events-none z-100">
+            <div class="absolute" style="left: 11%; top: 42%">
+              <div
+                class="fruit fruit-green pointer-events-auto relative"
+                @click="clickFruit('赏金')"
+              >
+                <div class="text-center text-white">
+                  <div class="text-sm font-bold">赏金</div>
+                  <div class="text-xs mt-0.5">03:25</div>
+                </div>
+              </div>
             </div>
-          </div>
-
-          <!-- 动态果实 -->
-          <div class="absolute" style="left: 57%; top: 32%">
-            <div class="fruit fruit-purple" @click="clickFruit('动态')">
-              <div class="text-xs font-bold text-white">动态</div>
-              <div class="text-xs text-white/90 mt-0.5">02:16</div>
+            <div class="absolute" style="left: 36%; top: 12%">
+              <div
+                class="fruit fruit-orange pointer-events-auto relative"
+                @click="clickFruit('登录')"
+              >
+                <div class="text-center text-white">
+                  <div class="text-sm font-bold">登录</div>
+                </div>
+                <div class="minus-badge">-10%</div>
+              </div>
             </div>
-          </div>
-
-          <!-- 唤醒果实 -->
-          <div class="absolute" style="left: 73%; top: 52%">
-            <div class="fruit fruit-red" @click="clickFruit('唤醒')">
-              <div class="text-xs font-bold text-white">唤醒</div>
-              <div class="minus-badge">-10%</div>
+            <div class="absolute" style="left: 48%; top: 29%">
+              <div
+                class="fruit fruit-purple pointer-events-auto relative"
+                @click="clickFruit('动态')"
+              >
+                <div class="text-center text-white">
+                  <div class="text-sm font-bold">动态</div>
+                  <div class="text-xs mt-0.5">02:16</div>
+                </div>
+              </div>
             </div>
-          </div>
-
-          <!-- 灵兽孵化果实 -->
-          <div class="absolute" style="left: 26%; top: 48%">
-            <div class="fruit fruit-blue" @click="clickFruit('灵兽孵化')">
-              <div class="text-xs font-bold text-white">灵兽孵化</div>
-              <div class="text-xs text-white/90 mt-0.5">10-4#</div>
-            </div>
-          </div>
-
-          <!-- 赏金果实 -->
-          <div class="absolute" style="left: 42%; top: 62%">
-            <div class="fruit fruit-green" @click="clickFruit('赏金')">
-              <div class="text-xs font-bold text-white">赏金</div>
-              <div class="text-xs text-white/90 mt-0.5">03:25</div>
+            <div class="absolute" style="left: 68%; top: 48%">
+              <div
+                class="fruit fruit-red pointer-events-auto relative"
+                @click="clickFruit('唤醒')"
+              >
+                <div class="text-center text-white">
+                  <div class="text-sm font-bold">唤醒</div>
+                </div>
+                <div class="minus-badge">-10%</div>
+              </div>
             </div>
           </div>
         </div>
       </div>
-    </main>
+    </div>
 
     <!-- 内容区域（当选中动态、橱窗、星推官tab时显示） -->
     <div
@@ -189,6 +194,10 @@
 
 <style scoped>
 /* 复用能量树的样式 */
+.tree-content {
+  background: #3f8eec url("@/assets/images/tree-bg.jpg") center bottom no-repeat;
+  background-size: 100%;
+}
 
 /* 玻璃拟态效果 */
 .glass {
@@ -252,7 +261,7 @@
     transform: translateY(0px);
   }
   50% {
-    transform: translateY(-10px);
+    transform: translateY(-5px);
   }
   100% {
     transform: translateY(0px);
