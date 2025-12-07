@@ -33,7 +33,7 @@
           </button> -->
         </div>
       </div>
-      <div class="flex items-center flex-1">
+      <div class="flex items-center">
         <!-- <button
           class="relative nav-action"
           :style="{ color: headerOpacity > 0.5 ? '#333' : '#fff' }"
@@ -46,6 +46,13 @@
             1
           </span>
         </button> -->
+        <button
+          class="relative font-bold nav-action text-white bg-orange-500 px-3 py-2 rounded-full"
+          @click="$router.push('/map-demo')"
+          style="font-size: 10px; margin-right: 0; line-height: 1.1"
+        >
+          城市体育<br />数字地图
+        </button>
       </div>
     </header>
 

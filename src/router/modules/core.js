@@ -65,6 +65,12 @@ const routes = [
     name: 'ActivityPending',
     component: () => import('../../views/ActivityPendingPage.vue'),
     meta: { title: '待出行', showInNav: false }
+  },
+  {
+    path: '/map-demo',
+    name: 'MapDemo',
+    component: () => import('../../views/MapDemoPage.vue'),
+    meta: { title: '高德地图标记演示', showInNav: false }
   }
 ]
 
