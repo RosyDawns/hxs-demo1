@@ -79,6 +79,7 @@ import { ref, onMounted, onUnmounted } from "vue";
 import { useRouter } from "vue-router";
 import CommonHeader from "../components/CommonHeader.vue";
 import AMapLoader from "@amap/amap-jsapi-loader";
+import MarkIcon from '@/assets/images/icon/icon-1.png'
 
 export default {
   name: "MapDemoPage",
@@ -99,27 +100,32 @@ export default {
           position: [116.397428, 39.90923],
           title: "北京天安门",
           content: "这是北京天安门",
+          // route: "/profile" // 示例：点击跳转到个人资料页
         },
         {
           position: [116.403847, 39.915119],
           title: "故宫博物院",
           content: "这是故宫博物院",
+          // route: "/settings" // 示例：点击跳转到设置页
         },
         {
           position: [116.481028, 39.989643],
           title: "奥林匹克公园",
           content: "这是奥林匹克公园",
-        },
+          // route: "/daily" // 示例：点击跳转到日常页
+        }
       ];
 
       defaultPoints.forEach((point) => {
-        addMarker(point.position, point.title, point.content);
+        // 为默认标记点添加跳转路径示例
+        addMarker(point.position, point.title, point.content, point.route || null);
       });
     };
 
     // 添加标记点
-    const addMarker = (position, title, content) => {
+    const addMarker = (position, title, content, routePath) => {
       // 创建自定义标记点HTML
+      //  <img style="width:100%" src="${MarkIcon}" alt="Marker Icon">
       const markerContent = `
         <div class="custom-marker">
           <div class="marker-pin"></div>
@@ -134,30 +140,36 @@ export default {
         offset: new AMap.Pixel(-15, 0), // 调整偏移：左移15px，上移30px（标记点高度）
       });
 
-      // 创建自定义信息窗口HTML
-      const infoWindowContent = `
-        <div class="custom-info-window">
-          <div class="info-header">
-            <div class="info-icon">
-              <i class="fa-solid fa-location-dot"></i>
-            </div>
-            <h3 class="info-title">${title}</h3>
-          </div>
-          <div class="info-body">
-            <p class="info-content">${content}</p>
-          </div>
-        </div>
-      `;
-
-      // 添加信息窗口
-      const infoWindow = new AMap.InfoWindow({
-        content: infoWindowContent,
-        offset: new AMap.Pixel(0, 0), // 调整信息窗口偏移：在标记点上方35px
-      });
-
-      // 点击标记点显示信息窗口
+      // 点击标记点跳转页面
       marker.on("click", () => {
-        infoWindow.open(map, marker.getPosition());
+        if (routePath) {
+          // 如果提供了路由路径，则跳转到指定页面
+          router.push(routePath);
+        } else {
+          // 否则显示信息窗口
+          // 创建自定义信息窗口HTML
+          const infoWindowContent = `
+            <div class="custom-info-window">
+              <div class="info-header">
+                <div class="info-icon">
+                  <i class="fa-solid fa-location-dot"></i>
+                </div>
+                <h3 class="info-title">${title}</h3>
+              </div>
+              <div class="info-body">
+                <p class="info-content">${content}</p>
+              </div>
+            </div>
+          `;
+
+          // 添加信息窗口
+          const infoWindow = new AMap.InfoWindow({
+            content: infoWindowContent,
+            offset: new AMap.Pixel(0, 0), // 调整信息窗口偏移：在标记点上方35px
+          });
+          
+          infoWindow.open(map, marker.getPosition());
+        }
       });
 
       // 添加到地图
@@ -228,7 +240,7 @@ export default {
           const content = `经度: ${position[0].toFixed(
             6
           )}, 纬度: ${position[1].toFixed(6)}`;
-          addMarker(position, address, content);
+          addMarker(position, address, content, null); // 新增标记点默认不跳转，只显示信息窗口
 
           // 关闭弹框
           closeDialog();
@@ -272,7 +284,7 @@ export default {
             const content = `经度: ${position[0].toFixed(
               6
             )}, 纬度: ${position[1].toFixed(6)} (使用默认坐标)`;
-            addMarker(position, address, content);
+            addMarker(position, address, content, null); // 备用坐标标记点也不跳转
             closeDialog();
           }
         }
