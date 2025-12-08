@@ -31,10 +31,21 @@
       </div>
     </main>
 
+    <!-- 路线导航组件 -->
+    <RouteNavigation
+      v-if="showNavigationPanel"
+      :show="showNavigationPanel"
+      :destination="navigationDestination"
+      :start-position="navigationStartPos"
+      :end-position="navigationEndPos"
+      :start-address="navigationStartAddress"
+      @update:show="showNavigationPanel = $event"
+    />
+
     <!-- 浮动搜索结果列表 -->
     <div
       v-if="searchResults.length > 0"
-      class="fixed bottom-0 left-0 right-0 bg-transparent z-50"
+      class="fixed bottom-0 left-0 right-0 bg-transparent z-40"
     >
       <div class="">
         <div class="px-4 py-3 flex items-center justify-between">
@@ -55,7 +66,7 @@
                 <div class="w-full h-24 flex items-center justify-center">
                   <img
                     class="w-full h-full object-cover"
-                    :src="item.avatar || '@/assets/images/img_41.jpg'"
+                    :src="item.avatar || Pic41"
                     :alt="item.name"
                   />
                 </div>
@@ -99,6 +110,13 @@
                   >
                     <i class="fas fa-heart mr-1"></i>
                     收藏
+                  </button>
+                  <button
+                    class="flex-1 h-8 bg-white text-gray-700 text-xs font-medium rounded border border-gray-200 flex items-center justify-center"
+                    @click.stop="navigateToListItem(item.name)"
+                  >
+                    <i class="fas fa-route mr-1"></i>
+                    路线
                   </button>
                 </div>
               </div>
@@ -150,9 +168,10 @@
 </template>
 
 <script>
-import { ref, onMounted, onUnmounted } from "vue";
+import { ref, onMounted, onUnmounted, watch } from "vue";
 import { useRouter } from "vue-router";
 import CommonHeader from "../components/CommonHeader.vue";
+import RouteNavigation from "../components/RouteNavigation.vue";
 import AMapLoader from "@amap/amap-jsapi-loader";
 import ShopIcon from "@/assets/images/img_41.jpg";
 
@@ -166,6 +185,7 @@ export default {
   name: "MapDemoPage",
   components: {
     CommonHeader,
+    RouteNavigation,
   },
   setup() {
     const router = useRouter();
@@ -177,6 +197,16 @@ export default {
     const searchKeyword = ref("");
     const searchResults = ref([]);
     const selectedIndex = ref(0);
+
+    // 导航面板相关状态
+    const showNavigationPanel = ref(false);
+    const navigationDestination = ref("");
+    const navigationStartPos = ref([]);
+    const navigationEndPos = ref([]);
+    const navigationStartAddress = ref(""); // 出发地地址
+    const navigationDistance = ref("");
+    const navigationDuration = ref("");
+    const currentRoute = ref(null); // 用于保存当前路线实例
 
     // 添加默认标记点
     const addDefaultMarkers = () => {
@@ -290,6 +320,10 @@ export default {
                   <i class="fas fa-heart mr-1"></i>
                   收藏
                 </button>
+                 <button class="flex-1 h-8 bg-white text-gray-700 text-xs font-medium rounded border border-gray-200 flex items-center justify-center" onclick="window.navigateToDestination('${title}')">
+                  <i class="fas fa-route mr-1"></i>
+                  路线
+                </button>
               </div>
             </div>
           </div>
@@ -329,12 +363,18 @@ export default {
 
       // 添加默认标记点
       addDefaultMarkers();
+
+      // 添加地图点击监听器
+      addMapClickListener();
     };
 
     // 处理搜索
     const handleSearch = () => {
       const keyword = searchKeyword.value.trim();
       if (!keyword) return;
+
+      // 重置导航状态
+      resetNavigationOnSearch();
 
       // 随机选择一个区域
       const randomRegion = getRandomRegion();
@@ -500,6 +540,11 @@ export default {
       }
     };
 
+    // 监听搜索结果变化
+    watch(searchResults, () => {
+      resetNavigationOnSearch();
+    });
+
     // 滚动到选中的列表项
     const scrollToSelectedItem = (index) => {
       setTimeout(() => {
@@ -553,9 +598,9 @@ export default {
               <div class="p-3">
                 <div class="flex items-start">
                   <div class="flex-shrink-0 w-12 h-12 bg-gray-200">
-                    <img src="${
-                      selectedItem.avatar || ShopIcon
-                    }" alt="${selectedItem.name}" class="w-full h-full object-cover rounded-lg"> 
+                    <img src="${selectedItem.avatar || ShopIcon}" alt="${
+            selectedItem.name
+          }" class="w-full h-full object-cover rounded-lg"> 
                   </div>
                   <div class="ml-3 flex-1">
                     <h3 class="text-sm font-medium text-gray-900 truncate">${
@@ -590,9 +635,17 @@ export default {
                     <i class="fas fa-home mr-1"></i>
                     主页
                   </button>
-                  <button class="flex-1 h-8 bg-white text-gray-700 text-xs font-medium rounded border border-gray-200 flex items-center justify-center" onclick="window.addToFavoritesFromInfoWindow('${selectedItem.name}')">
+                  <button class="flex-1 h-8 bg-white text-gray-700 text-xs font-medium rounded border border-gray-200 flex items-center justify-center" onclick="window.addToFavoritesFromInfoWindow('${
+                    selectedItem.name
+                  }')">
                     <i class="fas fa-heart mr-1"></i>
                     收藏
+                  </button>
+                  <button class="flex-1 h-8 bg-white text-gray-700 text-xs font-medium rounded border border-gray-200 flex items-center justify-center" onclick="window.navigateToDestination('${
+                    selectedItem.name
+                  }')">
+                    <i class="fas fa-route mr-1"></i>
+                    路线
                   </button>
                 </div>
               </div>
@@ -735,6 +788,146 @@ export default {
       markers = [];
     };
 
+    // 关闭导航面板
+    const closeNavigationPanel = () => {
+      showNavigationPanel.value = false;
+
+      // 重置导航数据
+      navigationDestination.value = "";
+      navigationStartPos.value = [];
+      navigationEndPos.value = [];
+      navigationDistance.value = "";
+      navigationDuration.value = "";
+    };
+
+    // 获取当前位置并规划路线
+    const getCurrentPositionAndPlanRoute = (destinationName) => {
+      console.log("开始获取位置并规划路线，目的地:", destinationName);
+      // 查找目标位置
+      const targetMarker = searchResults.value.find(
+        (item) => item.name === destinationName
+      );
+      console.log("查找目标位置结果:", targetMarker);
+      if (!targetMarker) {
+        alert("未找到目标位置");
+        return;
+      }
+
+      // 获取当前位置
+      map.plugin("AMap.Geolocation", function () {
+        console.log("AMap.Geolocation 插件加载完成");
+        var geolocation = new AMap.Geolocation({
+          enableHighAccuracy: true,
+          timeout: 10000,
+          buttonPosition: "RB",
+          buttonOffset: new AMap.Pixel(10, 20),
+          zoomToAccuracy: true,
+        });
+
+        geolocation.getCurrentPosition(function (status, result) {
+          console.log("定位结果:", { status, result });
+          if (status == "complete") {
+            // 定位成功
+            const start = [result.position.lng, result.position.lat];
+            const end = targetMarker.position;
+            console.log("定位成功，起点和终点:", { start, end });
+
+            // 设置出发地地址
+            const startAddress = result.formattedAddress || "当前位置";
+
+            // 调用路线规划
+            getRoutePlanWithAddress(start, end, destinationName, startAddress);
+          } else {
+            // 定位失败，使用地图中心作为起点
+            alert("获取当前位置失败，将使用地图中心作为起点");
+            const center = map.getCenter();
+            const start = [center.lng, center.lat];
+            const end = targetMarker.position;
+            console.log("定位失败，使用地图中心作为起点:", { start, end });
+
+            // 调用路线规划
+            getRoutePlanWithAddress(start, end, destinationName, "地图中心");
+          }
+        });
+      });
+    };
+
+    // 带地址的路线规划
+    const getRoutePlanWithAddress = (
+      start,
+      end,
+      destinationName,
+      startAddress
+    ) => {
+      console.log("开始路线规划:", {
+        start,
+        end,
+        destinationName,
+        startAddress,
+      });
+
+      // 设置导航参数，让RouteNavigation组件处理路线规划
+      navigationDestination.value = destinationName;
+      navigationStartPos.value = start;
+      navigationEndPos.value = end;
+      navigationStartAddress.value = startAddress;
+      showNavigationPanel.value = true;
+
+      console.log("已设置导航参数，等待RouteNavigation组件处理");
+    };
+
+    // 从列表导航到目的地
+    const navigateToListItem = (destination) => {
+      console.log("点击路线按钮，目的地:", destination);
+      getCurrentPositionAndPlanRoute(destination);
+    };
+
+    // 从信息窗口导航到目的地
+    const navigateToDestination = (destination) => {
+      getCurrentPositionAndPlanRoute(destination);
+    };
+
+    // 清除路线
+    const clearRoute = () => {
+      // 清除主页面中的路线实例
+      if (currentRoute.value) {
+        map.remove(currentRoute.value);
+        currentRoute.value = null;
+      }
+    };
+
+    // 重置导航状态
+    const resetNavigation = () => {
+      showNavigationPanel.value = false;
+      navigationDestination.value = "";
+      navigationStartPos.value = [];
+      navigationEndPos.value = [];
+      navigationDistance.value = "";
+      navigationDuration.value = "";
+    };
+
+    // 监听地图点击事件，点击地图任意位置关闭导航面板
+    const handleMapClick = () => {
+      if (showNavigationPanel.value) {
+        resetNavigation();
+      }
+    };
+
+    // 添加地图点击监听器
+    const addMapClickListener = () => {
+      map.on("click", handleMapClick);
+    };
+
+    // 移除地图点击监听器
+    const removeMapClickListener = () => {
+      map.off("click", handleMapClick);
+    };
+
+    // 在搜索结果变化时重置导航
+    const resetNavigationOnSearch = () => {
+      resetNavigation();
+    };
+
     // 跳转到欧阳页面
     const goToOuyangPage = () => {
       router.push("/ouyang");
@@ -764,6 +957,12 @@ export default {
           alert(`已将 ${itemName} 添加到收藏！`);
         };
 
+        // 路线导航函数
+        window.navigateToDestination = (destination) => {
+          console.log("信息窗口中点击路线按钮，目的地:", destination);
+          getCurrentPositionAndPlanRoute(destination);
+        };
+
         // 使用AMapLoader加载地图
         const AMap = await AMapLoader.load({
           key: "3f55977340a0c95c5845f6fa556f21c6", // 高德地图API密钥
@@ -775,11 +974,13 @@ export default {
             "AMap.Geolocation",
             "AMap.MouseTool",
             "AMap.CitySearch",
-          ], // 添加地理编码插件
+            "AMap.Driving",
+          ], // 添加地理编码插件和路线规划插件
         });
 
         // 保存AMap实例到全局，以便其他地方使用
         window.AMap = AMap;
+        window.mapInstance = map;
 
         // 初始化地图
         initMap(AMap);
@@ -797,6 +998,10 @@ export default {
       // 清理全局函数
       delete window.goToOuyangPage;
       delete window.addToFavoritesFromInfoWindow;
+      delete window.navigateToDestination;
+
+      // 移除地图点击监听器
+      removeMapClickListener();
     });
 
     return {
@@ -812,7 +1017,18 @@ export default {
       handleSearch,
       selectResult,
       goToOuyangPage, // 跳转到欧阳页面
-      addToFavoritesFromList // 从列表添加到收藏
+      addToFavoritesFromList, // 从列表添加到收藏
+      navigateToListItem, // 从列表导航到目的地
+      closeNavigationPanel, // 关闭导航面板
+      showNavigationPanel, // 导航面板显示状态
+      navigationDestination, // 导航目的地
+      navigationStartPos, // 导航起点
+      navigationEndPos, // 导航终点
+      navigationStartAddress, // 导航出发地地址
+      navigationDistance, // 导航距离
+      navigationDuration, // 导航时间
+      currentRoute, // 当前路线实例
+      resetNavigationOnSearch, // 搜索时重置导航
     };
   },
 };
