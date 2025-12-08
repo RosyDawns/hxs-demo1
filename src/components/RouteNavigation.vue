@@ -51,7 +51,7 @@
     <div class="flex-1 relative">
       <div id="navigation-map" class="w-full h-full"></div>
       <!-- 路线信息覆盖层 -->
-      <div class="absolute top-4 left-4 right-4 bg-white bg-opacity-90 rounded-lg p-3 shadow">
+      <!-- <div class="absolute top-4 left-4 right-4 bg-white bg-opacity-90 rounded-lg p-3 shadow">
         <div class="flex justify-between items-center">
           <div>
             <div class="text-sm font-medium text-gray-900">{{ currentTransportModeText }}({{ selectedRouteIndex + 1 }}/{{ routes.length }})</div>
@@ -65,7 +65,7 @@
             切换路线
           </button>
         </div>
-      </div>
+      </div> -->
       
       <!-- 路线选择器 -->
       <div 
@@ -98,7 +98,7 @@
       <!-- 错误提示 -->
       <div 
         v-if="errorMessage" 
-        class="absolute top-20 left-4 right-4 bg-red-50 border border-red-200 rounded-lg p-3 text-red-600 text-sm"
+        class="absolute top-2 left-4 right-4 bg-red-50 border border-red-200 rounded-lg p-3 text-red-600 text-sm"
       >
         {{ errorMessage }}
       </div>

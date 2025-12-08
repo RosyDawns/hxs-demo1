@@ -48,12 +48,12 @@
       class="fixed bottom-0 left-0 right-0 bg-transparent z-40"
     >
       <div class="">
-        <div class="px-4 py-3 flex items-center justify-between">
+        <!-- <div class="px-4 py-3 flex items-center justify-between">
           <h3 class="text-sm font-medium text-gray-900">搜索结果</h3>
           <span class="text-xs text-gray-500"
             >{{ searchResults.length }} 个结果</span
           >
-        </div>
+        </div> -->
         <div class="overflow-x-auto hide-scrollbar">
           <div class="flex space-x-4 px-4 pb-4" style="min-width: max-content">
             <div
@@ -1287,5 +1287,10 @@ export default {
 
 .amap-sug-result::-webkit-scrollbar-thumb:hover {
   background: #a8a8a8 !important;
+}
+
+.amap-logo,
+.amap-copyright {
+  display: none !important;
 }
 </style>
