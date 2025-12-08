@@ -84,6 +84,23 @@
                     >{{ item.distance }}km</span
                   >
                 </div>
+                <!-- 底部按钮 -->
+                <div class="flex gap-2 mt-3">
+                  <button
+                    class="flex-1 h-8 bg-amber-500 text-white text-xs font-medium rounded flex items-center justify-center"
+                    @click.stop="goToOuyangPage"
+                  >
+                    <i class="fas fa-home mr-1"></i>
+                    主页
+                  </button>
+                  <button
+                    class="flex-1 h-8 bg-white text-gray-700 text-xs font-medium rounded border border-gray-200 flex items-center justify-center"
+                    @click.stop="addToFavoritesFromList(item.name)"
+                  >
+                    <i class="fas fa-heart mr-1"></i>
+                    收藏
+                  </button>
+                </div>
               </div>
             </div>
           </div>
@@ -262,6 +279,17 @@ export default {
               <div class="mt-2 flex justify-between items-center">
                 <span class="text-xs text-amber-500 font-medium">0.8km</span>
                 <button class="text-xs text-amber-500 font-medium">详情</button>
+              </div>
+              <!-- 底部按钮 -->
+              <div class="flex gap-2 mt-3">
+                <button class="flex-1 h-8 bg-amber-500 text-white text-xs font-medium rounded flex items-center justify-center" onclick="window.goToOuyangPage()">
+                  <i class="fas fa-home mr-1"></i>
+                  主页
+                </button>
+                <button class="flex-1 h-8 bg-white text-gray-700 text-xs font-medium rounded border border-gray-200 flex items-center justify-center" onclick="window.addToFavoritesFromInfoWindow('${title}')">
+                  <i class="fas fa-heart mr-1"></i>
+                  收藏
+                </button>
               </div>
             </div>
           </div>
@@ -525,9 +553,9 @@ export default {
               <div class="p-3">
                 <div class="flex items-start">
                   <div class="flex-shrink-0 w-12 h-12 bg-gray-200">
-                    <img src="${selectedItem.avatar || ShopIcon}" alt="${
-            selectedItem.name
-          }" class="w-full h-full object-cover rounded-lg"> 
+                    <img src="${
+                      selectedItem.avatar || ShopIcon
+                    }" alt="${selectedItem.name}" class="w-full h-full object-cover rounded-lg"> 
                   </div>
                   <div class="ml-3 flex-1">
                     <h3 class="text-sm font-medium text-gray-900 truncate">${
@@ -555,6 +583,17 @@ export default {
                     selectedItem.distance
                   }km</span>
                   <button class="text-xs text-amber-500 font-medium">详情</button>
+                </div>
+                <!-- 底部按钮 -->
+                <div class="flex gap-2 mt-3">
+                  <button class="flex-1 h-8 bg-amber-500 text-white text-xs font-medium rounded flex items-center justify-center" onclick="window.goToOuyangPage()">
+                    <i class="fas fa-home mr-1"></i>
+                    主页
+                  </button>
+                  <button class="flex-1 h-8 bg-white text-gray-700 text-xs font-medium rounded border border-gray-200 flex items-center justify-center" onclick="window.addToFavoritesFromInfoWindow('${selectedItem.name}')">
+                    <i class="fas fa-heart mr-1"></i>
+                    收藏
+                  </button>
                 </div>
               </div>
             </div>
@@ -696,12 +735,33 @@ export default {
       markers = [];
     };
 
+    // 跳转到欧阳页面
+    const goToOuyangPage = () => {
+      router.push("/ouyang");
+    };
+
+    // 从列表添加到收藏
+    const addToFavoritesFromList = (itemName) => {
+      console.log(`添加 ${itemName} 到收藏`);
+      alert(`已将 ${itemName} 添加到收藏！`);
+    };
+
     // 组件挂载时初始化
     onMounted(async () => {
       try {
         // 设置安全密钥 - 必须在加载前设置
         window._AMapSecurityConfig = {
           securityJsCode: "b6bd2e4bbc09ae9d05442af9ce11f2b5",
+        };
+
+        // 添加全局函数供信息窗口按钮调用
+        window.goToOuyangPage = () => {
+          router.push("/ouyang");
+        };
+
+        window.addToFavoritesFromInfoWindow = (itemName) => {
+          console.log(`添加 ${itemName} 到收藏`);
+          alert(`已将 ${itemName} 添加到收藏！`);
         };
 
         // 使用AMapLoader加载地图
@@ -734,6 +794,9 @@ export default {
         map.destroy();
       }
       delete window.initAMap;
+      // 清理全局函数
+      delete window.goToOuyangPage;
+      delete window.addToFavoritesFromInfoWindow;
     });
 
     return {
@@ -748,6 +811,8 @@ export default {
       selectedIndex,
       handleSearch,
       selectResult,
+      goToOuyangPage, // 跳转到欧阳页面
+      addToFavoritesFromList // 从列表添加到收藏
     };
   },
 };
