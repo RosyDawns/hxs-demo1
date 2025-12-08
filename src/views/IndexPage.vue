@@ -51,7 +51,7 @@
           @click="$router.push('/map-demo')"
           style="font-size: 10px; margin-right: 0; line-height: 1.1"
         >
-          城市体育<br />数字地图
+          运动健康<br />数字地图
         </button>
       </div>
     </header>
