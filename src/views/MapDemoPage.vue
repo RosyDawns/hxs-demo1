@@ -29,24 +29,6 @@
           </div>
         </div>
       </div>
-
-      <!-- 操作按钮 -->
-      <!-- <div class="bg-white px-4 py-3 shadow-[0_-2px_8px_rgba(0,0,0,0.06)]">
-        <div class="flex gap-3">
-          <button
-            class="flex-1 h-11 bg-amber-500 text-white text-sm font-medium rounded-lg active:bg-amber-600 transition"
-            @click="showAddressDialog = true"
-          >
-            <i class="fa-solid fa-location-dot mr-1.5"></i>添加标记点
-          </button>
-          <button
-            class="flex-1 h-11 bg-white text-gray-700 text-sm font-medium rounded-lg border border-gray-200 active:bg-gray-50 transition"
-            @click="clearAllMarkers"
-          >
-            <i class="fa-solid fa-trash-can mr-1.5"></i>清除标记
-          </button>
-        </div>
-      </div> -->
     </main>
 
     <!-- 浮动搜索结果列表 -->
@@ -73,7 +55,8 @@
                 <div class="w-full h-24 flex items-center justify-center">
                   <img
                     class="w-full h-full object-cover"
-                    src="@/assets/images/img_41.jpg"
+                    :src="item.avatar || '@/assets/images/img_41.jpg'"
+                    :alt="item.name"
                   />
                 </div>
                 <div
@@ -156,6 +139,12 @@ import CommonHeader from "../components/CommonHeader.vue";
 import AMapLoader from "@amap/amap-jsapi-loader";
 import ShopIcon from "@/assets/images/img_41.jpg";
 
+import Pic41 from "@/assets/images/img_41.jpg";
+import Pic42 from "@/assets/images/img_42.jpg";
+import Pic43 from "@/assets/images/img_43.jpg";
+import Pic44 from "@/assets/images/img_39.jpeg";
+import Pic45 from "@/assets/images/img_38.jpeg";
+
 export default {
   name: "MapDemoPage",
   components: {
@@ -176,23 +165,33 @@ export default {
     const addDefaultMarkers = () => {
       // 随机选择一个区域
       const randomRegion = getRandomRegion();
-      
+
       // 定位到该区域
       map.setCenter(randomRegion.center);
       map.setZoom(randomRegion.zoom);
-      
+
       // 生成该区域内的随机标记点
       generateRandomMarkersInRegion("默认", randomRegion);
     };
 
     // 添加标记点
-    const addMarker = (position, title, content, routePath, index, shouldTriggerEffect = true) => {
-      // 创建自定义标记点HTML
-      //  <img style="width:100%" src="${MarkIcon}" alt="Marker Icon">
+    const addMarker = (
+      position,
+      title,
+      content,
+      routePath,
+      index,
+      shouldTriggerEffect = true,
+      avatarUrl = null
+    ) => {
+      // 如果没有提供头像URL，则使用默认图片
+      const avatar = avatarUrl || ShopIcon;
+
+      // 创建自定义标记点HTML，使用头像
       const markerContent = `
-        <div class="custom-marker" style="transform: scale(1); transition: all 0.3s ease;">
-          <div class="marker-pin"></div>
-          <div class="marker-pulse"></div>
+        <div class="custom-marker-avatar" style="transform: scale(1); transition: all 0.3s ease;">
+          <img src="${avatar}" alt="${title}" class="marker-avatar" />
+          <div class="marker-pulse-avatar"></div>
         </div>
       `;
 
@@ -200,7 +199,7 @@ export default {
         position: position,
         title: title,
         content: markerContent,
-        offset: new AMap.Pixel(-15, 0), // 调整偏移：左移15px，上移30px（标记点高度）
+        offset: new AMap.Pixel(-25, -25), // 调整偏移以居中显示头像标记点
       });
 
       // 点击标记点跳转页面
@@ -209,51 +208,38 @@ export default {
         if (index !== undefined) {
           // 切换列表选中项
           selectedIndex.value = index;
-          
+
           // 平滑移动地图到标记点位置
           map.setCenter(position);
-          
+
           // 滚动列表到显示区域的前面（左侧）
           scrollToSelectedItem(index);
         }
-        
+
         // 如果需要触发特效，则改变标记点颜色并放大
         if (shouldTriggerEffect) {
           const markerElement = marker.getContentDom();
           if (markerElement) {
-            const pinElement = markerElement.querySelector('.marker-pin');
-            if (pinElement) {
-              // 生成随机颜色
-              const colors = [
-                'linear-gradient(135deg, #f59e0b 0%, #d97706 100%)', // 默认橙色
-                'linear-gradient(135deg, #ef4444 0%, #dc2626 100%)', // 红色
-                'linear-gradient(135deg, #10b981 0%, #059669 100%)', // 绿色
-                'linear-gradient(135deg, #3b82f6 0%, #2563eb 100%)', // 蓝色
-                'linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%)'  // 紫色
-              ];
-              
-              const randomColor = colors[Math.floor(Math.random() * colors.length)];
-              pinElement.style.background = randomColor;
-              
-              // 放大标记点
-              markerElement.style.transform = 'scale(1.3)';
-              
-              // 3秒后恢复原状
+            const avatarElement = markerElement.querySelector(".marker-avatar");
+            if (avatarElement) {
+              // 添加点击效果类
+              avatarElement.classList.add("clicked");
+
+              // 3秒后移除效果类
               setTimeout(() => {
-                pinElement.style.background = 'linear-gradient(135deg, #f59e0b 0%, #d97706 100%)';
-                markerElement.style.transform = 'scale(1)';
+                avatarElement.classList.remove("clicked");
               }, 3000);
             }
           }
         }
-        
+
         // 显示信息窗口（使用与列表项一致的样式）
         const infoWindowContent = `
           <div class="custom-info-window bg-white rounded-lg border border-gray-200 shadow-lg w-48">
             <div class="p-3">
               <div class="flex items-start">
                 <div class="flex-shrink-0 w-12 h-12 bg-gray-200">
-                  <img src="${ShopIcon}" alt="Shop Icon" class="w-full h-full object-cover rounded-lg">
+                  <img src="${avatar}" alt="${title}" class="w-full h-full object-cover rounded-lg">
                 </div>
                 <div class="ml-3 flex-1">
                   <h3 class="text-sm font-medium text-gray-900 truncate">${title}</h3>
@@ -269,7 +255,10 @@ export default {
                   </div>
                 </div>
               </div>
-              <p class="text-xs text-gray-500 mt-2 truncate">${content.replace('<br/>', ' ')}</p>
+              <p class="text-xs text-gray-500 mt-2 truncate">${content.replace(
+                "<br/>",
+                " "
+              )}</p>
               <div class="mt-2 flex justify-between items-center">
                 <span class="text-xs text-amber-500 font-medium">0.8km</span>
                 <button class="text-xs text-amber-500 font-medium">详情</button>
@@ -277,13 +266,13 @@ export default {
             </div>
           </div>
         `;
-        
+
         // 创建信息窗口
         const infoWindow = new AMap.InfoWindow({
           content: infoWindowContent,
           offset: new AMap.Pixel(0, -30), // 调整信息窗口偏移
         });
-        
+
         // 打开信息窗口
         infoWindow.open(map, marker.getPosition());
       });
@@ -291,7 +280,7 @@ export default {
       // 添加到地图
       map.add(marker);
       markers.push(marker);
-      
+
       return marker;
     };
 
@@ -341,8 +330,8 @@ export default {
             minLng: 121.4855,
             maxLng: 121.4955,
             minLat: 31.2365,
-            maxLat: 31.2465
-          }
+            maxLat: 31.2465,
+          },
         },
         {
           name: "上海人民广场",
@@ -352,8 +341,8 @@ export default {
             minLng: 121.4716,
             maxLng: 121.4816,
             minLat: 31.2286,
-            maxLat: 31.2386
-          }
+            maxLat: 31.2386,
+          },
         },
         {
           name: "上海陆家嘴",
@@ -363,8 +352,8 @@ export default {
             minLng: 121.4947,
             maxLng: 121.5047,
             minLat: 31.2361,
-            maxLat: 31.2461
-          }
+            maxLat: 31.2461,
+          },
         },
         {
           name: "上海南京路步行街",
@@ -374,8 +363,8 @@ export default {
             minLng: 121.4739,
             maxLng: 121.4839,
             minLat: 31.2309,
-            maxLat: 31.2409
-          }
+            maxLat: 31.2409,
+          },
         },
         {
           name: "上海豫园",
@@ -385,8 +374,8 @@ export default {
             minLng: 121.4872,
             maxLng: 121.4972,
             minLat: 31.2222,
-            maxLat: 31.2322
-          }
+            maxLat: 31.2322,
+          },
         },
         {
           name: "上海静安寺",
@@ -396,29 +385,40 @@ export default {
             minLng: 121.4532,
             maxLng: 121.4632,
             minLat: 31.2169,
-            maxLat: 31.2269
-          }
-        }
+            maxLat: 31.2269,
+          },
+        },
       ];
-      
+
       const randomIndex = Math.floor(Math.random() * regions.length);
       return regions[randomIndex];
     };
-    
+
     // 在指定区域内生成随机标记点
     const generateRandomMarkersInRegion = (keyword, region) => {
       // 清除之前的标记点
       clearAllMarkers();
-      
+
       // 生成6-12个随机标记点（增加密度）
       const markerCount = Math.floor(Math.random() * 7) + 6;
       const mockData = [];
-      
+
+      // 头像图片数组，用于模拟不同的用户头像
+      const avatarImages = [Pic41, Pic42, Pic43, Pic44, Pic45];
+
       for (let i = 0; i < markerCount; i++) {
         // 在区域内生成随机坐标
-        const lng = region.bounds.minLng + Math.random() * (region.bounds.maxLng - region.bounds.minLng);
-        const lat = region.bounds.minLat + Math.random() * (region.bounds.maxLat - region.bounds.minLat);
-        
+        const lng =
+          region.bounds.minLng +
+          Math.random() * (region.bounds.maxLng - region.bounds.minLng);
+        const lat =
+          region.bounds.minLat +
+          Math.random() * (region.bounds.maxLat - region.bounds.minLat);
+
+        // 随机选择一个头像
+        const randomAvatar =
+          avatarImages[Math.floor(Math.random() * avatarImages.length)];
+
         mockData.push({
           id: i + 1,
           name: `${keyword}${i + 1}号店`,
@@ -426,18 +426,27 @@ export default {
           position: [lng, lat],
           rating: (Math.random() * 2 + 3).toFixed(1), // 3.0-5.0的随机评分
           distance: (Math.random() * 3).toFixed(1), // 0-3公里的随机距离
-          tel: `021-${Math.floor(Math.random() * 90000000 + 10000000)}`
+          tel: `021-${Math.floor(Math.random() * 90000000 + 10000000)}`,
+          avatar: randomAvatar, // 添加头像字段
         });
       }
-      
+
       searchResults.value = mockData;
       selectedIndex.value = 0;
-      
+
       // 为搜索结果添加标记点
       mockData.forEach((item, index) => {
-        const marker = addMarker(item.position, item.name, `${item.address}<br/>电话: ${item.tel}`, null, index, false);
+        const marker = addMarker(
+          item.position,
+          item.name,
+          `${item.address}<br/>电话: ${item.tel}`,
+          null,
+          index,
+          false,
+          item.avatar
+        );
       });
-      
+
       // 定位到第一个结果（仅定位，不触发特效）
       if (mockData.length > 0) {
         map.setCenter(mockData[0].position);
@@ -448,38 +457,41 @@ export default {
     // 选择搜索结果
     const selectResult = (index) => {
       selectedIndex.value = index;
-      
+
       // 定位到选中的结果
       const selectedItem = searchResults.value[index];
       if (selectedItem) {
         map.setCenter(selectedItem.position);
         map.setZoom(16);
-        
+
         // 触发对应标记点的颜色变化和放大效果
         triggerMarkerEffect(index);
-        
+
         // 滚动列表到显示区域的前面（左侧）
         scrollToSelectedItem(index);
       }
     };
-    
+
     // 滚动到选中的列表项
     const scrollToSelectedItem = (index) => {
       setTimeout(() => {
-        const container = document.querySelector('.overflow-x-auto');
-        const selectedElement = document.querySelector(`.search-result-item:nth-child(${index + 1})`);
+        const container = document.querySelector(".overflow-x-auto");
+        const selectedElement = document.querySelector(
+          `.search-result-item:nth-child(${index + 1})`
+        );
         if (container && selectedElement) {
           // 计算选中元素相对于容器的位置
           const containerRect = container.getBoundingClientRect();
           const selectedRect = selectedElement.getBoundingClientRect();
-          
+
           // 计算滚动位置，使选中项位于左侧
-          const scrollPosition = selectedRect.left - containerRect.left + container.scrollLeft;
-          
+          const scrollPosition =
+            selectedRect.left - containerRect.left + container.scrollLeft;
+
           // 平滑滚动到指定位置
           container.scrollTo({
             left: scrollPosition,
-            behavior: 'smooth'
+            behavior: "smooth",
           });
         }
       }, 100);
@@ -489,47 +501,38 @@ export default {
     const triggerMarkerEffect = (index) => {
       // 找到对应的标记点
       const marker = markers[index];
-      if (marker) {
+      const selectedItem = searchResults.value[index];
+      if (marker && selectedItem) {
         // 改变标记点颜色并放大
         const markerElement = marker.getContentDom();
         if (markerElement) {
-          const pinElement = markerElement.querySelector('.marker-pin');
-          if (pinElement) {
-            // 生成随机颜色
-            const colors = [
-              'linear-gradient(135deg, #f59e0b 0%, #d97706 100%)', // 默认橙色
-              'linear-gradient(135deg, #ef4444 0%, #dc2626 100%)', // 红色
-              'linear-gradient(135deg, #10b981 0%, #059669 100%)', // 绿色
-              'linear-gradient(135deg, #3b82f6 0%, #2563eb 100%)', // 蓝色
-              'linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%)'  // 紫色
-            ];
-            
-            const randomColor = colors[Math.floor(Math.random() * colors.length)];
-            pinElement.style.background = randomColor;
-            
-            // 放大标记点
-            markerElement.style.transform = 'scale(1.3)';
-            
-            // 3秒后恢复原状
+          const avatarElement = markerElement.querySelector(".marker-avatar");
+          if (avatarElement) {
+            // 添加点击效果类
+            avatarElement.classList.add("clicked");
+
+            // 3秒后移除效果类
             setTimeout(() => {
-              pinElement.style.background = 'linear-gradient(135deg, #f59e0b 0%, #d97706 100%)';
-              markerElement.style.transform = 'scale(1)';
+              avatarElement.classList.remove("clicked");
             }, 3000);
           }
         }
-        
+
         // 打开信息窗口（使用与列表项一致的样式）
-        const selectedItem = searchResults.value[index];
         if (selectedItem) {
           const infoWindowContent = `
             <div class="custom-info-window bg-white rounded-lg border border-gray-200 shadow-lg w-48">
               <div class="p-3">
                 <div class="flex items-start">
                   <div class="flex-shrink-0 w-12 h-12 bg-gray-200">
-                    <img src="${ShopIcon}" alt="Shop Icon" class="w-full h-full object-cover rounded-lg"> 
+                    <img src="${selectedItem.avatar || ShopIcon}" alt="${
+            selectedItem.name
+          }" class="w-full h-full object-cover rounded-lg"> 
                   </div>
                   <div class="ml-3 flex-1">
-                    <h3 class="text-sm font-medium text-gray-900 truncate">${selectedItem.name}</h3>
+                    <h3 class="text-sm font-medium text-gray-900 truncate">${
+                      selectedItem.name
+                    }</h3>
                     <div class="flex items-center mt-1">
                       <div class="flex text-amber-400">
                         <i class="fas fa-star text-xs"></i>
@@ -538,25 +541,31 @@ export default {
                         <i class="fas fa-star text-xs"></i>
                         <i class="fas fa-star-half-alt text-xs"></i>
                       </div>
-                      <span class="text-xs text-gray-500 ml-1">${selectedItem.rating}</span>
+                      <span class="text-xs text-gray-500 ml-1">${
+                        selectedItem.rating
+                      }</span>
                     </div>
                   </div>
                 </div>
-                <p class="text-xs text-gray-500 mt-2 truncate">${selectedItem.address}</p>
+                <p class="text-xs text-gray-500 mt-2 truncate">${
+                  selectedItem.address
+                }</p>
                 <div class="mt-2 flex justify-between items-center">
-                  <span class="text-xs text-amber-500 font-medium">${selectedItem.distance}km</span>
+                  <span class="text-xs text-amber-500 font-medium">${
+                    selectedItem.distance
+                  }km</span>
                   <button class="text-xs text-amber-500 font-medium">详情</button>
                 </div>
               </div>
             </div>
           `;
-          
+
           // 创建信息窗口
           const infoWindow = new AMap.InfoWindow({
             content: infoWindowContent,
             offset: new AMap.Pixel(0, -30), // 调整信息窗口偏移
           });
-          
+
           // 打开信息窗口
           infoWindow.open(map, marker.getPosition());
         }
@@ -607,7 +616,16 @@ export default {
           const content = `经度: ${position[0].toFixed(
             6
           )}, 纬度: ${position[1].toFixed(6)}`;
-          addMarker(position, address, content, null); // 新增标记点默认不跳转，只显示信息窗口
+          // 为用户添加的标记点使用默认头像
+          addMarker(
+            position,
+            address,
+            content,
+            null,
+            undefined,
+            true,
+            ShopIcon
+          );
 
           // 关闭弹框
           closeDialog();
@@ -651,7 +669,16 @@ export default {
             const content = `经度: ${position[0].toFixed(
               6
             )}, 纬度: ${position[1].toFixed(6)} (使用默认坐标)`;
-            addMarker(position, address, content, null); // 备用坐标标记点也不跳转
+            // 为用户添加的标记点使用默认头像
+            addMarker(
+              position,
+              address,
+              content,
+              null,
+              undefined,
+              true,
+              ShopIcon
+            );
             closeDialog();
           }
         }
@@ -758,6 +785,11 @@ export default {
   -ms-overflow-style: none;
   scrollbar-width: none;
 }
+
+/* 为图片添加alt属性 */
+.search-result-item img {
+  alt: "Shop Image";
+}
 </style>
 
 <style>
@@ -767,6 +799,44 @@ export default {
   height: 40px;
   position: relative;
   display: flex;
+}
+
+/* 新增的头像标记点样式 */
+.custom-marker-avatar {
+  width: 50px;
+  height: 50px;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.marker-avatar {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  border: 3px solid #ffffff;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  position: relative;
+  z-index: 2;
+  transition: all 0.3s ease;
+}
+
+.marker-avatar.clicked {
+  transform: scale(1.3);
+  box-shadow: 0 0 0 8px rgba(245, 158, 11, 0.3);
+}
+
+.marker-pulse-avatar {
+  width: 50px;
+  height: 50px;
+  background: rgba(245, 158, 11, 0.3);
+  border-radius: 50%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 1;
+  animation: pulse 2s ease-out infinite;
 }
 
 .amap-marker-content {
