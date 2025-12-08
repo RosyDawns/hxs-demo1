@@ -282,7 +282,7 @@ export default {
 
         // 显示信息窗口（使用与列表项一致的样式）
         const infoWindowContent = `
-          <div class="custom-info-window bg-white rounded-lg border border-gray-200 shadow-lg w-48">
+          <div class="custom-info-window bg-white rounded-lg shadow-lg w-48">
             <div class="p-3">
               <div class="flex items-start">
                 <div class="flex-shrink-0 w-12 h-12 bg-gray-200">
