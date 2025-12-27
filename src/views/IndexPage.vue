@@ -185,7 +185,7 @@
             @click="
               $router.push({
                 path: '/teacher-list',
-                query: { tab: '主理人', top: 'discover' },
+                query: { tab: '主理人', top: 'discover', type: 'main' },
               })
             "
           >
@@ -198,7 +198,7 @@
             @click="
               $router.push({
                 path: '/teacher-list',
-                query: { tab: '生活技能', top: 'discover' },
+                query: { tab: '生活技能', top: 'discover', type: 'main' },
               })
             "
           >
@@ -210,7 +210,7 @@
             @click="
               $router.push({
                 path: '/teacher-list',
-                query: { tab: '生活搭子', top: 'discover' },
+                query: { tab: '生活搭子', top: 'discover', type: 'main' },
               })
             "
           >

@@ -85,7 +85,10 @@ export default {
     handleWakerLionClick() {
       // 如果当前在首页，则跳转到唤醒狮列表页；如果在唤醒狮列表页，则跳转到首页
       if (this.activePage === "index") {
-        this.$router.push("/teacher-list");
+        this.$router.push({
+          path: "/teacher-list",
+          query: { type: "dynamic" },
+        });
       } else if (this.activePage === "teachers") {
         this.$router.push("/");
       } else {

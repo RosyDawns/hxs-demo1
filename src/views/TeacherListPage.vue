@@ -1,7 +1,11 @@
 <template>
   <div class="page pt-12" id="page-teacher-list">
     <!-- 顶部导航 -->
-    <CommonHeader arrowColor="#000" bgColor="#fff" class="border-b border-gray-100">
+    <CommonHeader
+      arrowColor="#000"
+      bgColor="#fff"
+      class="border-b border-gray-100"
+    >
       <template #center>
         <div class="w-full pr-10">
           <div class="flex-1 flex items-center justify-around">
@@ -258,27 +262,48 @@
     </div>
 
     <!-- 内容区域 -->
-    <div class="grid grid-cols-2 gap-3 px-3 pb-3 pt-1">
+    <div
+      class="grid gap-3 px-3 pb-3 pt-1"
+      :class="{ ' grid-cols-2': listViewType != 'main' }"
+    >
       <!-- 发现标签下的内容 -->
       <template v-if="topTab === 'discover'">
         <!-- 推荐内容 -->
         <template v-if="selectedTab === '推荐'">
-          <CoachListItem
-            v-for="coach in coaches"
-            :key="coach.id"
-            :coach="coach"
-            @click="handleCoachClick"
-          />
+          <template v-if="listViewType == 'main'">
+            <HxsItem
+              v-for="(coach, index) in recommendedCoaches"
+              :key="coach.id"
+              :coach="coach"
+              @view-profile="handleCoachDetail"
+          /></template>
+          <template v-else>
+            <CoachListItem
+              v-for="coach in coaches"
+              :key="coach.id"
+              :coach="coach"
+              @click="handleCoachClick"
+            />
+          </template>
         </template>
 
         <!-- 筛选内容 -->
         <template v-else-if="selectedTab === '筛选'">
-          <CoachListItem
-            v-for="coach in coaches"
-            :key="coach.id"
-            :coach="coach"
-            @click="handleCoachClick"
-          />
+          <template v-if="listViewType == 'main'">
+            <HxsItem
+              v-for="(coach, index) in recommendedCoaches"
+              :key="coach.id"
+              :coach="coach"
+              @view-profile="handleCoachDetail"
+          /></template>
+          <template v-else>
+            <CoachListItem
+              v-for="coach in coaches"
+              :key="coach.id"
+              :coach="coach"
+              @click="handleCoachClick"
+            />
+          </template>
         </template>
 
         <!-- 动态内容 -->
@@ -299,23 +324,43 @@
             selectedTab === '生活搭子'
           "
         >
-          <CoachListItem
-            v-for="coach in coaches"
-            :key="coach.id"
-            :coach="coach"
-            @click="handleCoachClick"
-          />
+          <template v-if="listViewType == 'main'">
+            <!-- 使用可复用组件渲染教练卡片 -->
+            <HxsItem
+              v-for="(coach, index) in recommendedCoaches"
+              :key="coach.id"
+              :coach="coach"
+              @view-profile="handleCoachDetail"
+            />
+          </template>
+          <template v-else>
+            <CoachListItem
+              v-for="coach in coaches"
+              :key="coach.id"
+              :coach="coach"
+              @click="handleCoachClick"
+            />
+          </template>
         </template>
       </template>
 
       <!-- 城市标签下的内容 -->
       <template v-else-if="topTab === 'city'">
-        <CoachListItem
-          v-for="coach in locationCoaches"
-          :key="coach.id"
-          :coach="coach"
-          @click="handleCoachClick"
-        />
+        <template v-if="listViewType == 'main'">
+          <HxsItem
+            v-for="(coach, index) in recommendedCoaches"
+            :key="coach.id"
+            :coach="coach"
+            @view-profile="handleCoachDetail"
+        /></template>
+        <template v-else>
+          <CoachListItem
+            v-for="coach in locationCoaches"
+            :key="coach.id"
+            :coach="coach"
+            @click="handleCoachClick"
+          />
+        </template>
       </template>
 
       <!-- 关注标签下的内容 -->
@@ -332,24 +377,42 @@
 
         <!-- 主理人内容 -->
         <template v-else-if="selectedTab === '主理人'">
-          <CoachListItem
-            v-for="coach in followedCoaches"
-            :key="coach.id"
-            :coach="coach"
-            @click="handleCoachClick"
-          />
+          <template v-if="listViewType == 'main'">
+            <HxsItem
+              v-for="(coach, index) in recommendedCoaches"
+              :key="coach.id"
+              :coach="coach"
+              @view-profile="handleCoachDetail"
+          /></template>
+          <template v-else>
+            <CoachListItem
+              v-for="coach in followedCoaches"
+              :key="coach.id"
+              :coach="coach"
+              @click="handleCoachClick"
+            />
+          </template>
         </template>
 
         <!-- 生活技能/生活搭子内容 -->
         <template
           v-else-if="selectedTab === '生活技能' || selectedTab === '生活搭子'"
         >
-          <CoachListItem
-            v-for="coach in coaches"
-            :key="coach.id"
-            :coach="coach"
-            @click="handleCoachClick"
-          />
+          <template v-if="listViewType == 'main'">
+            <HxsItem
+              v-for="(coach, index) in recommendedCoaches"
+              :key="coach.id"
+              :coach="coach"
+              @view-profile="handleCoachDetail"
+          /></template>
+          <template v-else>
+            <CoachListItem
+              v-for="coach in coaches"
+              :key="coach.id"
+              :coach="coach"
+              @click="handleCoachClick"
+            />
+          </template>
         </template>
       </template>
     </div>
@@ -367,6 +430,7 @@ import FooterNav from "../components/FooterNav.vue";
 import CommonHeader from "../components/CommonHeader.vue";
 import CoachListItem from "../components/CoachListItem.vue";
 import DynamicListItem from "../components/DynamicListItem.vue";
+import HxsItem from "@/components/hxs-item.vue";
 
 // 导入本地图片资源
 import user1 from "@images/user_1.png";
@@ -389,6 +453,7 @@ export default {
     CommonHeader,
     CoachListItem,
     DynamicListItem,
+    HxsItem,
   },
   setup() {
     const route = useRoute();
@@ -398,6 +463,7 @@ export default {
     // 二级标签页
     const selectedTab = ref("推荐");
     const selectedSubTab = ref("推荐");
+    const listViewType = ref("");
 
     // 底部导航活动页面
     const activePage = ref("teachers");
@@ -570,6 +636,56 @@ export default {
       },
     ]);
 
+    const recommendedCoaches = ref([
+      {
+        id: "coach1",
+        name: "李教练",
+        type: "游泳教练",
+        title: "国家二级运动员 | 8年教学经验",
+        rating: 4.8,
+        distance: 1.2,
+        image: "https://picsum.photos/id/1005/100/100",
+        prices: {
+          trial: 88,
+          single: 200,
+          card10: 1680,
+        },
+      },
+      {
+        id: "coach2",
+        name: "赵教练",
+        type: "游泳教练",
+        title: "国家一级运动员 | 10年教学经验",
+        rating: 4.9,
+        distance: 1.5,
+        image: "https://picsum.photos/id/1011/100/100",
+        prices: {
+          trial: 98,
+          single: 220,
+          card10: 1880,
+        },
+      },
+      {
+        id: "coach3",
+        name: "张教练",
+        type: "游泳教练",
+        title: "国家二级运动员 | 6年教学经验",
+        rating: 4.6,
+        distance: 1.5,
+        image: "https://picsum.photos/id/1012/100/100",
+        prices: {
+          trial: 80,
+          single: 180,
+          card10: 1580,
+        },
+      },
+    ]);
+
+    const handleCoachDetail = (coachId) => {
+      console.log(`查看教练详情: ${coachId}`);
+      router.push(`/ouyang`); // 使用现有的教练详情页路由
+    };
+
     // 监听topTab变化，设置对应的默认selectedTab
     watch(topTab, (newTopTab) => {
       if (newTopTab === "discover") {
@@ -585,13 +701,17 @@ export default {
     // 根据路由查询参数设置初始tab
     const applyRouteQuery = () => {
       const q = route.query || {};
-      const top = typeof q.top === 'string' ? q.top : undefined;
-      const tab = typeof q.tab === 'string' ? q.tab : undefined;
+      const top = typeof q.top === "string" ? q.top : undefined;
+      const tab = typeof q.tab === "string" ? q.tab : undefined;
+      const type = typeof q.type === "string" ? q.type : undefined;
       if (top && ["discover", "city", "follow"].includes(top)) {
         topTab.value = top;
       }
       if (tab) {
         selectedTab.value = tab;
+      }
+      if (type) {
+        listViewType.value = type;
       }
     };
 
@@ -627,6 +747,9 @@ export default {
       handleCoachClick,
       handleDynamicClick,
       activePage,
+      listViewType,
+      recommendedCoaches,
+      handleCoachDetail,
     };
   },
 };
