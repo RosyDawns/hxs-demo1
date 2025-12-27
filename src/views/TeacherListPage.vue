@@ -7,7 +7,7 @@
       class="border-b border-gray-100"
     >
       <template #center>
-        <div class="w-full pr-10">
+        <div class="w-full">
           <div class="flex-1 flex items-center justify-around">
             <button class="text-lg px-1" @click="topTab = 'discover'">
               <div
@@ -32,6 +32,20 @@
       <template #left>
         <button @click="$router.back()" class="text-black">
           <i class="fa-solid fa-chevron-left"></i>
+        </button>
+      </template>
+      <template #right>
+        <!-- 视图类型切换按钮 -->
+        <button
+          class="text-gray mr-3"
+          @click="toggleListViewType"
+          :class="{ 'text-primary': listViewType === 'main' }"
+        >
+          <i
+            class="fa-solid"
+            :class="listViewType === 'main' ? 'fa-th-large' : 'fa-list'"
+            style="font-size: 16px"
+          ></i>
         </button>
       </template>
     </CommonHeader>
@@ -264,7 +278,9 @@
     <!-- 内容区域 -->
     <div
       class="grid gap-3 px-3 pb-3 pt-1"
-      :class="{ ' grid-cols-2': listViewType != 'main' }"
+      :class="{
+        'grid-cols-2': listViewType != 'main' || selectedTab === '动态',
+      }"
     >
       <!-- 发现标签下的内容 -->
       <template v-if="topTab === 'discover'">
@@ -686,6 +702,10 @@ export default {
       router.push(`/ouyang`); // 使用现有的教练详情页路由
     };
 
+    const toggleListViewType = () => {
+      listViewType.value = listViewType.value === "main" ? "" : "main";
+    };
+
     // 监听topTab变化，设置对应的默认selectedTab
     watch(topTab, (newTopTab) => {
       if (newTopTab === "discover") {
@@ -750,6 +770,7 @@ export default {
       listViewType,
       recommendedCoaches,
       handleCoachDetail,
+      toggleListViewType,
     };
   },
 };
