@@ -281,7 +281,7 @@
                   [健身次卡] 体验价9.9元
                 </div>
               </div>
-              <button class="bg-orange-500 text-white text-sm font-medium px-4 py-1.5 rounded-full">
+              <button class="bg-orange-500 text-white text-sm font-medium px-4 py-1.5 rounded-full" @click.stop="$router.push('/store')">
                 购买
               </button>
             </div>
@@ -331,7 +331,7 @@
                   [代金券] 一波结束66抵100
                 </div>
               </div>
-              <button class="bg-orange-500 text-white text-sm font-medium px-4 py-1.5 rounded-full">
+              <button class="bg-orange-500 text-white text-sm font-medium px-4 py-1.5 rounded-full" @click.stop="$router.push('/store')">
                 购买
               </button>
             </div>
@@ -385,7 +385,7 @@
                   [健身次卡] 体验价9.9元
                 </div>
               </div>
-              <button class="bg-orange-500 text-white text-sm font-medium px-4 py-1.5 rounded-full">
+              <button class="bg-orange-500 text-white text-sm font-medium px-4 py-1.5 rounded-full" @click.stop="$router.push('/store')">
                 购买
               </button>
             </div>
@@ -435,7 +435,7 @@
                   [代金券] 一波结束66抵100
                 </div>
               </div>
-              <button class="bg-orange-500 text-white text-sm font-medium px-4 py-1.5 rounded-full">
+              <button class="bg-orange-500 text-white text-sm font-medium px-4 py-1.5 rounded-full" @click.stop="$router.push('/store')">
                 购买
               </button>
             </div>
