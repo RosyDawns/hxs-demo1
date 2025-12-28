@@ -14,16 +14,16 @@
               " @click="switchTab('master')">
               <span class="text-sm">主理人</span>
             </button>
-            <button class="flex flex-col items-center px-3 py-2 rounded-lg" :class="activeTab === 'dazi'
-              ? 'bg-orange-100 text-orange'
-              : 'text-gray-600'
-              " @click="switchTab('dazi')">
-              <span class="text-sm">唤醒师</span>
-            </button>
             <button class="flex flex-col items-center px-3 py-2 rounded-lg" :class="activeTab === 'skill'
               ? 'bg-orange-100 text-orange'
               : 'text-gray-600'
               " @click="switchTab('skill')">
+              <span class="text-sm">唤醒师</span>
+            </button>
+            <button class="flex flex-col items-center px-3 py-2 rounded-lg" :class="activeTab === 'dazi'
+              ? 'bg-orange-100 text-orange'
+              : 'text-gray-600'
+              " @click="switchTab('dazi')">
               <span class="text-sm">找搭子</span>
             </button>
             <button class="flex flex-col items-center px-3 py-2 rounded-lg" :class="activeTab === 'group'
@@ -174,13 +174,13 @@
         </template>
 
         <!-- 达子唤醒师内容 -->
-        <template v-if="activeTab === 'dazi'">
+        <template v-if="activeTab === 'skill'">
           <HxsItem v-for="(coach, index) in recommendedCoaches" :key="coach.id" :coach="coach"
             @view-profile="handleCoachDetail" />
         </template>
 
         <!-- 技能唤醒师内容 -->
-        <template v-if="activeTab === 'skill'">
+        <template v-if="activeTab === 'dazi'">
           <HxsItem v-for="(coach, index) in recommendedCoaches" :key="coach.id" :coach="coach"
             @view-profile="handleCoachDetail" />
         </template>
@@ -488,6 +488,19 @@ export default {
   components: {
     HxsItem,
   },
+  mounted() {
+    // 根据路由参数设置初始 tab
+    this.applyRouteQuery();
+  },
+  watch: {
+    // 监听路由变化
+    '$route.query': {
+      handler() {
+        this.applyRouteQuery();
+      },
+      deep: true
+    }
+  },
   computed: {
     // 计算当前选中分类的二级分类
     currentSubCategories() {
@@ -512,6 +525,22 @@ export default {
     },
   },
   methods: {
+    // 根据路由查询参数设置初始tab
+    applyRouteQuery() {
+      const tab = this.$route.query.tab;
+      if (tab) {
+        // 映射首页传递的 tab 参数到 activeTab
+        const tabMapping = {
+          '主理人': 'master',
+          '生活技能': 'skill',
+          '生活搭子': 'dazi'
+        };
+
+        if (tabMapping[tab]) {
+          this.activeTab = tabMapping[tab];
+        }
+      }
+    },
     goBack() {
       this.$router.back();
     },
