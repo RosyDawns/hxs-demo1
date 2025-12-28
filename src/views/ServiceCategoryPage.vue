@@ -46,8 +46,8 @@
         <i class="fa fa-search absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
       </div>
 
-      <!-- 筛选标签 - 主理人/唤醒师/找搭子 -->
-      <div v-if="activeTab === 'master' || activeTab === 'dazi' || activeTab === 'skill'"
+      <!-- 筛选标签 - 主理人 -->
+      <div v-if="activeTab === 'master'"
         class="flex items-center overflow-x-auto whitespace-nowrap mb-2 pb-2 -mx-4 px-4 scrollbar-hide">
         <button
           class="flex items-center bg-white rounded-full px-3 py-1.5 text-sm mr-2"
@@ -71,6 +71,47 @@
           class="flex items-center bg-white rounded-full px-3 py-1.5 text-sm mr-2"
           @click="showTrainingFilterModal">
           {{ selectedTraining || '运动培训' }}
+          <i class="fa fa-angle-down ml-1 text-xs"></i>
+        </button>
+        <button
+          class="flex items-center bg-white rounded-full px-3 py-1.5 text-sm"
+          @click="showLeisureFilterModal">
+          {{ selectedLeisure || '休闲娱乐' }}
+          <i class="fa fa-angle-down ml-1 text-xs"></i>
+        </button>
+      </div>
+
+      <!-- 筛选标签 - 唤醒师/找搭子 -->
+      <div v-else-if="activeTab === 'skill' || activeTab === 'dazi'"
+        class="flex items-center overflow-x-auto whitespace-nowrap mb-2 pb-2 -mx-4 px-4 scrollbar-hide">
+        <button
+          class="flex items-center bg-white rounded-full px-3 py-1.5 text-sm mr-2"
+          @click="showNearbyFilterModal">
+          {{ selectedNearby }}
+          <i class="fa fa-angle-down ml-1 text-xs"></i>
+        </button>
+        <button
+          class="flex items-center bg-white rounded-full px-3 py-1.5 text-sm mr-2"
+          @click="showFitnessFilterModal">
+          {{ selectedFitness || '健身' }}
+          <i class="fa fa-angle-down ml-1 text-xs"></i>
+        </button>
+        <button
+          class="flex items-center bg-white rounded-full px-3 py-1.5 text-sm mr-2"
+          @click="showBallSportsFilterModal">
+          {{ selectedBallSports || '球类' }}
+          <i class="fa fa-angle-down ml-1 text-xs"></i>
+        </button>
+        <button
+          class="flex items-center bg-white rounded-full px-3 py-1.5 text-sm mr-2"
+          @click="showSportsFilterModal">
+          {{ selectedSports || '运动' }}
+          <i class="fa fa-angle-down ml-1 text-xs"></i>
+        </button>
+        <button
+          class="flex items-center bg-white rounded-full px-3 py-1.5 text-sm mr-2"
+          @click="showOutdoorFilterModal">
+          {{ selectedOutdoor || '户外' }}
           <i class="fa fa-angle-down ml-1 text-xs"></i>
         </button>
         <button
@@ -707,6 +748,246 @@
         </div>
       </div>
     </div>
+
+    <!-- 健身筛选弹框 -->
+    <div v-if="showFitnessModal" class="filter-modal">
+      <div class="modal-overlay" @click="closeFitnessFilterModal"></div>
+      <div class="filter-modal-content">
+        <div class="flex justify-between items-center mb-4">
+          <h3 class="text-lg font-bold text-gray-800">健身筛选</h3>
+          <button class="w-10 h-10 flex items-center justify-center rounded-full text-gray-500 hover:bg-gray-100"
+            @click="closeFitnessFilterModal">
+            <i class="fa fa-times text-lg"></i>
+          </button>
+        </div>
+
+        <div class="space-y-3 mb-6">
+          <button
+            class="w-full py-4 px-4 rounded-lg text-base font-medium transition-all text-left"
+            :class="selectedFitness === '力量训练' ? 'bg-orange-500 text-white shadow-md' : 'bg-gray-100 text-gray-700 hover:bg-gray-200'"
+            @click="selectFitness('力量训练')">
+            力量训练
+          </button>
+          <button
+            class="w-full py-4 px-4 rounded-lg text-base font-medium transition-all text-left"
+            :class="selectedFitness === '有氧运动' ? 'bg-orange-500 text-white shadow-md' : 'bg-gray-100 text-gray-700 hover:bg-gray-200'"
+            @click="selectFitness('有氧运动')">
+            有氧运动
+          </button>
+          <button
+            class="w-full py-4 px-4 rounded-lg text-base font-medium transition-all text-left"
+            :class="selectedFitness === '瑜伽' ? 'bg-orange-500 text-white shadow-md' : 'bg-gray-100 text-gray-700 hover:bg-gray-200'"
+            @click="selectFitness('瑜伽')">
+            瑜伽
+          </button>
+          <button
+            class="w-full py-4 px-4 rounded-lg text-base font-medium transition-all text-left"
+            :class="selectedFitness === '普拉提' ? 'bg-orange-500 text-white shadow-md' : 'bg-gray-100 text-gray-700 hover:bg-gray-200'"
+            @click="selectFitness('普拉提')">
+            普拉提
+          </button>
+          <button
+            class="w-full py-4 px-4 rounded-lg text-base font-medium transition-all text-left"
+            :class="selectedFitness === '动感单车' ? 'bg-orange-500 text-white shadow-md' : 'bg-gray-100 text-gray-700 hover:bg-gray-200'"
+            @click="selectFitness('动感单车')">
+            动感单车
+          </button>
+        </div>
+
+        <div class="flex flex-col gap-3">
+          <button
+            class="py-3.5 bg-gray-100 text-gray-700 rounded-lg font-semibold transition-all duration-200 ease-in-out hover:bg-gray-200"
+            @click="resetFitness">
+            重置
+          </button>
+          <button
+            class="py-3.5 bg-orange-500 text-white rounded-lg font-semibold transition-all duration-200 ease-in-out hover:bg-orange-600 shadow-md"
+            @click="confirmFitness">
+            确定
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- 球类筛选弹框 -->
+    <div v-if="showBallSportsModal" class="filter-modal">
+      <div class="modal-overlay" @click="closeBallSportsFilterModal"></div>
+      <div class="filter-modal-content">
+        <div class="flex justify-between items-center mb-4">
+          <h3 class="text-lg font-bold text-gray-800">球类筛选</h3>
+          <button class="w-10 h-10 flex items-center justify-center rounded-full text-gray-500 hover:bg-gray-100"
+            @click="closeBallSportsFilterModal">
+            <i class="fa fa-times text-lg"></i>
+          </button>
+        </div>
+
+        <div class="space-y-3 mb-6">
+          <button
+            class="w-full py-4 px-4 rounded-lg text-base font-medium transition-all text-left"
+            :class="selectedBallSports === '篮球' ? 'bg-orange-500 text-white shadow-md' : 'bg-gray-100 text-gray-700 hover:bg-gray-200'"
+            @click="selectBallSports('篮球')">
+            篮球
+          </button>
+          <button
+            class="w-full py-4 px-4 rounded-lg text-base font-medium transition-all text-left"
+            :class="selectedBallSports === '足球' ? 'bg-orange-500 text-white shadow-md' : 'bg-gray-100 text-gray-700 hover:bg-gray-200'"
+            @click="selectBallSports('足球')">
+            足球
+          </button>
+          <button
+            class="w-full py-4 px-4 rounded-lg text-base font-medium transition-all text-left"
+            :class="selectedBallSports === '羽毛球' ? 'bg-orange-500 text-white shadow-md' : 'bg-gray-100 text-gray-700 hover:bg-gray-200'"
+            @click="selectBallSports('羽毛球')">
+            羽毛球
+          </button>
+          <button
+            class="w-full py-4 px-4 rounded-lg text-base font-medium transition-all text-left"
+            :class="selectedBallSports === '乒乓球' ? 'bg-orange-500 text-white shadow-md' : 'bg-gray-100 text-gray-700 hover:bg-gray-200'"
+            @click="selectBallSports('乒乓球')">
+            乒乓球
+          </button>
+          <button
+            class="w-full py-4 px-4 rounded-lg text-base font-medium transition-all text-left"
+            :class="selectedBallSports === '网球' ? 'bg-orange-500 text-white shadow-md' : 'bg-gray-100 text-gray-700 hover:bg-gray-200'"
+            @click="selectBallSports('网球')">
+            网球
+          </button>
+        </div>
+
+        <div class="flex flex-col gap-3">
+          <button
+            class="py-3.5 bg-gray-100 text-gray-700 rounded-lg font-semibold transition-all duration-200 ease-in-out hover:bg-gray-200"
+            @click="resetBallSports">
+            重置
+          </button>
+          <button
+            class="py-3.5 bg-orange-500 text-white rounded-lg font-semibold transition-all duration-200 ease-in-out hover:bg-orange-600 shadow-md"
+            @click="confirmBallSports">
+            确定
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- 运动筛选弹框 -->
+    <div v-if="showSportsModal" class="filter-modal">
+      <div class="modal-overlay" @click="closeSportsFilterModal"></div>
+      <div class="filter-modal-content">
+        <div class="flex justify-between items-center mb-4">
+          <h3 class="text-lg font-bold text-gray-800">运动筛选</h3>
+          <button class="w-10 h-10 flex items-center justify-center rounded-full text-gray-500 hover:bg-gray-100"
+            @click="closeSportsFilterModal">
+            <i class="fa fa-times text-lg"></i>
+          </button>
+        </div>
+
+        <div class="space-y-3 mb-6">
+          <button
+            class="w-full py-4 px-4 rounded-lg text-base font-medium transition-all text-left"
+            :class="selectedSports === '游泳' ? 'bg-orange-500 text-white shadow-md' : 'bg-gray-100 text-gray-700 hover:bg-gray-200'"
+            @click="selectSports('游泳')">
+            游泳
+          </button>
+          <button
+            class="w-full py-4 px-4 rounded-lg text-base font-medium transition-all text-left"
+            :class="selectedSports === '跑步' ? 'bg-orange-500 text-white shadow-md' : 'bg-gray-100 text-gray-700 hover:bg-gray-200'"
+            @click="selectSports('跑步')">
+            跑步
+          </button>
+          <button
+            class="w-full py-4 px-4 rounded-lg text-base font-medium transition-all text-left"
+            :class="selectedSports === '骑行' ? 'bg-orange-500 text-white shadow-md' : 'bg-gray-100 text-gray-700 hover:bg-gray-200'"
+            @click="selectSports('骑行')">
+            骑行
+          </button>
+          <button
+            class="w-full py-4 px-4 rounded-lg text-base font-medium transition-all text-left"
+            :class="selectedSports === '滑板' ? 'bg-orange-500 text-white shadow-md' : 'bg-gray-100 text-gray-700 hover:bg-gray-200'"
+            @click="selectSports('滑板')">
+            滑板
+          </button>
+          <button
+            class="w-full py-4 px-4 rounded-lg text-base font-medium transition-all text-left"
+            :class="selectedSports === '轮滑' ? 'bg-orange-500 text-white shadow-md' : 'bg-gray-100 text-gray-700 hover:bg-gray-200'"
+            @click="selectSports('轮滑')">
+            轮滑
+          </button>
+        </div>
+
+        <div class="flex flex-col gap-3">
+          <button
+            class="py-3.5 bg-gray-100 text-gray-700 rounded-lg font-semibold transition-all duration-200 ease-in-out hover:bg-gray-200"
+            @click="resetSports">
+            重置
+          </button>
+          <button
+            class="py-3.5 bg-orange-500 text-white rounded-lg font-semibold transition-all duration-200 ease-in-out hover:bg-orange-600 shadow-md"
+            @click="confirmSports">
+            确定
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- 户外筛选弹框 -->
+    <div v-if="showOutdoorModal" class="filter-modal">
+      <div class="modal-overlay" @click="closeOutdoorFilterModal"></div>
+      <div class="filter-modal-content">
+        <div class="flex justify-between items-center mb-4">
+          <h3 class="text-lg font-bold text-gray-800">户外筛选</h3>
+          <button class="w-10 h-10 flex items-center justify-center rounded-full text-gray-500 hover:bg-gray-100"
+            @click="closeOutdoorFilterModal">
+            <i class="fa fa-times text-lg"></i>
+          </button>
+        </div>
+
+        <div class="space-y-3 mb-6">
+          <button
+            class="w-full py-4 px-4 rounded-lg text-base font-medium transition-all text-left"
+            :class="selectedOutdoor === '徒步' ? 'bg-orange-500 text-white shadow-md' : 'bg-gray-100 text-gray-700 hover:bg-gray-200'"
+            @click="selectOutdoor('徒步')">
+            徒步
+          </button>
+          <button
+            class="w-full py-4 px-4 rounded-lg text-base font-medium transition-all text-left"
+            :class="selectedOutdoor === '露营' ? 'bg-orange-500 text-white shadow-md' : 'bg-gray-100 text-gray-700 hover:bg-gray-200'"
+            @click="selectOutdoor('露营')">
+            露营
+          </button>
+          <button
+            class="w-full py-4 px-4 rounded-lg text-base font-medium transition-all text-left"
+            :class="selectedOutdoor === '登山' ? 'bg-orange-500 text-white shadow-md' : 'bg-gray-100 text-gray-700 hover:bg-gray-200'"
+            @click="selectOutdoor('登山')">
+            登山
+          </button>
+          <button
+            class="w-full py-4 px-4 rounded-lg text-base font-medium transition-all text-left"
+            :class="selectedOutdoor === '钓鱼' ? 'bg-orange-500 text-white shadow-md' : 'bg-gray-100 text-gray-700 hover:bg-gray-200'"
+            @click="selectOutdoor('钓鱼')">
+            钓鱼
+          </button>
+          <button
+            class="w-full py-4 px-4 rounded-lg text-base font-medium transition-all text-left"
+            :class="selectedOutdoor === '飞盘' ? 'bg-orange-500 text-white shadow-md' : 'bg-gray-100 text-gray-700 hover:bg-gray-200'"
+            @click="selectOutdoor('飞盘')">
+            飞盘
+          </button>
+        </div>
+
+        <div class="flex flex-col gap-3">
+          <button
+            class="py-3.5 bg-gray-100 text-gray-700 rounded-lg font-semibold transition-all duration-200 ease-in-out hover:bg-gray-200"
+            @click="resetOutdoor">
+            重置
+          </button>
+          <button
+            class="py-3.5 bg-orange-500 text-white rounded-lg font-semibold transition-all duration-200 ease-in-out hover:bg-orange-600 shadow-md"
+            @click="confirmOutdoor">
+            确定
+          </button>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -730,11 +1011,19 @@ export default {
       showTrainingModal: false, // 运动培训筛选弹窗
       showLeisureModal: false, // 休闲娱乐筛选弹窗
       showNearbyModal: false, // 附近筛选弹窗
+      showFitnessModal: false, // 健身筛选弹窗
+      showBallSportsModal: false, // 球类筛选弹窗
+      showSportsModal: false, // 运动筛选弹窗
+      showOutdoorModal: false, // 户外筛选弹窗
       selectedVenue: "", // 选中的运动场馆
       selectedEquipment: "", // 选中的运动装备
       selectedTraining: "", // 选中的运动培训
       selectedLeisure: "", // 选中的休闲娱乐
       selectedNearby: "附近", // 选中的附近距离
+      selectedFitness: "", // 选中的健身类型
+      selectedBallSports: "", // 选中的球类
+      selectedSports: "", // 选中的运动类型
+      selectedOutdoor: "", // 选中的户外类型
       activityTypes: [
         {
           category: "户外运动",
@@ -953,6 +1242,10 @@ export default {
       this.selectedTraining = "";
       this.selectedLeisure = "";
       this.selectedNearby = "附近";
+      this.selectedFitness = "";
+      this.selectedBallSports = "";
+      this.selectedSports = "";
+      this.selectedOutdoor = "";
     },
     // 显示运动场馆筛选弹窗
     showVenueFilterModal() {
@@ -1058,6 +1351,90 @@ export default {
     confirmNearby() {
       console.log('选择的附近距离:', this.selectedNearby);
       this.closeNearbyFilterModal();
+    },
+    // 显示健身筛选弹窗
+    showFitnessFilterModal() {
+      this.showFitnessModal = true;
+    },
+    // 关闭健身筛选弹窗
+    closeFitnessFilterModal() {
+      this.showFitnessModal = false;
+    },
+    // 选择健身类型
+    selectFitness(fitness) {
+      this.selectedFitness = fitness;
+    },
+    // 重置健身选择
+    resetFitness() {
+      this.selectedFitness = "";
+    },
+    // 确认健身选择
+    confirmFitness() {
+      console.log('选择的健身类型:', this.selectedFitness);
+      this.closeFitnessFilterModal();
+    },
+    // 显示球类筛选弹窗
+    showBallSportsFilterModal() {
+      this.showBallSportsModal = true;
+    },
+    // 关闭球类筛选弹窗
+    closeBallSportsFilterModal() {
+      this.showBallSportsModal = false;
+    },
+    // 选择球类
+    selectBallSports(ballSports) {
+      this.selectedBallSports = ballSports;
+    },
+    // 重置球类选择
+    resetBallSports() {
+      this.selectedBallSports = "";
+    },
+    // 确认球类选择
+    confirmBallSports() {
+      console.log('选择的球类:', this.selectedBallSports);
+      this.closeBallSportsFilterModal();
+    },
+    // 显示运动筛选弹窗
+    showSportsFilterModal() {
+      this.showSportsModal = true;
+    },
+    // 关闭运动筛选弹窗
+    closeSportsFilterModal() {
+      this.showSportsModal = false;
+    },
+    // 选择运动类型
+    selectSports(sports) {
+      this.selectedSports = sports;
+    },
+    // 重置运动选择
+    resetSports() {
+      this.selectedSports = "";
+    },
+    // 确认运动选择
+    confirmSports() {
+      console.log('选择的运动类型:', this.selectedSports);
+      this.closeSportsFilterModal();
+    },
+    // 显示户外筛选弹窗
+    showOutdoorFilterModal() {
+      this.showOutdoorModal = true;
+    },
+    // 关闭户外筛选弹窗
+    closeOutdoorFilterModal() {
+      this.showOutdoorModal = false;
+    },
+    // 选择户外类型
+    selectOutdoor(outdoor) {
+      this.selectedOutdoor = outdoor;
+    },
+    // 重置户外选择
+    resetOutdoor() {
+      this.selectedOutdoor = "";
+    },
+    // 确认户外选择
+    confirmOutdoor() {
+      console.log('选择的户外类型:', this.selectedOutdoor);
+      this.closeOutdoorFilterModal();
     },
     handleCoachDetail(coachId) {
       console.log(`查看教练详情: ${coachId}`);
