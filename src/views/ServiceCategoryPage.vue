@@ -107,7 +107,8 @@
         <!-- 主理人内容 -->
         <template v-if="activeTab === 'master'">
           <div class="bg-white rounded-lg shadow-sm overflow-hidden cursor-pointer"
-            @click="$router.push('/product-detail/product1')">
+            @click="$router.push('/main-ouyang')">
+             <!-- @click="$router.push('/product-detail/product1')" -->
             <div class="p-3">
               <div class="flex items-center justify-between mb-2">
                 <div class="flex items-center">
@@ -158,7 +159,7 @@
           </div>
 
           <div class="bg-white rounded-lg shadow-sm overflow-hidden cursor-pointer"
-            @click="$router.push('/product-detail/product1')">
+            @click="$router.push('/main-ouyang')">
             <div class="p-3">
               <div class="flex items-center justify-between mb-2">
                 <div class="flex items-center">

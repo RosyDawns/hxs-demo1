@@ -37,6 +37,12 @@ const routes = [
     meta: { title: '欧阳老师详情' }
   },
   {
+    path: '/main-ouyang',
+    name: 'Ouyang',
+    component: () => import('../../views/MainOuyangPage.vue'),
+    meta: { title: '欧阳老师详情' }
+  },
+  {
     path: '/register-waker',
     name: 'RegisterWaker',
     component: () => import('../../views/RegisterWakerPage.vue'),
