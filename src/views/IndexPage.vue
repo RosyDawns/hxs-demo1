@@ -1,15 +1,10 @@
 <template>
   <div class="page" id="page-index">
     <!-- 顶部导航栏 -->
-    <header
-      class="fixed w-full top-0 z-50 px-3 py-4 flex items-center justify-between transition-all duration-300"
-      :style="{ backgroundColor: `rgba(255, 255, 255, ${headerOpacity})` }"
-    >
-      <div
-        class="flex items-center nav-action cursor-pointer"
-        :style="{ color: headerOpacity > 0.5 ? '#000' : '#fff' }"
-        @click="showCityPicker = true"
-      >
+    <header class="fixed w-full top-0 z-50 px-3 py-4 flex items-center justify-between transition-all duration-300"
+      :style="{ backgroundColor: `rgba(255, 255, 255, ${headerOpacity})` }">
+      <div class="flex items-center nav-action cursor-pointer" :style="{ color: headerOpacity > 0.5 ? '#000' : '#fff' }"
+        @click="showCityPicker = true">
         <div class="text-sm font-medium">{{ selectedCity || "上海" }}</div>
         <i class="fa fa-angle-down text-sm ml-0.5"></i>
       </div>
@@ -17,13 +12,10 @@
         <div class="relative">
           <div
             class="w-full bg-gray-100 rounded-full pl-10 pr-24 h-10 text-sm border border-orange-400 flex items-center cursor-pointer nav-action"
-            @click="$router.push('/search')"
-          >
+            @click="$router.push('/search')">
             <span class="text-gray-500 flex-1 text-base">健身计划</span>
           </div>
-          <i
-            class="fa fa-search absolute left-3 top-1/2 transform -translate-y-1/2 text-gray pointer-events-none"
-          ></i>
+          <i class="fa fa-search absolute left-3 top-1/2 transform -translate-y-1/2 text-gray pointer-events-none"></i>
           <!-- <button
             class="absolute right-2 top-1/2 transform -translate-y-1/2 bg-primary text-white h-8 w-8 rounded-full nav-action leading-none"
             style="font-size: 10px"
@@ -46,25 +38,17 @@
             1
           </span>
         </button> -->
-        <button
-          class="relative font-bold nav-action text-white bg-orange-500 px-3 py-2 rounded-full"
-          @click="$router.push('/map-demo')"
-          style="font-size: 10px; margin-right: 0; line-height: 1.1"
-        >
+        <button class="relative font-bold nav-action text-white bg-orange-500 px-3 py-2 rounded-full"
+          @click="$router.push('/map-demo')" style="font-size: 10px; margin-right: 0; line-height: 1.1">
           运动健康<br />数字地图
         </button>
       </div>
     </header>
 
     <!-- 省市区选择弹窗 -->
-    <div
-      v-if="showCityPicker"
-      class="fixed inset-0 z-50 flex items-end"
-      style="background-color: rgba(255, 255, 255, 0.5)"
-    >
-      <div
-        class="bg-white w-full rounded-t-xl p-4 max-h-[80vh] overflow-y-auto"
-      >
+    <div v-if="showCityPicker" class="fixed inset-0 z-50 flex items-end"
+      style="background-color: rgba(255, 255, 255, 0.5)">
+      <div class="bg-white w-full rounded-t-xl p-4 max-h-[80vh] overflow-y-auto">
         <div class="flex justify-between items-center mb-4">
           <h3 class="text-lg font-bold">选择城市</h3>
           <button @click="showCityPicker = false" class="text-gray-500">
@@ -76,9 +60,7 @@
         <div class="mb-4">
           <h4 class="text-sm text-gray-500 mb-2">当前定位城市</h4>
           <div class="flex items-center space-x-2">
-            <div
-              class="px-3 py-1.5 bg-gray-100 rounded-full text-sm flex items-center"
-            >
+            <div class="px-3 py-1.5 bg-gray-100 rounded-full text-sm flex items-center">
               <i class="fa fa-location-dot mr-1 text-orange-400"></i>
               上海
             </div>
@@ -89,12 +71,8 @@
         <div class="mb-4">
           <h4 class="text-sm text-gray-500 mb-2">热门城市</h4>
           <div class="flex flex-wrap gap-2">
-            <div
-              v-for="city in hotCities"
-              :key="city"
-              class="px-3 py-1.5 bg-gray-100 rounded-full text-sm"
-              @click="selectCity(city)"
-            >
+            <div v-for="city in hotCities" :key="city" class="px-3 py-1.5 bg-gray-100 rounded-full text-sm"
+              @click="selectCity(city)">
               {{ city }}
             </div>
           </div>
@@ -107,20 +85,12 @@
           <!-- 省份选择 -->
           <div class="mb-3">
             <div class="text-sm font-medium mb-2">省份</div>
-            <input
-              type="text"
-              placeholder="请输入省份"
-              v-model="provinceInput"
-              class="w-full border border-gray-300 rounded-lg px-3 py-2 mb-2"
-            />
+            <input type="text" placeholder="请输入省份" v-model="provinceInput"
+              class="w-full border border-gray-300 rounded-lg px-3 py-2 mb-2" />
             <div class="max-h-40 overflow-y-auto">
               <div class="flex flex-wrap gap-2">
-                <div
-                  v-for="province in filteredProvinces"
-                  :key="province"
-                  class="px-3 py-1.5 bg-gray-100 rounded-full text-sm"
-                  @click="selectProvince(province)"
-                >
+                <div v-for="province in filteredProvinces" :key="province"
+                  class="px-3 py-1.5 bg-gray-100 rounded-full text-sm" @click="selectProvince(province)">
                   {{ province }}
                 </div>
               </div>
@@ -130,21 +100,12 @@
           <!-- 城市选择 -->
           <div class="mb-3">
             <div class="text-sm font-medium mb-2">城市</div>
-            <input
-              type="text"
-              placeholder="请输入城市"
-              v-model="cityInput"
-              class="w-full border border-gray-300 rounded-lg px-3 py-2 mb-2"
-              :disabled="!selectedProvince"
-            />
+            <input type="text" placeholder="请输入城市" v-model="cityInput"
+              class="w-full border border-gray-300 rounded-lg px-3 py-2 mb-2" :disabled="!selectedProvince" />
             <div class="max-h-40 overflow-y-auto">
               <div v-if="selectedProvince" class="flex flex-wrap gap-2">
-                <div
-                  v-for="city in filteredCities"
-                  :key="city"
-                  class="px-3 py-1.5 bg-gray-100 rounded-full text-sm"
-                  @click="selectCity(city)"
-                >
+                <div v-for="city in filteredCities" :key="city" class="px-3 py-1.5 bg-gray-100 rounded-full text-sm"
+                  @click="selectCity(city)">
                   {{ city }}
                 </div>
               </div>
@@ -159,14 +120,10 @@
 
     <div class="banner relative">
       <img src="@images/img_39.jpg" class="block w-full relative z-1" />
-      <div
-        class="slogn absolute top-1/2 -translate-y-2/3 left-[20px] z-10 text-white font-bold font-italic"
-      >
+      <div class="slogn absolute top-1/2 -translate-y-2/3 left-[20px] z-10 text-white font-bold font-italic">
         <p class="text-3xl mb-1 text-shadow-2xs">爱运动，就到唤醒兽</p>
-        <p
-          class="pl-2 text-lg border border-solid rounded-full flex items-center justify-between"
-          @click="$router.push({ path: '/ai-assistant' })"
-        >
+        <p class="pl-2 text-lg border border-solid rounded-full flex items-center justify-between"
+          @click="$router.push({ path: '/ai-assistant' })">
           <!-- $router.push({ path: '/service-category', query: { top: 'city' } }) -->
           一键匹配，唤醒热爱
           <span class="bg-amber-50 text-amber-700 rounded-full px-2">GO></span>
@@ -176,9 +133,7 @@
 
     <!-- 核心功能区 -->
     <div class="px-3 pt-3 -mt-[80px]">
-      <div
-        class="relative overflow-hidden rounded-xl z-5 bg-white px-3 pt-3 pb-5"
-      >
+      <div class="relative overflow-hidden rounded-xl z-5 bg-white px-3 pt-3 pb-5">
         <div class="grid grid-cols-3 gap-3">
           <div
             class="bg-white text-black shadow flex flex-col items-center justify-center rounded-xl nav-action cursor-pointer overflow-hidden"
@@ -187,8 +142,7 @@
                 path: '/service-category',
                 query: { tab: '主理人', top: 'discover', type: 'main' },
               })
-            "
-          >
+              ">
             <!-- @click="$router.push('/leader-channel')" -->
             <img src="@images/user_1.png" class="w-full object-contain" />
             <div class="text-base py-1">生活主理人</div>
@@ -200,8 +154,7 @@
                 path: '/service-category',
                 query: { tab: '生活技能', top: 'discover', type: 'main' },
               })
-            "
-          >
+              ">
             <img src="@images/user_2.png" class="w-full object-contain" />
             <div class="text-base py-1">技能唤醒师</div>
           </div>
@@ -212,8 +165,7 @@
                 path: '/service-category',
                 query: { tab: '生活搭子', top: 'discover', type: 'main' },
               })
-            "
-          >
+              ">
             <!-- @click="$router.push('/buddy-waker')" -->
             <img src="@images/user_3.png" class="w-full object-contain" />
             <div class="text-base py-1">同城好搭子</div>
@@ -223,20 +175,15 @@
 
       <!-- 快捷入口 -->
       <div class="grid grid-cols-4 gap-2">
-        <div
-          class="bg-white rounded-lg py-2 px-2 shadow nav-action cursor-pointer"
-          @click="$router.push('/ranking')"
-        >
+        <div class="bg-white rounded-lg py-2 px-2 shadow nav-action cursor-pointer" @click="$router.push('/ranking')">
           <div class="font-bold text-sm text-black">城市大师</div>
           <div class="font-medium text-xs text-gray">大师榜单</div>
           <div class="flex justify-end mt-1" style="color: orange">
             <i class="fa-solid fa-map-location-dot"></i>
           </div>
         </div>
-        <div
-          class="bg-white rounded-lg py-2 px-2 shadow nav-action cursor-pointer"
-          @click="$router.push('/camp-register')"
-        >
+        <div class="bg-white rounded-lg py-2 px-2 shadow nav-action cursor-pointer"
+          @click="$router.push('/camp-register')">
           <div class="font-bold text-sm text-black">免费体验</div>
           <div class="font-medium text-xs text-gray">试试就试试</div>
           <div class="flex justify-end mt-1">
@@ -245,10 +192,8 @@
             </div>
           </div>
         </div>
-        <div
-          class="bg-white rounded-lg py-2 px-1 shadow relative nav-action cursor-pointer col-span-2"
-          @click="$router.push('/weight-management-camp')"
-        >
+        <div class="bg-white rounded-lg py-2 px-1 shadow relative nav-action cursor-pointer col-span-2"
+          @click="$router.push('/weight-management-camp')">
           <div class="flex items-center">
             <div class="text-primary mr-1">
               <i class="fa-solid fa-volleyball text-2xl"></i>
@@ -270,59 +215,36 @@
 
     <!-- 分类标签栏 -->
     <div class="flex space-x-2 p-3 overflow-x-auto scrollbar-hide">
-      <button
-        class="px-1 py-2 whitespace-nowrap text-sm font-medium nav-action cursor-pointer"
-        :class="
-          selectedCategory === '关注'
-            ? 'text-primary border-b-2 border-primary text-orange'
-            : 'text-black'
-        "
-        @click="handleCategoryClick('关注')"
-      >
-        关注 <i class="fa-solid fa-right-left" style="font-size: 10px"></i>
+      <button class="px-1 py-2 whitespace-nowrap text-sm font-medium nav-action cursor-pointer" :class="selectedCategory === '关注'
+        ? 'text-primary border-b-2 border-primary text-orange'
+        : 'text-black'
+        " @click="selectedCategory = '关注'">
+        关注
       </button>
-      <button
-        class="px-1 py-2 whitespace-nowrap text-sm font-medium nav-action cursor-pointer"
-        :class="
-          selectedCategory === '推荐'
-            ? 'text-primary border-b-2 border-primary text-orange'
-            : 'text-black'
-        "
-        @click="handleCategoryClick('推荐')"
-      >
-        推荐 <i class="fa-solid fa-right-left" style="font-size: 10px"></i>
+      <button class="px-1 py-2 whitespace-nowrap text-sm font-medium nav-action cursor-pointer" :class="selectedCategory === '推荐'
+        ? 'text-primary border-b-2 border-primary text-orange'
+        : 'text-black'
+        " @click="selectedCategory = '推荐'">
+        推荐
       </button>
-      <button
-        class="px-1 py-2 whitespace-nowrap text-sm font-medium nav-action cursor-pointer"
-        :class="
-          selectedCategory === '附近'
-            ? 'text-primary border-b-2 border-primary text-orange'
-            : 'text-black'
-        "
-        @click="handleCategoryClick('附近')"
-      >
-        附近 <i class="fa-solid fa-right-left" style="font-size: 10px"></i>
+      <button class="px-1 py-2 whitespace-nowrap text-sm font-medium nav-action cursor-pointer" :class="selectedCategory === '附近'
+        ? 'text-primary border-b-2 border-primary text-orange'
+        : 'text-black'
+        " @click="selectedCategory = '附近'">
+        附近
       </button>
-      <button
-        class="px-1 py-2 whitespace-nowrap text-sm font-medium nav-action cursor-pointer"
-        :class="
-          selectedCategory === '筛选'
-            ? 'text-primary border-b-2 border-primary text-orange'
-            : 'text-black'
-        "
-        @click="handleCategoryClick('筛选')"
-      >
-        筛选 <i class="fa-solid fa-caret-down" style="font-size: 10px"></i>
+      <button class="px-1 py-2 whitespace-nowrap text-sm font-medium nav-action cursor-pointer" :class="selectedCategory === '上海'
+        ? 'text-primary border-b-2 border-primary text-orange'
+        : 'text-black'
+        " @click="selectedCategory = '上海'">
+        上海
       </button>
       <button
         class="px-3 py-1 whitespace-nowrap text-sm font-medium nav-action cursor-pointer bg-orange-500 text-white rounded-full mr-2"
-        :class="
-          selectedCategory === '组团去玩'
-            ? 'bg-orange-500 text-white'
-            : 'bg-orange-500 text-white'
-        "
-        @click="$router.push('/group-play')"
-      >
+        :class="selectedCategory === '组团去玩'
+          ? 'bg-orange-500 text-white'
+          : 'bg-orange-500 text-white'
+          " @click="$router.push('/group-play')">
         组团去玩
       </button>
       <button class="ml-auto text-gray">
@@ -332,29 +254,9 @@
 
     <!-- 教练列表 -->
     <div class="px-3 pb-3 pt-1">
-      <!-- 模式1：列表模式（默认） -->
-      <template v-if="viewMode === 'mode1'">
-        <div class="grid grid-cols-2 gap-3">
-          <CoachListCard
-            v-for="coach in coaches"
-            :key="coach.id"
-            :coach="coach"
-            @click="$router.push('/ouyang')"
-          />
-        </div>
-      </template>
-
-      <!-- 模式2：动态卡片模式 -->
-      <template v-else>
-        <div class="grid grid-cols-2 gap-3">
-          <DynamicListItem
-            v-for="item in dynamicList"
-            :key="item.id"
-            :item="item"
-            @click="handleDynamicClick"
-          />
-        </div>
-      </template>
+      <div class="grid grid-cols-2 gap-3">
+        <DynamicListItem v-for="item in currentDynamicList" :key="item.id" :item="item" @click="handleDynamicClick" />
+      </div>
     </div>
 
     <!-- 底部导航 -->
@@ -600,7 +502,7 @@ export default {
       },
     ]);
 
-    // 动态列表数据
+    // 动态列表数据 - 推荐
     const dynamicList = ref([
       {
         id: 1,
@@ -636,28 +538,130 @@ export default {
       },
     ]);
 
-    // 处理分类点击 - 支持模式切换
-    const handleCategoryClick = (category) => {
-      // 可切换模式的分类
-      const toggleableCategories = ["关注", "推荐", "附近"];
+    // 关注列表数据
+    const followList = ref([
+      {
+        id: 5,
+        title: "今天的瑜伽课圆满结束，感谢学员们！",
+        image: avatr40,
+        avatar: avatr1,
+        author: "周教练",
+        likes: 88,
+      },
+      {
+        id: 6,
+        title: "新到一批精品咖啡豆，欢迎来品尝！",
+        image: avatr42,
+        avatar: avatr2,
+        author: "吴老师",
+        likes: 156,
+      },
+      {
+        id: 7,
+        title: "分享一下最近的健身成果",
+        image: avatr41,
+        avatar: avatr3,
+        author: "辣妈私教小南哥",
+        likes: 234,
+      },
+      {
+        id: 8,
+        title: "今日拉花作品分享",
+        image: avatr39,
+        avatar: avatr4,
+        author: "捉你学咖啡的Joy",
+        likes: 178,
+      },
+    ]);
 
-      // 如果点击的是当前已选中的分类，且是可切换分类，则切换模式
-      if (
-        selectedCategory.value === category &&
-        toggleableCategories.includes(category)
-      ) {
-        // 在两种模式间切换
-        viewMode.value = viewMode.value === "mode1" ? "mode2" : "mode1";
-        console.log(`切换到${category}分类 - 模式${viewMode.value}`);
-      } else {
-        // 切换到新分类，重置为模式1
-        selectedCategory.value = category;
-        if (toggleableCategories.includes(category)) {
-          viewMode.value = "mode1";
-        }
-        console.log(`切换到${category}分类`);
+    // 附近列表数据
+    const nearbyList = ref([
+      {
+        id: 9,
+        title: "附近新开的健身房体验超棒！",
+        image: avatr39,
+        avatar: avatr2,
+        author: "健身达人小李",
+        likes: 145,
+      },
+      {
+        id: 10,
+        title: "楼下咖啡店的拿铁真的绝了",
+        image: avatr42,
+        avatar: avatr3,
+        author: "咖啡爱好者",
+        likes: 98,
+      },
+      {
+        id: 11,
+        title: "小区附近的瑜伽馆环境很好",
+        image: avatr40,
+        avatar: avatr1,
+        author: "瑜伽小白",
+        likes: 67,
+      },
+      {
+        id: 12,
+        title: "周边美食探店分享",
+        image: avatr41,
+        avatar: avatr4,
+        author: "吃货小王",
+        likes: 189,
+      },
+    ]);
+
+    // 上海列表数据
+    const shanghaiList = ref([
+      {
+        id: 13,
+        title: "上海外滩夜景太美了！",
+        image: avatr41,
+        avatar: avatr2,
+        author: "上海小资",
+        likes: 312,
+      },
+      {
+        id: 14,
+        title: "魔都最新网红咖啡店打卡",
+        image: avatr42,
+        avatar: avatr3,
+        author: "探店达人",
+        likes: 267,
+      },
+      {
+        id: 15,
+        title: "上海迪士尼周末游玩攻略",
+        image: avatr39,
+        avatar: avatr4,
+        author: "旅行家小王",
+        likes: 445,
+      },
+      {
+        id: 16,
+        title: "静安寺附近的健身房推荐",
+        image: avatr40,
+        avatar: avatr1,
+        author: "健身教练Lisa",
+        likes: 198,
+      },
+    ]);
+
+    // 根据选中的分类返回对应的动态列表
+    const currentDynamicList = computed(() => {
+      switch (selectedCategory.value) {
+        case '关注':
+          return followList.value;
+        case '推荐':
+          return dynamicList.value;
+        case '附近':
+          return nearbyList.value;
+        case '上海':
+          return shanghaiList.value;
+        default:
+          return dynamicList.value;
       }
-    };
+    });
+
 
     // 处理教练点赞
     const handleCoachLike = (coachId, isLiked) => {
@@ -675,7 +679,10 @@ export default {
       coaches,
       coaches1,
       dynamicList,
-      handleCategoryClick,
+      followList,
+      nearbyList,
+      shanghaiList,
+      currentDynamicList,
       handleCoachLike,
       handleDynamicClick,
       headerOpacity,

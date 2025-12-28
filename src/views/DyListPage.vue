@@ -5,16 +5,17 @@
       <template #center>
         <div class="w-full">
           <div class="flex-1 flex items-center justify-around">
-            <button class="text-lg px-1" @click="topTab = 'discover'">
-              <div class="flex items-center" :class="{ 'text-primary': topTab === 'discover' }">
-                发现<i class="fa-solid fa-right-left ml-0.5" style="font-size: 10px"></i>
-              </div>
-            </button>
-            <button class="text-lg mx-2 px-1" @click="topTab = 'city'">
-              <span :class="{ 'text-primary': topTab === 'city' }">上海</span>
-            </button>
-            <button class="text-lg px-1" @click="topTab = 'follow'">
+            <button class="text-base px-1" @click="topTab = 'follow'">
               <span :class="{ 'text-primary': topTab === 'follow' }">关注</span>
+            </button>
+            <button class="text-base px-1" @click="topTab = 'recommend'">
+              <span :class="{ 'text-primary': topTab === 'recommend' }">推荐</span>
+            </button>
+            <button class="text-base px-1" @click="topTab = 'nearby'">
+              <span :class="{ 'text-primary': topTab === 'nearby' }">附近</span>
+            </button>
+            <button class="text-base px-1" @click="topTab = 'city'">
+              <span :class="{ 'text-primary': topTab === 'city' }">上海</span>
             </button>
           </div>
         </div>
@@ -63,14 +64,50 @@ export default {
     DynamicListItem,
   },
   setup() {
-    // 顶部标签页（发现/上海/关注）
-    const topTab = ref("discover");
+    // 顶部标签页（关注/推荐/附近/上海）
+    const topTab = ref("follow");
 
     // 底部导航活动页面
     const activePage = ref("teachers");
 
-    // 发现页动态数据
-    const discoverItems = [
+    // 关注页动态数据
+    const followItems = [
+      {
+        id: 9,
+        title: "今天的瑜伽课圆满结束，感谢学员们！",
+        image: img2,
+        author: "周教练",
+        avatar: user1,
+        likes: "赞",
+      },
+      {
+        id: 10,
+        title: "新到一批精品咖啡豆，欢迎来品尝！",
+        image: img4,
+        author: "吴老师",
+        avatar: user2,
+        likes: "赞",
+      },
+      {
+        id: 11,
+        title: "分享一下最近的健身成果",
+        image: img3,
+        author: "辣妈私教小南哥",
+        avatar: user3,
+        likes: "赞",
+      },
+      {
+        id: 12,
+        title: "今日拉花作品分享",
+        image: img1,
+        author: "捉你学咖啡的Joy",
+        avatar: user4,
+        likes: "赞",
+      },
+    ];
+
+    // 推荐页动态数据
+    const recommendItems = [
       {
         id: 1,
         title: "好喜欢学员给我拍的工作照...",
@@ -100,6 +137,42 @@ export default {
         title: "咖啡课堂拉花原理解析 做好这两点...",
         image: img4,
         author: "捉你学咖啡的Joy",
+        avatar: user4,
+        likes: "赞",
+      },
+    ];
+
+    // 附近动态数据
+    const nearbyItems = [
+      {
+        id: 13,
+        title: "附近新开的健身房体验超棒！",
+        image: img1,
+        author: "健身达人小李",
+        avatar: user2,
+        likes: "赞",
+      },
+      {
+        id: 14,
+        title: "楼下咖啡店的拿铁真的绝了",
+        image: img4,
+        author: "咖啡爱好者",
+        avatar: user3,
+        likes: "赞",
+      },
+      {
+        id: 15,
+        title: "小区附近的瑜伽馆环境很好",
+        image: img2,
+        author: "瑜伽小白",
+        avatar: user1,
+        likes: "赞",
+      },
+      {
+        id: 16,
+        title: "周边美食探店分享",
+        image: img3,
+        author: "吃货小王",
         avatar: user4,
         likes: "赞",
       },
@@ -141,52 +214,19 @@ export default {
       },
     ];
 
-    // 关注页动态数据
-    const followItems = [
-      {
-        id: 9,
-        title: "今天的瑜伽课圆满结束，感谢学员们！",
-        image: img2,
-        author: "周教练",
-        avatar: user1,
-        likes: "赞",
-      },
-      {
-        id: 10,
-        title: "新到一批精品咖啡豆，欢迎来品尝！",
-        image: img4,
-        author: "吴老师",
-        avatar: user2,
-        likes: "赞",
-      },
-      {
-        id: 11,
-        title: "分享一下最近的健身成果",
-        image: img3,
-        author: "辣妈私教小南哥",
-        avatar: user3,
-        likes: "赞",
-      },
-      {
-        id: 12,
-        title: "今日拉花作品分享",
-        image: img1,
-        author: "捉你学咖啡的Joy",
-        avatar: user4,
-        likes: "赞",
-      },
-    ];
-
     // 根据 topTab 计算当前显示的动态列表
     const dynamicItems = computed(() => {
       switch (topTab.value) {
-        case "city":
-          return cityItems;
         case "follow":
           return followItems;
-        case "discover":
+        case "recommend":
+          return recommendItems;
+        case "nearby":
+          return nearbyItems;
+        case "city":
+          return cityItems;
         default:
-          return discoverItems;
+          return followItems;
       }
     });
 
