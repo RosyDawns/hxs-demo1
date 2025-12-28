@@ -1,57 +1,35 @@
 <template>
   <div class="page pb-6" id="service-category-page">
     <!-- 顶部导航栏 -->
-    <header
-      class="fixed top-0 left-0 right-0 bg-white z-50 border-b border-gray-100"
-    >
+    <header class="fixed top-0 left-0 right-0 bg-white z-50 border-b border-gray-100">
       <div class="pl-2 pr-4">
         <div class="flex items-center">
           <button @click="goBack" class="text-black mr-2">
             <i class="fa fa-angle-left text-xl"></i>
           </button>
           <div class="flex justify-around flex-1 py-2">
-            <button
-              class="flex flex-col items-center px-3 py-2 rounded-lg"
-              :class="
-                activeTab === 'master'
-                  ? 'bg-orange-100 text-orange'
-                  : 'text-gray-600'
-              "
-              @click="switchTab('master')"
-            >
+            <button class="flex flex-col items-center px-3 py-2 rounded-lg" :class="activeTab === 'master'
+              ? 'bg-orange-100 text-orange'
+              : 'text-gray-600'
+              " @click="switchTab('master')">
               <span class="text-sm">主理人</span>
             </button>
-            <button
-              class="flex flex-col items-center px-3 py-2 rounded-lg"
-              :class="
-                activeTab === 'dazi'
-                  ? 'bg-orange-100 text-orange'
-                  : 'text-gray-600'
-              "
-              @click="switchTab('dazi')"
-            >
+            <button class="flex flex-col items-center px-3 py-2 rounded-lg" :class="activeTab === 'dazi'
+              ? 'bg-orange-100 text-orange'
+              : 'text-gray-600'
+              " @click="switchTab('dazi')">
               <span class="text-sm">唤醒师</span>
             </button>
-            <button
-              class="flex flex-col items-center px-3 py-2 rounded-lg"
-              :class="
-                activeTab === 'skill'
-                  ? 'bg-orange-100 text-orange'
-                  : 'text-gray-600'
-              "
-              @click="switchTab('skill')"
-            >
+            <button class="flex flex-col items-center px-3 py-2 rounded-lg" :class="activeTab === 'skill'
+              ? 'bg-orange-100 text-orange'
+              : 'text-gray-600'
+              " @click="switchTab('skill')">
               <span class="text-sm">找搭子</span>
             </button>
-            <button
-              class="flex flex-col items-center px-3 py-2 rounded-lg"
-              :class="
-                activeTab === 'group'
-                  ? 'bg-orange-100 text-orange'
-                  : 'text-gray-600'
-              "
-              @click="switchTab('group')"
-            >
+            <button class="flex flex-col items-center px-3 py-2 rounded-lg" :class="activeTab === 'group'
+              ? 'bg-orange-100 text-orange'
+              : 'text-gray-600'
+              " @click="switchTab('group')">
               <span class="text-sm">组团去玩</span>
             </button>
           </div>
@@ -63,43 +41,26 @@
     <main class="pt-18 pb-16 px-4">
       <!-- 搜索框 -->
       <div class="relative mb-4">
-        <input
-          type="text"
-          placeholder="搜索服务、技能或活动..."
-          class="w-full bg-white rounded-full py-2 pl-10 pr-4 text-sm border-none focus:outline-none"
-        />
-        <i
-          class="fa fa-search absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400"
-        ></i>
+        <input type="text" placeholder="搜索服务、技能或活动..."
+          class="w-full bg-white rounded-full py-2 pl-10 pr-4 text-sm border-none focus:outline-none" />
+        <i class="fa fa-search absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
       </div>
 
       <!-- 筛选标签 -->
-      <div
-        class="flex items-center overflow-x-auto whitespace-nowrap mb-2 pb-2 -mx-4 px-4"
-      >
-        <button
-          class="flex items-center bg-white rounded-full px-3 py-1.5 text-sm mr-2"
-        >
+      <div class="flex items-center overflow-x-auto whitespace-nowrap mb-2 pb-2 -mx-4 px-4">
+        <button class="flex items-center bg-white rounded-full px-3 py-1.5 text-sm mr-2">
           附近
           <i class="fa fa-angle-down ml-1 text-xs"></i>
         </button>
-        <button
-          class="flex items-center bg-white rounded-full px-3 py-1.5 text-sm mr-2"
-          @click="showTypeFilterModal"
-        >
+        <button class="flex items-center bg-white rounded-full px-3 py-1.5 text-sm mr-2" @click="showTypeFilterModal">
           {{ selectedType }}
           <i class="fa fa-angle-down ml-1 text-xs"></i>
         </button>
-        <button
-          class="flex items-center bg-white rounded-full px-3 py-1.5 text-sm mr-2"
-        >
+        <button class="flex items-center bg-white rounded-full px-3 py-1.5 text-sm mr-2">
           时间
           <i class="fa fa-angle-down ml-1 text-xs"></i>
         </button>
-        <button
-          class="flex items-center bg-white rounded-full px-3 py-1.5 text-sm"
-          @click="showCostFilterModal"
-        >
+        <button class="flex items-center bg-white rounded-full px-3 py-1.5 text-sm" @click="showCostFilterModal">
           {{ selectedCost }}
           <i class="fa fa-angle-down ml-1 text-xs"></i>
         </button>
@@ -109,17 +70,12 @@
       <div class="space-y-4">
         <!-- 主理人内容 -->
         <template v-if="activeTab === 'master'">
-          <div
-            class="bg-white rounded-lg shadow-sm overflow-hidden cursor-pointer"
-            @click="$router.push('/product-detail/product1')"
-          >
+          <div class="bg-white rounded-lg shadow-sm overflow-hidden cursor-pointer"
+            @click="$router.push('/product-detail/product1')">
             <div class="p-3">
               <div class="flex items-center justify-between mb-2">
                 <div class="flex items-center">
-                  <span
-                    class="bg-green-50 text-green-500 text-xs px-2 py-0.5 rounded-full mr-2"
-                    >健身房</span
-                  >
+                  <span class="bg-green-50 text-green-500 text-xs px-2 py-0.5 rounded-full mr-2">健身房</span>
                   <h3 class="font-medium">普陀新村路健身房</h3>
                 </div>
               </div>
@@ -147,58 +103,30 @@
 
             <!-- 活动图片 -->
             <div class="flex gap-1 px-3 mb-3">
-              <img
-                src="@images/img_43.jpg"
-                class="w-1/3 h-24 object-cover rounded"
-              />
-              <img
-                src="@images/img_43.jpg"
-                class="w-1/3 h-24 object-cover rounded"
-              />
-              <img
-                src="@images/img_43.jpg"
-                class="w-1/3 h-24 object-cover rounded"
-              />
+              <img src="@images/img_43.jpg" class="w-1/3 h-24 object-cover rounded" />
+              <img src="@images/img_43.jpg" class="w-1/3 h-24 object-cover rounded" />
+              <img src="@images/img_43.jpg" class="w-1/3 h-24 object-cover rounded" />
             </div>
 
             <div class="flex items-center justify-between px-3 pb-3">
               <div class="flex items-center">
-                <span class="text-xs text-blue-500 mr-2">惠</span>
-                <div class="flex -space-x-1">
-                  <img
-                    src="@images/img_39.jpg"
-                    class="w-5 h-5 rounded-full border border-white"
-                  />
-                  <img
-                    src="@images/img_39.jpg"
-                    class="w-5 h-5 rounded-full border border-white"
-                  />
-                  <img
-                    src="@images/img_39.jpg"
-                    class="w-5 h-5 rounded-full border border-white"
-                  />
+                <span class="text-xs text-white py-0.5 px-1 rounded-xs bg-red-300 mr-2">惠</span>
+                <div class="flex space-x-1 text-xs">
+                  [健身次卡] 体验价9.9元
                 </div>
-                <span class="text-xs text-gray-500 ml-1">28人已报名</span>
               </div>
-              <button
-                class="bg-orange-500 text-white text-sm font-medium px-4 py-1.5 rounded-full"
-              >
+              <button class="bg-orange-500 text-white text-sm font-medium px-4 py-1.5 rounded-full">
                 购买
               </button>
             </div>
           </div>
 
-          <div
-            class="bg-white rounded-lg shadow-sm overflow-hidden cursor-pointer"
-            @click="$router.push('/product-detail/product1')"
-          >
+          <div class="bg-white rounded-lg shadow-sm overflow-hidden cursor-pointer"
+            @click="$router.push('/product-detail/product1')">
             <div class="p-3">
               <div class="flex items-center justify-between mb-2">
                 <div class="flex items-center">
-                  <span
-                    class="bg-green-50 text-green-500 text-xs px-2 py-0.5 rounded-full mr-2"
-                    >篮球馆</span
-                  >
+                  <span class="bg-green-50 text-green-500 text-xs px-2 py-0.5 rounded-full mr-2">篮球馆</span>
                   <h3 class="font-medium">普陀新村路篮球馆</h3>
                 </div>
               </div>
@@ -226,42 +154,19 @@
 
             <!-- 活动图片 -->
             <div class="flex gap-1 px-3 mb-3">
-              <img
-                src="@images/img_43.jpg"
-                class="w-1/3 h-24 object-cover rounded"
-              />
-              <img
-                src="@images/img_43.jpg"
-                class="w-1/3 h-24 object-cover rounded"
-              />
-              <img
-                src="@images/img_43.jpg"
-                class="w-1/3 h-24 object-cover rounded"
-              />
+              <img src="@images/img_43.jpg" class="w-1/3 h-24 object-cover rounded" />
+              <img src="@images/img_43.jpg" class="w-1/3 h-24 object-cover rounded" />
+              <img src="@images/img_43.jpg" class="w-1/3 h-24 object-cover rounded" />
             </div>
 
             <div class="flex items-center justify-between px-3 pb-3">
               <div class="flex items-center">
-                <span class="text-xs text-blue-500 mr-2">惠</span>
-                <div class="flex -space-x-1">
-                  <img
-                    src="@images/img_39.jpg"
-                    class="w-5 h-5 rounded-full border border-white"
-                  />
-                  <img
-                    src="@images/img_39.jpg"
-                    class="w-5 h-5 rounded-full border border-white"
-                  />
-                  <img
-                    src="@images/img_39.jpg"
-                    class="w-5 h-5 rounded-full border border-white"
-                  />
+                <span class="text-xs text-white py-0.5 px-1 rounded-xs bg-red-300 mr-2">惠</span>
+                <div class="flex space-x-1 text-xs">
+                  [代金券] 一波结束66抵100
                 </div>
-                <span class="text-xs text-gray-500 ml-1">28人已报名</span>
               </div>
-              <button
-                class="bg-orange-500 text-white text-sm font-medium px-4 py-1.5 rounded-full"
-              >
+              <button class="bg-orange-500 text-white text-sm font-medium px-4 py-1.5 rounded-full">
                 购买
               </button>
             </div>
@@ -270,38 +175,24 @@
 
         <!-- 达子唤醒师内容 -->
         <template v-if="activeTab === 'dazi'">
-          <HxsItem
-            v-for="(coach, index) in recommendedCoaches"
-            :key="coach.id"
-            :coach="coach"
-            @view-profile="handleCoachDetail"
-          />
+          <HxsItem v-for="(coach, index) in recommendedCoaches" :key="coach.id" :coach="coach"
+            @view-profile="handleCoachDetail" />
         </template>
 
         <!-- 技能唤醒师内容 -->
         <template v-if="activeTab === 'skill'">
-          <HxsItem
-            v-for="(coach, index) in recommendedCoaches"
-            :key="coach.id"
-            :coach="coach"
-            @view-profile="handleCoachDetail"
-          />
+          <HxsItem v-for="(coach, index) in recommendedCoaches" :key="coach.id" :coach="coach"
+            @view-profile="handleCoachDetail" />
         </template>
 
         <!-- 组团内容 -->
         <template v-if="activeTab === 'group'">
           <!-- 活动项1 -->
-          <div
-            class="bg-white rounded-lg shadow-sm overflow-hidden cursor-pointer"
-            @click="goToActivityDetail('1')"
-          >
+          <div class="bg-white rounded-lg shadow-sm overflow-hidden cursor-pointer" @click="goToActivityDetail('1')">
             <div class="p-3">
               <div class="flex items-center justify-between mb-2">
                 <div class="flex items-center">
-                  <span
-                    class="bg-green-50 text-green-500 text-xs px-2 py-0.5 rounded-full mr-2"
-                    >跑步</span
-                  >
+                  <span class="bg-green-50 text-green-500 text-xs px-2 py-0.5 rounded-full mr-2">跑步</span>
                   <h3 class="font-medium">大宁沪跑团冬训第1期</h3>
                 </div>
                 <span class="text-red-500 font-medium text-sm">免费</span>
@@ -331,59 +222,33 @@
 
             <!-- 活动图片 -->
             <div class="flex gap-1 px-3 mb-3">
-              <img
-                src="@images/img_39.jpg"
-                class="w-1/3 h-24 object-cover rounded"
-              />
-              <img
-                src="@images/img_39.jpg"
-                class="w-1/3 h-24 object-cover rounded"
-              />
-              <img
-                src="@images/img_39.jpg"
-                class="w-1/3 h-24 object-cover rounded"
-              />
+              <img src="@images/img_39.jpg" class="w-1/3 h-24 object-cover rounded" />
+              <img src="@images/img_39.jpg" class="w-1/3 h-24 object-cover rounded" />
+              <img src="@images/img_39.jpg" class="w-1/3 h-24 object-cover rounded" />
             </div>
 
             <div class="flex items-center justify-between px-3 pb-3">
               <div class="flex items-center">
                 <span class="text-xs text-blue-500 mr-2">报名中</span>
                 <div class="flex -space-x-1">
-                  <img
-                    src="@images/img_39.jpg"
-                    class="w-5 h-5 rounded-full border border-white"
-                  />
-                  <img
-                    src="@images/img_39.jpg"
-                    class="w-5 h-5 rounded-full border border-white"
-                  />
-                  <img
-                    src="@images/img_39.jpg"
-                    class="w-5 h-5 rounded-full border border-white"
-                  />
+                  <img src="@images/img_39.jpg" class="w-5 h-5 rounded-full border border-white" />
+                  <img src="@images/img_39.jpg" class="w-5 h-5 rounded-full border border-white" />
+                  <img src="@images/img_39.jpg" class="w-5 h-5 rounded-full border border-white" />
                 </div>
                 <span class="text-xs text-gray-500 ml-1">28人已报名</span>
               </div>
-              <button
-                class="bg-orange-500 text-white text-sm font-medium px-4 py-1.5 rounded-full"
-              >
+              <button class="bg-orange-500 text-white text-sm font-medium px-4 py-1.5 rounded-full">
                 报名
               </button>
             </div>
           </div>
 
           <!-- 活动项2 -->
-          <div
-            class="bg-white rounded-lg shadow-sm overflow-hidden cursor-pointer"
-            @click="goToActivityDetail('2')"
-          >
+          <div class="bg-white rounded-lg shadow-sm overflow-hidden cursor-pointer" @click="goToActivityDetail('2')">
             <div class="p-3">
               <div class="flex items-center justify-between mb-2">
                 <div class="flex items-center">
-                  <span
-                    class="bg-blue-50 text-blue-500 text-xs px-2 py-0.5 rounded-full mr-2"
-                    >垂钓</span
-                  >
+                  <span class="bg-blue-50 text-blue-500 text-xs px-2 py-0.5 rounded-full mr-2">垂钓</span>
                   <h3 class="font-medium">11.1海上游乐园，路亚钓鱼爆箱</h3>
                 </div>
                 <span class="text-gray-500 font-medium text-sm">AA制</span>
@@ -413,34 +278,20 @@
 
             <!-- 活动图片 -->
             <div class="flex gap-1 px-3 mb-3">
-              <img
-                src="@images/img_39.jpg"
-                class="w-1/3 h-24 object-cover rounded"
-              />
-              <img
-                src="@images/img_39.jpg"
-                class="w-1/3 h-24 object-cover rounded"
-              />
-              <img
-                src="@images/img_39.jpg"
-                class="w-1/3 h-24 object-cover rounded"
-              />
+              <img src="@images/img_39.jpg" class="w-1/3 h-24 object-cover rounded" />
+              <img src="@images/img_39.jpg" class="w-1/3 h-24 object-cover rounded" />
+              <img src="@images/img_39.jpg" class="w-1/3 h-24 object-cover rounded" />
             </div>
 
             <div class="flex items-center justify-between px-3 pb-3">
               <div class="flex items-center">
                 <span class="text-xs text-blue-500 mr-2">报名中</span>
                 <div class="flex -space-x-1">
-                  <img
-                    src="@images/img_39.jpg"
-                    class="w-5 h-5 rounded-full border border-white"
-                  />
+                  <img src="@images/img_39.jpg" class="w-5 h-5 rounded-full border border-white" />
                 </div>
                 <span class="text-xs text-gray-500 ml-1">1人已报名</span>
               </div>
-              <button
-                class="bg-orange-500 text-white text-sm font-medium px-4 py-1.5 rounded-full"
-              >
+              <button class="bg-orange-500 text-white text-sm font-medium px-4 py-1.5 rounded-full">
                 报名
               </button>
             </div>
@@ -455,10 +306,8 @@
       <div class="filter-modal-content">
         <div class="flex justify-between items-center mb-4">
           <h3 class="text-lg font-bold text-gray-800">活动类型</h3>
-          <button
-            class="w-10 h-10 flex items-center justify-center rounded-full text-gray-500 hover:bg-gray-100"
-            @click="closeTypeFilterModal"
-          >
+          <button class="w-10 h-10 flex items-center justify-center rounded-full text-gray-500 hover:bg-gray-100"
+            @click="closeTypeFilterModal">
             <i class="fa fa-times text-lg"></i>
           </button>
         </div>
@@ -467,17 +316,12 @@
         <div class="mb-4">
           <h4 class="text-sm font-semibold text-gray-600 mb-3">选择主分类</h4>
           <div class="flex overflow-x-auto pb-2 -mx-1">
-            <button
-              v-for="category in activityTypes"
-              :key="category.category"
+            <button v-for="category in activityTypes" :key="category.category"
               class="flex-shrink-0 px-5 py-2.5 mx-1 rounded-full text-sm font-medium transition-all duration-200 ease-in-out focus:outline-none"
-              :class="
-                selectedCategory === category.category
-                  ? 'bg-orange-500 text-white shadow-md'
-                  : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
-              "
-              @click="selectCategory(category.category)"
-            >
+              :class="selectedCategory === category.category
+                ? 'bg-orange-500 text-white shadow-md'
+                : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                " @click="selectCategory(category.category)">
               {{ category.category }}
             </button>
           </div>
@@ -487,17 +331,12 @@
         <div class="mb-6">
           <h4 class="text-sm font-semibold text-gray-600 mb-3">选择子分类</h4>
           <div class="grid grid-cols-3 gap-2">
-            <button
-              v-for="item in currentSubCategories"
-              :key="item"
+            <button v-for="item in currentSubCategories" :key="item"
               class="py-3 px-2 rounded-lg text-sm font-medium transition-all duration-200 ease-in-out focus:outline-none text-center"
-              :class="
-                selectedType === item
-                  ? 'bg-orange-500 text-white shadow-md'
-                  : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
-              "
-              @click="selectType(item)"
-            >
+              :class="selectedType === item
+                ? 'bg-orange-500 text-white shadow-md'
+                : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                " @click="selectType(item)">
               {{ item }}
             </button>
           </div>
@@ -506,14 +345,12 @@
         <div class="flex flex-col gap-3">
           <button
             class="py-3.5 bg-gray-100 text-gray-700 rounded-lg font-semibold transition-all duration-200 ease-in-out hover:bg-gray-200"
-            @click="resetFilters"
-          >
+            @click="resetFilters">
             重置
           </button>
           <button
             class="py-3.5 bg-orange-500 text-white rounded-lg font-semibold transition-all duration-200 ease-in-out hover:bg-orange-600 shadow-md"
-            @click="closeTypeFilterModal"
-          >
+            @click="closeTypeFilterModal">
             确定
           </button>
         </div>
@@ -526,26 +363,19 @@
       <div class="filter-modal-content">
         <div class="flex justify-between items-center mb-4">
           <h3 class="text-lg font-bold text-gray-800">费用类型</h3>
-          <button
-            class="w-10 h-10 flex items-center justify-center rounded-full text-gray-500 hover:bg-gray-100"
-            @click="closeCostFilterModal"
-          >
+          <button class="w-10 h-10 flex items-center justify-center rounded-full text-gray-500 hover:bg-gray-100"
+            @click="closeCostFilterModal">
             <i class="fa fa-times text-lg"></i>
           </button>
         </div>
 
         <div class="space-y-3 mb-6">
-          <button
-            v-for="cost in costOptions"
-            :key="cost"
+          <button v-for="cost in costOptions" :key="cost"
             class="w-full py-4 px-4 rounded-lg text-base font-medium transition-all duration-200 ease-in-out focus:outline-none text-left"
-            :class="
-              selectedCost === cost
-                ? 'bg-orange-500 text-white shadow-md'
-                : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
-            "
-            @click="selectCost(cost)"
-          >
+            :class="selectedCost === cost
+              ? 'bg-orange-500 text-white shadow-md'
+              : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+              " @click="selectCost(cost)">
             {{ cost }}
           </button>
         </div>
@@ -553,14 +383,12 @@
         <div class="flex flex-col gap-3">
           <button
             class="py-3.5 bg-gray-100 text-gray-700 rounded-lg font-semibold transition-all duration-200 ease-in-out hover:bg-gray-200"
-            @click="resetFilters"
-          >
+            @click="resetFilters">
             重置
           </button>
           <button
             class="py-3.5 bg-orange-500 text-white rounded-lg font-semibold transition-all duration-200 ease-in-out hover:bg-orange-600 shadow-md"
-            @click="closeCostFilterModal"
-          >
+            @click="closeCostFilterModal">
             确定
           </button>
         </div>
@@ -828,6 +656,7 @@ export default {
   from {
     transform: translateY(100%);
   }
+
   to {
     transform: translateY(0);
   }
@@ -929,6 +758,7 @@ export default {
     opacity: 0;
     transform: scale(0.9);
   }
+
   to {
     opacity: 1;
     transform: scale(1);
@@ -1126,6 +956,7 @@ export default {
     opacity: 0;
     box-shadow: 0 -4px 16px rgba(0, 0, 0, 0.05);
   }
+
   to {
     transform: translateY(0) scale(1);
     opacity: 1;
