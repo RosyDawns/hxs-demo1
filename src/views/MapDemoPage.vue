@@ -3,7 +3,7 @@
     <!-- 顶部导航栏 -->
     <CommonHeader :bg-color="'#ffffff'" :arrow-color="'#333333'">
       <template #center>
-        <h2 class="text-base font-medium text-gray-900">高德地图演示</h2>
+        <h2 class="text-base font-medium text-gray-900">运动生活数字地图</h2>
       </template>
     </CommonHeader>
 
@@ -47,79 +47,82 @@
       v-if="searchResults.length > 0"
       class="fixed bottom-0 left-0 right-0 bg-transparent z-40"
     >
-      <div class="">
-        <!-- <div class="px-4 py-3 flex items-center justify-between">
-          <h3 class="text-sm font-medium text-gray-900">搜索结果</h3>
-          <span class="text-xs text-gray-500"
-            >{{ searchResults.length }} 个结果</span
+      <div class="overflow-x-auto hide-scrollbar">
+        <div class="flex space-x-4 px-4 pb-4" style="min-width: max-content">
+          <div
+            v-for="(item, index) in searchResults"
+            :key="index"
+            class="bg-white flex-shrink-0 w-80 rounded-lg shadow-sm overflow-hidden cursor-pointer search-result-item"
+            @click="selectResult(index)"
           >
-        </div> -->
-        <div class="overflow-x-auto hide-scrollbar">
-          <div class="flex space-x-4 px-4 pb-4" style="min-width: max-content">
-            <div
-              v-for="(item, index) in searchResults"
-              :key="index"
-              class="bg-white flex-shrink-0 w-80 border border-gray-200 rounded-lg overflow-hidden cursor-pointer transition-all duration-200 hover:shadow-md search-result-item"
-              @click="selectResult(index)"
-            >
-              <div class="relative">
-                <div class="w-full h-24 flex items-center justify-center">
-                  <img
-                    class="w-full h-full object-cover"
-                    :src="item.avatar || Pic41"
-                    :alt="item.name"
-                  />
-                </div>
-                <div
-                  class="absolute top-2 right-2 bg-amber-500 text-white text-xs font-medium px-2 py-1 rounded-full"
-                >
-                  {{ item.rating }}
+            <div class="p-3">
+              <div class="flex items-center justify-between mb-2">
+                <div class="flex items-center">
+                  <span class="bg-green-50 text-green-500 text-xs px-2 py-0.5 rounded-full mr-2">{{ item.category || '健身房' }}</span>
+                  <h3 class="font-medium text-sm">{{ item.name }}</h3>
                 </div>
               </div>
-              <div class="p-3">
-                <h4 class="font-medium text-gray-900 text-sm truncate">
-                  {{ item.name }}
-                </h4>
-                <p class="text-xs text-gray-500 mt-1 truncate">
-                  {{ item.address }}
-                </p>
-                <div class="flex items-center mt-2">
-                  <div class="flex text-amber-400">
-                    <i class="fas fa-star text-xs"></i>
-                    <i class="fas fa-star text-xs"></i>
-                    <i class="fas fa-star text-xs"></i>
-                    <i class="fas fa-star text-xs"></i>
-                    <i class="fas fa-star-half-alt text-xs"></i>
-                  </div>
-                  <span class="text-xs text-gray-500 ml-1"
-                    >{{ item.distance }}km</span
-                  >
-                </div>
-                <!-- 底部按钮 -->
-                <div class="flex gap-2 mt-3">
-                  <button
-                    class="flex-1 h-8 bg-amber-500 text-white text-xs font-medium rounded flex items-center justify-center"
-                    @click.stop="goToOuyangPage"
-                  >
-                    <i class="fas fa-home mr-1"></i>
-                    主页
-                  </button>
-                  <button
-                    class="flex-1 h-8 bg-white text-gray-700 text-xs font-medium rounded border border-gray-200 flex items-center justify-center"
-                    @click.stop="addToFavoritesFromList(item.name)"
-                  >
-                    <i class="fas fa-heart mr-1"></i>
-                    收藏
-                  </button>
-                  <button
-                    class="flex-1 h-8 bg-white text-gray-700 text-xs font-medium rounded border border-gray-200 flex items-center justify-center"
-                    @click.stop="navigateToListItem(item.name)"
-                  >
-                    <i class="fas fa-route mr-1"></i>
-                    路线
-                  </button>
+              <p class="text-xs text-gray-500 mb-2">
+                <span class="mr-1">营业时间:06:00-22:00</span>
+                <span class="mr-1">评分:{{ item.rating }}</span>
+                <span class="mr-1">{{ item.address }}</span>
+                <span>距离:{{ item.distance }}km</span>
+              </p>
+              <div class="flex flex-wrap gap-1 mb-3">
+                <span class="text-xs text-gray-500 flex items-center">
+                  <i class="fa fa-users mr-1"></i>
+                  环境好
+                </span>
+                <span class="text-xs text-gray-500 flex items-center">
+                  <i class="fa fa-camera mr-1"></i>
+                  设备齐全
+                </span>
+                <span class="text-xs text-gray-500 flex items-center">
+                  <i class="fa fa-heart mr-1"></i>
+                  教练专业
+                </span>
+              </div>
+            </div>
+
+            <!-- 活动图片 -->
+            <div class="flex gap-1 px-3 mb-3">
+              <img :src="item.avatar || Pic41" class="w-1/3 h-24 object-cover rounded" />
+              <img :src="Pic42" class="w-1/3 h-24 object-cover rounded" />
+              <img :src="Pic43" class="w-1/3 h-24 object-cover rounded" />
+            </div>
+
+            <div class="flex items-center justify-between px-3 pb-3">
+              <div class="flex items-center">
+                <span class="text-xs text-white py-0.5 px-1 rounded-xs bg-red-300 mr-2">惠</span>
+                <div class="flex space-x-1 text-xs">
+                  [体验价] 9.9元起
                 </div>
               </div>
+            </div>
+
+            <!-- 底部按钮 -->
+            <div class="flex gap-2 px-3 pb-3">
+              <button
+                class="flex-1 h-8 bg-amber-500 text-white text-xs font-medium rounded flex items-center justify-center"
+                @click.stop="goToOuyangPage"
+              >
+                <i class="fas fa-home mr-1"></i>
+                主页
+              </button>
+              <button
+                class="flex-1 h-8 bg-white text-gray-700 text-xs font-medium rounded border border-gray-200 flex items-center justify-center"
+                @click.stop="addToFavoritesFromList(item.name)"
+              >
+                <i class="fas fa-heart mr-1"></i>
+                收藏
+              </button>
+              <button
+                class="flex-1 h-8 bg-white text-gray-700 text-xs font-medium rounded border border-gray-200 flex items-center justify-center"
+                @click.stop="navigateToListItem(item.name)"
+              >
+                <i class="fas fa-route mr-1"></i>
+                路线
+              </button>
             </div>
           </div>
         </div>
@@ -487,6 +490,10 @@ export default {
         const randomAvatar =
           avatarImages[Math.floor(Math.random() * avatarImages.length)];
 
+        // 随机选择一个类别
+        const categories = ['健身房', '游泳馆', '篮球馆', '羽毛球馆', '瑜伽馆'];
+        const randomCategory = categories[Math.floor(Math.random() * categories.length)];
+
         mockData.push({
           id: i + 1,
           name: `${keyword}${i + 1}号店`,
@@ -496,6 +503,7 @@ export default {
           distance: (Math.random() * 3).toFixed(1), // 0-3公里的随机距离
           tel: `021-${Math.floor(Math.random() * 90000000 + 10000000)}`,
           avatar: randomAvatar, // 添加头像字段
+          category: randomCategory, // 添加类别字段
         });
       }
 
@@ -1029,6 +1037,9 @@ export default {
       navigationDuration, // 导航时间
       currentRoute, // 当前路线实例
       resetNavigationOnSearch, // 搜索时重置导航
+      Pic41,
+      Pic42,
+      Pic43,
     };
   },
 };

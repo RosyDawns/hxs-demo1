@@ -38,7 +38,7 @@ const routes = [
   },
   {
     path: '/main-ouyang',
-    name: 'Ouyang',
+    name: 'MainOuyang',
     component: () => import('../../views/MainOuyangPage.vue'),
     meta: { title: '欧阳老师详情' }
   },

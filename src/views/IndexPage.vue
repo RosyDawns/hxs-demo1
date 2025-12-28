@@ -40,7 +40,7 @@
         </button> -->
         <button class="relative font-bold nav-action text-white bg-orange-500 px-3 py-2 rounded-full"
           @click="$router.push('/map-demo')" style="font-size: 10px; margin-right: 0; line-height: 1.1">
-          运动健康<br />数字地图
+          运动生活<br />数字地图
         </button>
       </div>
     </header>
@@ -227,7 +227,8 @@
         " @click="selectedCategory = '推荐'">
         推荐
       </button>
-      <button class="px-1 py-2 whitespace-nowrap text-sm font-medium nav-action cursor-pointer" :class="selectedCategory === '附近'
+      <button class="px-1 py-2 whitespace-nowrap text-sm font-me
+      dium nav-action cursor-pointer" :class="selectedCategory === '附近'
         ? 'text-primary border-b-2 border-primary text-orange'
         : 'text-black'
         " @click="selectedCategory = '附近'">
