@@ -19,6 +19,12 @@ const routes = [
     meta: { title: '唤醒狮列表', icon: 'fa-user-circle', showInNav: true }
   },
   {
+    path: '/dy-list',
+    name: 'TeacherList',
+    component: () => import('../../views/DyListPage.vue'),
+    meta: { title: '唤醒狮列表', icon: 'fa-user-circle'}
+  },
+  {
     path: '/service-category',
     name: 'ServiceCategory',
     component: () => import('../../views/ServiceCategoryPage.vue'),

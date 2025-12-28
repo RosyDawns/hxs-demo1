@@ -36,7 +36,7 @@
         <i class="fa-solid fa-tree text-lg"></i>
         <p class="text-xs mt-1">能量</p>
       </button>
-      <!-- <button class="flex-1 flex-col justify-center items-center" :class="activePage === 'teachers' ? 'text-primary' : 'text-gray'" @click="$router.push('/teacher-list')">
+      <!-- <button class="flex-1 flex-col justify-center items-center" :class="activePage === 'teachers' ? 'text-primary' : 'text-gray'" @click="$router.push('/dy-list')">
       <i class="fa-solid fa-user-circle text-lg"></i>
       <p class="text-xs mt-1">能量</p>
     </button>
@@ -86,7 +86,7 @@ export default {
       // 如果当前在首页，则跳转到唤醒狮列表页；如果在唤醒狮列表页，则跳转到首页
       if (this.activePage === "index") {
         this.$router.push({
-          path: "/teacher-list",
+          path: "/dy-list",
           query: { type: "dynamic" },
         });
       } else if (this.activePage === "teachers") {

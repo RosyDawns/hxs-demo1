@@ -80,9 +80,9 @@
                 </div>
               </div>
               <p class="text-xs text-gray-500 mb-2">
-                <span>营业时间：06:00-10:30</span>
-                <span>评分：4.8</span>
-                <span>普陀新村路100号</span>
+                <span class="mr-1">营业时间:06:00-10:30</span>
+                <span class="mr-1">评分:4.8</span>
+                <span class="mr-1">新村路100号</span>
                 <span>距离:2km</span>
               </p>
               <div class="flex flex-wrap gap-1 mb-3">
@@ -131,9 +131,9 @@
                 </div>
               </div>
               <p class="text-xs text-gray-500 mb-2">
-                <span>营业时间：06:00-10:30</span>
-                <span>评分：4.8</span>
-                <span>普陀新村路200号</span>
+                <span class="mr-1">营业时间:06:00-10:30</span>
+                <span class="mr-1">评分:4.8</span>
+                <span class="mr-1">新村路200号</span>
                 <span>距离:2.5km</span>
               </p>
               <div class="flex flex-wrap gap-1 mb-3">
