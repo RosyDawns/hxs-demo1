@@ -50,39 +50,33 @@
       <div v-if="activeTab === 'master' || activeTab === 'dazi' || activeTab === 'skill'"
         class="flex items-center overflow-x-auto whitespace-nowrap mb-2 pb-2 -mx-4 px-4 scrollbar-hide">
         <button
-          class="flex items-center rounded-full px-3 py-1.5 text-sm mr-2 transition-colors"
-          :class="selectedFilter === '推荐' ? 'bg-orange-500 text-white' : 'bg-white text-gray-700'"
-          @click="selectedFilter = '推荐'">
-          推荐
-        </button>
-        <button
-          class="flex items-center rounded-full px-3 py-1.5 text-sm mr-2 transition-colors"
-          :class="selectedFilter === '附近' ? 'bg-orange-500 text-white' : 'bg-white text-gray-700'"
-          @click="selectedFilter = '附近'">
-          附近
+          class="flex items-center bg-white rounded-full px-3 py-1.5 text-sm mr-2"
+          @click="showNearbyFilterModal">
+          {{ selectedNearby }}
+          <i class="fa fa-angle-down ml-1 text-xs"></i>
         </button>
         <button
           class="flex items-center bg-white rounded-full px-3 py-1.5 text-sm mr-2"
           @click="showVenueFilterModal">
-          运动场馆筛选
+          {{ selectedVenue || '运动场馆' }}
           <i class="fa fa-angle-down ml-1 text-xs"></i>
         </button>
         <button
           class="flex items-center bg-white rounded-full px-3 py-1.5 text-sm mr-2"
           @click="showEquipmentFilterModal">
-          运动装备筛选
+          {{ selectedEquipment || '运动装备' }}
           <i class="fa fa-angle-down ml-1 text-xs"></i>
         </button>
         <button
           class="flex items-center bg-white rounded-full px-3 py-1.5 text-sm mr-2"
           @click="showTrainingFilterModal">
-          运动培训筛选
+          {{ selectedTraining || '运动培训' }}
           <i class="fa fa-angle-down ml-1 text-xs"></i>
         </button>
         <button
           class="flex items-center bg-white rounded-full px-3 py-1.5 text-sm"
           @click="showLeisureFilterModal">
-          休闲娱乐筛选
+          {{ selectedLeisure || '休闲娱乐' }}
           <i class="fa fa-angle-down ml-1 text-xs"></i>
         </button>
       </div>
@@ -90,8 +84,8 @@
       <!-- 筛选标签 - 组团去玩 -->
       <div v-else-if="activeTab === 'group'"
         class="flex items-center overflow-x-auto whitespace-nowrap mb-2 pb-2 -mx-4 px-4 scrollbar-hide">
-        <button class="flex items-center bg-white rounded-full px-3 py-1.5 text-sm mr-2">
-          附近
+        <button class="flex items-center bg-white rounded-full px-3 py-1.5 text-sm mr-2" @click="showNearbyFilterModal">
+          {{ selectedNearby }}
           <i class="fa fa-angle-down ml-1 text-xs"></i>
         </button>
         <button class="flex items-center bg-white rounded-full px-3 py-1.5 text-sm mr-2" @click="showTypeFilterModal">
@@ -478,6 +472,11 @@
 
         <div class="flex flex-col gap-3">
           <button
+            class="py-3.5 bg-gray-100 text-gray-700 rounded-lg font-semibold transition-all duration-200 ease-in-out hover:bg-gray-200"
+            @click="resetVenue">
+            重置
+          </button>
+          <button
             class="py-3.5 bg-orange-500 text-white rounded-lg font-semibold transition-all duration-200 ease-in-out hover:bg-orange-600 shadow-md"
             @click="confirmVenue">
             确定
@@ -526,6 +525,11 @@
         </div>
 
         <div class="flex flex-col gap-3">
+          <button
+            class="py-3.5 bg-gray-100 text-gray-700 rounded-lg font-semibold transition-all duration-200 ease-in-out hover:bg-gray-200"
+            @click="resetEquipment">
+            重置
+          </button>
           <button
             class="py-3.5 bg-orange-500 text-white rounded-lg font-semibold transition-all duration-200 ease-in-out hover:bg-orange-600 shadow-md"
             @click="confirmEquipment">
@@ -576,6 +580,11 @@
 
         <div class="flex flex-col gap-3">
           <button
+            class="py-3.5 bg-gray-100 text-gray-700 rounded-lg font-semibold transition-all duration-200 ease-in-out hover:bg-gray-200"
+            @click="resetTraining">
+            重置
+          </button>
+          <button
             class="py-3.5 bg-orange-500 text-white rounded-lg font-semibold transition-all duration-200 ease-in-out hover:bg-orange-600 shadow-md"
             @click="confirmTraining">
             确定
@@ -625,8 +634,73 @@
 
         <div class="flex flex-col gap-3">
           <button
+            class="py-3.5 bg-gray-100 text-gray-700 rounded-lg font-semibold transition-all duration-200 ease-in-out hover:bg-gray-200"
+            @click="resetLeisure">
+            重置
+          </button>
+          <button
             class="py-3.5 bg-orange-500 text-white rounded-lg font-semibold transition-all duration-200 ease-in-out hover:bg-orange-600 shadow-md"
             @click="confirmLeisure">
+            确定
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- 附近筛选弹框 -->
+    <div v-if="showNearbyModal" class="filter-modal">
+      <div class="modal-overlay" @click="closeNearbyFilterModal"></div>
+      <div class="filter-modal-content">
+        <div class="flex justify-between items-center mb-4">
+          <h3 class="text-lg font-bold text-gray-800">附近距离</h3>
+          <button class="w-10 h-10 flex items-center justify-center rounded-full text-gray-500 hover:bg-gray-100"
+            @click="closeNearbyFilterModal">
+            <i class="fa fa-times text-lg"></i>
+          </button>
+        </div>
+
+        <div class="space-y-3 mb-6">
+          <button
+            class="w-full py-4 px-4 rounded-lg text-base font-medium transition-all text-left"
+            :class="selectedNearby === '附近' ? 'bg-orange-500 text-white shadow-md' : 'bg-gray-100 text-gray-700 hover:bg-gray-200'"
+            @click="selectNearby('附近')">
+            附近（默认）
+          </button>
+          <button
+            class="w-full py-4 px-4 rounded-lg text-base font-medium transition-all text-left"
+            :class="selectedNearby === '1公里内' ? 'bg-orange-500 text-white shadow-md' : 'bg-gray-100 text-gray-700 hover:bg-gray-200'"
+            @click="selectNearby('1公里内')">
+            1公里内
+          </button>
+          <button
+            class="w-full py-4 px-4 rounded-lg text-base font-medium transition-all text-left"
+            :class="selectedNearby === '3公里内' ? 'bg-orange-500 text-white shadow-md' : 'bg-gray-100 text-gray-700 hover:bg-gray-200'"
+            @click="selectNearby('3公里内')">
+            3公里内
+          </button>
+          <button
+            class="w-full py-4 px-4 rounded-lg text-base font-medium transition-all text-left"
+            :class="selectedNearby === '5公里内' ? 'bg-orange-500 text-white shadow-md' : 'bg-gray-100 text-gray-700 hover:bg-gray-200'"
+            @click="selectNearby('5公里内')">
+            5公里内
+          </button>
+          <button
+            class="w-full py-4 px-4 rounded-lg text-base font-medium transition-all text-left"
+            :class="selectedNearby === '10公里内' ? 'bg-orange-500 text-white shadow-md' : 'bg-gray-100 text-gray-700 hover:bg-gray-200'"
+            @click="selectNearby('10公里内')">
+            10公里内
+          </button>
+        </div>
+
+        <div class="flex flex-col gap-3">
+          <button
+            class="py-3.5 bg-gray-100 text-gray-700 rounded-lg font-semibold transition-all duration-200 ease-in-out hover:bg-gray-200"
+            @click="resetNearby">
+            重置
+          </button>
+          <button
+            class="py-3.5 bg-orange-500 text-white rounded-lg font-semibold transition-all duration-200 ease-in-out hover:bg-orange-600 shadow-md"
+            @click="confirmNearby">
             确定
           </button>
         </div>
@@ -650,15 +724,16 @@ export default {
       selectedType: "户外运动",
       selectedCost: "费用",
       selectedCategory: "户外运动",
-      selectedFilter: "推荐", // 主理人/唤醒师/找搭子的筛选状态
       showVenueModal: false, // 运动场馆筛选弹窗
       showEquipmentModal: false, // 运动装备筛选弹窗
       showTrainingModal: false, // 运动培训筛选弹窗
       showLeisureModal: false, // 休闲娱乐筛选弹窗
+      showNearbyModal: false, // 附近筛选弹窗
       selectedVenue: "", // 选中的运动场馆
       selectedEquipment: "", // 选中的运动装备
       selectedTraining: "", // 选中的运动培训
       selectedLeisure: "", // 选中的休闲娱乐
+      selectedNearby: "附近", // 选中的附近距离
       activityTypes: [
         {
           category: "户外运动",
@@ -872,6 +947,11 @@ export default {
       this.selectedType = "户外运动";
       this.selectedCost = "费用";
       this.selectedCategory = "户外运动";
+      this.selectedVenue = "";
+      this.selectedEquipment = "";
+      this.selectedTraining = "";
+      this.selectedLeisure = "";
+      this.selectedNearby = "附近";
     },
     // 显示运动场馆筛选弹窗
     showVenueFilterModal() {
@@ -884,6 +964,10 @@ export default {
     // 选择运动场馆
     selectVenue(venue) {
       this.selectedVenue = venue;
+    },
+    // 重置运动场馆选择
+    resetVenue() {
+      this.selectedVenue = "";
     },
     // 确认运动场馆选择
     confirmVenue() {
@@ -902,6 +986,10 @@ export default {
     selectEquipment(equipment) {
       this.selectedEquipment = equipment;
     },
+    // 重置运动装备选择
+    resetEquipment() {
+      this.selectedEquipment = "";
+    },
     // 确认运动装备选择
     confirmEquipment() {
       console.log('选择的运动装备:', this.selectedEquipment);
@@ -918,6 +1006,10 @@ export default {
     // 选择运动培训
     selectTraining(training) {
       this.selectedTraining = training;
+    },
+    // 重置运动培训选择
+    resetTraining() {
+      this.selectedTraining = "";
     },
     // 确认运动培训选择
     confirmTraining() {
@@ -936,10 +1028,35 @@ export default {
     selectLeisure(leisure) {
       this.selectedLeisure = leisure;
     },
+    // 重置休闲娱乐选择
+    resetLeisure() {
+      this.selectedLeisure = "";
+    },
     // 确认休闲娱乐选择
     confirmLeisure() {
       console.log('选择的休闲娱乐:', this.selectedLeisure);
       this.closeLeisureFilterModal();
+    },
+    // 显示附近筛选弹窗
+    showNearbyFilterModal() {
+      this.showNearbyModal = true;
+    },
+    // 关闭附近筛选弹窗
+    closeNearbyFilterModal() {
+      this.showNearbyModal = false;
+    },
+    // 选择附近距离
+    selectNearby(distance) {
+      this.selectedNearby = distance;
+    },
+    // 重置附近距离选择
+    resetNearby() {
+      this.selectedNearby = "附近";
+    },
+    // 确认附近距离选择
+    confirmNearby() {
+      console.log('选择的附近距离:', this.selectedNearby);
+      this.closeNearbyFilterModal();
     },
     handleCoachDetail(coachId) {
       console.log(`查看教练详情: ${coachId}`);
