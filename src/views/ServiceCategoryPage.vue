@@ -1213,6 +1213,25 @@ export default {
   align-items: flex-end;
 }
 
+.modal-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.6);
+  animation: fadeIn 0.3s ease-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
 .filter-modal-content {
   position: relative;
   width: 100%;
@@ -1225,6 +1244,7 @@ export default {
   overflow-y: auto;
   box-shadow: 0 -8px 32px rgba(0, 0, 0, 0.1);
   transform-origin: bottom center;
+  z-index: 1001;
 }
 
 .filter-modal-content::-webkit-scrollbar {
@@ -1238,25 +1258,12 @@ export default {
 
 @keyframes slideUp {
   from {
-    transform: translateY(100%) scale(0.95);
+    transform: translateY(100%);
     opacity: 0;
-    box-shadow: 0 -4px 16px rgba(0, 0, 0, 0.05);
   }
-
   to {
-    transform: translateY(0) scale(1);
+    transform: translateY(0);
     opacity: 1;
-    box-shadow: 0 -8px 32px rgba(0, 0, 0, 0.1);
   }
-}
-
-.modal-overlay {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: rgba(0, 0, 0, 0.6);
-  animation: fadeIn 0.35s ease-out;
 }
 </style>
