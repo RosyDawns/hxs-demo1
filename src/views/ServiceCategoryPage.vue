@@ -49,33 +49,25 @@
       <!-- 筛选标签 - 主理人 -->
       <div v-if="activeTab === 'master'"
         class="flex items-center overflow-x-auto whitespace-nowrap mb-2 pb-2 -mx-4 px-4 scrollbar-hide">
-        <button
-          class="flex items-center bg-white rounded-full px-3 py-1.5 text-sm mr-2"
-          @click="showNearbyFilterModal">
+        <button class="flex items-center bg-white rounded-full px-3 py-1.5 text-sm mr-2" @click="showNearbyFilterModal">
           {{ selectedNearby }}
           <i class="fa fa-angle-down ml-1 text-xs"></i>
         </button>
-        <button
-          class="flex items-center bg-white rounded-full px-3 py-1.5 text-sm mr-2"
-          @click="showVenueFilterModal">
+        <button class="flex items-center bg-white rounded-full px-3 py-1.5 text-sm mr-2" @click="showVenueFilterModal">
           {{ selectedVenue || '运动场馆' }}
           <i class="fa fa-angle-down ml-1 text-xs"></i>
         </button>
-        <button
-          class="flex items-center bg-white rounded-full px-3 py-1.5 text-sm mr-2"
+        <button class="flex items-center bg-white rounded-full px-3 py-1.5 text-sm mr-2"
           @click="showEquipmentFilterModal">
           {{ selectedEquipment || '运动装备' }}
           <i class="fa fa-angle-down ml-1 text-xs"></i>
         </button>
-        <button
-          class="flex items-center bg-white rounded-full px-3 py-1.5 text-sm mr-2"
+        <button class="flex items-center bg-white rounded-full px-3 py-1.5 text-sm mr-2"
           @click="showTrainingFilterModal">
           {{ selectedTraining || '运动培训' }}
           <i class="fa fa-angle-down ml-1 text-xs"></i>
         </button>
-        <button
-          class="flex items-center bg-white rounded-full px-3 py-1.5 text-sm"
-          @click="showLeisureFilterModal">
+        <button class="flex items-center bg-white rounded-full px-3 py-1.5 text-sm" @click="showLeisureFilterModal">
           {{ selectedLeisure || '休闲娱乐' }}
           <i class="fa fa-angle-down ml-1 text-xs"></i>
         </button>
@@ -84,39 +76,30 @@
       <!-- 筛选标签 - 唤醒师/找搭子 -->
       <div v-else-if="activeTab === 'skill' || activeTab === 'dazi'"
         class="flex items-center overflow-x-auto whitespace-nowrap mb-2 pb-2 -mx-4 px-4 scrollbar-hide">
-        <button
-          class="flex items-center bg-white rounded-full px-3 py-1.5 text-sm mr-2"
-          @click="showNearbyFilterModal">
+        <button class="flex items-center bg-white rounded-full px-3 py-1.5 text-sm mr-2" @click="showNearbyFilterModal">
           {{ selectedNearby }}
           <i class="fa fa-angle-down ml-1 text-xs"></i>
         </button>
-        <button
-          class="flex items-center bg-white rounded-full px-3 py-1.5 text-sm mr-2"
+        <button class="flex items-center bg-white rounded-full px-3 py-1.5 text-sm mr-2"
           @click="showFitnessFilterModal">
           {{ selectedFitness || '健身' }}
           <i class="fa fa-angle-down ml-1 text-xs"></i>
         </button>
-        <button
-          class="flex items-center bg-white rounded-full px-3 py-1.5 text-sm mr-2"
+        <button class="flex items-center bg-white rounded-full px-3 py-1.5 text-sm mr-2"
           @click="showBallSportsFilterModal">
           {{ selectedBallSports || '球类' }}
           <i class="fa fa-angle-down ml-1 text-xs"></i>
         </button>
-        <button
-          class="flex items-center bg-white rounded-full px-3 py-1.5 text-sm mr-2"
-          @click="showSportsFilterModal">
+        <button class="flex items-center bg-white rounded-full px-3 py-1.5 text-sm mr-2" @click="showSportsFilterModal">
           {{ selectedSports || '运动' }}
           <i class="fa fa-angle-down ml-1 text-xs"></i>
         </button>
-        <button
-          class="flex items-center bg-white rounded-full px-3 py-1.5 text-sm mr-2"
+        <button class="flex items-center bg-white rounded-full px-3 py-1.5 text-sm mr-2"
           @click="showOutdoorFilterModal">
           {{ selectedOutdoor || '户外' }}
           <i class="fa fa-angle-down ml-1 text-xs"></i>
         </button>
-        <button
-          class="flex items-center bg-white rounded-full px-3 py-1.5 text-sm"
-          @click="showLeisureFilterModal">
+        <button class="flex items-center bg-white rounded-full px-3 py-1.5 text-sm" @click="showLeisureFilterModal">
           {{ selectedLeisure || '休闲娱乐' }}
           <i class="fa fa-angle-down ml-1 text-xs"></i>
         </button>
@@ -149,7 +132,7 @@
         <template v-if="activeTab === 'master'">
           <div class="bg-white rounded-lg shadow-sm overflow-hidden cursor-pointer"
             @click="$router.push('/main-ouyang')">
-             <!-- @click="$router.push('/product-detail/product1')" -->
+            <!-- @click="$router.push('/product-detail/product1')" -->
             <div class="p-3">
               <div class="flex items-center justify-between mb-2">
                 <div class="flex items-center">
@@ -253,14 +236,210 @@
 
         <!-- 达子唤醒师内容 -->
         <template v-if="activeTab === 'skill'">
-          <HxsItem v-for="(coach, index) in recommendedCoaches" :key="coach.id" :coach="coach"
-            @view-profile="handleCoachDetail" />
+          <div class="bg-white rounded-lg shadow-sm overflow-hidden cursor-pointer" @click="$router.push('/ouyang')">
+            <!-- @click="$router.push('/product-detail/product1')" -->
+            <div class="p-3">
+              <div class="flex items-center justify-between mb-2">
+                <div class="flex items-center">
+                  <span class="bg-green-50 text-green-500 text-xs px-2 py-0.5 rounded-full mr-2">游泳</span>
+                  <h3 class="font-medium">新村路菲尔普斯</h3>
+                </div>
+              </div>
+              <p class="text-xs text-gray-500 mb-2">
+                <span class="mr-1">营业时间:06:00-10:30</span>
+                <span class="mr-1">评分:4.8</span>
+                <span class="mr-1">新村路100号</span>
+                <span>距离:2km</span>
+              </p>
+              <div class="flex flex-wrap gap-1 mb-3">
+                <span class="text-xs text-gray-500 flex items-center">
+                  <i class="fa fa-users mr-1"></i>
+                  环境好
+                </span>
+                <span class="text-xs text-gray-500 flex items-center">
+                  <i class="fa fa-camera mr-1"></i>
+                  设新备齐
+                </span>
+                <span class="text-xs text-gray-500 flex items-center">
+                  <i class="fa fa-heart mr-1"></i>
+                  教练专业
+                </span>
+              </div>
+            </div>
+
+            <!-- 活动图片 -->
+            <div class="flex gap-1 px-3 mb-3">
+              <img src="@images/img_43.jpg" class="w-1/3 h-24 object-cover rounded" />
+              <img src="@images/img_43.jpg" class="w-1/3 h-24 object-cover rounded" />
+              <img src="@images/img_43.jpg" class="w-1/3 h-24 object-cover rounded" />
+            </div>
+
+            <div class="flex items-center justify-between px-3 pb-3">
+              <div class="flex items-center">
+                <span class="text-xs text-white py-0.5 px-1 rounded-xs bg-red-300 mr-2">惠</span>
+                <div class="flex space-x-1 text-xs">
+                  [健身次卡] 体验价9.9元
+                </div>
+              </div>
+              <button class="bg-orange-500 text-white text-sm font-medium px-4 py-1.5 rounded-full">
+                购买
+              </button>
+            </div>
+          </div>
+
+          <div class="bg-white rounded-lg shadow-sm overflow-hidden cursor-pointer" @click="$router.push('/ouyang')">
+            <div class="p-3">
+              <div class="flex items-center justify-between mb-2">
+                <div class="flex items-center">
+                  <span class="bg-green-50 text-green-500 text-xs px-2 py-0.5 rounded-full mr-2">篮球</span>
+                  <h3 class="font-medium">3秒区无敌手</h3>
+                </div>
+              </div>
+              <p class="text-xs text-gray-500 mb-2">
+                <span class="mr-1">营业时间:06:00-10:30</span>
+                <span class="mr-1">评分:4.8</span>
+                <span class="mr-1">新村路200号</span>
+                <span>距离:2.5km</span>
+              </p>
+              <div class="flex flex-wrap gap-1 mb-3">
+                <span class="text-xs text-gray-500 flex items-center">
+                  <i class="fa fa-users mr-1"></i>
+                  环境好
+                </span>
+                <span class="text-xs text-gray-500 flex items-center">
+                  <i class="fa fa-heart mr-1"></i>
+                  场馆新
+                </span>
+                <span class="text-xs text-gray-500 flex items-center">
+                  <i class="fa fa-camera mr-1"></i>
+                  设新备齐
+                </span>
+              </div>
+            </div>
+
+            <!-- 活动图片 -->
+            <div class="flex gap-1 px-3 mb-3">
+              <img src="@images/img_43.jpg" class="w-1/3 h-24 object-cover rounded" />
+              <img src="@images/img_43.jpg" class="w-1/3 h-24 object-cover rounded" />
+              <img src="@images/img_43.jpg" class="w-1/3 h-24 object-cover rounded" />
+            </div>
+
+            <div class="flex items-center justify-between px-3 pb-3">
+              <div class="flex items-center">
+                <span class="text-xs text-white py-0.5 px-1 rounded-xs bg-red-300 mr-2">惠</span>
+                <div class="flex space-x-1 text-xs">
+                  [代金券] 一波结束66抵100
+                </div>
+              </div>
+              <button class="bg-orange-500 text-white text-sm font-medium px-4 py-1.5 rounded-full">
+                购买
+              </button>
+            </div>
+          </div>
         </template>
 
         <!-- 技能唤醒师内容 -->
         <template v-if="activeTab === 'dazi'">
-          <HxsItem v-for="(coach, index) in recommendedCoaches" :key="coach.id" :coach="coach"
-            @view-profile="handleCoachDetail" />
+          <div class="bg-white rounded-lg shadow-sm overflow-hidden cursor-pointer" @click="$router.push('/ouyang')">
+            <!-- @click="$router.push('/product-detail/product1')" -->
+            <div class="p-3">
+              <div class="flex items-center justify-between mb-2">
+                <div class="flex items-center">
+                  <span class="bg-green-50 text-green-500 text-xs px-2 py-0.5 rounded-full mr-2">其他</span>
+                  <h3 class="font-medium">整活王小小</h3>
+                </div>
+              </div>
+              <p class="text-xs text-gray-500 mb-2">
+                <span class="mr-1">营业时间:06:00-10:30</span>
+                <span class="mr-1">评分:4.8</span>
+                <span class="mr-1">新村路100号</span>
+                <span>距离:2km</span>
+              </p>
+              <div class="flex flex-wrap gap-1 mb-3">
+                <span class="text-xs text-gray-500 flex items-center">
+                  <i class="fa fa-users mr-1"></i>
+                  环境好
+                </span>
+                <span class="text-xs text-gray-500 flex items-center">
+                  <i class="fa fa-camera mr-1"></i>
+                  设新备齐
+                </span>
+                <span class="text-xs text-gray-500 flex items-center">
+                  <i class="fa fa-heart mr-1"></i>
+                  教练专业
+                </span>
+              </div>
+            </div>
+
+            <!-- 活动图片 -->
+            <div class="flex gap-1 px-3 mb-3">
+              <img src="@images/img_43.jpg" class="w-1/3 h-24 object-cover rounded" />
+              <img src="@images/img_43.jpg" class="w-1/3 h-24 object-cover rounded" />
+              <img src="@images/img_43.jpg" class="w-1/3 h-24 object-cover rounded" />
+            </div>
+
+            <div class="flex items-center justify-between px-3 pb-3">
+              <div class="flex items-center">
+                <span class="text-xs text-white py-0.5 px-1 rounded-xs bg-red-300 mr-2">惠</span>
+                <div class="flex space-x-1 text-xs">
+                  [健身次卡] 体验价9.9元
+                </div>
+              </div>
+              <button class="bg-orange-500 text-white text-sm font-medium px-4 py-1.5 rounded-full">
+                购买
+              </button>
+            </div>
+          </div>
+
+          <div class="bg-white rounded-lg shadow-sm overflow-hidden cursor-pointer" @click="$router.push('/ouyang')">
+            <div class="p-3">
+              <div class="flex items-center justify-between mb-2">
+                <div class="flex items-center">
+                  <span class="bg-green-50 text-green-500 text-xs px-2 py-0.5 rounded-full mr-2">围棋</span>
+                  <h3 class="font-medium">黑白让1手</h3>
+                </div>
+              </div>
+              <p class="text-xs text-gray-500 mb-2">
+                <span class="mr-1">营业时间:06:00-10:30</span>
+                <span class="mr-1">评分:4.8</span>
+                <span class="mr-1">新村路200号</span>
+                <span>距离:2.5km</span>
+              </p>
+              <div class="flex flex-wrap gap-1 mb-3">
+                <span class="text-xs text-gray-500 flex items-center">
+                  <i class="fa fa-users mr-1"></i>
+                  环境好
+                </span>
+                <span class="text-xs text-gray-500 flex items-center">
+                  <i class="fa fa-heart mr-1"></i>
+                  场馆新
+                </span>
+                <span class="text-xs text-gray-500 flex items-center">
+                  <i class="fa fa-camera mr-1"></i>
+                  设新备齐
+                </span>
+              </div>
+            </div>
+
+            <!-- 活动图片 -->
+            <div class="flex gap-1 px-3 mb-3">
+              <img src="@images/img_43.jpg" class="w-1/3 h-24 object-cover rounded" />
+              <img src="@images/img_43.jpg" class="w-1/3 h-24 object-cover rounded" />
+              <img src="@images/img_43.jpg" class="w-1/3 h-24 object-cover rounded" />
+            </div>
+
+            <div class="flex items-center justify-between px-3 pb-3">
+              <div class="flex items-center">
+                <span class="text-xs text-white py-0.5 px-1 rounded-xs bg-red-300 mr-2">惠</span>
+                <div class="flex space-x-1 text-xs">
+                  [代金券] 一波结束66抵100
+                </div>
+              </div>
+              <button class="bg-orange-500 text-white text-sm font-medium px-4 py-1.5 rounded-full">
+                购买
+              </button>
+            </div>
+          </div>
         </template>
 
         <!-- 组团内容 -->
@@ -486,26 +665,22 @@
         </div>
 
         <div class="space-y-3 mb-6">
-          <button
-            class="w-full py-4 px-4 rounded-lg text-base font-medium transition-all text-left"
+          <button class="w-full py-4 px-4 rounded-lg text-base font-medium transition-all text-left"
             :class="selectedVenue === '健身房' ? 'bg-orange-500 text-white shadow-md' : 'bg-gray-100 text-gray-700 hover:bg-gray-200'"
             @click="selectVenue('健身房')">
             健身房
           </button>
-          <button
-            class="w-full py-4 px-4 rounded-lg text-base font-medium transition-all text-left"
+          <button class="w-full py-4 px-4 rounded-lg text-base font-medium transition-all text-left"
             :class="selectedVenue === '游泳馆' ? 'bg-orange-500 text-white shadow-md' : 'bg-gray-100 text-gray-700 hover:bg-gray-200'"
             @click="selectVenue('游泳馆')">
             游泳馆
           </button>
-          <button
-            class="w-full py-4 px-4 rounded-lg text-base font-medium transition-all text-left"
+          <button class="w-full py-4 px-4 rounded-lg text-base font-medium transition-all text-left"
             :class="selectedVenue === '篮球馆' ? 'bg-orange-500 text-white shadow-md' : 'bg-gray-100 text-gray-700 hover:bg-gray-200'"
             @click="selectVenue('篮球馆')">
             篮球馆
           </button>
-          <button
-            class="w-full py-4 px-4 rounded-lg text-base font-medium transition-all text-left"
+          <button class="w-full py-4 px-4 rounded-lg text-base font-medium transition-all text-left"
             :class="selectedVenue === '羽毛球馆' ? 'bg-orange-500 text-white shadow-md' : 'bg-gray-100 text-gray-700 hover:bg-gray-200'"
             @click="selectVenue('羽毛球馆')">
             羽毛球馆
@@ -540,26 +715,22 @@
         </div>
 
         <div class="space-y-3 mb-6">
-          <button
-            class="w-full py-4 px-4 rounded-lg text-base font-medium transition-all text-left"
+          <button class="w-full py-4 px-4 rounded-lg text-base font-medium transition-all text-left"
             :class="selectedEquipment === '运动鞋' ? 'bg-orange-500 text-white shadow-md' : 'bg-gray-100 text-gray-700 hover:bg-gray-200'"
             @click="selectEquipment('运动鞋')">
             运动鞋
           </button>
-          <button
-            class="w-full py-4 px-4 rounded-lg text-base font-medium transition-all text-left"
+          <button class="w-full py-4 px-4 rounded-lg text-base font-medium transition-all text-left"
             :class="selectedEquipment === '运动服' ? 'bg-orange-500 text-white shadow-md' : 'bg-gray-100 text-gray-700 hover:bg-gray-200'"
             @click="selectEquipment('运动服')">
             运动服
           </button>
-          <button
-            class="w-full py-4 px-4 rounded-lg text-base font-medium transition-all text-left"
+          <button class="w-full py-4 px-4 rounded-lg text-base font-medium transition-all text-left"
             :class="selectedEquipment === '健身器材' ? 'bg-orange-500 text-white shadow-md' : 'bg-gray-100 text-gray-700 hover:bg-gray-200'"
             @click="selectEquipment('健身器材')">
             健身器材
           </button>
-          <button
-            class="w-full py-4 px-4 rounded-lg text-base font-medium transition-all text-left"
+          <button class="w-full py-4 px-4 rounded-lg text-base font-medium transition-all text-left"
             :class="selectedEquipment === '球类装备' ? 'bg-orange-500 text-white shadow-md' : 'bg-gray-100 text-gray-700 hover:bg-gray-200'"
             @click="selectEquipment('球类装备')">
             球类装备
@@ -594,26 +765,22 @@
         </div>
 
         <div class="space-y-3 mb-6">
-          <button
-            class="w-full py-4 px-4 rounded-lg text-base font-medium transition-all text-left"
+          <button class="w-full py-4 px-4 rounded-lg text-base font-medium transition-all text-left"
             :class="selectedTraining === '游泳培训' ? 'bg-orange-500 text-white shadow-md' : 'bg-gray-100 text-gray-700 hover:bg-gray-200'"
             @click="selectTraining('游泳培训')">
             游泳培训
           </button>
-          <button
-            class="w-full py-4 px-4 rounded-lg text-base font-medium transition-all text-left"
+          <button class="w-full py-4 px-4 rounded-lg text-base font-medium transition-all text-left"
             :class="selectedTraining === '健身培训' ? 'bg-orange-500 text-white shadow-md' : 'bg-gray-100 text-gray-700 hover:bg-gray-200'"
             @click="selectTraining('健身培训')">
             健身培训
           </button>
-          <button
-            class="w-full py-4 px-4 rounded-lg text-base font-medium transition-all text-left"
+          <button class="w-full py-4 px-4 rounded-lg text-base font-medium transition-all text-left"
             :class="selectedTraining === '球类培训' ? 'bg-orange-500 text-white shadow-md' : 'bg-gray-100 text-gray-700 hover:bg-gray-200'"
             @click="selectTraining('球类培训')">
             球类培训
           </button>
-          <button
-            class="w-full py-4 px-4 rounded-lg text-base font-medium transition-all text-left"
+          <button class="w-full py-4 px-4 rounded-lg text-base font-medium transition-all text-left"
             :class="selectedTraining === '瑜伽培训' ? 'bg-orange-500 text-white shadow-md' : 'bg-gray-100 text-gray-700 hover:bg-gray-200'"
             @click="selectTraining('瑜伽培训')">
             瑜伽培训
@@ -648,26 +815,22 @@
         </div>
 
         <div class="space-y-3 mb-6">
-          <button
-            class="w-full py-4 px-4 rounded-lg text-base font-medium transition-all text-left"
+          <button class="w-full py-4 px-4 rounded-lg text-base font-medium transition-all text-left"
             :class="selectedLeisure === '咖啡馆' ? 'bg-orange-500 text-white shadow-md' : 'bg-gray-100 text-gray-700 hover:bg-gray-200'"
             @click="selectLeisure('咖啡馆')">
             咖啡馆
           </button>
-          <button
-            class="w-full py-4 px-4 rounded-lg text-base font-medium transition-all text-left"
+          <button class="w-full py-4 px-4 rounded-lg text-base font-medium transition-all text-left"
             :class="selectedLeisure === '茶馆' ? 'bg-orange-500 text-white shadow-md' : 'bg-gray-100 text-gray-700 hover:bg-gray-200'"
             @click="selectLeisure('茶馆')">
             茶馆
           </button>
-          <button
-            class="w-full py-4 px-4 rounded-lg text-base font-medium transition-all text-left"
+          <button class="w-full py-4 px-4 rounded-lg text-base font-medium transition-all text-left"
             :class="selectedLeisure === '电影院' ? 'bg-orange-500 text-white shadow-md' : 'bg-gray-100 text-gray-700 hover:bg-gray-200'"
             @click="selectLeisure('电影院')">
             电影院
           </button>
-          <button
-            class="w-full py-4 px-4 rounded-lg text-base font-medium transition-all text-left"
+          <button class="w-full py-4 px-4 rounded-lg text-base font-medium transition-all text-left"
             :class="selectedLeisure === 'KTV' ? 'bg-orange-500 text-white shadow-md' : 'bg-gray-100 text-gray-700 hover:bg-gray-200'"
             @click="selectLeisure('KTV')">
             KTV
@@ -702,32 +865,27 @@
         </div>
 
         <div class="space-y-3 mb-6">
-          <button
-            class="w-full py-4 px-4 rounded-lg text-base font-medium transition-all text-left"
+          <button class="w-full py-4 px-4 rounded-lg text-base font-medium transition-all text-left"
             :class="selectedNearby === '附近' ? 'bg-orange-500 text-white shadow-md' : 'bg-gray-100 text-gray-700 hover:bg-gray-200'"
             @click="selectNearby('附近')">
             附近（默认）
           </button>
-          <button
-            class="w-full py-4 px-4 rounded-lg text-base font-medium transition-all text-left"
+          <button class="w-full py-4 px-4 rounded-lg text-base font-medium transition-all text-left"
             :class="selectedNearby === '1公里内' ? 'bg-orange-500 text-white shadow-md' : 'bg-gray-100 text-gray-700 hover:bg-gray-200'"
             @click="selectNearby('1公里内')">
             1公里内
           </button>
-          <button
-            class="w-full py-4 px-4 rounded-lg text-base font-medium transition-all text-left"
+          <button class="w-full py-4 px-4 rounded-lg text-base font-medium transition-all text-left"
             :class="selectedNearby === '3公里内' ? 'bg-orange-500 text-white shadow-md' : 'bg-gray-100 text-gray-700 hover:bg-gray-200'"
             @click="selectNearby('3公里内')">
             3公里内
           </button>
-          <button
-            class="w-full py-4 px-4 rounded-lg text-base font-medium transition-all text-left"
+          <button class="w-full py-4 px-4 rounded-lg text-base font-medium transition-all text-left"
             :class="selectedNearby === '5公里内' ? 'bg-orange-500 text-white shadow-md' : 'bg-gray-100 text-gray-700 hover:bg-gray-200'"
             @click="selectNearby('5公里内')">
             5公里内
           </button>
-          <button
-            class="w-full py-4 px-4 rounded-lg text-base font-medium transition-all text-left"
+          <button class="w-full py-4 px-4 rounded-lg text-base font-medium transition-all text-left"
             :class="selectedNearby === '10公里内' ? 'bg-orange-500 text-white shadow-md' : 'bg-gray-100 text-gray-700 hover:bg-gray-200'"
             @click="selectNearby('10公里内')">
             10公里内
@@ -762,32 +920,27 @@
         </div>
 
         <div class="space-y-3 mb-6">
-          <button
-            class="w-full py-4 px-4 rounded-lg text-base font-medium transition-all text-left"
+          <button class="w-full py-4 px-4 rounded-lg text-base font-medium transition-all text-left"
             :class="selectedFitness === '力量训练' ? 'bg-orange-500 text-white shadow-md' : 'bg-gray-100 text-gray-700 hover:bg-gray-200'"
             @click="selectFitness('力量训练')">
             力量训练
           </button>
-          <button
-            class="w-full py-4 px-4 rounded-lg text-base font-medium transition-all text-left"
+          <button class="w-full py-4 px-4 rounded-lg text-base font-medium transition-all text-left"
             :class="selectedFitness === '有氧运动' ? 'bg-orange-500 text-white shadow-md' : 'bg-gray-100 text-gray-700 hover:bg-gray-200'"
             @click="selectFitness('有氧运动')">
             有氧运动
           </button>
-          <button
-            class="w-full py-4 px-4 rounded-lg text-base font-medium transition-all text-left"
+          <button class="w-full py-4 px-4 rounded-lg text-base font-medium transition-all text-left"
             :class="selectedFitness === '瑜伽' ? 'bg-orange-500 text-white shadow-md' : 'bg-gray-100 text-gray-700 hover:bg-gray-200'"
             @click="selectFitness('瑜伽')">
             瑜伽
           </button>
-          <button
-            class="w-full py-4 px-4 rounded-lg text-base font-medium transition-all text-left"
+          <button class="w-full py-4 px-4 rounded-lg text-base font-medium transition-all text-left"
             :class="selectedFitness === '普拉提' ? 'bg-orange-500 text-white shadow-md' : 'bg-gray-100 text-gray-700 hover:bg-gray-200'"
             @click="selectFitness('普拉提')">
             普拉提
           </button>
-          <button
-            class="w-full py-4 px-4 rounded-lg text-base font-medium transition-all text-left"
+          <button class="w-full py-4 px-4 rounded-lg text-base font-medium transition-all text-left"
             :class="selectedFitness === '动感单车' ? 'bg-orange-500 text-white shadow-md' : 'bg-gray-100 text-gray-700 hover:bg-gray-200'"
             @click="selectFitness('动感单车')">
             动感单车
@@ -822,32 +975,27 @@
         </div>
 
         <div class="space-y-3 mb-6">
-          <button
-            class="w-full py-4 px-4 rounded-lg text-base font-medium transition-all text-left"
+          <button class="w-full py-4 px-4 rounded-lg text-base font-medium transition-all text-left"
             :class="selectedBallSports === '篮球' ? 'bg-orange-500 text-white shadow-md' : 'bg-gray-100 text-gray-700 hover:bg-gray-200'"
             @click="selectBallSports('篮球')">
             篮球
           </button>
-          <button
-            class="w-full py-4 px-4 rounded-lg text-base font-medium transition-all text-left"
+          <button class="w-full py-4 px-4 rounded-lg text-base font-medium transition-all text-left"
             :class="selectedBallSports === '足球' ? 'bg-orange-500 text-white shadow-md' : 'bg-gray-100 text-gray-700 hover:bg-gray-200'"
             @click="selectBallSports('足球')">
             足球
           </button>
-          <button
-            class="w-full py-4 px-4 rounded-lg text-base font-medium transition-all text-left"
+          <button class="w-full py-4 px-4 rounded-lg text-base font-medium transition-all text-left"
             :class="selectedBallSports === '羽毛球' ? 'bg-orange-500 text-white shadow-md' : 'bg-gray-100 text-gray-700 hover:bg-gray-200'"
             @click="selectBallSports('羽毛球')">
             羽毛球
           </button>
-          <button
-            class="w-full py-4 px-4 rounded-lg text-base font-medium transition-all text-left"
+          <button class="w-full py-4 px-4 rounded-lg text-base font-medium transition-all text-left"
             :class="selectedBallSports === '乒乓球' ? 'bg-orange-500 text-white shadow-md' : 'bg-gray-100 text-gray-700 hover:bg-gray-200'"
             @click="selectBallSports('乒乓球')">
             乒乓球
           </button>
-          <button
-            class="w-full py-4 px-4 rounded-lg text-base font-medium transition-all text-left"
+          <button class="w-full py-4 px-4 rounded-lg text-base font-medium transition-all text-left"
             :class="selectedBallSports === '网球' ? 'bg-orange-500 text-white shadow-md' : 'bg-gray-100 text-gray-700 hover:bg-gray-200'"
             @click="selectBallSports('网球')">
             网球
@@ -882,32 +1030,27 @@
         </div>
 
         <div class="space-y-3 mb-6">
-          <button
-            class="w-full py-4 px-4 rounded-lg text-base font-medium transition-all text-left"
+          <button class="w-full py-4 px-4 rounded-lg text-base font-medium transition-all text-left"
             :class="selectedSports === '游泳' ? 'bg-orange-500 text-white shadow-md' : 'bg-gray-100 text-gray-700 hover:bg-gray-200'"
             @click="selectSports('游泳')">
             游泳
           </button>
-          <button
-            class="w-full py-4 px-4 rounded-lg text-base font-medium transition-all text-left"
+          <button class="w-full py-4 px-4 rounded-lg text-base font-medium transition-all text-left"
             :class="selectedSports === '跑步' ? 'bg-orange-500 text-white shadow-md' : 'bg-gray-100 text-gray-700 hover:bg-gray-200'"
             @click="selectSports('跑步')">
             跑步
           </button>
-          <button
-            class="w-full py-4 px-4 rounded-lg text-base font-medium transition-all text-left"
+          <button class="w-full py-4 px-4 rounded-lg text-base font-medium transition-all text-left"
             :class="selectedSports === '骑行' ? 'bg-orange-500 text-white shadow-md' : 'bg-gray-100 text-gray-700 hover:bg-gray-200'"
             @click="selectSports('骑行')">
             骑行
           </button>
-          <button
-            class="w-full py-4 px-4 rounded-lg text-base font-medium transition-all text-left"
+          <button class="w-full py-4 px-4 rounded-lg text-base font-medium transition-all text-left"
             :class="selectedSports === '滑板' ? 'bg-orange-500 text-white shadow-md' : 'bg-gray-100 text-gray-700 hover:bg-gray-200'"
             @click="selectSports('滑板')">
             滑板
           </button>
-          <button
-            class="w-full py-4 px-4 rounded-lg text-base font-medium transition-all text-left"
+          <button class="w-full py-4 px-4 rounded-lg text-base font-medium transition-all text-left"
             :class="selectedSports === '轮滑' ? 'bg-orange-500 text-white shadow-md' : 'bg-gray-100 text-gray-700 hover:bg-gray-200'"
             @click="selectSports('轮滑')">
             轮滑
@@ -942,32 +1085,27 @@
         </div>
 
         <div class="space-y-3 mb-6">
-          <button
-            class="w-full py-4 px-4 rounded-lg text-base font-medium transition-all text-left"
+          <button class="w-full py-4 px-4 rounded-lg text-base font-medium transition-all text-left"
             :class="selectedOutdoor === '徒步' ? 'bg-orange-500 text-white shadow-md' : 'bg-gray-100 text-gray-700 hover:bg-gray-200'"
             @click="selectOutdoor('徒步')">
             徒步
           </button>
-          <button
-            class="w-full py-4 px-4 rounded-lg text-base font-medium transition-all text-left"
+          <button class="w-full py-4 px-4 rounded-lg text-base font-medium transition-all text-left"
             :class="selectedOutdoor === '露营' ? 'bg-orange-500 text-white shadow-md' : 'bg-gray-100 text-gray-700 hover:bg-gray-200'"
             @click="selectOutdoor('露营')">
             露营
           </button>
-          <button
-            class="w-full py-4 px-4 rounded-lg text-base font-medium transition-all text-left"
+          <button class="w-full py-4 px-4 rounded-lg text-base font-medium transition-all text-left"
             :class="selectedOutdoor === '登山' ? 'bg-orange-500 text-white shadow-md' : 'bg-gray-100 text-gray-700 hover:bg-gray-200'"
             @click="selectOutdoor('登山')">
             登山
           </button>
-          <button
-            class="w-full py-4 px-4 rounded-lg text-base font-medium transition-all text-left"
+          <button class="w-full py-4 px-4 rounded-lg text-base font-medium transition-all text-left"
             :class="selectedOutdoor === '钓鱼' ? 'bg-orange-500 text-white shadow-md' : 'bg-gray-100 text-gray-700 hover:bg-gray-200'"
             @click="selectOutdoor('钓鱼')">
             钓鱼
           </button>
-          <button
-            class="w-full py-4 px-4 rounded-lg text-base font-medium transition-all text-left"
+          <button class="w-full py-4 px-4 rounded-lg text-base font-medium transition-all text-left"
             :class="selectedOutdoor === '飞盘' ? 'bg-orange-500 text-white shadow-md' : 'bg-gray-100 text-gray-700 hover:bg-gray-200'"
             @click="selectOutdoor('飞盘')">
             飞盘
@@ -1794,6 +1932,7 @@ export default {
   from {
     opacity: 0;
   }
+
   to {
     opacity: 1;
   }
@@ -1828,6 +1967,7 @@ export default {
     transform: translateY(100%);
     opacity: 0;
   }
+
   to {
     transform: translateY(0);
     opacity: 1;
