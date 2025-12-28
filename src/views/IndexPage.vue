@@ -167,7 +167,7 @@
           class="pl-2 text-lg border border-solid rounded-full flex items-center justify-between"
           @click="$router.push({ path: '/ai-assistant' })"
         >
-          <!-- $router.push({ path: '/teacher-list', query: { top: 'city' } }) -->
+          <!-- $router.push({ path: '/service-category', query: { top: 'city' } }) -->
           一键匹配，唤醒热爱
           <span class="bg-amber-50 text-amber-700 rounded-full px-2">GO></span>
         </p>
@@ -184,7 +184,7 @@
             class="bg-white text-black shadow flex flex-col items-center justify-center rounded-xl nav-action cursor-pointer overflow-hidden"
             @click="
               $router.push({
-                path: '/teacher-list',
+                path: '/service-category',
                 query: { tab: '主理人', top: 'discover', type: 'main' },
               })
             "
@@ -197,7 +197,7 @@
             class="bg-white text-black shadow flex flex-col items-center justify-center rounded-xl nav-action cursor-pointer overflow-hidden"
             @click="
               $router.push({
-                path: '/teacher-list',
+                path: '/service-category',
                 query: { tab: '生活技能', top: 'discover', type: 'main' },
               })
             "
@@ -209,7 +209,7 @@
             class="bg-white text-black shadow flex flex-col items-center justify-center rounded-xl nav-action cursor-pointer overflow-hidden"
             @click="
               $router.push({
-                path: '/teacher-list',
+                path: '/service-category',
                 query: { tab: '生活搭子', top: 'discover', type: 'main' },
               })
             "
