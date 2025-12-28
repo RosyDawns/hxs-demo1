@@ -46,8 +46,50 @@
         <i class="fa fa-search absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
       </div>
 
-      <!-- 筛选标签 -->
-      <div class="flex items-center overflow-x-auto whitespace-nowrap mb-2 pb-2 -mx-4 px-4">
+      <!-- 筛选标签 - 主理人/唤醒师/找搭子 -->
+      <div v-if="activeTab === 'master' || activeTab === 'dazi' || activeTab === 'skill'"
+        class="flex items-center overflow-x-auto whitespace-nowrap mb-2 pb-2 -mx-4 px-4 scrollbar-hide">
+        <button
+          class="flex items-center rounded-full px-3 py-1.5 text-sm mr-2 transition-colors"
+          :class="selectedFilter === '推荐' ? 'bg-orange-500 text-white' : 'bg-white text-gray-700'"
+          @click="selectedFilter = '推荐'">
+          推荐
+        </button>
+        <button
+          class="flex items-center rounded-full px-3 py-1.5 text-sm mr-2 transition-colors"
+          :class="selectedFilter === '附近' ? 'bg-orange-500 text-white' : 'bg-white text-gray-700'"
+          @click="selectedFilter = '附近'">
+          附近
+        </button>
+        <button
+          class="flex items-center bg-white rounded-full px-3 py-1.5 text-sm mr-2"
+          @click="showVenueFilterModal">
+          运动场馆筛选
+          <i class="fa fa-angle-down ml-1 text-xs"></i>
+        </button>
+        <button
+          class="flex items-center bg-white rounded-full px-3 py-1.5 text-sm mr-2"
+          @click="showEquipmentFilterModal">
+          运动装备筛选
+          <i class="fa fa-angle-down ml-1 text-xs"></i>
+        </button>
+        <button
+          class="flex items-center bg-white rounded-full px-3 py-1.5 text-sm mr-2"
+          @click="showTrainingFilterModal">
+          运动培训筛选
+          <i class="fa fa-angle-down ml-1 text-xs"></i>
+        </button>
+        <button
+          class="flex items-center bg-white rounded-full px-3 py-1.5 text-sm"
+          @click="showLeisureFilterModal">
+          休闲娱乐筛选
+          <i class="fa fa-angle-down ml-1 text-xs"></i>
+        </button>
+      </div>
+
+      <!-- 筛选标签 - 组团去玩 -->
+      <div v-else-if="activeTab === 'group'"
+        class="flex items-center overflow-x-auto whitespace-nowrap mb-2 pb-2 -mx-4 px-4 scrollbar-hide">
         <button class="flex items-center bg-white rounded-full px-3 py-1.5 text-sm mr-2">
           附近
           <i class="fa fa-angle-down ml-1 text-xs"></i>
@@ -394,6 +436,170 @@
         </div>
       </div>
     </div>
+
+    <!-- 运动场馆筛选弹框 -->
+    <div v-if="showVenueModal" class="filter-modal">
+      <div class="modal-overlay" @click="closeVenueFilterModal"></div>
+      <div class="filter-modal-content">
+        <div class="flex justify-between items-center mb-4">
+          <h3 class="text-lg font-bold text-gray-800">运动场馆筛选</h3>
+          <button class="w-10 h-10 flex items-center justify-center rounded-full text-gray-500 hover:bg-gray-100"
+            @click="closeVenueFilterModal">
+            <i class="fa fa-times text-lg"></i>
+          </button>
+        </div>
+
+        <div class="space-y-3 mb-6">
+          <button
+            class="w-full py-4 px-4 rounded-lg text-base font-medium transition-all bg-gray-100 text-gray-700 hover:bg-gray-200 text-left">
+            健身房
+          </button>
+          <button
+            class="w-full py-4 px-4 rounded-lg text-base font-medium transition-all bg-gray-100 text-gray-700 hover:bg-gray-200 text-left">
+            游泳馆
+          </button>
+          <button
+            class="w-full py-4 px-4 rounded-lg text-base font-medium transition-all bg-gray-100 text-gray-700 hover:bg-gray-200 text-left">
+            篮球馆
+          </button>
+          <button
+            class="w-full py-4 px-4 rounded-lg text-base font-medium transition-all bg-gray-100 text-gray-700 hover:bg-gray-200 text-left">
+            羽毛球馆
+          </button>
+        </div>
+
+        <div class="flex flex-col gap-3">
+          <button
+            class="py-3.5 bg-orange-500 text-white rounded-lg font-semibold transition-all duration-200 ease-in-out hover:bg-orange-600 shadow-md"
+            @click="closeVenueFilterModal">
+            确定
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- 运动装备筛选弹框 -->
+    <div v-if="showEquipmentModal" class="filter-modal">
+      <div class="modal-overlay" @click="closeEquipmentFilterModal"></div>
+      <div class="filter-modal-content">
+        <div class="flex justify-between items-center mb-4">
+          <h3 class="text-lg font-bold text-gray-800">运动装备筛选</h3>
+          <button class="w-10 h-10 flex items-center justify-center rounded-full text-gray-500 hover:bg-gray-100"
+            @click="closeEquipmentFilterModal">
+            <i class="fa fa-times text-lg"></i>
+          </button>
+        </div>
+
+        <div class="space-y-3 mb-6">
+          <button
+            class="w-full py-4 px-4 rounded-lg text-base font-medium transition-all bg-gray-100 text-gray-700 hover:bg-gray-200 text-left">
+            运动鞋
+          </button>
+          <button
+            class="w-full py-4 px-4 rounded-lg text-base font-medium transition-all bg-gray-100 text-gray-700 hover:bg-gray-200 text-left">
+            运动服
+          </button>
+          <button
+            class="w-full py-4 px-4 rounded-lg text-base font-medium transition-all bg-gray-100 text-gray-700 hover:bg-gray-200 text-left">
+            健身器材
+          </button>
+          <button
+            class="w-full py-4 px-4 rounded-lg text-base font-medium transition-all bg-gray-100 text-gray-700 hover:bg-gray-200 text-left">
+            球类装备
+          </button>
+        </div>
+
+        <div class="flex flex-col gap-3">
+          <button
+            class="py-3.5 bg-orange-500 text-white rounded-lg font-semibold transition-all duration-200 ease-in-out hover:bg-orange-600 shadow-md"
+            @click="closeEquipmentFilterModal">
+            确定
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- 运动培训筛选弹框 -->
+    <div v-if="showTrainingModal" class="filter-modal">
+      <div class="modal-overlay" @click="closeTrainingFilterModal"></div>
+      <div class="filter-modal-content">
+        <div class="flex justify-between items-center mb-4">
+          <h3 class="text-lg font-bold text-gray-800">运动培训筛选</h3>
+          <button class="w-10 h-10 flex items-center justify-center rounded-full text-gray-500 hover:bg-gray-100"
+            @click="closeTrainingFilterModal">
+            <i class="fa fa-times text-lg"></i>
+          </button>
+        </div>
+
+        <div class="space-y-3 mb-6">
+          <button
+            class="w-full py-4 px-4 rounded-lg text-base font-medium transition-all bg-gray-100 text-gray-700 hover:bg-gray-200 text-left">
+            游泳培训
+          </button>
+          <button
+            class="w-full py-4 px-4 rounded-lg text-base font-medium transition-all bg-gray-100 text-gray-700 hover:bg-gray-200 text-left">
+            健身培训
+          </button>
+          <button
+            class="w-full py-4 px-4 rounded-lg text-base font-medium transition-all bg-gray-100 text-gray-700 hover:bg-gray-200 text-left">
+            球类培训
+          </button>
+          <button
+            class="w-full py-4 px-4 rounded-lg text-base font-medium transition-all bg-gray-100 text-gray-700 hover:bg-gray-200 text-left">
+            瑜伽培训
+          </button>
+        </div>
+
+        <div class="flex flex-col gap-3">
+          <button
+            class="py-3.5 bg-orange-500 text-white rounded-lg font-semibold transition-all duration-200 ease-in-out hover:bg-orange-600 shadow-md"
+            @click="closeTrainingFilterModal">
+            确定
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- 休闲娱乐筛选弹框 -->
+    <div v-if="showLeisureModal" class="filter-modal">
+      <div class="modal-overlay" @click="closeLeisureFilterModal"></div>
+      <div class="filter-modal-content">
+        <div class="flex justify-between items-center mb-4">
+          <h3 class="text-lg font-bold text-gray-800">休闲娱乐筛选</h3>
+          <button class="w-10 h-10 flex items-center justify-center rounded-full text-gray-500 hover:bg-gray-100"
+            @click="closeLeisureFilterModal">
+            <i class="fa fa-times text-lg"></i>
+          </button>
+        </div>
+
+        <div class="space-y-3 mb-6">
+          <button
+            class="w-full py-4 px-4 rounded-lg text-base font-medium transition-all bg-gray-100 text-gray-700 hover:bg-gray-200 text-left">
+            咖啡馆
+          </button>
+          <button
+            class="w-full py-4 px-4 rounded-lg text-base font-medium transition-all bg-gray-100 text-gray-700 hover:bg-gray-200 text-left">
+            茶馆
+          </button>
+          <button
+            class="w-full py-4 px-4 rounded-lg text-base font-medium transition-all bg-gray-100 text-gray-700 hover:bg-gray-200 text-left">
+            电影院
+          </button>
+          <button
+            class="w-full py-4 px-4 rounded-lg text-base font-medium transition-all bg-gray-100 text-gray-700 hover:bg-gray-200 text-left">
+            KTV
+          </button>
+        </div>
+
+        <div class="flex flex-col gap-3">
+          <button
+            class="py-3.5 bg-orange-500 text-white rounded-lg font-semibold transition-all duration-200 ease-in-out hover:bg-orange-600 shadow-md"
+            @click="closeLeisureFilterModal">
+            确定
+          </button>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -412,6 +618,11 @@ export default {
       selectedType: "户外运动",
       selectedCost: "费用",
       selectedCategory: "户外运动",
+      selectedFilter: "推荐", // 主理人/唤醒师/找搭子的筛选状态
+      showVenueModal: false, // 运动场馆筛选弹窗
+      showEquipmentModal: false, // 运动装备筛选弹窗
+      showTrainingModal: false, // 运动培训筛选弹窗
+      showLeisureModal: false, // 休闲娱乐筛选弹窗
       activityTypes: [
         {
           category: "户外运动",
@@ -626,6 +837,42 @@ export default {
       this.selectedCost = "费用";
       this.selectedCategory = "户外运动";
     },
+    // 显示运动场馆筛选弹窗
+    showVenueFilterModal() {
+      this.showVenueModal = true;
+    },
+    // 关闭运动场馆筛选弹窗
+    closeVenueFilterModal() {
+      this.showVenueModal = false;
+    },
+    // 显示运动装备筛选弹窗
+    showEquipmentFilterModal() {
+      this.showEquipmentModal = true;
+    },
+    // 关闭运动装备筛选弹窗
+    closeEquipmentFilterModal() {
+      this.showEquipmentModal = false;
+    },
+    // 显示运动培训筛选弹窗
+    showTrainingFilterModal() {
+      this.showTrainingModal = true;
+    },
+    // 关闭运动培训筛选弹窗
+    closeTrainingFilterModal() {
+      this.showTrainingModal = false;
+    },
+    // 显示休闲娱乐筛选弹窗
+    showLeisureFilterModal() {
+      this.showLeisureModal = true;
+    },
+    // 关闭休闲娱乐筛选弹窗
+    closeLeisureFilterModal() {
+      this.showLeisureModal = false;
+    },
+    handleCoachDetail(coachId) {
+      console.log(`查看教练详情: ${coachId}`);
+      this.$router.push(`/ouyang`);
+    },
   },
 };
 </script>
@@ -634,6 +881,16 @@ export default {
 .page {
   min-height: 100vh;
   background-color: #f5f5f5;
+}
+
+/* 隐藏滚动条 */
+.scrollbar-hide {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
 }
 
 /* 自定义滚动条样式 */
