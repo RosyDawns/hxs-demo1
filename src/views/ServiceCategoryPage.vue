@@ -9,7 +9,7 @@
           <button @click="goBack" class="text-black mr-2">
             <i class="fa fa-angle-left text-xl"></i>
           </button>
-          <div class="flex justify-between flex-1 py-2">
+          <div class="flex justify-around flex-1 py-2">
             <button
               class="flex flex-col items-center px-3 py-2 rounded-lg"
               :class="
@@ -60,7 +60,7 @@
     </header>
 
     <!-- 主内容区 -->
-    <main class="pt-20 pb-16 px-4">
+    <main class="pt-18 pb-16 px-4">
       <!-- 搜索框 -->
       <div class="relative mb-4">
         <input
@@ -109,60 +109,160 @@
       <div class="space-y-4">
         <!-- 主理人内容 -->
         <template v-if="activeTab === 'master'">
-          <div class="bg-white rounded-lg shadow-sm p-4 mb-4">
-            <div class="flex items-center mb-3">
-              <img
-                src="@images/user_1.png"
-                class="w-12 h-12 rounded-full mr-3"
-              />
-              <div>
-                <h3 class="font-medium">张主理人</h3>
-                <p class="text-xs text-gray-500">生活主理人 | 5年经验</p>
-                <div class="flex items-center mt-1">
-                  <i class="fa fa-star text-yellow-500 mr-1"></i>
-                  <span class="text-xs">4.8</span>
-                  <span class="text-xs text-gray-500 ml-2">50+服务</span>
+          <div
+            class="bg-white rounded-lg shadow-sm overflow-hidden cursor-pointer"
+            @click="$router.push('/product-detail/product1')"
+          >
+            <div class="p-3">
+              <div class="flex items-center justify-between mb-2">
+                <div class="flex items-center">
+                  <span
+                    class="bg-green-50 text-green-500 text-xs px-2 py-0.5 rounded-full mr-2"
+                    >健身房</span
+                  >
+                  <h3 class="font-medium">普陀新村路健身房</h3>
                 </div>
               </div>
+              <p class="text-xs text-gray-500 mb-2">
+                <span>营业时间：06:00-10:30</span>
+                <span>评分：4.8</span>
+                <span>普陀新村路100号</span>
+                <span>距离:2km</span>
+              </p>
+              <div class="flex flex-wrap gap-1 mb-3">
+                <span class="text-xs text-gray-500 flex items-center">
+                  <i class="fa fa-users mr-1"></i>
+                  环境好
+                </span>
+                <span class="text-xs text-gray-500 flex items-center">
+                  <i class="fa fa-camera mr-1"></i>
+                  设新备齐
+                </span>
+                <span class="text-xs text-gray-500 flex items-center">
+                  <i class="fa fa-heart mr-1"></i>
+                  教练专业
+                </span>
+              </div>
             </div>
-            <p class="text-sm text-gray-700 mb-3">
-              专业的生活指导，帮你发现生活的美好
-            </p>
-            <div class="flex justify-between items-center">
-              <div class="text-orange-500 font-medium">¥188起</div>
+
+            <!-- 活动图片 -->
+            <div class="flex gap-1 px-3 mb-3">
+              <img
+                src="@images/img_43.jpg"
+                class="w-1/3 h-24 object-cover rounded"
+              />
+              <img
+                src="@images/img_43.jpg"
+                class="w-1/3 h-24 object-cover rounded"
+              />
+              <img
+                src="@images/img_43.jpg"
+                class="w-1/3 h-24 object-cover rounded"
+              />
+            </div>
+
+            <div class="flex items-center justify-between px-3 pb-3">
+              <div class="flex items-center">
+                <span class="text-xs text-blue-500 mr-2">惠</span>
+                <div class="flex -space-x-1">
+                  <img
+                    src="@images/img_39.jpg"
+                    class="w-5 h-5 rounded-full border border-white"
+                  />
+                  <img
+                    src="@images/img_39.jpg"
+                    class="w-5 h-5 rounded-full border border-white"
+                  />
+                  <img
+                    src="@images/img_39.jpg"
+                    class="w-5 h-5 rounded-full border border-white"
+                  />
+                </div>
+                <span class="text-xs text-gray-500 ml-1">28人已报名</span>
+              </div>
               <button
                 class="bg-orange-500 text-white text-sm font-medium px-4 py-1.5 rounded-full"
               >
-                预约
+                购买
               </button>
             </div>
           </div>
 
-          <div class="bg-white rounded-lg shadow-sm p-4">
-            <div class="flex items-center mb-3">
-              <img
-                src="@images/user_2.png"
-                class="w-12 h-12 rounded-full mr-3"
-              />
-              <div>
-                <h3 class="font-medium">李主理人</h3>
-                <p class="text-xs text-gray-500">健康主理人 | 3年经验</p>
-                <div class="flex items-center mt-1">
-                  <i class="fa fa-star text-yellow-500 mr-1"></i>
-                  <span class="text-xs">4.9</span>
-                  <span class="text-xs text-gray-500 ml-2">80+服务</span>
+          <div
+            class="bg-white rounded-lg shadow-sm overflow-hidden cursor-pointer"
+            @click="$router.push('/product-detail/product1')"
+          >
+            <div class="p-3">
+              <div class="flex items-center justify-between mb-2">
+                <div class="flex items-center">
+                  <span
+                    class="bg-green-50 text-green-500 text-xs px-2 py-0.5 rounded-full mr-2"
+                    >篮球馆</span
+                  >
+                  <h3 class="font-medium">普陀新村路篮球馆</h3>
                 </div>
               </div>
+              <p class="text-xs text-gray-500 mb-2">
+                <span>营业时间：06:00-10:30</span>
+                <span>评分：4.8</span>
+                <span>普陀新村路200号</span>
+                <span>距离:2.5km</span>
+              </p>
+              <div class="flex flex-wrap gap-1 mb-3">
+                <span class="text-xs text-gray-500 flex items-center">
+                  <i class="fa fa-users mr-1"></i>
+                  环境好
+                </span>
+                <span class="text-xs text-gray-500 flex items-center">
+                  <i class="fa fa-heart mr-1"></i>
+                  场馆新
+                </span>
+                <span class="text-xs text-gray-500 flex items-center">
+                  <i class="fa fa-camera mr-1"></i>
+                  设新备齐
+                </span>
+              </div>
             </div>
-            <p class="text-sm text-gray-700 mb-3">
-              健康管理专家，制定个性化健康方案
-            </p>
-            <div class="flex justify-between items-center">
-              <div class="text-orange-500 font-medium">¥220起</div>
+
+            <!-- 活动图片 -->
+            <div class="flex gap-1 px-3 mb-3">
+              <img
+                src="@images/img_43.jpg"
+                class="w-1/3 h-24 object-cover rounded"
+              />
+              <img
+                src="@images/img_43.jpg"
+                class="w-1/3 h-24 object-cover rounded"
+              />
+              <img
+                src="@images/img_43.jpg"
+                class="w-1/3 h-24 object-cover rounded"
+              />
+            </div>
+
+            <div class="flex items-center justify-between px-3 pb-3">
+              <div class="flex items-center">
+                <span class="text-xs text-blue-500 mr-2">惠</span>
+                <div class="flex -space-x-1">
+                  <img
+                    src="@images/img_39.jpg"
+                    class="w-5 h-5 rounded-full border border-white"
+                  />
+                  <img
+                    src="@images/img_39.jpg"
+                    class="w-5 h-5 rounded-full border border-white"
+                  />
+                  <img
+                    src="@images/img_39.jpg"
+                    class="w-5 h-5 rounded-full border border-white"
+                  />
+                </div>
+                <span class="text-xs text-gray-500 ml-1">28人已报名</span>
+              </div>
               <button
                 class="bg-orange-500 text-white text-sm font-medium px-4 py-1.5 rounded-full"
               >
-                预约
+                购买
               </button>
             </div>
           </div>
@@ -170,124 +270,22 @@
 
         <!-- 达子唤醒师内容 -->
         <template v-if="activeTab === 'dazi'">
-          <div class="bg-white rounded-lg shadow-sm p-4 mb-4">
-            <div class="flex items-center mb-3">
-              <img
-                src="@images/user_3.png"
-                class="w-12 h-12 rounded-full mr-3"
-              />
-              <div>
-                <h3 class="font-medium">王达子</h3>
-                <p class="text-xs text-gray-500">达子唤醒师 | 专业达人</p>
-                <div class="flex items-center mt-1">
-                  <i class="fa fa-star text-yellow-500 mr-1"></i>
-                  <span class="text-xs">4.7</span>
-                  <span class="text-xs text-gray-500 ml-2">60+服务</span>
-                </div>
-              </div>
-            </div>
-            <p class="text-sm text-gray-700 mb-3">
-              擅长生活技能唤醒，激发你的潜能
-            </p>
-            <div class="flex justify-between items-center">
-              <div class="text-orange-500 font-medium">¥150起</div>
-              <button
-                class="bg-orange-500 text-white text-sm font-medium px-4 py-1.5 rounded-full"
-              >
-                预约
-              </button>
-            </div>
-          </div>
-
-          <div class="bg-white rounded-lg shadow-sm p-4">
-            <div class="flex items-center mb-3">
-              <img
-                src="@images/user_4.jpg"
-                class="w-12 h-12 rounded-full mr-3"
-              />
-              <div>
-                <h3 class="font-medium">陈达子</h3>
-                <p class="text-xs text-gray-500">达子唤醒师 | 技能导师</p>
-                <div class="flex items-center mt-1">
-                  <i class="fa fa-star text-yellow-500 mr-1"></i>
-                  <span class="text-xs">4.8</span>
-                  <span class="text-xs text-gray-500 ml-2">75+服务</span>
-                </div>
-              </div>
-            </div>
-            <p class="text-sm text-gray-700 mb-3">
-              专业技能培训，让你成为更好的自己
-            </p>
-            <div class="flex justify-between items-center">
-              <div class="text-orange-500 font-medium">¥180起</div>
-              <button
-                class="bg-orange-500 text-white text-sm font-medium px-4 py-1.5 rounded-full"
-              >
-                预约
-              </button>
-            </div>
-          </div>
+          <HxsItem
+            v-for="(coach, index) in recommendedCoaches"
+            :key="coach.id"
+            :coach="coach"
+            @view-profile="handleCoachDetail"
+          />
         </template>
 
         <!-- 技能唤醒师内容 -->
         <template v-if="activeTab === 'skill'">
-          <div class="bg-white rounded-lg shadow-sm p-4 mb-4">
-            <div class="flex items-center mb-3">
-              <img
-                src="@images/img-18.jpg"
-                class="w-12 h-12 rounded-full mr-3"
-              />
-              <div>
-                <h3 class="font-medium">刘技能师</h3>
-                <p class="text-xs text-gray-500">技能唤醒师 | 烘焙专家</p>
-                <div class="flex items-center mt-1">
-                  <i class="fa fa-star text-yellow-500 mr-1"></i>
-                  <span class="text-xs">4.9</span>
-                  <span class="text-xs text-gray-500 ml-2">90+服务</span>
-                </div>
-              </div>
-            </div>
-            <p class="text-sm text-gray-700 mb-3">
-              烘焙技能教学，唤醒你的烘焙天赋
-            </p>
-            <div class="flex justify-between items-center">
-              <div class="text-orange-500 font-medium">¥200起</div>
-              <button
-                class="bg-orange-500 text-white text-sm font-medium px-4 py-1.5 rounded-full"
-              >
-                预约
-              </button>
-            </div>
-          </div>
-
-          <div class="bg-white rounded-lg shadow-sm p-4">
-            <div class="flex items-center mb-3">
-              <img
-                src="@images/img-13.jpg"
-                class="w-12 h-12 rounded-full mr-3"
-              />
-              <div>
-                <h3 class="font-medium">赵技能师</h3>
-                <p class="text-xs text-gray-500">技能唤醒师 | 摄影达人</p>
-                <div class="flex items-center mt-1">
-                  <i class="fa fa-star text-yellow-500 mr-1"></i>
-                  <span class="text-xs">4.8</span>
-                  <span class="text-xs text-gray-500 ml-2">70+服务</span>
-                </div>
-              </div>
-            </div>
-            <p class="text-sm text-gray-700 mb-3">
-              摄影技能指导，发现你的创作潜能
-            </p>
-            <div class="flex justify-between items-center">
-              <div class="text-orange-500 font-medium">¥250起</div>
-              <button
-                class="bg-orange-500 text-white text-sm font-medium px-4 py-1.5 rounded-full"
-              >
-                预约
-              </button>
-            </div>
-          </div>
+          <HxsItem
+            v-for="(coach, index) in recommendedCoaches"
+            :key="coach.id"
+            :coach="coach"
+            @view-profile="handleCoachDetail"
+          />
         </template>
 
         <!-- 组团内容 -->
@@ -451,120 +449,6 @@
       </div>
     </main>
 
-    <!-- 底部导航栏 -->
-    <footer
-      class="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-100 flex justify-around items-center py-2"
-    >
-      <button class="flex flex-col items-center justify-center text-orange-500">
-        <i class="fa fa-compass text-xl mb-1"></i>
-        <span class="text-xs">活动广场</span>
-      </button>
-      <button
-        class="flex flex-col items-center justify-center text-gray-500"
-        @click="goToCreateActivity"
-      >
-        <!-- 创建 -->
-        <div
-          class="w-10 h-10 bg-orange-500 rounded-full flex items-center justify-center"
-        >
-          <i class="fa fa-plus text-white text-base"></i>
-        </div>
-      </button>
-      <button class="flex flex-col items-center justify-center text-gray-500">
-        <i class="fa-solid fa-comment text-xl mb-1"></i>
-        <span class="text-xs">消息</span>
-      </button>
-      <button class="flex flex-col items-center justify-center text-gray-500">
-        <i class="fa-solid fa-user text-xl mb-1"></i>
-        <span class="text-xs">我的</span>
-      </button>
-    </footer>
-
-    <!-- 弹出的创建选择框 -->
-    <div class="create-modal" v-if="showCreateModal">
-      <div class="modal-overlay" @click="closeCreateModal"></div>
-      <div class="modal-content">
-        <button class="modal-close" @click="closeCreateModal">
-          <i class="fa fa-times"></i>
-        </button>
-        <h2 class="modal-title">组团去玩</h2>
-        <p class="modal-subtitle">唤醒你的热爱</p>
-
-        <div class="create-options">
-          <button class="option-card yellow-card" @click="createActivity">
-            <h3>发活动</h3>
-            <p>开始你的活动之旅</p>
-          </button>
-          <button class="option-card orange-card" @click="publishDynamic">
-            <h3>发动态</h3>
-            <p>让更多伙伴看到你</p>
-          </button>
-        </div>
-      </div>
-    </div>
-
-    <!-- 认证提示弹框 -->
-    <div class="verification-prompt-modal" v-if="showVerificationPromptModal">
-      <div class="modal-overlay" @click="closeVerificationPrompt"></div>
-      <div class="prompt-dialog">
-        <h3 class="prompt-title">完成认证即可发布活动</h3>
-        <p class="prompt-message">完成认证成为主理人后，即可发布活动</p>
-        <div class="prompt-actions">
-          <button class="btn-cancel" @click="closeVerificationPrompt">
-            取消
-          </button>
-          <button class="btn-verify" @click="showVerificationTypeModal">
-            立刻认证
-          </button>
-        </div>
-      </div>
-    </div>
-
-    <!-- 认证类型选择弹框 -->
-    <div class="verification-type-modal" v-if="showVerificationTypeSelect">
-      <div class="modal-overlay" @click="closeVerificationTypeModal"></div>
-      <div class="type-modal-content">
-        <button class="modal-close" @click="closeVerificationTypeModal">
-          <i class="fa fa-times"></i>
-        </button>
-        <h2 class="type-modal-title">选择认证类型</h2>
-
-        <div class="verification-types">
-          <!-- 机构认证 -->
-          <div class="type-card">
-            <div class="type-icon org-icon">
-              <i class="fa fa-building"></i>
-            </div>
-            <div class="type-info">
-              <h3 class="type-title">机构认证</h3>
-              <p class="type-desc">
-                适合有一定组织能力的兴趣团体，认证后可发布更多类型活动，同时有专属的俱乐部标识。
-              </p>
-            </div>
-            <button class="btn-go-verify" @click="goToOrgVerification">
-              去认证
-            </button>
-          </div>
-
-          <!-- 个人认证 -->
-          <div class="type-card">
-            <div class="type-icon personal-icon">
-              <i class="fa fa-user"></i>
-            </div>
-            <div class="type-info">
-              <h3 class="type-title">个人认证</h3>
-              <p class="type-desc">
-                适合各类兴趣爱好者，认证后可发布兴趣活动。
-              </p>
-            </div>
-            <button class="btn-go-verify" @click="goToPersonalVerification">
-              去认证
-            </button>
-          </div>
-        </div>
-      </div>
-    </div>
-
     <!-- 类型筛选弹框 -->
     <div v-if="showTypeModal" class="filter-modal">
       <div class="modal-overlay" @click="closeTypeFilterModal"></div>
@@ -686,6 +570,7 @@
 </template>
 
 <script>
+import HxsItem from "@/components/hxs-item.vue";
 export default {
   name: "ServiceCategoryPage",
   data() {
@@ -725,7 +610,55 @@ export default {
         { category: "追星", items: ["演唱会", "粉丝见面会"] },
       ],
       costOptions: ["免费活动", "线下AA制", "付费活动"],
+
+      recommendedCoaches: [
+        {
+          id: "coach1",
+          name: "李教练",
+          type: "游泳教练",
+          title: "国家二级运动员 | 8年教学经验",
+          rating: 4.8,
+          distance: 1.2,
+          image: "https://picsum.photos/id/1005/100/100",
+          prices: {
+            trial: 88,
+            single: 200,
+            card10: 1680,
+          },
+        },
+        {
+          id: "coach2",
+          name: "赵教练",
+          type: "游泳教练",
+          title: "国家一级运动员 | 10年教学经验",
+          rating: 4.9,
+          distance: 1.5,
+          image: "https://picsum.photos/id/1011/100/100",
+          prices: {
+            trial: 98,
+            single: 220,
+            card10: 1880,
+          },
+        },
+        {
+          id: "coach3",
+          name: "张教练",
+          type: "游泳教练",
+          title: "国家二级运动员 | 6年教学经验",
+          rating: 4.6,
+          distance: 1.5,
+          image: "https://picsum.photos/id/1012/100/100",
+          prices: {
+            trial: 80,
+            single: 180,
+            card10: 1580,
+          },
+        },
+      ],
     };
+  },
+  components: {
+    HxsItem,
   },
   computed: {
     // 计算当前选中分类的二级分类
