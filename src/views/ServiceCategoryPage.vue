@@ -451,19 +451,27 @@
 
         <div class="space-y-3 mb-6">
           <button
-            class="w-full py-4 px-4 rounded-lg text-base font-medium transition-all bg-gray-100 text-gray-700 hover:bg-gray-200 text-left">
+            class="w-full py-4 px-4 rounded-lg text-base font-medium transition-all text-left"
+            :class="selectedVenue === '健身房' ? 'bg-orange-500 text-white shadow-md' : 'bg-gray-100 text-gray-700 hover:bg-gray-200'"
+            @click="selectVenue('健身房')">
             健身房
           </button>
           <button
-            class="w-full py-4 px-4 rounded-lg text-base font-medium transition-all bg-gray-100 text-gray-700 hover:bg-gray-200 text-left">
+            class="w-full py-4 px-4 rounded-lg text-base font-medium transition-all text-left"
+            :class="selectedVenue === '游泳馆' ? 'bg-orange-500 text-white shadow-md' : 'bg-gray-100 text-gray-700 hover:bg-gray-200'"
+            @click="selectVenue('游泳馆')">
             游泳馆
           </button>
           <button
-            class="w-full py-4 px-4 rounded-lg text-base font-medium transition-all bg-gray-100 text-gray-700 hover:bg-gray-200 text-left">
+            class="w-full py-4 px-4 rounded-lg text-base font-medium transition-all text-left"
+            :class="selectedVenue === '篮球馆' ? 'bg-orange-500 text-white shadow-md' : 'bg-gray-100 text-gray-700 hover:bg-gray-200'"
+            @click="selectVenue('篮球馆')">
             篮球馆
           </button>
           <button
-            class="w-full py-4 px-4 rounded-lg text-base font-medium transition-all bg-gray-100 text-gray-700 hover:bg-gray-200 text-left">
+            class="w-full py-4 px-4 rounded-lg text-base font-medium transition-all text-left"
+            :class="selectedVenue === '羽毛球馆' ? 'bg-orange-500 text-white shadow-md' : 'bg-gray-100 text-gray-700 hover:bg-gray-200'"
+            @click="selectVenue('羽毛球馆')">
             羽毛球馆
           </button>
         </div>
@@ -471,7 +479,7 @@
         <div class="flex flex-col gap-3">
           <button
             class="py-3.5 bg-orange-500 text-white rounded-lg font-semibold transition-all duration-200 ease-in-out hover:bg-orange-600 shadow-md"
-            @click="closeVenueFilterModal">
+            @click="confirmVenue">
             确定
           </button>
         </div>
@@ -492,19 +500,27 @@
 
         <div class="space-y-3 mb-6">
           <button
-            class="w-full py-4 px-4 rounded-lg text-base font-medium transition-all bg-gray-100 text-gray-700 hover:bg-gray-200 text-left">
+            class="w-full py-4 px-4 rounded-lg text-base font-medium transition-all text-left"
+            :class="selectedEquipment === '运动鞋' ? 'bg-orange-500 text-white shadow-md' : 'bg-gray-100 text-gray-700 hover:bg-gray-200'"
+            @click="selectEquipment('运动鞋')">
             运动鞋
           </button>
           <button
-            class="w-full py-4 px-4 rounded-lg text-base font-medium transition-all bg-gray-100 text-gray-700 hover:bg-gray-200 text-left">
+            class="w-full py-4 px-4 rounded-lg text-base font-medium transition-all text-left"
+            :class="selectedEquipment === '运动服' ? 'bg-orange-500 text-white shadow-md' : 'bg-gray-100 text-gray-700 hover:bg-gray-200'"
+            @click="selectEquipment('运动服')">
             运动服
           </button>
           <button
-            class="w-full py-4 px-4 rounded-lg text-base font-medium transition-all bg-gray-100 text-gray-700 hover:bg-gray-200 text-left">
+            class="w-full py-4 px-4 rounded-lg text-base font-medium transition-all text-left"
+            :class="selectedEquipment === '健身器材' ? 'bg-orange-500 text-white shadow-md' : 'bg-gray-100 text-gray-700 hover:bg-gray-200'"
+            @click="selectEquipment('健身器材')">
             健身器材
           </button>
           <button
-            class="w-full py-4 px-4 rounded-lg text-base font-medium transition-all bg-gray-100 text-gray-700 hover:bg-gray-200 text-left">
+            class="w-full py-4 px-4 rounded-lg text-base font-medium transition-all text-left"
+            :class="selectedEquipment === '球类装备' ? 'bg-orange-500 text-white shadow-md' : 'bg-gray-100 text-gray-700 hover:bg-gray-200'"
+            @click="selectEquipment('球类装备')">
             球类装备
           </button>
         </div>
@@ -512,7 +528,7 @@
         <div class="flex flex-col gap-3">
           <button
             class="py-3.5 bg-orange-500 text-white rounded-lg font-semibold transition-all duration-200 ease-in-out hover:bg-orange-600 shadow-md"
-            @click="closeEquipmentFilterModal">
+            @click="confirmEquipment">
             确定
           </button>
         </div>
@@ -533,19 +549,27 @@
 
         <div class="space-y-3 mb-6">
           <button
-            class="w-full py-4 px-4 rounded-lg text-base font-medium transition-all bg-gray-100 text-gray-700 hover:bg-gray-200 text-left">
+            class="w-full py-4 px-4 rounded-lg text-base font-medium transition-all text-left"
+            :class="selectedTraining === '游泳培训' ? 'bg-orange-500 text-white shadow-md' : 'bg-gray-100 text-gray-700 hover:bg-gray-200'"
+            @click="selectTraining('游泳培训')">
             游泳培训
           </button>
           <button
-            class="w-full py-4 px-4 rounded-lg text-base font-medium transition-all bg-gray-100 text-gray-700 hover:bg-gray-200 text-left">
+            class="w-full py-4 px-4 rounded-lg text-base font-medium transition-all text-left"
+            :class="selectedTraining === '健身培训' ? 'bg-orange-500 text-white shadow-md' : 'bg-gray-100 text-gray-700 hover:bg-gray-200'"
+            @click="selectTraining('健身培训')">
             健身培训
           </button>
           <button
-            class="w-full py-4 px-4 rounded-lg text-base font-medium transition-all bg-gray-100 text-gray-700 hover:bg-gray-200 text-left">
+            class="w-full py-4 px-4 rounded-lg text-base font-medium transition-all text-left"
+            :class="selectedTraining === '球类培训' ? 'bg-orange-500 text-white shadow-md' : 'bg-gray-100 text-gray-700 hover:bg-gray-200'"
+            @click="selectTraining('球类培训')">
             球类培训
           </button>
           <button
-            class="w-full py-4 px-4 rounded-lg text-base font-medium transition-all bg-gray-100 text-gray-700 hover:bg-gray-200 text-left">
+            class="w-full py-4 px-4 rounded-lg text-base font-medium transition-all text-left"
+            :class="selectedTraining === '瑜伽培训' ? 'bg-orange-500 text-white shadow-md' : 'bg-gray-100 text-gray-700 hover:bg-gray-200'"
+            @click="selectTraining('瑜伽培训')">
             瑜伽培训
           </button>
         </div>
@@ -553,7 +577,7 @@
         <div class="flex flex-col gap-3">
           <button
             class="py-3.5 bg-orange-500 text-white rounded-lg font-semibold transition-all duration-200 ease-in-out hover:bg-orange-600 shadow-md"
-            @click="closeTrainingFilterModal">
+            @click="confirmTraining">
             确定
           </button>
         </div>
@@ -574,19 +598,27 @@
 
         <div class="space-y-3 mb-6">
           <button
-            class="w-full py-4 px-4 rounded-lg text-base font-medium transition-all bg-gray-100 text-gray-700 hover:bg-gray-200 text-left">
+            class="w-full py-4 px-4 rounded-lg text-base font-medium transition-all text-left"
+            :class="selectedLeisure === '咖啡馆' ? 'bg-orange-500 text-white shadow-md' : 'bg-gray-100 text-gray-700 hover:bg-gray-200'"
+            @click="selectLeisure('咖啡馆')">
             咖啡馆
           </button>
           <button
-            class="w-full py-4 px-4 rounded-lg text-base font-medium transition-all bg-gray-100 text-gray-700 hover:bg-gray-200 text-left">
+            class="w-full py-4 px-4 rounded-lg text-base font-medium transition-all text-left"
+            :class="selectedLeisure === '茶馆' ? 'bg-orange-500 text-white shadow-md' : 'bg-gray-100 text-gray-700 hover:bg-gray-200'"
+            @click="selectLeisure('茶馆')">
             茶馆
           </button>
           <button
-            class="w-full py-4 px-4 rounded-lg text-base font-medium transition-all bg-gray-100 text-gray-700 hover:bg-gray-200 text-left">
+            class="w-full py-4 px-4 rounded-lg text-base font-medium transition-all text-left"
+            :class="selectedLeisure === '电影院' ? 'bg-orange-500 text-white shadow-md' : 'bg-gray-100 text-gray-700 hover:bg-gray-200'"
+            @click="selectLeisure('电影院')">
             电影院
           </button>
           <button
-            class="w-full py-4 px-4 rounded-lg text-base font-medium transition-all bg-gray-100 text-gray-700 hover:bg-gray-200 text-left">
+            class="w-full py-4 px-4 rounded-lg text-base font-medium transition-all text-left"
+            :class="selectedLeisure === 'KTV' ? 'bg-orange-500 text-white shadow-md' : 'bg-gray-100 text-gray-700 hover:bg-gray-200'"
+            @click="selectLeisure('KTV')">
             KTV
           </button>
         </div>
@@ -594,7 +626,7 @@
         <div class="flex flex-col gap-3">
           <button
             class="py-3.5 bg-orange-500 text-white rounded-lg font-semibold transition-all duration-200 ease-in-out hover:bg-orange-600 shadow-md"
-            @click="closeLeisureFilterModal">
+            @click="confirmLeisure">
             确定
           </button>
         </div>
@@ -623,6 +655,10 @@ export default {
       showEquipmentModal: false, // 运动装备筛选弹窗
       showTrainingModal: false, // 运动培训筛选弹窗
       showLeisureModal: false, // 休闲娱乐筛选弹窗
+      selectedVenue: "", // 选中的运动场馆
+      selectedEquipment: "", // 选中的运动装备
+      selectedTraining: "", // 选中的运动培训
+      selectedLeisure: "", // 选中的休闲娱乐
       activityTypes: [
         {
           category: "户外运动",
@@ -845,6 +881,15 @@ export default {
     closeVenueFilterModal() {
       this.showVenueModal = false;
     },
+    // 选择运动场馆
+    selectVenue(venue) {
+      this.selectedVenue = venue;
+    },
+    // 确认运动场馆选择
+    confirmVenue() {
+      console.log('选择的运动场馆:', this.selectedVenue);
+      this.closeVenueFilterModal();
+    },
     // 显示运动装备筛选弹窗
     showEquipmentFilterModal() {
       this.showEquipmentModal = true;
@@ -852,6 +897,15 @@ export default {
     // 关闭运动装备筛选弹窗
     closeEquipmentFilterModal() {
       this.showEquipmentModal = false;
+    },
+    // 选择运动装备
+    selectEquipment(equipment) {
+      this.selectedEquipment = equipment;
+    },
+    // 确认运动装备选择
+    confirmEquipment() {
+      console.log('选择的运动装备:', this.selectedEquipment);
+      this.closeEquipmentFilterModal();
     },
     // 显示运动培训筛选弹窗
     showTrainingFilterModal() {
@@ -861,6 +915,15 @@ export default {
     closeTrainingFilterModal() {
       this.showTrainingModal = false;
     },
+    // 选择运动培训
+    selectTraining(training) {
+      this.selectedTraining = training;
+    },
+    // 确认运动培训选择
+    confirmTraining() {
+      console.log('选择的运动培训:', this.selectedTraining);
+      this.closeTrainingFilterModal();
+    },
     // 显示休闲娱乐筛选弹窗
     showLeisureFilterModal() {
       this.showLeisureModal = true;
@@ -868,6 +931,15 @@ export default {
     // 关闭休闲娱乐筛选弹窗
     closeLeisureFilterModal() {
       this.showLeisureModal = false;
+    },
+    // 选择休闲娱乐
+    selectLeisure(leisure) {
+      this.selectedLeisure = leisure;
+    },
+    // 确认休闲娱乐选择
+    confirmLeisure() {
+      console.log('选择的休闲娱乐:', this.selectedLeisure);
+      this.closeLeisureFilterModal();
     },
     handleCoachDetail(coachId) {
       console.log(`查看教练详情: ${coachId}`);
