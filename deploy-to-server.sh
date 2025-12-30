@@ -2,7 +2,7 @@
 
 # 服务器配置
 SERVER_IP="49.235.120.150"
-SERVER_USER="root"  # 如果不是 root，请修改为你的用户名
+SERVER_USER="ubuntu"  # 如果不是 root，请修改为你的用户名
 FRONTEND_PATH="/var/www/projects/hxs-demo/dist"
 BACKEND_PATH="/var/www/projects/hxs-demo/backend"
 
