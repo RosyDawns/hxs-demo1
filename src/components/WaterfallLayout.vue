@@ -5,7 +5,7 @@
         v-for="item in column" 
         :key="item.id" 
         :item="item" 
-        @click="handleItemClick"
+        @click="(itemId) => handleItemClick(itemId)"
         class="mb-3"
       />
     </div>
@@ -52,7 +52,6 @@ export default {
 
     // 处理点击事件
     const handleItemClick = (itemId) => {
-      // 确保传递的是 ID 而不是事件对象
       emit('click', itemId);
     };
 
