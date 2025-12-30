@@ -553,6 +553,20 @@
               </button>
             </div>
           </div>
+
+          <div class="fixed bottom-6 left-1/2 -translate-x-1/2">
+            <button
+              class="flex flex-col items-center justify-center text-gray-500"
+              @click="goToCreateActivity"
+            >
+              <!-- 创建 -->
+              <div
+                class="w-10 h-10 bg-orange-500 rounded-full flex items-center justify-center"
+              >
+                <i class="fa fa-plus text-white text-base"></i>
+              </div>
+            </button>
+          </div>
         </template>
       </div>
     </main>
@@ -1126,6 +1140,28 @@
         </div>
       </div>
     </div>
+
+    <div class="create-modal" v-if="showCreateModal">
+      <div class="modal-overlay" @click="closeCreateModal"></div>
+      <div class="modal-content">
+        <button class="modal-close" @click="closeCreateModal">
+          <i class="fa fa-times"></i>
+        </button>
+        <h2 class="modal-title">组团去玩</h2>
+        <p class="modal-subtitle">唤醒你的热爱</p>
+
+        <div class="create-options">
+          <button class="option-card yellow-card" @click="createActivity">
+            <h3>发活动</h3>
+            <p>开始你的活动之旅</p>
+          </button>
+          <button class="option-card orange-card" @click="publishDynamic">
+            <h3>发动态</h3>
+            <p>让更多伙伴看到你</p>
+          </button>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -1275,6 +1311,9 @@ export default {
     },
   },
   methods: {
+    goToCreateActivity() {
+      this.showCreateModal = true;
+    },
     // 根据路由查询参数设置初始tab
     applyRouteQuery() {
       const tab = this.$route.query.tab;
@@ -1283,7 +1322,8 @@ export default {
         const tabMapping = {
           '主理人': 'master',
           '生活技能': 'skill',
-          '生活搭子': 'dazi'
+          '生活搭子': 'dazi',
+          '组团去玩': 'group',
         };
 
         if (tabMapping[tab]) {

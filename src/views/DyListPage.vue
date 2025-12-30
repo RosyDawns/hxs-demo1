@@ -34,7 +34,14 @@
         <DynamicListItem v-for="item in dynamicItems" :key="item.id" :item="item" @click="handleDynamicClick" />
       </div>
     </div>
-    <!-- 底部导航 -->
+
+    <div
+      class="fixed bottom-18 shadow-md left-1/2 transform -translate-x-1/2 w-12 h-12 text-xs bg-orange-500 z-30 rounded-full flex flex-col items-center justify-center text-white"
+      @click="handlePublish"
+    >
+      <i class="fa-solid fa-paper-plane text-sm"></i>
+    </div>
+
     <FooterNav :activePage="activePage" />
   </div>
 </template>
@@ -234,12 +241,17 @@ export default {
       router.push(`/dynamic-detail/${dynamicId}`);
     };
 
+    const  handlePublish = () => {
+      router.push("/publish-activity");
+    }
+
     return {
       topTab,
       dynamicItems,
       handleDynamicClick,
       activePage,
       router,
+      handlePublish
     };
   },
 };

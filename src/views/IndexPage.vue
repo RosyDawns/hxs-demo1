@@ -244,8 +244,10 @@
         class="px-3 py-1 whitespace-nowrap text-sm font-medium nav-action cursor-pointer bg-orange-500 text-white rounded-full mr-2"
         :class="selectedCategory === '组团去玩'
           ? 'bg-orange-500 text-white'
-          : 'bg-orange-500 text-white'
-          " @click="$router.push('/group-play')">
+          : 'bg-orange-500 text-white'"
+          @click="$router.push('/service-category?tab=组团去玩&top=discover&type=main')"
+        >
+          <!-- @click="$router.push('/group-play')" -->
         组团去玩
       </button>
       <button class="ml-auto text-gray">

@@ -63,9 +63,9 @@
       <!-- AI形象和时间 -->
       <div class="flex items-center mb-5">
         <img
-          src="@images/logo.png"
+          src="@images/wakeBeast.jpg"
           alt="大狮兄"
-          class="w-1/2 mx-auto object-cover"
+          class="w-2/5 mx-auto object-cover"
         />
       </div>
 
