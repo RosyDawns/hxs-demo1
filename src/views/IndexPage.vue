@@ -1,7 +1,7 @@
 <template>
   <div class="page" id="page-index">
     <!-- 顶部导航栏 -->
-    <header class="fixed w-full top-0 z-50 px-3 py-4 flex items-center justify-between transition-all duration-300"
+    <header class="fixed w-full top-0 z-50 px-3 py-2 flex items-center justify-between transition-all duration-300"
       :style="{ backgroundColor: `rgba(255, 255, 255, ${headerOpacity})` }">
       <div class="flex items-center nav-action cursor-pointer" :style="{ color: headerOpacity > 0.5 ? '#000' : '#fff' }"
         @click="showCityPicker = true">
@@ -254,10 +254,21 @@
     </div>
 
     <!-- 教练列表 -->
-    <div class="px-3 pb-3 pt-1">
-      <div class="grid grid-cols-2 gap-3">
-        <DynamicListItem v-for="item in currentDynamicList" :key="item.id" :item="item" @click="handleDynamicClick" />
-      </div>
+    <WaterfallLayout 
+      :items="currentDynamicList" 
+      :columnCount="2"
+      @click="handleDynamicClick" 
+    />
+    
+    <!-- 加载提示 -->
+    <div v-if="loading" class="text-center py-4 text-gray-500">
+      <i class="fa-solid fa-spinner fa-spin mr-2"></i>
+      加载中...
+    </div>
+    
+    <!-- 没有更多数据提示 -->
+    <div v-if="noMore && currentDynamicList.length > 0" class="text-center py-4 text-gray-400 text-sm pb-20">
+      没有更多了
     </div>
 
     <!-- 底部导航 -->
@@ -266,12 +277,12 @@
 </template>
 
 <script>
-import { ref, computed, onUnmounted } from "vue";
+import { ref, computed, onMounted, onUnmounted } from "vue";
 import { useRouter } from "vue-router";
 import FooterNav from "../components/FooterNav.vue";
 import CoachListCard from "../components/CoachListCard.vue";
 import CoachContentCard from "../components/CoachContentCard.vue";
-import DynamicListItem from "../components/DynamicListItem.vue";
+import WaterfallLayout from "../components/WaterfallLayout.vue";
 
 // 导入本地图片资源
 import user1 from "@images/user_1.png";
@@ -288,16 +299,74 @@ import avatr40 from "@images/img_40.jpg";
 import avatr41 from "@images/img_41.jpg";
 import avatr42 from "@images/img_42.jpg";
 
+// 导入运动图片
+import sport1 from '@/assets/images/sports/sport1.webp';
+import sport2 from '@/assets/images/sports/sport2.webp';
+import sport3 from '@/assets/images/sports/sport3.webp';
+import sport4 from '@/assets/images/sports/sport4.webp';
+import sport5 from '@/assets/images/sports/sport5.webp';
+import sport6 from '@/assets/images/sports/sport6.webp';
+
 export default {
   name: "IndexPage",
   components: {
     FooterNav,
     CoachListCard,
     CoachContentCard,
-    DynamicListItem,
+    WaterfallLayout,
   },
   setup() {
     const router = useRouter();
+
+    // 运动图片和标题数据
+    const sportImages = [sport1, sport2, sport3, sport4, sport5, sport6];
+    const avatars = [user1, user2, user3, user4];
+    const sportTitles = [
+      '晨跑打卡！今天跑了10公里，感觉超棒',
+      '瑜伽让我找到内心的平静，每天坚持30分钟',
+      '健身房撸铁日常，今天练背，状态很好',
+      '篮球场上挥洒汗水，这才是青春该有的样子',
+      '游泳是最好的全身运动，坚持就是胜利',
+      '骑行穿越城市，感受不一样的风景',
+      '早起晨跑，迎接美好的一天，加油！',
+      '瑜伽不仅塑形，更能修心养性',
+      '力量训练第100天，见证自己的蜕变',
+      '篮球让我结识了很多志同道合的朋友',
+      '游泳后的放松时刻，身心都得到了释放',
+      '周末骑行100公里，挑战自我极限',
+      '今天的跑步训练完成，突破了个人最佳',
+      '瑜伽课后的拉伸，整个人都轻松了',
+      '健身打卡第365天，坚持改变了我',
+      '篮球三分球命中率提升了，继续加油',
+      '游泳1000米达成，下个目标2000米',
+      '骑行去郊外，沿途风景美不胜收'
+    ];
+    const authors = [
+      '跑步达人小李', '瑜伽教练Anna', '健身教练Mike', '篮球少年',
+      '游泳健将', '骑行爱好者', '晨跑小队长', '瑜伽爱好者',
+      '健身小白变大神', '球场老炮', '水中精灵', '骑行达人'
+    ];
+
+    // 滚动加载相关
+    const loading = ref(false);
+    const noMore = ref(false);
+    let currentId = 100; // 从100开始，避免与现有ID冲突
+
+    // 生成随机运动数据
+    const generateRandomItems = (count) => {
+      const items = [];
+      for (let i = 0; i < count; i++) {
+        items.push({
+          id: currentId++,
+          title: sportTitles[Math.floor(Math.random() * sportTitles.length)],
+          image: sportImages[Math.floor(Math.random() * sportImages.length)],
+          avatar: avatars[Math.floor(Math.random() * avatars.length)],
+          author: authors[Math.floor(Math.random() * authors.length)],
+          likes: Math.floor(Math.random() * 500) + 50
+        });
+      }
+      return items;
+    };
 
     // 当前选中的分类
     const selectedCategory = ref("推荐");
@@ -385,15 +454,25 @@ export default {
       console.log("选择的城市:", city);
     };
 
-    // 处理页面滚动事件
+    // 处理页面滚动事件（合并头部透明度和滚动加载）
     const handleScroll = () => {
-      const scrollTop = window.scrollY;
-      // 计算透明度：滚动距离在0-300px之间时，透明度从0变到1，减慢变色速度
+      const scrollTop = window.pageYOffset || document.documentElement.scrollTop || window.scrollY;
+      const windowHeight = window.innerHeight;
+      const documentHeight = document.documentElement.scrollHeight;
+      
+      // 计算头部透明度
       headerOpacity.value = Math.min(scrollTop / 300, 1);
+      
+      // 触发滚动加载
+      if (scrollTop + windowHeight >= documentHeight - 200) {
+        loadMore();
+      }
     };
 
     // 添加滚动事件监听器
-    window.addEventListener("scroll", handleScroll);
+    onMounted(() => {
+      window.addEventListener("scroll", handleScroll);
+    });
 
     // 组件卸载时移除事件监听器
     onUnmounted(() => {
@@ -503,147 +582,163 @@ export default {
       },
     ]);
 
-    // 动态列表数据 - 推荐
+    // 动态列表数据 - 推荐（使用运动图片）
     const dynamicList = ref([
       {
         id: 1,
-        title: "9月的仪式感, 从纵身跃入泳池开始",
-        image: avatr39,
-        avatar: avatr1,
-        author: "李教练",
-        likes: 128,
+        title: "晨跑打卡！今天跑了10公里，感觉超棒",
+        image: sport1,
+        avatar: user1,
+        author: "跑步达人小李",
+        likes: 328,
       },
       {
         id: 2,
-        title: "始于兴趣, 终于坚持, 让游泳成为一种习惯",
-        image: avatr40,
-        avatar: avatr2,
-        author: "赵教练",
+        title: "瑜伽让我找到内心的平静，每天坚持30分钟",
+        image: sport2,
+        avatar: user2,
+        author: "瑜伽教练Anna",
         likes: 256,
       },
       {
         id: 3,
-        title: "健身路上没有捷径，只有坚持和努力",
-        image: avatr41,
-        avatar: avatr3,
-        author: "王教练",
-        likes: 203,
+        title: "健身房撸铁日常，今天练背，状态很好",
+        image: sport3,
+        avatar: user3,
+        author: "健身教练Mike",
+        likes: 445,
       },
       {
         id: 4,
-        title: "早起晨跑，迎接美好的一天",
-        image: avatr42,
-        avatar: avatr4,
-        author: "孙教练",
-        likes: 95,
+        title: "篮球场上挥洒汗水，这才是青春该有的样子",
+        image: sport4,
+        avatar: user4,
+        author: "篮球少年",
+        likes: 198,
       },
-    ]);
-
-    // 关注列表数据
-    const followList = ref([
       {
         id: 5,
-        title: "今天的瑜伽课圆满结束，感谢学员们！",
-        image: avatr40,
-        avatar: avatr1,
-        author: "周教练",
-        likes: 88,
+        title: "游泳是最好的全身运动，坚持就是胜利",
+        image: sport5,
+        avatar: user1,
+        author: "游泳健将",
+        likes: 367,
       },
       {
         id: 6,
-        title: "新到一批精品咖啡豆，欢迎来品尝！",
-        image: avatr42,
-        avatar: avatr2,
-        author: "吴老师",
+        title: "骑行穿越城市，感受不一样的风景",
+        image: sport6,
+        avatar: user2,
+        author: "骑行爱好者",
+        likes: 289,
+      },
+    ]);
+
+    // 关注列表数据（使用运动图片）
+    const followList = ref([
+      {
+        id: 7,
+        title: "早起晨跑，迎接美好的一天，加油！",
+        image: sport1,
+        avatar: user3,
+        author: "晨跑小队长",
         likes: 156,
       },
       {
-        id: 7,
-        title: "分享一下最近的健身成果",
-        image: avatr41,
-        avatar: avatr3,
-        author: "辣妈私教小南哥",
+        id: 8,
+        title: "瑜伽不仅塑形，更能修心养性",
+        image: sport2,
+        avatar: user4,
+        author: "瑜伽爱好者",
         likes: 234,
       },
       {
-        id: 8,
-        title: "今日拉花作品分享",
-        image: avatr39,
-        avatar: avatr4,
-        author: "捉你学咖啡的Joy",
+        id: 9,
+        title: "力量训练第100天，见证自己的蜕变",
+        image: sport3,
+        avatar: user1,
+        author: "健身小白变大神",
+        likes: 512,
+      },
+      {
+        id: 10,
+        title: "篮球让我结识了很多志同道合的朋友",
+        image: sport4,
+        avatar: user2,
+        author: "球场老炮",
         likes: 178,
       },
     ]);
 
-    // 附近列表数据
+    // 附近列表数据（使用运动图片）
     const nearbyList = ref([
       {
-        id: 9,
-        title: "附近新开的健身房体验超棒！",
-        image: avatr39,
-        avatar: avatr2,
-        author: "健身达人小李",
-        likes: 145,
-      },
-      {
-        id: 10,
-        title: "楼下咖啡店的拿铁真的绝了",
-        image: avatr42,
-        avatar: avatr3,
-        author: "咖啡爱好者",
-        likes: 98,
-      },
-      {
         id: 11,
-        title: "小区附近的瑜伽馆环境很好",
-        image: avatr40,
-        avatar: avatr1,
-        author: "瑜伽小白",
-        likes: 67,
+        title: "游泳后的放松时刻，身心都得到了释放",
+        image: sport5,
+        avatar: user3,
+        author: "水中精灵",
+        likes: 298,
       },
       {
         id: 12,
-        title: "周边美食探店分享",
-        image: avatr41,
-        avatar: avatr4,
-        author: "吃货小王",
+        title: "周末骑行100公里，挑战自我极限",
+        image: sport6,
+        avatar: user4,
+        author: "骑行达人",
+        likes: 423,
+      },
+      {
+        id: 13,
+        title: "今天的跑步训练完成，突破了个人最佳",
+        image: sport1,
+        avatar: user1,
+        author: "马拉松跑者",
+        likes: 267,
+      },
+      {
+        id: 14,
+        title: "瑜伽课后的拉伸，整个人都轻松了",
+        image: sport2,
+        avatar: user2,
+        author: "瑜伽导师",
         likes: 189,
       },
     ]);
 
-    // 上海列表数据
+    // 上海列表数据（使用运动图片）
     const shanghaiList = ref([
       {
-        id: 13,
-        title: "上海外滩夜景太美了！",
-        image: avatr41,
-        avatar: avatr2,
-        author: "上海小资",
-        likes: 312,
-      },
-      {
-        id: 14,
-        title: "魔都最新网红咖啡店打卡",
-        image: avatr42,
-        avatar: avatr3,
-        author: "探店达人",
-        likes: 267,
-      },
-      {
         id: 15,
-        title: "上海迪士尼周末游玩攻略",
-        image: avatr39,
-        avatar: avatr4,
-        author: "旅行家小王",
+        title: "健身打卡第365天，坚持改变了我",
+        image: sport3,
+        avatar: user3,
+        author: "力量训练师",
         likes: 445,
       },
       {
         id: 16,
-        title: "静安寺附近的健身房推荐",
-        image: avatr40,
-        avatar: avatr1,
-        author: "健身教练Lisa",
-        likes: 198,
+        title: "篮球三分球命中率提升了，继续加油",
+        image: sport4,
+        avatar: user4,
+        author: "篮球教练",
+        likes: 312,
+      },
+      {
+        id: 17,
+        title: "游泳1000米达成，下个目标2000米",
+        image: sport5,
+        avatar: user1,
+        author: "游泳教练",
+        likes: 356,
+      },
+      {
+        id: 18,
+        title: "骑行去郊外，沿途风景美不胜收",
+        image: sport6,
+        avatar: user2,
+        author: "骑行俱乐部",
+        likes: 278,
       },
     ]);
 
@@ -663,6 +758,38 @@ export default {
       }
     });
 
+    // 加载更多数据
+    const loadMore = () => {
+      if (loading.value || noMore.value) return;
+      
+      loading.value = true;
+      setTimeout(() => {
+        const newItems = generateRandomItems(6);
+        
+        // 根据当前选中的分类添加到对应的列表
+        switch (selectedCategory.value) {
+          case '关注':
+            followList.value.push(...newItems);
+            break;
+          case '推荐':
+            dynamicList.value.push(...newItems);
+            break;
+          case '附近':
+            nearbyList.value.push(...newItems);
+            break;
+          case '上海':
+            shanghaiList.value.push(...newItems);
+            break;
+        }
+        
+        loading.value = false;
+        
+        // 每个列表最多50条
+        if (currentDynamicList.value.length >= 50) {
+          noMore.value = true;
+        }
+      }, 800);
+    };
 
     // 处理教练点赞
     const handleCoachLike = (coachId, isLiked) => {
@@ -697,6 +824,8 @@ export default {
       filteredCities,
       selectProvince,
       selectCity,
+      loading,
+      noMore,
     };
   },
 };

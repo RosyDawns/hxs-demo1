@@ -324,12 +324,22 @@
 
         <!-- 动态内容 -->
         <template v-else-if="selectedTab === '动态'">
-          <DynamicListItem
-            v-for="item in dynamicItems"
-            :key="item.id"
-            :item="item"
+          <WaterfallLayout
+            :items="dynamicItems"
+            :columnCount="2"
             @click="handleDynamicClick"
           />
+          
+          <!-- 加载提示 -->
+          <div v-if="loading" class="text-center py-4 text-gray-500">
+            <i class="fa-solid fa-spinner fa-spin mr-2"></i>
+            加载中...
+          </div>
+          
+          <!-- 没有更多数据提示 -->
+          <div v-if="noMore && dynamicItems.length > 0" class="text-center py-4 text-gray-400 text-sm pb-20">
+            没有更多了
+          </div>
         </template>
 
         <!-- 主理人/生活技能/生活搭子内容 -->
@@ -383,12 +393,22 @@
       <template v-else-if="topTab === 'follow'">
         <!-- 动态内容 -->
         <template v-if="selectedTab === '动态'">
-          <DynamicListItem
-            v-for="item in followedDynamicItems"
-            :key="item.id"
-            :item="item"
+          <WaterfallLayout
+            :items="followedDynamicItems"
+            :columnCount="2"
             @click="handleDynamicClick"
           />
+          
+          <!-- 加载提示 -->
+          <div v-if="loading" class="text-center py-4 text-gray-500">
+            <i class="fa-solid fa-spinner fa-spin mr-2"></i>
+            加载中...
+          </div>
+          
+          <!-- 没有更多数据提示 -->
+          <div v-if="noMore && followedDynamicItems.length > 0" class="text-center py-4 text-gray-400 text-sm pb-20">
+            没有更多了
+          </div>
         </template>
 
         <!-- 主理人内容 -->
@@ -445,7 +465,7 @@ import router from "@/router";
 import FooterNav from "../components/FooterNav.vue";
 import CommonHeader from "../components/CommonHeader.vue";
 import CoachListItem from "../components/CoachListItem.vue";
-import DynamicListItem from "../components/DynamicListItem.vue";
+import WaterfallLayout from "../components/WaterfallLayout.vue";
 import HxsItem from "@/components/hxs-item.vue";
 
 // 导入本地图片资源
@@ -462,17 +482,36 @@ import img2 from "/src/assets/images/img-23.jpg";
 import img3 from "@images/img-5.jpg";
 import img4 from "@images/img_40.jpg";
 
+// 导入运动图片
+import sport1 from '@/assets/images/sports/sport1.webp';
+import sport2 from '@/assets/images/sports/sport2.webp';
+import sport3 from '@/assets/images/sports/sport3.webp';
+import sport4 from '@/assets/images/sports/sport4.webp';
+import sport5 from '@/assets/images/sports/sport5.webp';
+import sport6 from '@/assets/images/sports/sport6.webp';
+
+// 导入工具函数
+import { generateRandomSportsItems, createScrollLoader } from "@/utils/sportsDataGenerator";
+
 export default {
   name: "TeacherListPage",
   components: {
     FooterNav,
     CommonHeader,
     CoachListItem,
-    DynamicListItem,
+    WaterfallLayout,
     HxsItem,
   },
   setup() {
     const route = useRoute();
+    
+    // 运动数据相关
+    const sportImages = [sport1, sport2, sport3, sport4, sport5, sport6];
+    const avatars = [user1, user2, user3, user4];
+    const loading = ref(false);
+    const noMore = ref(false);
+    let currentId = 100;
+    
     // 顶部标签页（发现/上海/关注）
     const topTab = ref("discover");
 
@@ -596,59 +635,59 @@ export default {
       },
     ]);
 
-    // 动态数据
+    // 动态数据（使用运动图片）
     const dynamicItems = ref([
       {
         id: 1,
-        title: "好喜欢学员给我拍的工作照...",
-        image: img1,
-        author: "Boram",
+        title: "晨跑打卡！今天跑了10公里，感觉超棒",
+        image: sport1,
         avatar: user1,
-        likes: "赞",
+        author: "跑步达人小李",
+        likes: 328,
       },
       {
         id: 2,
-        title: "吃的干净真的会瘦呢！分享减脂餐",
-        image: img2,
-        author: "番薯小卷卷",
+        title: "瑜伽让我找到内心的平静，每天坚持30分钟",
+        image: sport2,
         avatar: user2,
-        likes: "赞",
+        author: "瑜伽教练Anna",
+        likes: 256,
       },
       {
         id: 3,
-        title: "40+保持'逆龄'好身材的秘诀！！",
-        image: img3,
-        author: "辣妈私教小南哥",
+        title: "健身房撸铁日常，今天练背，状态很好",
+        image: sport3,
         avatar: user3,
-        likes: "赞",
+        author: "健身教练Mike",
+        likes: 445,
       },
       {
         id: 4,
-        title: "咖啡课堂拉花原理解析 做好这两点...",
-        image: img4,
-        author: "捉你学咖啡的Joy",
+        title: "篮球场上挥洒汗水，这才是青春该有的样子",
+        image: sport4,
         avatar: user4,
-        likes: "赞",
+        author: "篮球少年",
+        likes: 198,
       },
     ]);
 
-    // 关注的动态数据
+    // 关注的动态数据（使用运动图片）
     const followedDynamicItems = ref([
       {
         id: 5,
-        title: "今天的瑜伽课圆满结束，感谢学员们的热情参与！",
-        image: img1,
-        author: "周教练",
+        title: "游泳是最好的全身运动，坚持就是胜利",
+        image: sport5,
         avatar: user1,
-        likes: "赞",
+        author: "游泳健将",
+        likes: 367,
       },
       {
         id: 6,
-        title: "新到一批精品咖啡豆，欢迎来品尝！",
-        image: img2,
-        author: "吴老师",
+        title: "骑行穿越城市，感受不一样的风景",
+        image: sport6,
         avatar: user2,
-        likes: "赞",
+        author: "骑行爱好者",
+        likes: 289,
       },
     ]);
 
@@ -735,8 +774,12 @@ export default {
       }
     };
 
+    // 滚动监听
+    const handleScroll = createScrollLoader(loadMore);
+
     onMounted(() => {
       applyRouteQuery();
+      window.addEventListener('scroll', handleScroll);
     });
 
     watch(
@@ -755,6 +798,32 @@ export default {
       router.push(`/dynamic-detail/${dynamicId}`);
     };
 
+    // 加载更多数据
+    const loadMore = () => {
+      if (loading.value || noMore.value) return;
+      
+      loading.value = true;
+      setTimeout(() => {
+        const newItems = generateRandomSportsItems(6, currentId, sportImages, avatars);
+        currentId += 6;
+        
+        // 根据当前选中的标签添加到对应列表
+        if (topTab.value === 'discover' && selectedTab.value === '动态') {
+          dynamicItems.value.push(...newItems);
+          if (dynamicItems.value.length >= 50) {
+            noMore.value = true;
+          }
+        } else if (topTab.value === 'follow' && selectedTab.value === '动态') {
+          followedDynamicItems.value.push(...newItems);
+          if (followedDynamicItems.value.length >= 50) {
+            noMore.value = true;
+          }
+        }
+        
+        loading.value = false;
+      }, 800);
+    };
+
     return {
       topTab,
       selectedTab,
@@ -771,6 +840,8 @@ export default {
       recommendedCoaches,
       handleCoachDetail,
       toggleListViewType,
+      loading,
+      noMore,
     };
   },
 };

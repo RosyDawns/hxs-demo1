@@ -30,8 +30,21 @@
 
     <!-- 内容区域 -->
     <div class="mt-4">
-      <div class="grid gap-3 px-3 pb-3 pt-1 grid-cols-2">
-        <DynamicListItem v-for="item in dynamicItems" :key="item.id" :item="item" @click="handleDynamicClick" />
+      <WaterfallLayout 
+        :items="dynamicItems" 
+        :columnCount="2"
+        @click="handleDynamicClick" 
+      />
+      
+      <!-- 加载提示 -->
+      <div v-if="loading" class="text-center py-4 text-gray-500">
+        <i class="fa-solid fa-spinner fa-spin mr-2"></i>
+        加载中...
+      </div>
+      
+      <!-- 没有更多数据提示 -->
+      <div v-if="noMore && dynamicItems.length > 0" class="text-center py-4 text-gray-400 text-sm pb-20">
+        没有更多了
       </div>
     </div>
 
@@ -47,211 +60,267 @@
 </template>
 
 <script>
-import { ref, computed } from "vue";
+import { ref, computed, onMounted, onUnmounted } from "vue";
 import router from "@/router";
 import FooterNav from "../components/FooterNav.vue";
 import CommonHeader from "../components/CommonHeader.vue";
-import DynamicListItem from "../components/DynamicListItem.vue";
+import WaterfallLayout from "../components/WaterfallLayout.vue";
+import { generateRandomSportsItems, createScrollLoader } from "@/utils/sportsDataGenerator";
 
-// 导入本地图片资源
+// 导入运动图片
+import sport1 from '@/assets/images/sports/sport1.webp';
+import sport2 from '@/assets/images/sports/sport2.webp';
+import sport3 from '@/assets/images/sports/sport3.webp';
+import sport4 from '@/assets/images/sports/sport4.webp';
+import sport5 from '@/assets/images/sports/sport5.webp';
+import sport6 from '@/assets/images/sports/sport6.webp';
+
+// 导入头像
 import user1 from "@images/user_1.png";
 import user2 from "@images/user_2.png";
 import user3 from "@images/user_3.png";
 import user4 from "@images/user_4.jpg";
-import img1 from "@images/img-12.jpg";
-import img2 from "/src/assets/images/img-23.jpg";
-import img3 from "@images/img-5.jpg";
-import img4 from "@images/img_40.jpg";
 
 export default {
   name: "DyListPage",
   components: {
     FooterNav,
     CommonHeader,
-    DynamicListItem,
+    WaterfallLayout,
   },
   setup() {
+    const sportImages = [sport1, sport2, sport3, sport4, sport5, sport6];
+    const avatars = [user1, user2, user3, user4];
+    
     // 顶部标签页（关注/推荐/附近/上海）
     const topTab = ref("follow");
-
-    // 底部导航活动页面
     const activePage = ref("teachers");
+    const loading = ref(false);
+    const noMore = ref(false);
+    let currentId = 100;
 
-    // 关注页动态数据
-    const followItems = [
-      {
-        id: 9,
-        title: "今天的瑜伽课圆满结束，感谢学员们！",
-        image: img2,
-        author: "周教练",
-        avatar: user1,
-        likes: "赞",
-      },
-      {
-        id: 10,
-        title: "新到一批精品咖啡豆，欢迎来品尝！",
-        image: img4,
-        author: "吴老师",
-        avatar: user2,
-        likes: "赞",
-      },
-      {
-        id: 11,
-        title: "分享一下最近的健身成果",
-        image: img3,
-        author: "辣妈私教小南哥",
-        avatar: user3,
-        likes: "赞",
-      },
-      {
-        id: 12,
-        title: "今日拉花作品分享",
-        image: img1,
-        author: "捉你学咖啡的Joy",
-        avatar: user4,
-        likes: "赞",
-      },
-    ];
-
-    // 推荐页动态数据
-    const recommendItems = [
+    // 关注页动态数据（使用运动图片）
+    const followItems = ref([
       {
         id: 1,
-        title: "好喜欢学员给我拍的工作照...",
-        image: img1,
-        author: "Boram",
+        title: "晨跑打卡！今天跑了10公里，感觉超棒",
+        image: sport1,
         avatar: user1,
-        likes: "赞",
+        author: "跑步达人小李",
+        likes: 328,
       },
       {
         id: 2,
-        title: "吃的干净真的会瘦呢！分享减脂餐",
-        image: img2,
-        author: "番薯小卷卷",
+        title: "瑜伽让我找到内心的平静，每天坚持30分钟",
+        image: sport2,
         avatar: user2,
-        likes: "赞",
+        author: "瑜伽教练Anna",
+        likes: 256,
       },
       {
         id: 3,
-        title: "40+保持'逆龄'好身材的秘诀！！",
-        image: img3,
-        author: "辣妈私教小南哥",
+        title: "健身房撸铁日常，今天练背，状态很好",
+        image: sport3,
         avatar: user3,
-        likes: "赞",
+        author: "健身教练Mike",
+        likes: 445,
       },
       {
         id: 4,
-        title: "咖啡课堂拉花原理解析 做好这两点...",
-        image: img4,
-        author: "捉你学咖啡的Joy",
+        title: "篮球场上挥洒汗水，这才是青春该有的样子",
+        image: sport4,
         avatar: user4,
-        likes: "赞",
+        author: "篮球少年",
+        likes: 198,
       },
-    ];
+    ]);
 
-    // 附近动态数据
-    const nearbyItems = [
-      {
-        id: 13,
-        title: "附近新开的健身房体验超棒！",
-        image: img1,
-        author: "健身达人小李",
-        avatar: user2,
-        likes: "赞",
-      },
-      {
-        id: 14,
-        title: "楼下咖啡店的拿铁真的绝了",
-        image: img4,
-        author: "咖啡爱好者",
-        avatar: user3,
-        likes: "赞",
-      },
-      {
-        id: 15,
-        title: "小区附近的瑜伽馆环境很好",
-        image: img2,
-        author: "瑜伽小白",
-        avatar: user1,
-        likes: "赞",
-      },
-      {
-        id: 16,
-        title: "周边美食探店分享",
-        image: img3,
-        author: "吃货小王",
-        avatar: user4,
-        likes: "赞",
-      },
-    ];
-
-    // 上海（城市）动态数据
-    const cityItems = [
+    // 推荐页动态数据（使用运动图片）
+    const recommendItems = ref([
       {
         id: 5,
-        title: "上海外滩夜景太美了！",
-        image: img3,
-        author: "上海小资",
-        avatar: user2,
-        likes: "赞",
+        title: "游泳是最好的全身运动，坚持就是胜利",
+        image: sport5,
+        avatar: user1,
+        author: "游泳健将",
+        likes: 367,
       },
       {
         id: 6,
-        title: "魔都最新网红咖啡店打卡",
-        image: img4,
-        author: "探店达人",
-        avatar: user3,
-        likes: "赞",
+        title: "骑行穿越城市，感受不一样的风景",
+        image: sport6,
+        avatar: user2,
+        author: "骑行爱好者",
+        likes: 289,
       },
       {
         id: 7,
-        title: "上海迪士尼周末游玩攻略",
-        image: img1,
-        author: "旅行家小王",
-        avatar: user4,
-        likes: "赞",
+        title: "早起晨跑，迎接美好的一天，加油！",
+        image: sport1,
+        avatar: user3,
+        author: "晨跑小队长",
+        likes: 156,
       },
       {
         id: 8,
-        title: "静安寺附近的健身房推荐",
-        image: img2,
-        author: "健身教练Lisa",
-        avatar: user1,
-        likes: "赞",
+        title: "瑜伽不仅塑形，更能修心养性",
+        image: sport2,
+        avatar: user4,
+        author: "瑜伽爱好者",
+        likes: 234,
       },
-    ];
+    ]);
 
-    // 根据 topTab 计算当前显示的动态列表
+    // 附近页动态数据（使用运动图片）
+    const nearbyItems = ref([
+      {
+        id: 9,
+        title: "力量训练第100天，见证自己的蜕变",
+        image: sport3,
+        avatar: user1,
+        author: "健身小白变大神",
+        likes: 512,
+      },
+      {
+        id: 10,
+        title: "篮球让我结识了很多志同道合的朋友",
+        image: sport4,
+        avatar: user2,
+        author: "球场老炮",
+        likes: 178,
+      },
+      {
+        id: 11,
+        title: "游泳后的放松时刻，身心都得到了释放",
+        image: sport5,
+        avatar: user3,
+        author: "水中精灵",
+        likes: 298,
+      },
+      {
+        id: 12,
+        title: "周末骑行100公里，挑战自我极限",
+        image: sport6,
+        avatar: user4,
+        author: "骑行达人",
+        likes: 423,
+      },
+    ]);
+
+    // 上海页动态数据（使用运动图片）
+    const cityItems = ref([
+      {
+        id: 13,
+        title: "今天的跑步训练完成，突破了个人最佳",
+        image: sport1,
+        avatar: user1,
+        author: "马拉松跑者",
+        likes: 267,
+      },
+      {
+        id: 14,
+        title: "瑜伽课后的拉伸，整个人都轻松了",
+        image: sport2,
+        avatar: user2,
+        author: "瑜伽导师",
+        likes: 189,
+      },
+      {
+        id: 15,
+        title: "健身打卡第365天，坚持改变了我",
+        image: sport3,
+        avatar: user3,
+        author: "力量训练师",
+        likes: 445,
+      },
+      {
+        id: 16,
+        title: "篮球三分球命中率提升了，继续加油",
+        image: sport4,
+        avatar: user4,
+        author: "篮球教练",
+        likes: 312,
+      },
+    ]);
+
+    // 根据选中的标签返回对应的动态列表
     const dynamicItems = computed(() => {
       switch (topTab.value) {
-        case "follow":
-          return followItems;
-        case "recommend":
-          return recommendItems;
-        case "nearby":
-          return nearbyItems;
-        case "city":
-          return cityItems;
+        case 'follow':
+          return followItems.value;
+        case 'recommend':
+          return recommendItems.value;
+        case 'nearby':
+          return nearbyItems.value;
+        case 'city':
+          return cityItems.value;
         default:
-          return followItems;
+          return followItems.value;
       }
     });
 
+    // 加载更多数据
+    const loadMore = () => {
+      if (loading.value || noMore.value) return;
+      
+      loading.value = true;
+      setTimeout(() => {
+        const newItems = generateRandomSportsItems(6, currentId, sportImages, avatars);
+        currentId += 6;
+        
+        // 根据当前选中的标签添加到对应的列表
+        switch (topTab.value) {
+          case 'follow':
+            followItems.value.push(...newItems);
+            break;
+          case 'recommend':
+            recommendItems.value.push(...newItems);
+            break;
+          case 'nearby':
+            nearbyItems.value.push(...newItems);
+            break;
+          case 'city':
+            cityItems.value.push(...newItems);
+            break;
+        }
+        
+        loading.value = false;
+        
+        if (dynamicItems.value.length >= 50) {
+          noMore.value = true;
+        }
+      }, 800);
+    };
+
+    // 处理动态点击
     const handleDynamicClick = (dynamicId) => {
       router.push(`/dynamic-detail/${dynamicId}`);
     };
 
-    const  handlePublish = () => {
-      router.push("/publish-activity");
-    }
+    // 处理发布按钮点击
+    const handlePublish = () => {
+      console.log("发布动态");
+    };
+
+    // 滚动监听
+    const handleScroll = createScrollLoader(loadMore);
+
+    onMounted(() => {
+      window.addEventListener('scroll', handleScroll);
+    });
+
+    onUnmounted(() => {
+      window.removeEventListener('scroll', handleScroll);
+    });
 
     return {
       topTab,
+      activePage,
       dynamicItems,
       handleDynamicClick,
-      activePage,
-      router,
-      handlePublish
+      handlePublish,
+      loading,
+      noMore,
     };
   },
 };

@@ -71,6 +71,12 @@ const routes = [
     name: 'MapDemo',
     component: () => import('../../views/MapDemoPage.vue'),
     meta: { title: '高德地图标记演示', showInNav: false }
+  },
+  {
+    path: '/sports-waterfall',
+    name: 'SportsWaterfall',
+    component: () => import('../../views/SportsWaterfallPage.vue'),
+    meta: { title: '运动动态瀑布流', showInNav: false }
   }
 ]
 
