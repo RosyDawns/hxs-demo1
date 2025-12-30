@@ -33,7 +33,7 @@
       <WaterfallLayout 
         :items="dynamicItems" 
         :columnCount="2"
-        @click="handleDynamicClick" 
+        @click="(itemId) => handleDynamicClick(itemId)" 
       />
       
       <!-- 加载提示 -->

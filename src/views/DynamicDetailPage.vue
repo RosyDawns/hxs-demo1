@@ -209,6 +209,7 @@ export default {
       commentInput: "",
       isLiked: false,
       isFavorited: false,
+      isLoaded: false, // 添加加载标志
       // 动态详情数据
       dynamic: {
         id: "",

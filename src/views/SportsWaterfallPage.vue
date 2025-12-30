@@ -8,7 +8,7 @@
       <WaterfallLayout 
         :items="sportsItems" 
         :columnCount="2"
-        @click="handleItemClick" 
+        @click="(itemId) => handleItemClick(itemId)" 
       />
       
       <!-- 加载提示 -->

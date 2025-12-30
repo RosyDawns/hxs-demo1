@@ -257,7 +257,7 @@
     <WaterfallLayout 
       :items="currentDynamicList" 
       :columnCount="2"
-      @click="handleDynamicClick" 
+      @click="(itemId) => handleDynamicClick(itemId)" 
     />
     
     <!-- 加载提示 -->
@@ -805,12 +805,26 @@ export default {
 
     // 处理动态点击
     const handleDynamicClick = (dynamicId) => {
+      // 防御性检查：如果收到的是事件对象，尝试从事件中获取数据
+      let actualId = dynamicId;
+      
+      // 如果是事件对象，说明事件传递有问题
+      if (typeof dynamicId === 'object' && dynamicId !== null) {
+        console.error('Received event object instead of ID:', dynamicId);
+        return; // 暂时返回，不执行跳转
+      }
+      
       // 找到对应的动态数据
-      const dynamicItem = currentDynamicList.value.find(item => item.id === dynamicId);
+      const dynamicItem = currentDynamicList.value.find(item => item.id === actualId);
+      
+      if (!dynamicItem) {
+        console.error('Dynamic item not found for ID:', actualId);
+        return;
+      }
       
       // 通过路由状态传递完整数据
       router.push({
-        path: `/dynamic-detail/${dynamicId}`,
+        path: `/dynamic-detail/${actualId}`,
         state: { dynamic: dynamicItem }
       });
     };

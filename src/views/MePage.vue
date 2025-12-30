@@ -167,7 +167,7 @@
         <div>
           <!-- 动态内容 -->
           <div class="pt-3" v-if="activeTab === 'dynamics'">
-            <WaterfallLayout :items="dynamicList" :columnCount="2" @click="handleDynamicClick" />
+            <WaterfallLayout :items="dynamicList" :columnCount="2" @click="(itemId) => handleDynamicClick(itemId)" />
             
             <!-- 加载提示 -->
             <div v-if="loading" class="text-center py-4 text-gray-500">
@@ -190,7 +190,7 @@
             </div>
             <!-- 模式2：动态列表模式 -->
             <div v-else>
-              <WaterfallLayout :items="followDynamicsList" :columnCount="2" @click="handleDynamicClick" />
+              <WaterfallLayout :items="followDynamicsList" :columnCount="2" @click="(itemId) => handleDynamicClick(itemId)" />
               
               <!-- 加载提示 -->
               <div v-if="loading" class="text-center py-4 text-gray-500">
