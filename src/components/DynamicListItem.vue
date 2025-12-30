@@ -6,7 +6,7 @@
     <img
       :src="item.image"
       :alt="item.title"
-      class="w-full h-40 object-cover"
+      class="w-full aspect-[3/4] object-cover"
     />
     <div class="px-2 py-2">
       <p class="text-sm text-black mb-2 line-clamp-2">{{ item.title }}</p>
