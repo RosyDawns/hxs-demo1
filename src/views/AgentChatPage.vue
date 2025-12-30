@@ -232,11 +232,16 @@
         <div v-if="!isVoiceMode" class="flex-1 flex items-end space-x-2">
           <textarea v-model="inputText" ref="textInput"
             class="flex-1 bg-gray-100 rounded-2xl px-4 py-2 text-sm resize-none focus:outline-none focus:ring-2 focus:ring-purple-500 max-h-32"
-            placeholder="输入消息..." rows="1" @input="autoResize" @keydown.enter.exact.prevent="sendMessage"></textarea>
+            :class="isTyping ? 'opacity-50 cursor-not-allowed' : ''"
+            placeholder="输入消息..." 
+            rows="1" 
+            :disabled="isTyping"
+            @input="autoResize" 
+            @keydown.enter.exact.prevent="sendMessage"></textarea>
           <button
             class="w-10 h-10 rounded-full bg-gradient-to-br from-purple-500 to-pink-500 flex items-center justify-center flex-shrink-0"
             :disabled="!inputText.trim() || isTyping" 
-            :class="(inputText.trim() && !isTyping) ? 'opacity-100' : 'opacity-50'" 
+            :class="(inputText.trim() && !isTyping) ? 'opacity-100' : 'opacity-50 cursor-not-allowed'" 
             @click="sendMessage">
             <i class="fa-solid fa-paper-plane text-white"></i>
           </button>
@@ -245,7 +250,12 @@
         <!-- 语音输入模式 -->
         <button v-else
           class="flex-1 h-12 rounded-full bg-gradient-to-br from-purple-500 to-pink-500 flex items-center justify-center space-x-2"
-          @touchstart="startRecording" @touchend="stopRecording" @mousedown="startRecording" @mouseup="stopRecording">
+          :class="isTyping ? 'opacity-50 cursor-not-allowed' : ''"
+          :disabled="isTyping"
+          @touchstart="startRecording" 
+          @touchend="stopRecording" 
+          @mousedown="startRecording" 
+          @mouseup="stopRecording">
           <i class="fa-solid fa-microphone text-white text-lg"></i>
           <span class="text-white font-medium">{{ isRecording ? '松开发送' : '按住说话' }}</span>
         </button>
@@ -359,6 +369,10 @@ export default {
       if (!inputText.value.trim()) return;
 
       const userMessage = inputText.value.trim();
+      
+      // 停止当前正在播放的 TTS
+      ttsService.stopCurrentAudio();
+      isPlayingAudio.value = false;
       
       // 保存当前对话历史（不包括即将发送的消息）
       const conversationHistory = [...messages.value];
