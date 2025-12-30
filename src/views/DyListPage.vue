@@ -193,6 +193,12 @@ export default {
       noMore.value = false;
       currentId = 100;
       
+      // 重置滚动位置到顶部，避免立即触发加载
+      const pageElement = document.getElementById('page-teacher-list');
+      if (pageElement) {
+        pageElement.scrollTop = 0;
+      }
+      
       // 重新生成当前标签页的数据
       switch (newTab) {
         case 'follow':
