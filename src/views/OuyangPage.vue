@@ -496,7 +496,11 @@
       </div>
 
       <!-- 动态内容区 - 使用瀑布流布局 -->
-      <WaterfallLayout :items="notes" @click="handleNoteClick" />
+      <WaterfallLayout :items="notes" @click="handleNoteClick">
+        <template #item="{ item }">
+          <NotesContent :item="item" class="mb-3" @handleClick="handleNoteClick" />
+        </template>
+      </WaterfallLayout>
     </div>
   </div>
 </template>
@@ -504,71 +508,49 @@
 <script>
 import CommonHeader from "@/components/CommonHeader.vue";
 import WaterfallLayout from "@/components/WaterfallLayout.vue";
+import NotesContent from "@/components/NotesContent.vue";
 import BgImage from "@/assets/images/img_40.jpg";
-
-// 导入头像图片
-import user1 from "@images/user_1.png";
-import user2 from "@images/user_2.png";
-import user3 from "@images/user_3.png";
-import user4 from "@images/user_4.jpg";
 
 export default {
   name: "OuyangPage",
   components: {
     CommonHeader,
     WaterfallLayout,
+    NotesContent,
   },
   data() {
     return {
-      // 动态内容数组 - 使用与首页相同的数据结构
+      // 动态内容数组 - 本人发布的动态
       notes: [
         {
           id: 1,
           title: "女生专属跑山包，终于不用将就男款啦",
           image: "https://picsum.photos/id/1059/300/400",
-          avatar: user1,
-          author: "户外达人小李",
-          likes: 328,
         },
         {
           id: 2,
           title: "硬核装备分享 | 重装阿布吉措篇",
           image: "https://picsum.photos/id/1060/300/450",
-          avatar: user2,
-          author: "登山教练Anna",
-          likes: 256,
         },
         {
           id: 3,
           title: "云南滇西徒步路线分享，新手友好",
           image: "https://picsum.photos/id/1061/300/380",
-          avatar: user3,
-          author: "徒步爱好者",
-          likes: 445,
         },
         {
           id: 4,
           title: "雪山攀登必备装备清单，小白也能轻松准备",
           image: "https://picsum.photos/id/1062/300/420",
-          avatar: user4,
-          author: "攀登者",
-          likes: 198,
         },
         {
           id: 5,
           title: "游泳训练日常分享，蛙泳技巧讲解",
           image: "https://picsum.photos/id/1063/300/390",
-          avatar: user1,
-          author: "李教练",
-          likes: 367,
         },
         {
           id: 6,
           title: "自由泳呼吸技巧，让你游得更轻松",
           image: "https://picsum.photos/id/1064/300/410",
-          avatar: user2,
-          author: "游泳教练",
-          likes: 289,
         },
       ],
       serviceSites: ["双方协商", "10公里内免费"],
