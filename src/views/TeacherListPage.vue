@@ -805,11 +805,16 @@ export default {
       // 找到对应的动态数据
       const dynamicItem = dynamicItems.value.find(item => item.id === dynamicId);
       
-      // 通过路由状态传递完整数据
-      router.push({
-        path: `/dynamic-detail/${dynamicId}`,
-        state: { dynamic: dynamicItem }
-      });
+      if (!dynamicItem) {
+        console.error('Dynamic item not found for ID:', dynamicId);
+        return;
+      }
+      
+      // 将数据存储到 sessionStorage
+      sessionStorage.setItem(`dynamic_${dynamicId}`, JSON.stringify(dynamicItem));
+      
+      // 跳转到详情页
+      router.push(`/dynamic-detail/${dynamicId}`);
     };
 
     // 加载更多数据

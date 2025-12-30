@@ -39,9 +39,10 @@ export default {
   },
   methods: {
     handleClick(event) {
-      // 阻止事件冒泡，确保只触发一次
+      // 阻止事件冒泡和默认行为
       if (event) {
         event.stopPropagation();
+        event.preventDefault();
       }
       this.$emit('click', this.item.id);
     }

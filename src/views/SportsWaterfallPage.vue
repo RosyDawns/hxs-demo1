@@ -206,11 +206,16 @@ export default {
       // 找到对应的动态数据
       const dynamicItem = sportsItems.value.find(item => item.id === itemId);
       
-      // 通过路由状态传递完整数据
-      router.push({
-        path: `/dynamic-detail/${itemId}`,
-        state: { dynamic: dynamicItem }
-      });
+      if (!dynamicItem) {
+        console.error('Dynamic item not found for ID:', itemId);
+        return;
+      }
+      
+      // 将数据存储到 sessionStorage
+      sessionStorage.setItem(`dynamic_${itemId}`, JSON.stringify(dynamicItem));
+      
+      // 跳转到详情页
+      router.push(`/dynamic-detail/${itemId}`);
     };
     
     // 生命周期

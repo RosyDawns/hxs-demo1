@@ -210,6 +210,7 @@ export default {
       isLiked: false,
       isFavorited: false,
       isLoaded: false, // 添加加载标志
+      cachedDynamic: null, // 缓存传递的数据
       // 动态详情数据
       dynamic: {
         id: "",
@@ -244,24 +245,49 @@ export default {
       ],
     };
   },
+  created() {
+    // 在 created 钩子中立即获取数据
+    const dynamicId = this.$route.params.id;
+    
+    // 尝试从 sessionStorage 获取数据
+    const cachedData = sessionStorage.getItem(`dynamic_${dynamicId}`);
+    if (cachedData) {
+      try {
+        this.cachedDynamic = JSON.parse(cachedData);
+        console.log('Loaded dynamic data from sessionStorage:', this.cachedDynamic);
+        // 读取后立即删除，避免占用存储空间
+        sessionStorage.removeItem(`dynamic_${dynamicId}`);
+      } catch (e) {
+        console.error('Failed to parse cached dynamic data:', e);
+      }
+    } else {
+      console.log('No cached data found in sessionStorage for ID:', dynamicId);
+    }
+  },
   mounted() {
-    this.loadDynamicDetail();
+    // 只加载一次
+    if (!this.isLoaded) {
+      this.loadDynamicDetail();
+      this.isLoaded = true;
+    }
   },
   methods: {
     loadDynamicDetail() {
-      // 优先从路由状态获取数据
-      const routeState = history.state?.dynamic;
+      console.log('loadDynamicDetail called');
       
-      if (routeState) {
-        // 使用路由传递的完整数据
+      // 优先使用缓存的数据
+      if (this.cachedDynamic) {
+        console.log('Using cached dynamic data');
+        // 使用缓存的完整数据
         this.dynamic = {
-          ...routeState,
-          time: routeState.time || '刚刚',
-          content: routeState.content || this.generateContent(routeState.title),
-          comments: routeState.comments || Math.floor(Math.random() * 50) + 5,
-          favorites: routeState.favorites || Math.floor(Math.random() * 100) + 10,
+          ...this.cachedDynamic,
+          time: this.cachedDynamic.time || '刚刚',
+          content: this.cachedDynamic.content || this.generateContent(this.cachedDynamic.title),
+          comments: this.cachedDynamic.comments || Math.floor(Math.random() * 50) + 5,
+          favorites: this.cachedDynamic.favorites || Math.floor(Math.random() * 100) + 10,
         };
       } else {
+        console.log('Using default dynamic data (fallback)');
         // 降级方案：使用默认数据
         const dynamicId = this.$route.params.id;
         this.dynamic = this.getDefaultDynamic(dynamicId);

@@ -5,7 +5,7 @@
         v-for="item in column" 
         :key="item.id" 
         :item="item" 
-        @click="(itemId) => handleItemClick(itemId)"
+        @click="() => handleItemClick(item.id)"
         class="mb-3"
       />
     </div>

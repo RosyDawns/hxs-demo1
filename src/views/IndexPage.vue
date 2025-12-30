@@ -822,11 +822,13 @@ export default {
         return;
       }
       
-      // 通过路由状态传递完整数据
-      router.push({
-        path: `/dynamic-detail/${actualId}`,
-        state: { dynamic: dynamicItem }
-      });
+      console.log('Navigating with dynamic item:', dynamicItem);
+      
+      // 将数据存储到 sessionStorage
+      sessionStorage.setItem(`dynamic_${actualId}`, JSON.stringify(dynamicItem));
+      
+      // 跳转到详情页
+      router.push(`/dynamic-detail/${actualId}`);
     };
 
     return {

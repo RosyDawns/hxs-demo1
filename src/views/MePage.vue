@@ -549,11 +549,16 @@ export default {
         dynamicItem = this.followDynamicsList.find(item => item.id === id);
       }
       
-      // 通过路由状态传递完整数据
-      this.$router.push({
-        path: `/dynamic-detail/${id}`,
-        state: { dynamic: dynamicItem }
-      });
+      if (!dynamicItem) {
+        console.error('Dynamic item not found for ID:', id);
+        return;
+      }
+      
+      // 将数据存储到 sessionStorage
+      sessionStorage.setItem(`dynamic_${id}`, JSON.stringify(dynamicItem));
+      
+      // 跳转到详情页
+      this.$router.push(`/dynamic-detail/${id}`);
     },
     handlePublish() {
       this.$router.push("/publish-activity");
