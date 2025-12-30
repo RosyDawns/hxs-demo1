@@ -61,7 +61,14 @@
             </div>
             <div class="flex-1">
               <div class="bg-white rounded-2xl rounded-tl-none px-4 py-3 shadow-sm" :class="message.error ? 'border-2 border-red-300' : ''">
-                <p class="text-sm whitespace-pre-wrap" :class="message.error ? 'text-red-600' : 'text-gray-800'">
+                <!-- 使用 v-html 渲染 Markdown -->
+                <div 
+                  v-if="message.contentHtml && !message.error" 
+                  class="text-sm markdown-content"
+                  v-html="message.contentHtml">
+                </div>
+                <!-- 错误消息或纯文本 -->
+                <p v-else class="text-sm whitespace-pre-wrap" :class="message.error ? 'text-red-600' : 'text-gray-800'">
                   <i v-if="message.error" class="fa-solid fa-exclamation-circle mr-1"></i>
                   {{ message.content }}
                 </p>
@@ -289,6 +296,7 @@ import { ref, onMounted, watch, nextTick } from 'vue';
 import { useRouter } from 'vue-router';
 import ChatService from '../services/chatService.js';
 import TTSService, { VOICE_OPTIONS } from '../services/ttsService.js';
+import { cleanMarkdownForTTS, markdownToHtml } from '../utils/textUtils.js';
 
 export default {
   name: 'AgentChatPage',
@@ -374,15 +382,19 @@ export default {
           const loadingMessage = {
             type: 'ai',
             content: response,
+            contentHtml: markdownToHtml(response),  // 添加 HTML 版本
             time: getCurrentTime(),
             isLoadingAudio: true  // 标记为正在加载音频
           };
           messages.value.push(loadingMessage);
           scrollToBottom();
 
+          // 清理 Markdown 标记用于 TTS
+          const cleanText = cleanMarkdownForTTS(response);
+
           // 异步生成 TTS，完成后更新消息状态并播放
           ttsService.synthesizeAndPlay(
-            response,
+            cleanText,  // 使用清理后的文本
             selectedVoice.value,
             () => {
               // TTS 开始播放，移除加载状态
@@ -403,6 +415,7 @@ export default {
           messages.value.push({
             type: 'ai',
             content: response,
+            contentHtml: markdownToHtml(response),
             time: getCurrentTime()
           });
         }
@@ -491,8 +504,11 @@ export default {
       // 先停止当前播放
       ttsService.stopCurrentAudio();
       
+      // 清理 Markdown 标记
+      const cleanText = cleanMarkdownForTTS(text);
+      
       ttsService.synthesizeAndPlay(
-        text,
+        cleanText,
         selectedVoice.value,
         () => {
           isPlayingAudio.value = true;
@@ -580,5 +596,116 @@ export default {
 
 .overflow-y-auto::-webkit-scrollbar-thumb:hover {
   background: rgba(156, 163, 175, 0.5);
+}
+
+/* Markdown 内容样式 */
+.markdown-content {
+  color: #1f2937;
+  line-height: 1.6;
+}
+
+.markdown-content :deep(h1),
+.markdown-content :deep(h2),
+.markdown-content :deep(h3) {
+  font-weight: 600;
+  margin-top: 0.75rem;
+  margin-bottom: 0.5rem;
+  color: #111827;
+}
+
+.markdown-content :deep(h1) {
+  font-size: 1.25rem;
+}
+
+.markdown-content :deep(h2) {
+  font-size: 1.125rem;
+}
+
+.markdown-content :deep(h3) {
+  font-size: 1rem;
+}
+
+.markdown-content :deep(p) {
+  margin-bottom: 0.5rem;
+}
+
+.markdown-content :deep(strong) {
+  font-weight: 600;
+  color: #111827;
+}
+
+.markdown-content :deep(em) {
+  font-style: italic;
+}
+
+.markdown-content :deep(code) {
+  background-color: #f3f4f6;
+  padding: 0.125rem 0.375rem;
+  border-radius: 0.25rem;
+  font-size: 0.875em;
+  font-family: 'Courier New', monospace;
+  color: #dc2626;
+}
+
+.markdown-content :deep(pre) {
+  background-color: #1f2937;
+  color: #f9fafb;
+  padding: 0.75rem;
+  border-radius: 0.5rem;
+  overflow-x: auto;
+  margin: 0.5rem 0;
+}
+
+.markdown-content :deep(pre code) {
+  background-color: transparent;
+  padding: 0;
+  color: #f9fafb;
+  font-size: 0.875rem;
+}
+
+.markdown-content :deep(ul),
+.markdown-content :deep(ol) {
+  margin-left: 1.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.markdown-content :deep(li) {
+  margin-bottom: 0.25rem;
+}
+
+.markdown-content :deep(ul) {
+  list-style-type: disc;
+}
+
+.markdown-content :deep(ol) {
+  list-style-type: decimal;
+}
+
+.markdown-content :deep(blockquote) {
+  border-left: 3px solid #9ca3af;
+  padding-left: 0.75rem;
+  margin: 0.5rem 0;
+  color: #6b7280;
+  font-style: italic;
+}
+
+.markdown-content :deep(a) {
+  color: #8b5cf6;
+  text-decoration: underline;
+}
+
+.markdown-content :deep(a:hover) {
+  color: #7c3aed;
+}
+
+.markdown-content :deep(hr) {
+  border: none;
+  border-top: 1px solid #e5e7eb;
+  margin: 0.75rem 0;
+}
+
+.markdown-content :deep(del) {
+  text-decoration: line-through;
+  color: #9ca3af;
 }
 </style>

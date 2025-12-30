@@ -1,58 +1,58 @@
 <template>
   <div class="page bg-white min-h-screen flex flex-col" id="page-ai-assistant">
-    <div
-      class="sticky top-0 z-50 bg-white py-3 px-4 mb-2 flex justify-between items-center"
-    >
+    <div class="sticky top-0 z-50 bg-white py-3 px-4 mb-2 flex justify-between items-center">
       <div class="flex items-center">
-        <button
-          class="w-10 h-10 rounded-full bg-gray-100 flex items-center justify-center"
-          @click="toggleConversationList"
-        >
+        <button class="w-10 h-10 rounded-full bg-gray-100 flex items-center justify-center"
+          @click="toggleConversationList">
           <i class="fa-solid fa-bars text-dark"></i>
         </button>
       </div>
 
       <div class="flex items-center space-x-3">
-        <button
-          class="w-10 h-10 rounded-full bg-gray-100 flex items-center justify-center"
-          @click="handleNewConversation"
-        >
+        <button class="w-10 h-10 rounded-full bg-gray-100 flex items-center justify-center"
+          @click="handleNewConversation">
           <i class="fa-solid fa-clone"></i>
         </button>
       </div>
     </div>
 
+    <!-- 智能体浮动按钮 -->
+    <div class="fixed top-20 right-6 z-50">
+      <!-- 光波效果层 -->
+      <div class="absolute inset-0 -m-2">
+        <div class="ripple-wave"></div>
+        <div class="ripple-wave" style="animation-delay: 1s"></div>
+        <div class="ripple-wave" style="animation-delay: 2s"></div>
+      </div>
+      <!-- 按钮本体 -->
+      <button
+        class="relative w-8 h-8 bg-gradient-to-br from-purple-500 to-pink-500 rounded-full shadow-2xl flex items-center justify-center hover:scale-110 transition-transform duration-300"
+        @click="goToAgentChat">
+        <i class="fa-solid fa-robot text-white text-sm"></i>
+      </button>
+    </div>
+
     <!-- 对话记录列表 - 全屏遮罩显示 -->
-    <div
-      v-if="showConversationList"
-      class="fixed inset-0 bg-black/50 z-50 flex items-start justify-center pt-20"
-      @click.self="toggleConversationList"
-    >
-      <div
-        class="bg-white rounded-3xl p-6 mx-4 w-full max-w-md shadow-2xl max-h-[70vh] overflow-y-auto"
-      >
+    <div v-if="showConversationList" class="fixed inset-0 bg-black/50 z-50 flex items-start justify-center pt-20"
+      @click.self="toggleConversationList">
+      <div class="bg-white rounded-3xl p-6 mx-4 w-full max-w-md shadow-2xl max-h-[70vh] overflow-y-auto">
         <div class="flex items-center justify-between mb-4">
           <h3 class="text-lg font-bold">历史对话</h3>
-          <button
-            class="w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center"
-            @click="toggleConversationList"
-          >
+          <button class="w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center"
+            @click="toggleConversationList">
             <i class="fa-solid fa-xmark text-gray-600"></i>
           </button>
         </div>
         <div class="space-y-3">
-          <div
-            v-for="(conversation, index) in conversationHistory"
-            :key="index"
+          <div v-for="(conversation, index) in conversationHistory" :key="index"
             class="p-3 rounded-xl hover:bg-gray-50 cursor-pointer border border-gray-100 transition-all"
-            @click="selectConversation(index)"
-          >
+            @click="selectConversation(index)">
             <p class="text-sm font-medium text-gray-800">
               {{ conversation.query }}
             </p>
             <span class="text-xs text-gray-400 mt-1 block">{{
               conversation.time
-            }}</span>
+              }}</span>
           </div>
         </div>
       </div>
@@ -62,27 +62,17 @@
     <div class="flex-1 px-4 py-2 flex flex-col pb-14">
       <!-- AI形象和时间 -->
       <div class="flex items-center mb-5">
-        <img
-          src="@images/wakeBeast.jpg"
-          alt="大狮兄"
-          class="w-2/5 mx-auto object-cover"
-        />
+        <img src="@images/wakeBeast.jpg" alt="大狮兄" class="w-2/5 mx-auto object-cover" />
       </div>
 
       <!-- 快速查询卡片模块 - 只在未显示推荐列表时显示 -->
       <template v-if="!showRecommendations">
         <div class="mb-6 relative">
           <!-- 轮播容器 -->
-          <div
-            class="overflow-hidden py-3 px-3"
-            @touchstart="handleTouchStart"
-            @touchmove="handleTouchMove"
-            @touchend="handleTouchEnd"
-          >
-            <div
-              class="flex transition-transform duration-300 ease-in-out"
-              :style="{ transform: `translateX(-${currentSlide * 100}%)` }"
-            >
+          <div class="overflow-hidden py-3 px-3" @touchstart="handleTouchStart" @touchmove="handleTouchMove"
+            @touchend="handleTouchEnd">
+            <div class="flex transition-transform duration-300 ease-in-out"
+              :style="{ transform: `translateX(-${currentSlide * 100}%)` }">
               <!-- 第一页 - 两个卡片 -->
               <div class="w-full flex-shrink-0 flex px-3">
                 <!-- 健身唤醒师推荐卡片 -->
@@ -90,8 +80,7 @@
                   class="flex-1 bg-white rounded-4xl px-4 py-2 shadow-sm border-6 border-pink-100 relative overflow-hidden -rotate-z-6 z-1"
                   @click="
                     handleRecommendationClick('帮我推荐一位附近的健身唤醒师💪')
-                  "
-                >
+                    ">
                   <div class="pb-2">
                     <p class="text-pink-100 text-6xl">"</p>
                     <p class="text-sm font-medium">
@@ -99,9 +88,7 @@
                     </p>
                   </div>
                   <div class="flex justify-end mt-2">
-                    <button
-                      class="bg-black text-white text-xs py-1 px-3 rounded-full flex items-center"
-                    >
+                    <button class="bg-black text-white text-xs py-1 px-3 rounded-full flex items-center">
                       <i class="fa-solid fa-comment-dots mr-1"></i>试试
                     </button>
                   </div>
@@ -110,16 +97,13 @@
                 <!-- 瑜伽老师推荐卡片 -->
                 <div
                   class="flex-1 bg-white rounded-4xl px-4 py-5 shadow-sm border-6 border-blue-100 relative overflow-hidden rotate-z-6"
-                  @click="handleRecommendationClick('找瑜伽老师学习基础动作🧘')"
-                >
+                  @click="handleRecommendationClick('找瑜伽老师学习基础动作🧘')">
                   <div class="pb-2">
                     <p class="text-blue-100 text-6xl">"</p>
                     <p class="text-sm font-medium">找瑜伽老师学习基础动作🧘</p>
                   </div>
                   <div class="flex justify-end mt-2">
-                    <button
-                      class="bg-black text-white text-xs py-1 px-3 rounded-full flex items-center"
-                    >
+                    <button class="bg-black text-white text-xs py-1 px-3 rounded-full flex items-center">
                       <i class="fa-solid fa-comment-dots mr-1"></i>试试
                     </button>
                   </div>
@@ -133,8 +117,7 @@
                   class="flex-1 bg-white rounded-4xl px-4 py-2 shadow-sm border-6 border-green-100 relative overflow-hidden -rotate-z-6 z-1"
                   @click="
                     handleRecommendationClick('想找一位游泳教练学习蛙泳🏊')
-                  "
-                >
+                    ">
                   <div class="pb-2">
                     <p class="text-green-100 text-6xl">"</p>
                     <p class="text-sm font-medium">
@@ -142,9 +125,7 @@
                     </p>
                   </div>
                   <div class="flex justify-end mt-2">
-                    <button
-                      class="bg-black text-white text-xs py-1 px-3 rounded-full flex items-center"
-                    >
+                    <button class="bg-black text-white text-xs py-1 px-3 rounded-full flex items-center">
                       <i class="fa-solid fa-comment-dots mr-1"></i>试试
                     </button>
                   </div>
@@ -155,8 +136,7 @@
                   class="flex-1 bg-white rounded-4xl px-4 py-5 shadow-sm border-6 border-orange-100 relative overflow-hidden rotate-z-6"
                   @click="
                     handleRecommendationClick('找个篮球私教提升投篮技巧🏀')
-                  "
-                >
+                    ">
                   <div class="pb-2">
                     <p class="text-orange-100 text-6xl">"</p>
                     <p class="text-sm font-medium">
@@ -164,9 +144,7 @@
                     </p>
                   </div>
                   <div class="flex justify-end mt-2">
-                    <button
-                      class="bg-black text-white text-xs py-1 px-3 rounded-full flex items-center"
-                    >
+                    <button class="bg-black text-white text-xs py-1 px-3 rounded-full flex items-center">
                       <i class="fa-solid fa-comment-dots mr-1"></i>试试
                     </button>
                   </div>
@@ -178,16 +156,13 @@
                 <!-- 舞蹈教练推荐卡片 -->
                 <div
                   class="flex-1 bg-white rounded-4xl px-4 py-2 shadow-sm border-6 border-purple-100 relative overflow-hidden -rotate-z-6 z-1"
-                  @click="handleRecommendationClick('想学习街舞找个专业老师💃')"
-                >
+                  @click="handleRecommendationClick('想学习街舞找个专业老师💃')">
                   <div class="pb-2">
                     <p class="text-purple-100 text-6xl">"</p>
                     <p class="text-sm font-medium">想学习街舞找个专业老师💃</p>
                   </div>
                   <div class="flex justify-end mt-2">
-                    <button
-                      class="bg-black text-white text-xs py-1 px-3 rounded-full flex items-center"
-                    >
+                    <button class="bg-black text-white text-xs py-1 px-3 rounded-full flex items-center">
                       <i class="fa-solid fa-comment-dots mr-1"></i>试试
                     </button>
                   </div>
@@ -196,16 +171,13 @@
                 <!-- 羽毛球教练推荐卡片 -->
                 <div
                   class="flex-1 bg-white rounded-4xl px-4 py-5 shadow-sm border-6 border-red-100 relative overflow-hidden rotate-z-6"
-                  @click="handleRecommendationClick('想提升羽毛球水平找教练🏸')"
-                >
+                  @click="handleRecommendationClick('想提升羽毛球水平找教练🏸')">
                   <div class="pb-2">
                     <p class="text-red-100 text-6xl">"</p>
                     <p class="text-sm font-medium">想提升羽毛球水平找教练🏸</p>
                   </div>
                   <div class="flex justify-end mt-2">
-                    <button
-                      class="bg-black text-white text-xs py-1 px-3 rounded-full flex items-center"
-                    >
+                    <button class="bg-black text-white text-xs py-1 px-3 rounded-full flex items-center">
                       <i class="fa-solid fa-comment-dots mr-1"></i>试试
                     </button>
                   </div>
@@ -215,32 +187,20 @@
           </div>
 
           <!-- 左右切换按钮 -->
-          <button
-            v-if="currentSlide > 0"
-            @click="previousSlide"
-            class="absolute left-0 top-1/2 -translate-y-1/2 w-8 h-8 bg-white/90 rounded-full shadow-lg flex items-center justify-center z-10"
-          >
+          <button v-if="currentSlide > 0" @click="previousSlide"
+            class="absolute left-0 top-1/2 -translate-y-1/2 w-8 h-8 bg-white/90 rounded-full shadow-lg flex items-center justify-center z-10">
             <i class="fa-solid fa-chevron-left text-sm"></i>
           </button>
-          <button
-            v-if="currentSlide < totalSlides - 1"
-            @click="nextSlide"
-            class="absolute right-0 top-1/2 -translate-y-1/2 w-8 h-8 bg-white/90 rounded-full shadow-lg flex items-center justify-center z-10"
-          >
+          <button v-if="currentSlide < totalSlides - 1" @click="nextSlide"
+            class="absolute right-0 top-1/2 -translate-y-1/2 w-8 h-8 bg-white/90 rounded-full shadow-lg flex items-center justify-center z-10">
             <i class="fa-solid fa-chevron-right text-sm"></i>
           </button>
 
           <!-- 页面指示器 -->
           <div class="flex justify-center mt-4 space-x-2">
-            <button
-              v-for="index in totalSlides"
-              :key="index"
-              @click="goToSlide(index - 1)"
-              class="w-2 h-2 rounded-full transition-all duration-300"
-              :class="
-                currentSlide === index - 1 ? 'bg-primary w-6' : 'bg-gray-300'
-              "
-            ></button>
+            <button v-for="index in totalSlides" :key="index" @click="goToSlide(index - 1)"
+              class="w-2 h-2 rounded-full transition-all duration-300" :class="currentSlide === index - 1 ? 'bg-primary w-6' : 'bg-gray-300'
+                "></button>
           </div>
         </div>
       </template>
@@ -249,16 +209,13 @@
       <div v-if="showRecommendations" class="mb-2">
         <!-- 用户提问 -->
         <div class="flex justify-end mb-4">
-          <div
-            class="rounded-2xl p-4 max-w-[80%] shadow-sm"
-            style="
+          <div class="rounded-2xl p-4 max-w-[80%] shadow-sm" style="
               background-image: linear-gradient(
                 to right,
                 rgb(255 222 161),
                 rgb(253 220 155)
               );
-            "
-          >
+            ">
             <p class="text-sm">{{ currentQuery }}</p>
           </div>
         </div>
@@ -280,28 +237,18 @@
         <!-- 推荐教练列表 -->
         <div class="space-y-4">
           <!-- 使用可复用组件渲染教练卡片 -->
-          <HxsItem
-            v-for="(coach, index) in recommendedCoaches"
-            :key="coach.id"
-            :coach="coach"
-            @view-profile="handleCoachDetail"
-          />
+          <HxsItem v-for="(coach, index) in recommendedCoaches" :key="coach.id" :coach="coach"
+            @view-profile="handleCoachDetail" />
         </div>
       </div>
 
       <!-- 操作按钮区域 - 只在显示推荐列表时显示 -->
       <div v-if="showRecommendations" class="mt-4 mb-6">
         <div class="flex space-x-3 mb-3">
-          <button
-            class="flex-1 bg-gray-50 text-sm py-2 rounded-full"
-            @click="handleChangeRecommendations"
-          >
+          <button class="flex-1 bg-gray-50 text-sm py-2 rounded-full" @click="handleChangeRecommendations">
             换一批
           </button>
-          <button
-            class="flex-1 bg-gray-50 text-sm py-2 rounded-full"
-            @click="handleGoSearch"
-          >
+          <button class="flex-1 bg-gray-50 text-sm py-2 rounded-full" @click="handleGoSearch">
             去寻找
           </button>
         </div>
@@ -310,10 +257,8 @@
       <!-- 输入区域 - 语音/文本切换 -->
       <div class="w-full flex fixed bottom-20 px-4 left-0">
         <!-- 切换按钮 -->
-        <div
-          @click="toggleInputMode"
-          class="w-11 h-11 rounded-full mr-2 bg-white shadow-lg flex items-center justify-center"
-        >
+        <div @click="toggleInputMode"
+          class="w-11 h-11 rounded-full mr-2 bg-white shadow-lg flex items-center justify-center">
           <i v-if="isVoiceMode" class="fa-solid fa-keyboard"></i>
           <i v-else class="fa-solid fa-microphone"></i>
         </div>
@@ -321,16 +266,11 @@
         <div class="flex items-center flex-1">
           <!-- 文本输入模式 -->
           <div v-if="!isVoiceMode" class="w-full flex items-center">
-            <input
-              v-model="inputText"
-              type="text"
+            <input v-model="inputText" type="text"
               class="h-11 flex-1 bg-white text-primary rounded-full font-medium px-4 shadow-lg focus:outline-none"
-              placeholder="请输入您的问题..."
-            />
-            <button
-              class="ml-2 h-11 w-11 bg-primary text-white rounded-full shadow-lg flex items-center justify-center"
-              @click="handleTextInputConfirm"
-            >
+              placeholder="请输入您的问题..." />
+            <button class="ml-2 h-11 w-11 bg-primary text-white rounded-full shadow-lg flex items-center justify-center"
+              @click="handleTextInputConfirm">
               OK
             </button>
           </div>
@@ -339,15 +279,12 @@
           <div v-else class="w-full flex items-center">
             <button
               class="h-11 flex-1 bg-white text-primary rounded-full font-medium flex items-center justify-center space-x-2 shadow-lg hover:bg-primary/90 transition-colors duration-300"
-              @mousedown="startVoiceRecording"
-              @mouseup="stopVoiceRecording"
-              @touchstart="startVoiceRecording"
-              @touchend="stopVoiceRecording"
-            >
+              @mousedown="startVoiceRecording" @mouseup="stopVoiceRecording" @touchstart="startVoiceRecording"
+              @touchend="stopVoiceRecording">
               <i class="fa-solid fa-microphone text-xl"></i>
               <span :class="isRecording ? 'text-primary animate-pulse' : ''">{{
                 isRecording ? "正在录音..." : "按住说话"
-              }}</span>
+                }}</span>
             </button>
           </div>
         </div>
@@ -355,23 +292,8 @@
     </div>
 
     <FooterNav activePage="ai" />
-    
-    <!-- 智能体浮动按钮 -->
-    <div class="fixed bottom-40 right-6 z-50">
-      <!-- 光波效果层 -->
-      <div class="absolute inset-0 -m-2">
-        <div class="ripple-wave"></div>
-        <div class="ripple-wave" style="animation-delay: 1s"></div>
-        <div class="ripple-wave" style="animation-delay: 2s"></div>
-      </div>
-      <!-- 按钮本体 -->
-      <button
-        class="relative w-16 h-16 bg-gradient-to-br from-purple-500 to-pink-500 rounded-full shadow-2xl flex items-center justify-center hover:scale-110 transition-transform duration-300"
-        @click="goToAgentChat"
-      >
-        <i class="fa-solid fa-robot text-white text-2xl"></i>
-      </button>
-    </div>
+
+
   </div>
 </template>
 
@@ -771,10 +693,12 @@ export default {
 <style scoped>
 /* 自定义动画 */
 @keyframes pulse {
+
   0%,
   100% {
     opacity: 0.3;
   }
+
   50% {
     opacity: 0.6;
   }
@@ -790,9 +714,11 @@ export default {
     transform: scale(1);
     opacity: 0.3;
   }
+
   50% {
     opacity: 0.15;
   }
+
   100% {
     transform: scale(1.4);
     opacity: 0;
