@@ -365,12 +365,12 @@
         <div class="ripple-wave" style="animation-delay: 2s"></div>
       </div>
       <!-- 按钮本体 -->
-      <!-- <button
+      <button
         class="relative w-16 h-16 bg-gradient-to-br from-purple-500 to-pink-500 rounded-full shadow-2xl flex items-center justify-center hover:scale-110 transition-transform duration-300"
         @click="goToAgentChat"
       >
         <i class="fa-solid fa-robot text-white text-2xl"></i>
-      </button> -->
+      </button>
     </div>
   </div>
 </template>

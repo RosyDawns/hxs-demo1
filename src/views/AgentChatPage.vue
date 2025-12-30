@@ -55,8 +55,11 @@
               class="w-8 h-8 rounded-full bg-gradient-to-br from-purple-500 to-pink-500 flex items-center justify-center flex-shrink-0">
               <i class="fa-solid fa-robot text-white text-sm"></i>
             </div>
-            <div class="bg-white rounded-2xl rounded-tl-none px-4 py-3 shadow-sm">
-              <p class="text-sm text-gray-800 whitespace-pre-wrap">{{ message.content }}</p>
+            <div class="bg-white rounded-2xl rounded-tl-none px-4 py-3 shadow-sm" :class="message.error ? 'border-2 border-red-300' : ''">
+              <p class="text-sm whitespace-pre-wrap" :class="message.error ? 'text-red-600' : 'text-gray-800'">
+                <i v-if="message.error" class="fa-solid fa-exclamation-circle mr-1"></i>
+                {{ message.content }}
+              </p>
               <span class="text-xs text-gray-400 mt-1 block">{{ message.time }}</span>
             </div>
           </div>
@@ -122,7 +125,9 @@
             placeholder="输入消息..." rows="1" @input="autoResize" @keydown.enter.exact.prevent="sendMessage"></textarea>
           <button
             class="w-10 h-10 rounded-full bg-gradient-to-br from-purple-500 to-pink-500 flex items-center justify-center flex-shrink-0"
-            :disabled="!inputText.trim()" :class="inputText.trim() ? 'opacity-100' : 'opacity-50'" @click="sendMessage">
+            :disabled="!inputText.trim() || isTyping" 
+            :class="(inputText.trim() && !isTyping) ? 'opacity-100' : 'opacity-50'" 
+            @click="sendMessage">
             <i class="fa-solid fa-paper-plane text-white"></i>
           </button>
         </div>
@@ -177,8 +182,9 @@
 </template>
 
 <script>
-import { ref, onMounted, watch } from 'vue';
+import { ref, onMounted, watch, nextTick } from 'vue';
 import { useRouter } from 'vue-router';
+import ChatService from '../services/chatService.js';
 
 export default {
   name: 'AgentChatPage',
@@ -186,6 +192,9 @@ export default {
     const router = useRouter();
     const chatContainer = ref(null);
     const textInput = ref(null);
+
+    // Initialize ChatService
+    const chatService = new ChatService();
 
     // 状态管理
     const messages = ref([]);
@@ -224,59 +233,56 @@ export default {
     };
 
     // 发送消息
-    const sendMessage = () => {
+    const sendMessage = async () => {
       if (!inputText.value.trim()) return;
 
-      // 添加用户消息
+      const userMessage = inputText.value.trim();
+      
+      // 保存当前对话历史（不包括即将发送的消息）
+      const conversationHistory = [...messages.value];
+      
+      // 添加用户消息到界面
       messages.value.push({
         type: 'user',
-        content: inputText.value.trim(),
+        content: userMessage,
         time: getCurrentTime()
       });
 
-      const userMessage = inputText.value.trim();
       inputText.value = '';
       scrollToBottom();
 
-      // 模拟 AI 回复
-      simulateAIResponse(userMessage);
+      // 显示输入指示器
+      isTyping.value = true;
+
+      try {
+        // 调用 DeepSeek API（传递不包含当前消息的历史）
+        const response = await chatService.sendMessage(userMessage, conversationHistory);
+        
+        // 添加 AI 回复
+        messages.value.push({
+          type: 'ai',
+          content: response,
+          time: getCurrentTime()
+        });
+      } catch (error) {
+        // 显示错误消息
+        messages.value.push({
+          type: 'ai',
+          content: error.message,
+          time: getCurrentTime(),
+          error: true
+        });
+      } finally {
+        // 移除输入指示器
+        isTyping.value = false;
+        scrollToBottom();
+      }
     };
 
     // 发送快捷问题
     const sendQuickQuestion = (question) => {
       inputText.value = question;
       sendMessage();
-    };
-
-    // 模拟 AI 回复
-    const simulateAIResponse = (userMessage) => {
-      isTyping.value = true;
-      scrollToBottom();
-
-      setTimeout(() => {
-        isTyping.value = false;
-
-        let response = '';
-        if (userMessage.includes('健身') || userMessage.includes('教练')) {
-          response = '好的！我为您找到了几位附近的优秀健身教练：\n\n1. 李教练 - 国家一级健身教练，擅长力量训练\n2. 王教练 - 专业体能训练师，8年教学经验\n3. 张教练 - AASFP认证教练，擅长减脂塑形\n\n需要我为您展示详细信息吗？';
-        } else if (userMessage.includes('游泳')) {
-          response = '明白了！学习游泳是个很好的选择。我为您推荐几位专业的游泳教练：\n\n1. 赵教练 - 国家二级运动员，擅长蛙泳和自由泳\n2. 陈教练 - 10年教学经验，专注儿童游泳教学\n3. 刘教练 - 前省队运动员，全泳姿教学\n\n您想了解哪位教练的详细信息？';
-        } else if (userMessage.includes('瑜伽')) {
-          response = '瑜伽是很好的身心锻炼方式！为您推荐：\n\n1. 林老师 - 国际瑜伽联盟认证，7年教学经验\n2. 周老师 - 擅长哈他瑜伽和阴瑜伽\n3. 孙老师 - 专注孕产瑜伽和理疗瑜伽\n\n需要查看课程安排和价格吗？';
-        } else if (userMessage.includes('篮球')) {
-          response = '篮球训练找对了！为您推荐：\n\n1. 马教练 - 前职业球员，擅长投篮技巧\n2. 吴教练 - CBA青训教练，基本功扎实\n3. 郑教练 - 专注青少年篮球培训\n\n您想预约试课吗？';
-        } else {
-          response = '我理解您的需求。作为您的运动助手，我可以帮您：\n\n• 推荐合适的教练和课程\n• 制定个性化训练计划\n• 预约场地和教练\n• 解答运动相关问题\n\n请告诉我您具体想了解什么？';
-        }
-
-        messages.value.push({
-          type: 'ai',
-          content: response,
-          time: getCurrentTime()
-        });
-
-        scrollToBottom();
-      }, 1500);
     };
 
     // 切换输入模式
@@ -293,8 +299,6 @@ export default {
       recordingTimer = setInterval(() => {
         recordingDuration.value++;
       }, 1000);
-
-      console.log('开始录音');
     };
 
     // 停止录音
@@ -303,8 +307,6 @@ export default {
 
       isRecording.value = false;
       clearInterval(recordingTimer);
-
-      console.log(`录音结束，时长: ${recordingDuration.value}秒`);
 
       // 模拟语音识别结果
       if (recordingDuration.value > 0) {
