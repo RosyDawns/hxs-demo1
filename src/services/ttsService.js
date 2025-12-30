@@ -44,6 +44,7 @@ class TTSService {
     this.audioContext = null
     this.currentSource = null
     this.currentAbortController = null  // 用于中断 fetch 请求
+    this.currentPlaybackId = null  // 当前播放的唯一 ID
   }
 
   /**
@@ -60,6 +61,9 @@ class TTSService {
    * 停止当前播放和请求
    */
   stopCurrentAudio() {
+    // 清除当前播放 ID，使正在进行的播放失效
+    this.currentPlaybackId = null
+    
     // 停止音频播放
     if (this.currentSource) {
       try {
@@ -94,6 +98,10 @@ class TTSService {
       // 停止当前播放和请求
       this.stopCurrentAudio()
 
+      // 生成新的播放 ID
+      const playbackId = Date.now() + Math.random()
+      this.currentPlaybackId = playbackId
+
       // 创建新的 AbortController
       this.currentAbortController = new AbortController()
 
@@ -122,33 +130,41 @@ class TTSService {
       const reader = response.body.getReader()
       const decoder = new TextDecoder()
       let buffer = ''
-      const audioChunks = []
       let hasStartedPlaying = false
       let audioQueue = []
       let isPlaying = false
 
       // 处理音频队列播放
       const playNextChunk = async () => {
-        if (isPlaying || audioQueue.length === 0) return
+        // 检查播放 ID 是否仍然有效
+        if (this.currentPlaybackId !== playbackId || isPlaying || audioQueue.length === 0) return
         
         isPlaying = true
         const chunk = audioQueue.shift()
         
         try {
-          await this.playPCMAudio(chunk, audioContext)
+          // 再次检查播放 ID
+          if (this.currentPlaybackId === playbackId) {
+            await this.playPCMAudio(chunk, audioContext)
+          }
         } catch (error) {
           console.error('播放音频块失败:', error)
         }
         
         isPlaying = false
         
-        // 继续播放下一块
-        if (audioQueue.length > 0) {
+        // 继续播放下一块（检查播放 ID）
+        if (this.currentPlaybackId === playbackId && audioQueue.length > 0) {
           playNextChunk()
         }
       }
 
       while (true) {
+        // 检查播放 ID 是否仍然有效
+        if (this.currentPlaybackId !== playbackId) {
+          break
+        }
+        
         const { done, value } = await reader.read()
         
         if (done) break
@@ -174,7 +190,7 @@ class TTSService {
                 const audioData = this.base64ToArrayBuffer(base64Audio)
                 
                 // 第一次收到音频数据时调用 onStart
-                if (!hasStartedPlaying) {
+                if (!hasStartedPlaying && this.currentPlaybackId === playbackId) {
                   hasStartedPlaying = true
                   if (onStart) onStart()
                 }
@@ -196,7 +212,8 @@ class TTSService {
       const waitForPlayback = () => {
         return new Promise((resolve) => {
           const checkInterval = setInterval(() => {
-            if (!isPlaying && audioQueue.length === 0) {
+            // 如果播放 ID 已改变或播放完成，清理并返回
+            if (this.currentPlaybackId !== playbackId || (!isPlaying && audioQueue.length === 0)) {
               clearInterval(checkInterval)
               resolve()
             }
@@ -205,6 +222,11 @@ class TTSService {
       }
 
       await waitForPlayback()
+
+      // 如果播放 ID 已改变（被停止），不调用 onEnd
+      if (this.currentPlaybackId !== playbackId) {
+        return
+      }
 
       // 播放结束，清理 AbortController
       this.currentAbortController = null
