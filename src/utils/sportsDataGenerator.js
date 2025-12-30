@@ -62,14 +62,56 @@ export const authors = [
   '健身房老铁', '篮球爱好者', '游泳爱好者', '骑行队长'
 ];
 
-// 生成随机运动数据
+// 图片使用追踪器
+class ImageTracker {
+  constructor(totalImages) {
+    this.totalImages = totalImages;
+    this.usedImages = new Set();
+    this.availableImages = Array.from({ length: totalImages }, (_, i) => i);
+  }
+
+  // 获取下一张图片索引（优先返回未使用的）
+  getNextImageIndex() {
+    // 如果还有未使用的图片，从中随机选择
+    if (this.availableImages.length > 0) {
+      const randomIndex = Math.floor(Math.random() * this.availableImages.length);
+      const imageIndex = this.availableImages[randomIndex];
+      
+      // 从可用列表中移除
+      this.availableImages.splice(randomIndex, 1);
+      // 添加到已使用集合
+      this.usedImages.add(imageIndex);
+      
+      return imageIndex;
+    }
+    
+    // 如果所有图片都使用过了，重置并重新开始
+    this.reset();
+    return this.getNextImageIndex();
+  }
+
+  // 重置追踪器
+  reset() {
+    this.usedImages.clear();
+    this.availableImages = Array.from({ length: this.totalImages }, (_, i) => i);
+  }
+}
+
+// 创建全局图片追踪器（13张图片）
+const imageTracker = new ImageTracker(13);
+
+// 生成随机运动数据（智能图片选择）
 export function generateRandomSportsItems(count, startId, sportImages, avatars) {
   const items = [];
   for (let i = 0; i < count; i++) {
+    // 使用智能图片选择
+    const imageIndex = imageTracker.getNextImageIndex();
+    const selectedImage = sportImages[imageIndex];
+    
     items.push({
       id: startId + i,
       title: sportTitles[Math.floor(Math.random() * sportTitles.length)],
-      image: sportImages[Math.floor(Math.random() * sportImages.length)],
+      image: selectedImage,
       avatar: avatars[Math.floor(Math.random() * avatars.length)],
       author: authors[Math.floor(Math.random() * authors.length)],
       likes: Math.floor(Math.random() * 500) + 50
@@ -91,4 +133,9 @@ export function createScrollLoader(loadMoreCallback) {
   };
   
   return handleScroll;
+}
+
+// 重置图片追踪器（用于页面刷新或重新开始）
+export function resetImageTracker() {
+  imageTracker.reset();
 }

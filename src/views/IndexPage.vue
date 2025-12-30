@@ -299,13 +299,20 @@ import avatr40 from "@images/img_40.jpg";
 import avatr41 from "@images/img_41.jpg";
 import avatr42 from "@images/img_42.jpg";
 
-// 导入运动图片
+// 导入运动图片（13张）
 import sport1 from '@/assets/images/sports/sport1.webp';
 import sport2 from '@/assets/images/sports/sport2.webp';
 import sport3 from '@/assets/images/sports/sport3.webp';
 import sport4 from '@/assets/images/sports/sport4.webp';
 import sport5 from '@/assets/images/sports/sport5.webp';
 import sport6 from '@/assets/images/sports/sport6.webp';
+import sport7 from '@/assets/images/sports/sport7.webp';
+import sport8 from '@/assets/images/sports/sport8.webp';
+import sport9 from '@/assets/images/sports/sport9.webp';
+import sport10 from '@/assets/images/sports/sport10.webp';
+import sport11 from '@/assets/images/sports/sport11.webp';
+import sport12 from '@/assets/images/sports/sport12.webp';
+import sport13 from '@/assets/images/sports/sport13.webp';
 
 export default {
   name: "IndexPage",
@@ -319,7 +326,7 @@ export default {
     const router = useRouter();
 
     // 运动图片和标题数据
-    const sportImages = [sport1, sport2, sport3, sport4, sport5, sport6];
+    const sportImages = [sport1, sport2, sport3, sport4, sport5, sport6, sport7, sport8, sport9, sport10, sport11, sport12, sport13];
     const avatars = [user1, user2, user3, user4];
     const sportTitles = [
       '晨跑打卡！今天跑了10公里，感觉超棒',

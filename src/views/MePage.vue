@@ -274,13 +274,20 @@ import img15 from "@/assets/images/img-15.jpg";
 import img39 from "@/assets/images/img_39.jpg";
 import img40 from "@/assets/images/img_40.jpg";
 
-// 导入运动图片
+// 导入运动图片（13张）
 import sport1 from '@/assets/images/sports/sport1.webp';
 import sport2 from '@/assets/images/sports/sport2.webp';
 import sport3 from '@/assets/images/sports/sport3.webp';
 import sport4 from '@/assets/images/sports/sport4.webp';
 import sport5 from '@/assets/images/sports/sport5.webp';
 import sport6 from '@/assets/images/sports/sport6.webp';
+import sport7 from '@/assets/images/sports/sport7.webp';
+import sport8 from '@/assets/images/sports/sport8.webp';
+import sport9 from '@/assets/images/sports/sport9.webp';
+import sport10 from '@/assets/images/sports/sport10.webp';
+import sport11 from '@/assets/images/sports/sport11.webp';
+import sport12 from '@/assets/images/sports/sport12.webp';
+import sport13 from '@/assets/images/sports/sport13.webp';
 
 // 导入头像
 import user1 from "@/assets/images/user_1.png";
@@ -303,7 +310,7 @@ export default {
   data() {
     return {
       // 运动数据相关
-      sportImages: [sport1, sport2, sport3, sport4, sport5, sport6],
+      sportImages: [sport1, sport2, sport3, sport4, sport5, sport6, sport7, sport8, sport9, sport10, sport11, sport12, sport13],
       avatars: [user1, user2, user3, user4],
       loading: false,
       noMore: false,
