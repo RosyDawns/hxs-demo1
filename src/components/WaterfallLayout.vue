@@ -1,13 +1,19 @@
 <template>
-  <div class="waterfall-container px-3 pb-3 pt-1">
+  <div class="waterfall-container">
     <div class="waterfall-column" v-for="(column, index) in columns" :key="index">
-      <DynamicListItem 
+      <slot 
         v-for="item in column" 
         :key="item.id" 
-        :item="item" 
-        @click="() => handleItemClick(item.id)"
-        class="mb-3"
-      />
+        :item="item"
+        name="item"
+      >
+        <!-- 默认使用 DynamicListItem -->
+        <DynamicListItem 
+          :item="item" 
+          @click="() => handleItemClick(item.id)"
+          class="mb-3"
+        />
+      </slot>
     </div>
   </div>
 </template>
@@ -76,7 +82,8 @@ export default {
 <style scoped>
 .waterfall-container {
   display: flex;
-  gap: 12px;
+  gap: 8px;
+  padding: 4px 12px 12px;
 }
 
 .waterfall-column {
