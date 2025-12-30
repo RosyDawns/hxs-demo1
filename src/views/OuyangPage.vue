@@ -24,6 +24,8 @@
             backgroundImage: `url(${BgImage})`,
           }"
         ></div>
+        <div class=" w-full h-full absolute left-0 top-0 bg-black opacity-70 z-1"></div>
+
         <!-- 用户信息区域 -->
         <div class="px-4 py-3 text-white relative z-1">
           <div class="flex items-center mb-5 relative">
