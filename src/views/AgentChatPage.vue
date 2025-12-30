@@ -17,9 +17,13 @@
           </div>
         </div>
 
-        <button class="w-10 h-10 rounded-full bg-gray-100 flex items-center justify-center" @click="clearChat">
-          <i class="fa-solid fa-trash text-gray-700"></i>
+        <button class="w-10 h-10 rounded-full bg-gray-100 flex items-center justify-center" @click="toggleSettings">
+          <i class="fa-solid fa-gear text-gray-700"></i>
         </button>
+
+        <!-- <button class="w-10 h-10 rounded-full bg-gray-100 flex items-center justify-center" @click="clearChat">
+          <i class="fa-solid fa-trash text-gray-700"></i>
+        </button> -->
       </div>
     </div>
 
@@ -55,12 +59,25 @@
               class="w-8 h-8 rounded-full bg-gradient-to-br from-purple-500 to-pink-500 flex items-center justify-center flex-shrink-0">
               <i class="fa-solid fa-robot text-white text-sm"></i>
             </div>
-            <div class="bg-white rounded-2xl rounded-tl-none px-4 py-3 shadow-sm" :class="message.error ? 'border-2 border-red-300' : ''">
-              <p class="text-sm whitespace-pre-wrap" :class="message.error ? 'text-red-600' : 'text-gray-800'">
-                <i v-if="message.error" class="fa-solid fa-exclamation-circle mr-1"></i>
-                {{ message.content }}
-              </p>
-              <span class="text-xs text-gray-400 mt-1 block">{{ message.time }}</span>
+            <div class="flex-1">
+              <div class="bg-white rounded-2xl rounded-tl-none px-4 py-3 shadow-sm" :class="message.error ? 'border-2 border-red-300' : ''">
+                <p class="text-sm whitespace-pre-wrap" :class="message.error ? 'text-red-600' : 'text-gray-800'">
+                  <i v-if="message.error" class="fa-solid fa-exclamation-circle mr-1"></i>
+                  {{ message.content }}
+                </p>
+                <div class="flex items-center justify-between mt-1">
+                  <span class="text-xs text-gray-400">{{ message.time }}</span>
+                  <button 
+                    v-if="!message.error && ttsEnabled"
+                    class="text-xs flex items-center space-x-1 transition-colors"
+                    :class="isPlayingAudio ? 'text-purple-400 cursor-not-allowed' : 'text-purple-500 hover:text-purple-600'"
+                    :disabled="isPlayingAudio"
+                    @click="playTTS(message.content)">
+                    <i class="fa-solid" :class="isPlayingAudio ? 'fa-spinner fa-spin' : 'fa-volume-high'"></i>
+                    <span>{{ isPlayingAudio ? '播放中' : '播放' }}</span>
+                  </button>
+                </div>
+              </div>
             </div>
           </div>
 
@@ -91,6 +108,84 @@
       
       <!-- 底部占位，防止内容被输入框遮挡 -->
       <div class="h-40"></div>
+    </div>
+
+    <!-- 设置面板 -->
+    <div v-if="showSettings" class="fixed inset-0 bg-black/50 z-50 flex items-end" @click="showSettings = false">
+      <div class="bg-white rounded-t-3xl w-full max-h-[70vh] overflow-y-auto" @click.stop>
+        <!-- 设置标题 -->
+        <div class="sticky top-0 bg-white border-b border-gray-200 px-4 py-4 z-10">
+          <div class="flex items-center justify-between">
+            <h2 class="text-lg font-bold text-gray-800">设置</h2>
+            <button class="w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center" @click="showSettings = false">
+              <i class="fa-solid fa-times text-gray-700"></i>
+            </button>
+          </div>
+        </div>
+
+        <!-- 设置内容 -->
+        <div class="p-4 space-y-6">
+          <!-- TTS 开关 -->
+          <div class="flex items-center justify-between">
+            <div>
+              <h3 class="text-base font-medium text-gray-800">语音播报</h3>
+              <p class="text-sm text-gray-500 mt-1">自动朗读 AI 回复</p>
+            </div>
+            <button 
+              class="relative w-12 h-6 rounded-full transition-colors"
+              :class="ttsEnabled ? 'bg-purple-500' : 'bg-gray-300'"
+              @click="ttsEnabled = !ttsEnabled">
+              <div 
+                class="absolute top-0.5 left-0.5 w-5 h-5 bg-white rounded-full transition-transform"
+                :class="ttsEnabled ? 'transform translate-x-6' : ''">
+              </div>
+            </button>
+          </div>
+
+          <!-- 音色选择 -->
+          <div v-if="ttsEnabled">
+            <h3 class="text-base font-medium text-gray-800 mb-3">选择音色</h3>
+            <div class="space-y-2">
+              <button
+                v-for="voice in VOICE_OPTIONS"
+                :key="voice.value"
+                class="w-full text-left px-4 py-3 rounded-xl transition-all"
+                :class="selectedVoice === voice.value 
+                  ? 'bg-gradient-to-r from-purple-100 to-pink-100 border-2 border-purple-500' 
+                  : 'bg-gray-50 border-2 border-transparent hover:bg-gray-100'"
+                @click="selectedVoice = voice.value">
+                <div class="flex items-center justify-between">
+                  <div class="flex-1">
+                    <div class="font-medium text-gray-800">{{ voice.label }}</div>
+                    <div class="text-sm text-gray-500 mt-0.5">{{ voice.description }}</div>
+                  </div>
+                  <i v-if="selectedVoice === voice.value" class="fa-solid fa-check text-purple-500 ml-2"></i>
+                </div>
+              </button>
+            </div>
+          </div>
+
+          <!-- 当前播放状态 -->
+          <div v-if="isPlayingAudio" class="bg-purple-50 rounded-xl p-4">
+            <div class="flex items-center justify-between">
+              <div class="flex items-center space-x-3">
+                <div class="w-10 h-10 rounded-full bg-purple-500 flex items-center justify-center">
+                  <i class="fa-solid fa-volume-high text-white animate-pulse"></i>
+                </div>
+                <div>
+                  <div class="font-medium text-gray-800">正在播放</div>
+                  <div class="text-sm text-gray-500">{{ VOICE_OPTIONS.find(v => v.value === selectedVoice)?.label }}</div>
+                </div>
+              </div>
+              <button 
+                class="w-10 h-10 rounded-full bg-white shadow-sm flex items-center justify-center"
+                @click="stopTTS">
+                <i class="fa-solid fa-stop text-purple-500"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
 
     <!-- 底部输入区域 -->
@@ -185,6 +280,7 @@
 import { ref, onMounted, watch, nextTick } from 'vue';
 import { useRouter } from 'vue-router';
 import ChatService from '../services/chatService.js';
+import TTSService, { VOICE_OPTIONS } from '../services/ttsService.js';
 
 export default {
   name: 'AgentChatPage',
@@ -195,6 +291,9 @@ export default {
 
     // Initialize ChatService
     const chatService = new ChatService();
+    
+    // Initialize TTSService
+    const ttsService = new TTSService();
 
     // 状态管理
     const messages = ref([]);
@@ -204,6 +303,10 @@ export default {
     const recordingDuration = ref(0);
     const isTyping = ref(false);
     const showMoreOptions = ref(false);
+    const showSettings = ref(false);
+    const selectedVoice = ref('Cherry');
+    const isPlayingAudio = ref(false);
+    const ttsEnabled = ref(true);
 
     let recordingTimer = null;
 
@@ -264,6 +367,11 @@ export default {
           content: response,
           time: getCurrentTime()
         });
+
+        // 如果启用了 TTS，播放语音
+        if (ttsEnabled.value && response) {
+          playTTS(response);
+        }
       } catch (error) {
         // 显示错误消息
         messages.value.push({
@@ -340,7 +448,41 @@ export default {
     const clearChat = () => {
       if (confirm('确定要清空聊天记录吗？')) {
         messages.value = [];
+        ttsService.stopCurrentAudio();
       }
+    };
+
+    // 播放 TTS
+    const playTTS = (text) => {
+      // 先停止当前播放
+      ttsService.stopCurrentAudio();
+      
+      ttsService.synthesizeAndPlay(
+        text,
+        selectedVoice.value,
+        () => {
+          isPlayingAudio.value = true;
+        },
+        () => {
+          isPlayingAudio.value = false;
+        },
+        (error) => {
+          console.error('TTS 播放失败:', error);
+          isPlayingAudio.value = false;
+        }
+      );
+    };
+
+    // 停止 TTS 播放
+    const stopTTS = () => {
+      ttsService.stopCurrentAudio();
+      isPlayingAudio.value = false;
+    };
+
+    // 切换设置面板
+    const toggleSettings = () => {
+      showSettings.value = !showSettings.value;
+      showMoreOptions.value = false;
     };
 
     onMounted(() => {
@@ -362,7 +504,12 @@ export default {
       recordingDuration,
       isTyping,
       showMoreOptions,
+      showSettings,
+      selectedVoice,
+      isPlayingAudio,
+      ttsEnabled,
       quickQuestions,
+      VOICE_OPTIONS,
       sendMessage,
       sendQuickQuestion,
       toggleInputMode,
@@ -370,6 +517,9 @@ export default {
       stopRecording,
       autoResize,
       clearChat,
+      playTTS,
+      stopTTS,
+      toggleSettings,
     };
   }
 };
