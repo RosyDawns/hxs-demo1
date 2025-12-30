@@ -1,95 +1,113 @@
 <template>
-  <div class="fixed inset-0 bg-gradient-to-b from-purple-50 to-pink-50 flex flex-col" id="page-agent-chat">
+  <div class="fixed inset-0 bg-[#0f172a] flex flex-col font-sans" id="page-agent-chat">
+    <!-- 背景装饰 - 科幻光效 -->
+    <div class="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none z-0">
+      <div class="absolute top-[-10%] right-[-10%] w-96 h-96 bg-blue-600/20 rounded-full blur-3xl filter"></div>
+      <div class="absolute bottom-[-10%] left-[-10%] w-96 h-96 bg-cyan-600/20 rounded-full blur-3xl filter"></div>
+      <div class="absolute top-[20%] left-[10%] w-72 h-72 bg-purple-600/10 rounded-full blur-3xl filter"></div>
+    </div>
+
     <!-- 顶部导航栏 -->
-    <div class="flex-shrink-0 bg-white/80 backdrop-blur-md py-3 px-4 shadow-sm">
+    <div class="flex-shrink-0 bg-[#0f172a]/80 backdrop-blur-md py-3 px-4 border-b border-white/10 z-10">
       <div class="flex items-center justify-between">
-        <button class="w-10 h-10 rounded-full bg-gray-100 flex items-center justify-center" @click="handleBack">
-          <i class="fa-solid fa-arrow-left text-gray-700"></i>
+        <button class="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-white/20 transition-colors" @click="handleBack">
+          <i class="fa-solid fa-arrow-left text-white"></i>
         </button>
 
-        <div class="flex items-center space-x-2">
-          <div
-            class="w-10 h-10 rounded-full bg-gradient-to-br from-purple-500 to-pink-500 flex items-center justify-center">
-            <i class="fa-solid fa-robot text-white text-lg"></i>
+        <div class="flex items-center space-x-3">
+          <div class="relative">
+            <div class="w-10 h-10 rounded-full bg-gradient-to-br from-cyan-500 to-blue-600 flex items-center justify-center shadow-lg shadow-cyan-500/30">
+              <i class="fa-solid fa-robot text-white text-lg"></i>
+            </div>
+            <div class="absolute -bottom-0.5 -right-0.5 w-3 h-3 bg-green-500 rounded-full border-2 border-[#0f172a]"></div>
           </div>
-          <div>
-            <h1 class="text-base font-bold text-gray-800">AI 智能体</h1>
-          </div>
+          <!-- <div>
+            <h1 class="text-base font-black italic text-white tracking-wide">AI COACH</h1>
+            <p class="text-[10px] text-cyan-400 font-medium tracking-wider uppercase">Intelligent Agent</p>
+          </div> -->
         </div>
 
-        <button class="w-10 h-10 rounded-full bg-gray-100 flex items-center justify-center" @click="toggleSettings">
-          <i class="fa-solid fa-gear text-gray-700"></i>
+        <button class="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-white/20 transition-colors" @click="toggleSettings">
+          <i class="fa-solid fa-gear text-white"></i>
         </button>
-
-        <!-- <button class="w-10 h-10 rounded-full bg-gray-100 flex items-center justify-center" @click="clearChat">
-          <i class="fa-solid fa-trash text-gray-700"></i>
-        </button> -->
       </div>
     </div>
 
     <!-- 聊天消息区域 -->
-    <div class="flex-1 overflow-y-auto px-4 py-4" ref="chatContainer">
+    <div class="flex-1 overflow-y-auto px-4 py-4 z-10 scroll-smooth" ref="chatContainer">
       <!-- 欢迎消息 -->
       <div v-if="messages.length === 0" class="text-center py-12">
-        <div
-          class="w-24 h-24 mx-auto mb-4 rounded-full bg-gradient-to-br from-purple-500 to-pink-500 flex items-center justify-center">
-          <i class="fa-solid fa-robot text-white text-5xl"></i>
+        <div class="relative w-28 h-28 mx-auto mb-6">
+          <div class="absolute inset-0 bg-cyan-500 rounded-full blur-xl opacity-30 animate-pulse"></div>
+          <div
+            class="relative w-full h-full rounded-full bg-gradient-to-br from-cyan-500 to-blue-600 flex items-center justify-center border-4 border-[#0f172a] shadow-2xl">
+            <i class="fa-solid fa-robot text-white text-5xl"></i>
+          </div>
         </div>
-        <h2 class="text-xl font-bold text-gray-800 mb-2">你好！我是 AI 智能体</h2>
-        <p class="text-sm text-gray-600 mb-6">我可以帮你找到合适的运动教练和课程</p>
+        <h2 class="text-2xl font-black italic text-white mb-2 tracking-wide">READY TO TRAIN?</h2>
+        <p class="text-sm text-gray-400 mb-8 max-w-xs mx-auto">我是你的专属 AI 运动教练，随时为你提供专业的训练建议和计划。</p>
 
         <!-- 快捷问题 -->
-        <div class="space-y-2 max-w-sm mx-auto">
+        <div class="space-y-3 max-w-sm mx-auto">
           <button v-for="(question, index) in quickQuestions" :key="index"
-            class="w-full bg-white rounded-xl px-4 py-3 text-sm text-left shadow-sm hover:shadow-md transition-shadow"
+            class="w-full group bg-white/5 border border-white/10 hover:border-cyan-500/50 hover:bg-white/10 rounded-xl px-4 py-3.5 text-sm text-left transition-all duration-300 flex items-center"
             @click="sendQuickQuestion(question)">
-            <i class="fa-solid fa-comment-dots text-purple-500 mr-2"></i>
-            {{ question }}
+            <span class="w-8 h-8 rounded-lg bg-cyan-500/20 flex items-center justify-center mr-3 group-hover:scale-110 transition-transform">
+              <i class="fa-solid fa-bolt text-cyan-400 text-xs"></i>
+            </span>
+            <span class="text-gray-200 group-hover:text-white transition-colors">{{ question }}</span>
+            <i class="fa-solid fa-chevron-right text-gray-600 ml-auto group-hover:text-cyan-400 transition-colors text-xs"></i>
           </button>
         </div>
       </div>
 
       <!-- 聊天消息列表 -->
-      <div v-else class="space-y-4">
+      <div v-else class="space-y-6">
         <div v-for="(message, index) in messages" :key="index" class="flex"
           :class="message.type === 'user' ? 'justify-end' : 'justify-start'">
+          
           <!-- AI 消息 -->
-          <div v-if="message.type === 'ai'" class="flex items-start space-x-2 max-w-[80%]">
+          <div v-if="message.type === 'ai'" class="flex items-start space-x-3 max-w-[85%]">
             <div
-              class="w-8 h-8 rounded-full bg-gradient-to-br from-purple-500 to-pink-500 flex items-center justify-center flex-shrink-0">
-              <i class="fa-solid fa-robot text-white text-sm"></i>
+              class="w-8 h-8 rounded-full bg-gradient-to-br from-cyan-500 to-blue-600 flex items-center justify-center flex-shrink-0 shadow-lg shadow-cyan-900/50 mt-1">
+              <i class="fa-solid fa-robot text-white text-xs"></i>
             </div>
             <div class="flex-1">
-              <div class="bg-white rounded-2xl rounded-tl-none px-4 py-3 shadow-sm" :class="message.error ? 'border-2 border-red-300' : ''">
+              <div class="bg-[#1e293b] border border-white/10 rounded-2xl rounded-tl-none px-5 py-4 shadow-lg backdrop-blur-sm" 
+                   :class="message.error ? 'border-red-500/50 bg-red-900/20' : ''">
                 <!-- 使用 v-html 渲染 Markdown -->
                 <div 
                   v-if="message.contentHtml && !message.error" 
-                  class="text-sm markdown-content"
+                  class="text-sm markdown-content text-gray-200"
                   v-html="message.contentHtml">
                 </div>
                 <!-- 错误消息或纯文本 -->
-                <p v-else class="text-sm whitespace-pre-wrap" :class="message.error ? 'text-red-600' : 'text-gray-800'">
+                <p v-else class="text-sm whitespace-pre-wrap leading-relaxed" :class="message.error ? 'text-red-400' : 'text-gray-200'">
                   <i v-if="message.error" class="fa-solid fa-exclamation-circle mr-1"></i>
                   {{ message.content }}
                 </p>
                 
                 <!-- 加载音频状态 -->
-                <div v-if="message.isLoadingAudio" class="flex items-center space-x-2 mt-2 text-xs text-purple-500">
-                  <i class="fa-solid fa-spinner fa-spin"></i>
+                <div v-if="message.isLoadingAudio" class="flex items-center space-x-2 mt-3 pt-3 border-t border-white/5 text-xs text-cyan-400">
+                  <div class="flex space-x-1">
+                    <div class="w-1 h-3 bg-cyan-400 rounded-full animate-pulse" style="animation-delay: 0s"></div>
+                    <div class="w-1 h-3 bg-cyan-400 rounded-full animate-pulse" style="animation-delay: 0.2s"></div>
+                    <div class="w-1 h-3 bg-cyan-400 rounded-full animate-pulse" style="animation-delay: 0.4s"></div>
+                  </div>
                   <span>正在生成语音...</span>
                 </div>
                 
                 <!-- 正常状态 -->
-                <div v-else class="flex items-center justify-between mt-1">
-                  <span class="text-xs text-gray-400">{{ message.time }}</span>
+                <div v-else class="flex items-center justify-between mt-3 pt-3 border-t border-white/5">
+                  <span class="text-[10px] text-gray-500 font-mono">{{ message.time }}</span>
                   <button 
                     v-if="!message.error && ttsEnabled"
-                    class="text-xs flex items-center space-x-1 transition-colors"
-                    :class="isPlayingAudio ? 'text-purple-400 cursor-not-allowed' : 'text-purple-500 hover:text-purple-600'"
+                    class="text-xs flex items-center space-x-1.5 transition-colors px-2 py-1 rounded-md hover:bg-white/5"
+                    :class="isPlayingAudio ? 'text-cyan-400 cursor-not-allowed' : 'text-gray-400 hover:text-cyan-400'"
                     :disabled="isPlayingAudio"
                     @click="playTTS(message.content)">
                     <i class="fa-solid" :class="isPlayingAudio ? 'fa-spinner fa-spin' : 'fa-volume-high'"></i>
-                    <span>{{ isPlayingAudio ? '播放中' : '播放' }}</span>
+                    <span>{{ isPlayingAudio ? 'Playing' : 'Play' }}</span>
                   </button>
                 </div>
               </div>
@@ -97,61 +115,64 @@
           </div>
 
           <!-- 用户消息 -->
-          <div v-else class="flex items-start space-x-2 max-w-[80%]">
-            <div class="bg-gradient-to-br from-purple-500 to-pink-500 rounded-2xl rounded-tr-none px-4 py-3 shadow-sm">
-              <p class="text-sm text-white whitespace-pre-wrap">{{ message.content }}</p>
-              <span class="text-xs text-purple-100 mt-1 block text-right">{{ message.time }}</span>
+          <div v-else class="flex items-start space-x-3 max-w-[85%]">
+            <div class="order-1 flex-1">
+              <div class="bg-gradient-to-br from-cyan-600 to-blue-600 rounded-2xl rounded-tr-none px-5 py-4 shadow-lg shadow-blue-900/30">
+                <p class="text-sm text-white whitespace-pre-wrap leading-relaxed font-medium">{{ message.content }}</p>
+              </div>
+              <span class="text-[10px] text-gray-500 mt-1 block text-right font-mono mr-1">{{ message.time }}</span>
             </div>
           </div>
         </div>
 
         <!-- 正在输入提示 -->
-        <div v-if="isTyping" class="flex items-start space-x-2">
+        <div v-if="isTyping" class="flex items-start space-x-3">
           <div
-            class="w-8 h-8 rounded-full bg-gradient-to-br from-purple-500 to-pink-500 flex items-center justify-center">
-            <i class="fa-solid fa-robot text-white text-sm"></i>
+            class="w-8 h-8 rounded-full bg-gradient-to-br from-cyan-500 to-blue-600 flex items-center justify-center shadow-lg shadow-cyan-900/50 mt-1">
+            <i class="fa-solid fa-robot text-white text-xs"></i>
           </div>
-          <div class="bg-white rounded-2xl rounded-tl-none px-4 py-3 shadow-sm">
-            <div class="flex space-x-1">
-              <div class="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style="animation-delay: 0s"></div>
-              <div class="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style="animation-delay: 0.2s"></div>
-              <div class="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style="animation-delay: 0.4s"></div>
+          <div class="bg-[#1e293b] border border-white/10 rounded-2xl rounded-tl-none px-4 py-3 shadow-lg">
+            <div class="flex space-x-1.5 h-5 items-center">
+              <div class="w-1.5 h-1.5 bg-cyan-400 rounded-full animate-bounce" style="animation-delay: 0s"></div>
+              <div class="w-1.5 h-1.5 bg-cyan-400 rounded-full animate-bounce" style="animation-delay: 0.2s"></div>
+              <div class="w-1.5 h-1.5 bg-cyan-400 rounded-full animate-bounce" style="animation-delay: 0.4s"></div>
             </div>
           </div>
         </div>
       </div>
       
-      <!-- 底部占位，防止内容被输入框遮挡 -->
+      <!-- 底部占位 -->
       <div class="h-10"></div>
     </div>
 
     <!-- 设置面板 -->
-    <div v-if="showSettings" class="fixed inset-0 bg-black/50 z-50 flex items-end" @click="showSettings = false">
-      <div class="bg-white rounded-t-3xl w-full max-h-[70vh] overflow-y-auto" @click.stop>
+    <div v-if="showSettings" class="fixed inset-0 bg-black/80 z-50 flex items-end backdrop-blur-sm" @click="showSettings = false">
+      <div class="bg-[#1e293b] rounded-t-3xl w-full max-h-[70vh] overflow-y-auto border-t border-white/10" @click.stop>
         <!-- 设置标题 -->
-        <div class="sticky top-0 bg-white border-b border-gray-200 px-4 py-4 z-10">
+        
+        <div class="sticky top-0 bg-[#1e293b] border-b border-white/10 px-6 py-5 z-100 backdrop-blur-md">
           <div class="flex items-center justify-between">
-            <h2 class="text-lg font-bold text-gray-800">设置</h2>
-            <button class="w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center" @click="showSettings = false">
-              <i class="fa-solid fa-times text-gray-700"></i>
+            <h2 class="text-lg font-black italic text-white tracking-wide">设置</h2>
+            <button class="w-8 h-8 rounded-full bg-white/5 flex items-center justify-center hover:bg-white/10" @click="showSettings = false">
+              <i class="fa-solid fa-times text-gray-400"></i>
             </button>
           </div>
         </div>
 
         <!-- 设置内容 -->
-        <div class="p-4 space-y-6">
+        <div class="p-6 space-y-8">
           <!-- TTS 开关 -->
           <div class="flex items-center justify-between">
             <div>
-              <h3 class="text-base font-medium text-gray-800">语音播报</h3>
-              <p class="text-sm text-gray-500 mt-1">自动朗读 AI 回复</p>
+              <h3 class="text-base font-bold text-white">声音输出</h3>
+              <p class="text-xs text-gray-400 mt-1">开启AI反馈</p>
             </div>
             <button 
-              class="relative w-12 h-6 rounded-full transition-colors"
-              :class="ttsEnabled ? 'bg-purple-500' : 'bg-gray-300'"
+              class="relative w-12 h-6 rounded-full transition-colors duration-300"
+              :class="ttsEnabled ? 'bg-cyan-600' : 'bg-gray-600'"
               @click="ttsEnabled = !ttsEnabled">
               <div 
-                class="absolute top-0.5 left-0.5 w-5 h-5 bg-white rounded-full transition-transform"
+                class="absolute top-0.5 left-0.5 w-5 h-5 bg-white rounded-full transition-transform duration-300 shadow-md"
                 :class="ttsEnabled ? 'transform translate-x-6' : ''">
               </div>
             </button>
@@ -159,43 +180,45 @@
 
           <!-- 音色选择 -->
           <div v-if="ttsEnabled">
-            <h3 class="text-base font-medium text-gray-800 mb-3">选择音色</h3>
-            <div class="space-y-2">
+            <h3 class="text-base font-bold text-white mb-4">音色选择</h3>
+            <div class="space-y-3">
               <button
                 v-for="voice in VOICE_OPTIONS"
                 :key="voice.value"
-                class="w-full text-left px-4 py-3 rounded-xl transition-all"
+                class="w-full text-left px-4 py-4 rounded-xl transition-all border relative overflow-hidden group"
                 :class="selectedVoice === voice.value 
-                  ? 'bg-gradient-to-r from-purple-100 to-pink-100 border-2 border-purple-500' 
-                  : 'bg-gray-50 border-2 border-transparent hover:bg-gray-100'"
+                  ? 'bg-cyan-500/10 border-cyan-500' 
+                  : 'bg-white/5 border-transparent hover:bg-white/10'"
                 @click="selectedVoice = voice.value">
-                <div class="flex items-center justify-between">
+                <div class="flex items-center justify-between relative z-10">
                   <div class="flex-1">
-                    <div class="font-medium text-gray-800">{{ voice.label }}</div>
-                    <div class="text-sm text-gray-500 mt-0.5">{{ voice.description }}</div>
+                    <div class="font-bold text-gray-200" :class="selectedVoice === voice.value ? 'text-cyan-400' : ''">{{ voice.label }}</div>
+                    <div class="text-xs text-gray-500 mt-1">{{ voice.description }}</div>
                   </div>
-                  <i v-if="selectedVoice === voice.value" class="fa-solid fa-check text-purple-500 ml-2"></i>
+                  <div v-if="selectedVoice === voice.value" class="w-6 h-6 rounded-full bg-cyan-500 flex items-center justify-center shadow-lg shadow-cyan-500/50">
+                    <i class="fa-solid fa-check text-white text-xs"></i>
+                  </div>
                 </div>
               </button>
             </div>
           </div>
 
           <!-- 当前播放状态 -->
-          <div v-if="isPlayingAudio" class="bg-purple-50 rounded-xl p-4">
+          <div v-if="isPlayingAudio" class="bg-gradient-to-r from-cyan-900/50 to-blue-900/50 border border-cyan-500/30 rounded-xl p-4">
             <div class="flex items-center justify-between">
               <div class="flex items-center space-x-3">
-                <div class="w-10 h-10 rounded-full bg-purple-500 flex items-center justify-center">
-                  <i class="fa-solid fa-volume-high text-white animate-pulse"></i>
+                <div class="w-10 h-10 rounded-full bg-cyan-500 flex items-center justify-center animate-pulse">
+                  <i class="fa-solid fa-volume-high text-white"></i>
                 </div>
                 <div>
-                  <div class="font-medium text-gray-800">正在播放</div>
-                  <div class="text-sm text-gray-500">{{ VOICE_OPTIONS.find(v => v.value === selectedVoice)?.label }}</div>
+                  <div class="font-bold text-white text-sm">Now Playing</div>
+                  <div class="text-xs text-cyan-300">{{ VOICE_OPTIONS.find(v => v.value === selectedVoice)?.label }}</div>
                 </div>
               </div>
               <button 
-                class="w-10 h-10 rounded-full bg-white shadow-sm flex items-center justify-center"
+                class="w-10 h-10 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center transition-colors"
                 @click="stopTTS">
-                <i class="fa-solid fa-stop text-purple-500"></i>
+                <i class="fa-solid fa-stop text-white"></i>
               </button>
             </div>
           </div>
@@ -204,52 +227,54 @@
     </div>
 
     <!-- 底部输入区域 -->
-    <div class="flex-shrink-0 bg-white border-t border-gray-200 px-4 py-3">
+    <div class="flex-shrink-0 bg-[#0f172a] border-t border-white/10 px-4 py-4 z-20">
       <!-- 语音录音模式 -->
-      <div v-if="isRecording" class="mb-3">
-        <div class="bg-gradient-to-r from-purple-100 to-pink-100 rounded-2xl p-4 text-center">
-          <div class="flex justify-center mb-2">
+      <div v-if="isRecording" class="mb-4">
+        <div class="bg-gradient-to-r from-cyan-900/80 to-blue-900/80 border border-cyan-500/30 rounded-2xl p-6 text-center relative overflow-hidden">
+          <div class="absolute inset-0 bg-cyan-500/10 animate-pulse"></div>
+          <div class="flex justify-center mb-3 relative z-10">
             <div
-              class="w-16 h-16 rounded-full bg-gradient-to-br from-purple-500 to-pink-500 flex items-center justify-center animate-pulse">
-              <i class="fa-solid fa-microphone text-white text-2xl"></i>
+              class="w-16 h-16 rounded-full bg-gradient-to-br from-cyan-500 to-blue-600 flex items-center justify-center shadow-[0_0_20px_rgba(6,182,212,0.5)]">
+              <i class="fa-solid fa-microphone text-white text-2xl animate-pulse"></i>
             </div>
           </div>
-          <p class="text-sm text-gray-700 font-medium">正在录音...</p>
-          <p class="text-xs text-gray-500 mt-1">{{ recordingDuration }}s</p>
+          <p class="text-sm text-cyan-100 font-bold tracking-wider relative z-10">RECORDING...</p>
+          <p class="text-xs text-cyan-300 mt-1 font-mono relative z-10">{{ recordingDuration }}s</p>
         </div>
       </div>
 
       <!-- 输入框区域 -->
-      <div class="flex items-end space-x-2">
+      <div class="flex items-center space-x-3">
         <!-- 语音/文本切换按钮 -->
-        <button class="w-10 h-10 rounded-full bg-gray-100 flex items-center justify-center flex-shrink-0"
+        <button class="w-11 h-11 rounded-full bg-white/10 flex items-center justify-center flex-shrink-0 hover:bg-white/20 transition-colors text-gray-300 hover:text-white border border-white/5"
           @click="toggleInputMode">
-          <i v-if="isVoiceMode" class="fa-solid fa-keyboard text-gray-700"></i>
-          <i v-else class="fa-solid fa-microphone text-gray-700"></i>
+          <i v-if="isVoiceMode" class="fa-solid fa-keyboard"></i>
+          <i v-else class="fa-solid fa-microphone"></i>
         </button>
 
         <!-- 文本输入模式 -->
-        <div v-if="!isVoiceMode" class="flex-1 flex items-end space-x-2">
-          <textarea v-model="inputText" ref="textInput"
-            class="flex-1 bg-gray-100 rounded-2xl px-4 py-2 text-sm resize-none focus:outline-none focus:ring-2 focus:ring-purple-500 max-h-32"
-            :class="isTyping ? 'opacity-50 cursor-not-allowed' : ''"
-            placeholder="输入消息..." 
-            rows="1" 
-            :disabled="isTyping"
-            @input="autoResize" 
-            @keydown.enter.exact.prevent="sendMessage"></textarea>
+        <div v-if="!isVoiceMode" class="flex-1 flex items-center space-x-3">
+          <div class="flex-1 flex items-center relative">
+            <textarea v-model="inputText" ref="textInput"
+              class="w-full bg-[#1e293b] text-white rounded-2xl px-5 py-3 text-sm resize-none focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:bg-[#253248] transition-all max-h-32 placeholder-gray-500 border border-white/10"
+              :class="isTyping ? 'opacity-50 cursor-not-allowed' : ''"
+              placeholder="输入你的信息"
+              rows="1" 
+              :disabled="isTyping"
+              @input="autoResize" 
+              @keydown.enter.exact.prevent="sendMessage"></textarea>
+          </div>
           <button
-            class="w-10 h-10 rounded-full bg-gradient-to-br from-purple-500 to-pink-500 flex items-center justify-center flex-shrink-0"
+            class="w-11 h-11 rounded-full bg-gradient-to-br from-cyan-500 to-blue-600 flex items-center justify-center flex-shrink-0 shadow-lg shadow-cyan-900/50 disabled:opacity-50 disabled:cursor-not-allowed transition-all hover:scale-105 active:scale-95"
             :disabled="!inputText.trim() || isTyping" 
-            :class="(inputText.trim() && !isTyping) ? 'opacity-100' : 'opacity-50 cursor-not-allowed'" 
             @click="sendMessage">
-            <i class="fa-solid fa-paper-plane text-white"></i>
+            <i class="fa-solid fa-paper-plane text-white text-sm"></i>
           </button>
         </div>
 
         <!-- 语音输入模式 -->
         <button v-else
-          class="flex-1 h-12 rounded-full bg-gradient-to-br from-purple-500 to-pink-500 flex items-center justify-center space-x-2"
+          class="flex-1 h-12 rounded-full bg-gradient-to-br from-cyan-500 to-blue-600 flex items-center justify-center space-x-2 shadow-lg shadow-cyan-900/50 active:scale-95 transition-all border border-cyan-400/20"
           :class="isTyping ? 'opacity-50 cursor-not-allowed' : ''"
           :disabled="isTyping"
           @touchstart="startRecording" 
@@ -257,42 +282,7 @@
           @mousedown="startRecording" 
           @mouseup="stopRecording">
           <i class="fa-solid fa-microphone text-white text-lg"></i>
-          <span class="text-white font-medium">{{ isRecording ? '松开发送' : '按住说话' }}</span>
-        </button>
-
-        <!-- 更多功能按钮 -->
-        <!-- <button v-if="!isVoiceMode"
-          class="w-10 h-10 rounded-full bg-gray-100 flex items-center justify-center flex-shrink-0"
-          @click="showMoreOptions = !showMoreOptions">
-          <i class="fa-solid fa-plus text-gray-700"></i>
-        </button> -->
-      </div>
-
-      <!-- 更多选项面板 -->
-      <div v-if="showMoreOptions && !isVoiceMode" class="mt-3 grid grid-cols-4 gap-3">
-        <button class="flex flex-col items-center space-y-1">
-          <div class="w-12 h-12 rounded-full bg-blue-100 flex items-center justify-center">
-            <i class="fa-solid fa-image text-blue-500"></i>
-          </div>
-          <span class="text-xs text-gray-600">图片</span>
-        </button>
-        <button class="flex flex-col items-center space-y-1">
-          <div class="w-12 h-12 rounded-full bg-green-100 flex items-center justify-center">
-            <i class="fa-solid fa-location-dot text-green-500"></i>
-          </div>
-          <span class="text-xs text-gray-600">位置</span>
-        </button>
-        <button class="flex flex-col items-center space-y-1">
-          <div class="w-12 h-12 rounded-full bg-yellow-100 flex items-center justify-center">
-            <i class="fa-solid fa-file text-yellow-500"></i>
-          </div>
-          <span class="text-xs text-gray-600">文件</span>
-        </button>
-        <button class="flex flex-col items-center space-y-1">
-          <div class="w-12 h-12 rounded-full bg-purple-100 flex items-center justify-center">
-            <i class="fa-solid fa-video text-purple-500"></i>
-          </div>
-          <span class="text-xs text-gray-600">视频</span>
+          <span class="text-white font-bold tracking-wide">{{ isRecording ? '松开发送' : '长按说话' }}</span>
         </button>
       </div>
 
@@ -644,27 +634,27 @@ export default {
 }
 
 .overflow-y-auto::-webkit-scrollbar-thumb {
-  background: rgba(156, 163, 175, 0.3);
+  background: rgba(255, 255, 255, 0.1);
   border-radius: 2px;
 }
 
 .overflow-y-auto::-webkit-scrollbar-thumb:hover {
-  background: rgba(156, 163, 175, 0.5);
+  background: rgba(255, 255, 255, 0.2);
 }
 
-/* Markdown 内容样式 */
+/* Markdown 内容样式 - 深色模式适配 */
 .markdown-content {
-  color: #1f2937;
+  color: #e2e8f0; /* gray-200 */
   line-height: 1.6;
 }
 
 .markdown-content :deep(h1),
 .markdown-content :deep(h2),
 .markdown-content :deep(h3) {
-  font-weight: 600;
-  margin-top: 0.75rem;
+  font-weight: 700;
+  margin-top: 1rem;
   margin-bottom: 0.5rem;
-  color: #111827;
+  color: #f8fafc; /* slate-50 */
 }
 
 .markdown-content :deep(h1) {
@@ -684,36 +674,38 @@ export default {
 }
 
 .markdown-content :deep(strong) {
-  font-weight: 600;
-  color: #111827;
+  font-weight: 700;
+  color: #ffffff;
 }
 
 .markdown-content :deep(em) {
   font-style: italic;
+  color: #22d3ee; /* cyan-400 */
 }
 
 .markdown-content :deep(code) {
-  background-color: #f3f4f6;
+  background-color: rgba(255, 255, 255, 0.1);
   padding: 0.125rem 0.375rem;
   border-radius: 0.25rem;
   font-size: 0.875em;
   font-family: 'Courier New', monospace;
-  color: #dc2626;
+  color: #22d3ee; /* cyan-400 */
 }
 
 .markdown-content :deep(pre) {
-  background-color: #1f2937;
-  color: #f9fafb;
+  background-color: #0f172a; /* slate-900 */
+  color: #f8fafc;
   padding: 0.75rem;
   border-radius: 0.5rem;
   overflow-x: auto;
   margin: 0.5rem 0;
+  border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .markdown-content :deep(pre code) {
   background-color: transparent;
   padding: 0;
-  color: #f9fafb;
+  color: #f8fafc;
   font-size: 0.875rem;
 }
 
@@ -736,30 +728,33 @@ export default {
 }
 
 .markdown-content :deep(blockquote) {
-  border-left: 3px solid #9ca3af;
+  border-left: 3px solid #06b6d4; /* cyan-500 */
   padding-left: 0.75rem;
   margin: 0.5rem 0;
-  color: #6b7280;
+  color: #94a3b8; /* slate-400 */
   font-style: italic;
+  background: rgba(6, 182, 212, 0.05);
+  padding-top: 0.25rem;
+  padding-bottom: 0.25rem;
 }
 
 .markdown-content :deep(a) {
-  color: #8b5cf6;
+  color: #22d3ee; /* cyan-400 */
   text-decoration: underline;
 }
 
 .markdown-content :deep(a:hover) {
-  color: #7c3aed;
+  color: #67e8f9; /* cyan-300 */
 }
 
 .markdown-content :deep(hr) {
   border: none;
-  border-top: 1px solid #e5e7eb;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
   margin: 0.75rem 0;
 }
 
 .markdown-content :deep(del) {
   text-decoration: line-through;
-  color: #9ca3af;
+  color: #64748b; /* slate-500 */
 }
 </style>
