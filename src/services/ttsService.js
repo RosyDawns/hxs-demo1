@@ -8,8 +8,8 @@ import axios from 'axios'
 // TTS 配置
 export const TTS_CONFIG = {
   apiKey: 'sk-0bf9eb9351ef473593ac3b36d94a1bd0',
-  // 使用本地代理服务器
-  proxyURL: 'http://localhost:3001/api/tts',
+  // 根据环境自动切换代理 URL
+  proxyURL: import.meta.env.VITE_TTS_PROXY_URL || 'http://localhost:3001/api/tts',
   model: 'qwen3-tts-flash'
 }
 
