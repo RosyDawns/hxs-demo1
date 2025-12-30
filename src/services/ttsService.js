@@ -85,9 +85,6 @@ class TTSService {
       // 初始化音频上下文
       const audioContext = this.initAudioContext()
 
-      // 调用回调
-      if (onStart) onStart()
-
       // 发起流式请求到代理服务器
       const response = await fetch(this.proxyURL, {
         method: 'POST',
@@ -110,6 +107,30 @@ class TTSService {
       const decoder = new TextDecoder()
       let buffer = ''
       const audioChunks = []
+      let hasStartedPlaying = false
+      let audioQueue = []
+      let isPlaying = false
+
+      // 处理音频队列播放
+      const playNextChunk = async () => {
+        if (isPlaying || audioQueue.length === 0) return
+        
+        isPlaying = true
+        const chunk = audioQueue.shift()
+        
+        try {
+          await this.playPCMAudio(chunk, audioContext)
+        } catch (error) {
+          console.error('播放音频块失败:', error)
+        }
+        
+        isPlaying = false
+        
+        // 继续播放下一块
+        if (audioQueue.length > 0) {
+          playNextChunk()
+        }
+      }
 
       while (true) {
         const { done, value } = await reader.read()
@@ -135,7 +156,18 @@ class TTSService {
               if (data.output && data.output.audio && data.output.audio.data) {
                 const base64Audio = data.output.audio.data
                 const audioData = this.base64ToArrayBuffer(base64Audio)
-                audioChunks.push(audioData)
+                
+                // 第一次收到音频数据时调用 onStart
+                if (!hasStartedPlaying) {
+                  hasStartedPlaying = true
+                  if (onStart) onStart()
+                }
+                
+                // 添加到播放队列
+                audioQueue.push(audioData)
+                
+                // 开始播放
+                playNextChunk()
               }
             } catch (e) {
               console.error('解析 SSE 数据失败:', e)
@@ -144,20 +176,19 @@ class TTSService {
         }
       }
 
-      // 合并所有音频块
-      if (audioChunks.length > 0) {
-        const totalLength = audioChunks.reduce((sum, chunk) => sum + chunk.byteLength, 0)
-        const combinedAudio = new Uint8Array(totalLength)
-        let offset = 0
-        
-        for (const chunk of audioChunks) {
-          combinedAudio.set(new Uint8Array(chunk), offset)
-          offset += chunk.byteLength
-        }
-
-        // 播放音频
-        await this.playPCMAudio(combinedAudio.buffer, audioContext)
+      // 等待所有音频播放完成
+      const waitForPlayback = () => {
+        return new Promise((resolve) => {
+          const checkInterval = setInterval(() => {
+            if (!isPlaying && audioQueue.length === 0) {
+              clearInterval(checkInterval)
+              resolve()
+            }
+          }, 100)
+        })
       }
+
+      await waitForPlayback()
 
       // 播放结束
       if (onEnd) onEnd()

@@ -65,7 +65,15 @@
                   <i v-if="message.error" class="fa-solid fa-exclamation-circle mr-1"></i>
                   {{ message.content }}
                 </p>
-                <div class="flex items-center justify-between mt-1">
+                
+                <!-- 加载音频状态 -->
+                <div v-if="message.isLoadingAudio" class="flex items-center space-x-2 mt-2 text-xs text-purple-500">
+                  <i class="fa-solid fa-spinner fa-spin"></i>
+                  <span>正在生成语音...</span>
+                </div>
+                
+                <!-- 正常状态 -->
+                <div v-else class="flex items-center justify-between mt-1">
                   <span class="text-xs text-gray-400">{{ message.time }}</span>
                   <button 
                     v-if="!message.error && ttsEnabled"
@@ -236,11 +244,11 @@
         </button>
 
         <!-- 更多功能按钮 -->
-        <button v-if="!isVoiceMode"
+        <!-- <button v-if="!isVoiceMode"
           class="w-10 h-10 rounded-full bg-gray-100 flex items-center justify-center flex-shrink-0"
           @click="showMoreOptions = !showMoreOptions">
           <i class="fa-solid fa-plus text-gray-700"></i>
-        </button>
+        </button> -->
       </div>
 
       <!-- 更多选项面板 -->
@@ -298,7 +306,7 @@ export default {
     // 状态管理
     const messages = ref([]);
     const inputText = ref('');
-    const isVoiceMode = ref(true);
+    const isVoiceMode = ref(false);
     const isRecording = ref(false);
     const recordingDuration = ref(0);
     const isTyping = ref(false);
@@ -361,16 +369,42 @@ export default {
         // 调用 DeepSeek API（传递不包含当前消息的历史）
         const response = await chatService.sendMessage(userMessage, conversationHistory);
         
-        // 添加 AI 回复
-        messages.value.push({
-          type: 'ai',
-          content: response,
-          time: getCurrentTime()
-        });
-
-        // 如果启用了 TTS，播放语音
+        // 如果启用了 TTS，先添加加载状态的消息
         if (ttsEnabled.value && response) {
-          playTTS(response);
+          const loadingMessage = {
+            type: 'ai',
+            content: response,
+            time: getCurrentTime(),
+            isLoadingAudio: true  // 标记为正在加载音频
+          };
+          messages.value.push(loadingMessage);
+          scrollToBottom();
+
+          // 异步生成 TTS，完成后更新消息状态并播放
+          ttsService.synthesizeAndPlay(
+            response,
+            selectedVoice.value,
+            () => {
+              // TTS 开始播放，移除加载状态
+              loadingMessage.isLoadingAudio = false;
+              isPlayingAudio.value = true;
+            },
+            () => {
+              isPlayingAudio.value = false;
+            },
+            (error) => {
+              console.error('TTS 播放失败:', error);
+              loadingMessage.isLoadingAudio = false;
+              isPlayingAudio.value = false;
+            }
+          );
+        } else {
+          // 如果未启用 TTS，直接添加消息
+          messages.value.push({
+            type: 'ai',
+            content: response,
+            time: getCurrentTime()
+          });
         }
       } catch (error) {
         // 显示错误消息
