@@ -38,7 +38,11 @@ export default {
     }
   },
   methods: {
-    handleClick() {
+    handleClick(event) {
+      // 阻止事件冒泡，确保只触发一次
+      if (event) {
+        event.stopPropagation();
+      }
       this.$emit('click', this.item.id);
     }
   }

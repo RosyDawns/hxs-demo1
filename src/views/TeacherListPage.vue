@@ -802,7 +802,14 @@ export default {
     };
 
     const handleDynamicClick = (dynamicId) => {
-      router.push(`/dynamic-detail/${dynamicId}`);
+      // 找到对应的动态数据
+      const dynamicItem = dynamicItems.value.find(item => item.id === dynamicId);
+      
+      // 通过路由状态传递完整数据
+      router.push({
+        path: `/dynamic-detail/${dynamicId}`,
+        state: { dynamic: dynamicItem }
+      });
     };
 
     // 加载更多数据

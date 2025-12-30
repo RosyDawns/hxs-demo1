@@ -203,7 +203,14 @@ export default {
     // 处理点击事件
     const handleItemClick = (itemId) => {
       console.log('点击了动态:', itemId);
-      router.push(`/dynamic-detail/${itemId}`);
+      // 找到对应的动态数据
+      const dynamicItem = sportsItems.value.find(item => item.id === itemId);
+      
+      // 通过路由状态传递完整数据
+      router.push({
+        path: `/dynamic-detail/${itemId}`,
+        state: { dynamic: dynamicItem }
+      });
     };
     
     // 生命周期

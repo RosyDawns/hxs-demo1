@@ -163,7 +163,14 @@ export default {
 
     // 处理动态点击
     const handleDynamicClick = (dynamicId) => {
-      router.push(`/dynamic-detail/${dynamicId}`);
+      // 找到对应的动态数据
+      const dynamicItem = dynamicItems.value.find(item => item.id === dynamicId);
+      
+      // 通过路由状态传递完整数据
+      router.push({
+        path: `/dynamic-detail/${dynamicId}`,
+        state: { dynamic: dynamicItem }
+      });
     };
 
     // 处理发布按钮点击

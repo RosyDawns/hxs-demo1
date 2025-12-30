@@ -541,7 +541,19 @@ export default {
   },
   methods: {
     handleDynamicClick(id) {
-      this.$router.push(`/dynamic-detail/${id}`);
+      // 根据当前标签页找到对应的数据源
+      let dynamicItem;
+      if (this.activeTab === 'dynamics') {
+        dynamicItem = this.dynamicList.find(item => item.id === id);
+      } else if (this.activeTab === 'follow' && this.followViewMode === 'mode2') {
+        dynamicItem = this.followDynamicsList.find(item => item.id === id);
+      }
+      
+      // 通过路由状态传递完整数据
+      this.$router.push({
+        path: `/dynamic-detail/${id}`,
+        state: { dynamic: dynamicItem }
+      });
     },
     handlePublish() {
       this.$router.push("/publish-activity");

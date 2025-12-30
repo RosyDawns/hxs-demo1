@@ -2,82 +2,86 @@
   <div class="page min-h-screen bg-gray-50" id="page-dynamic-detail">
     <!-- 顶部导航 -->
     <header class="fixed top-0 left-0 right-0 bg-white z-50 shadow-sm">
-      <div class="flex items-center justify-between p-3">
+      <div class="flex items-center justify-between p-4">
         <button
           class="flex items-center text-gray-700 nav-action"
           @click="$router.back()"
         >
-          <i class="fa fa-arrow-left text-xl"></i>
+          <i class="fa fa-chevron-left text-lg"></i>
         </button>
-        <h1 class="text-lg font-medium">动态详情</h1>
+        <h1 class="text-base font-medium">动态详情</h1>
         <button class="text-gray-700 nav-action">
-          <i class="fa fa-ellipsis-h text-xl"></i>
+          <i class="fa fa-ellipsis-h text-lg"></i>
         </button>
       </div>
     </header>
 
     <!-- 主要内容区 -->
-    <main class="pt-14 pb-20">
+    <main class="pt-16 pb-20">
       <!-- 用户信息 -->
-      <div class="bg-white p-4">
-        <div class="flex items-center justify-between mb-3">
-          <div class="flex items-center">
-            <img
-              :src="dynamic.avatar"
-              :alt="dynamic.author"
-              class="w-12 h-12 rounded-full object-cover mr-3"
-            />
-            <div>
-              <div class="font-medium text-black">{{ dynamic.author }}</div>
-              <div class="text-xs text-gray-400 mt-1">{{ dynamic.time || '刚刚' }}</div>
+      <div class="bg-white">
+        <div class="p-4">
+          <div class="flex items-center justify-between mb-4">
+            <div class="flex items-center">
+              <img
+                :src="dynamic.avatar"
+                :alt="dynamic.author"
+                class="w-11 h-11 rounded-full object-cover mr-3 border-2 border-gray-100"
+              />
+              <div>
+                <div class="font-medium text-black text-base">{{ dynamic.author }}</div>
+                <div class="text-xs text-gray-400 mt-0.5">{{ dynamic.time || '刚刚' }}</div>
+              </div>
             </div>
+            <button class="px-5 py-1.5 bg-orange-500 text-white text-sm rounded-full hover:bg-orange-600 transition-colors">
+              + 关注
+            </button>
           </div>
-          <button class="px-4 py-1.5 bg-orange-500 text-white text-sm rounded-full">
-            + 关注
-          </button>
-        </div>
 
-        <!-- 动态内容 -->
-        <div class="mb-3">
-          <p class="text-base text-black leading-relaxed">{{ dynamic.title }}</p>
-          <p v-if="dynamic.content" class="text-sm text-gray-600 mt-2 leading-relaxed">
-            {{ dynamic.content }}
-          </p>
+          <!-- 动态内容 -->
+          <div class="mb-4">
+            <p class="text-base text-black leading-relaxed font-medium mb-2">{{ dynamic.title }}</p>
+            <p v-if="dynamic.content" class="text-sm text-gray-600 leading-relaxed">
+              {{ dynamic.content }}
+            </p>
+          </div>
         </div>
 
         <!-- 动态图片 -->
-        <div class="mb-3">
+        <div class="w-full">
           <img
             :src="dynamic.image"
             :alt="dynamic.title"
-            class="w-full rounded-lg object-cover"
+            class="w-full object-cover"
+            style="max-height: 500px;"
           />
         </div>
 
         <!-- 互动区域 -->
-        <div class="flex items-center justify-between pt-3 border-t border-gray-100">
-          <button class="flex items-center text-gray-500 nav-action">
-            <i class="fa-regular fa-heart text-lg mr-2"></i>
-            <span class="text-sm">{{ dynamic.likes || 0 }}</span>
+        <div class="flex items-center justify-around py-3 px-4 border-t border-gray-100">
+          <button class="flex items-center text-gray-600 nav-action hover:text-red-500 transition-colors">
+            <i class="fa-regular fa-heart text-xl mr-2"></i>
+            <span class="text-sm font-medium">{{ dynamic.likes || 0 }}</span>
           </button>
-          <button class="flex items-center text-gray-500 nav-action">
-            <i class="fa-regular fa-comment text-lg mr-2"></i>
-            <span class="text-sm">{{ dynamic.comments || 0 }}</span>
+          <button class="flex items-center text-gray-600 nav-action hover:text-blue-500 transition-colors">
+            <i class="fa-regular fa-comment text-xl mr-2"></i>
+            <span class="text-sm font-medium">{{ dynamic.comments || commentList.length }}</span>
           </button>
-          <button class="flex items-center text-gray-500 nav-action">
-            <i class="fa-regular fa-star text-lg mr-2"></i>
-            <span class="text-sm">{{ dynamic.favorites || 0 }}</span>
+          <button class="flex items-center text-gray-600 nav-action hover:text-yellow-500 transition-colors">
+            <i class="fa-regular fa-star text-xl mr-2"></i>
+            <span class="text-sm font-medium">{{ dynamic.favorites || 0 }}</span>
           </button>
-          <button class="flex items-center text-gray-500 nav-action">
-            <i class="fa-solid fa-share-nodes text-lg"></i>
+          <button class="flex items-center text-gray-600 nav-action hover:text-green-500 transition-colors">
+            <i class="fa-solid fa-share-nodes text-xl"></i>
           </button>
         </div>
       </div>
 
       <!-- 评论区 -->
-      <div class="bg-white mt-3 p-4">
-        <div class="text-base font-medium text-black mb-4">
-          评论 {{ commentList.length }}
+      <div class="bg-white mt-2 p-4">
+        <div class="text-base font-semibold text-black mb-4 flex items-center">
+          <span>评论</span>
+          <span class="ml-2 text-sm text-gray-400 font-normal">{{ commentList.length }}</span>
         </div>
         
         <!-- 评论列表 -->
@@ -85,45 +89,47 @@
           <div
             v-for="comment in commentList"
             :key="comment.id"
-            class="flex items-start"
+            class="flex items-start pb-4 border-b border-gray-50 last:border-0"
           >
             <img
               :src="comment.avatar"
               :alt="comment.author"
-              class="w-10 h-10 rounded-full object-cover mr-3"
+              class="w-9 h-9 rounded-full object-cover mr-3 flex-shrink-0"
             />
-            <div class="flex-1">
+            <div class="flex-1 min-w-0">
               <div class="text-sm font-medium text-black">{{ comment.author }}</div>
-              <div class="text-sm text-gray-600 mt-1">{{ comment.content }}</div>
+              <div class="text-sm text-gray-700 mt-1.5 leading-relaxed">{{ comment.content }}</div>
               <div class="flex items-center mt-2 text-xs text-gray-400">
                 <span>{{ comment.time }}</span>
-                <button class="ml-4 nav-action">回复</button>
+                <button class="ml-4 nav-action hover:text-orange-500 transition-colors">回复</button>
               </div>
             </div>
-            <button class="text-gray-400 nav-action">
-              <i class="fa-regular fa-heart text-sm"></i>
+            <button class="text-gray-400 nav-action hover:text-red-500 transition-colors ml-2">
+              <i class="fa-regular fa-heart text-base"></i>
             </button>
           </div>
         </div>
 
         <!-- 空状态 -->
-        <div v-else class="text-center py-8 text-gray-400">
-          暂无评论，快来抢沙发吧~
+        <div v-else class="text-center py-12">
+          <i class="fa-regular fa-comment-dots text-4xl text-gray-300 mb-3"></i>
+          <p class="text-gray-400 text-sm">暂无评论，快来抢沙发吧~</p>
         </div>
       </div>
     </main>
 
     <!-- 底部评论输入框 -->
-    <div class="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 p-3 z-40">
+    <div class="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 p-3 z-40 shadow-lg">
       <div class="flex items-center space-x-3">
         <input
           type="text"
           placeholder="说点什么..."
-          class="flex-1 bg-gray-100 rounded-full px-4 py-2 text-sm focus:outline-none"
+          class="flex-1 bg-gray-100 rounded-full px-4 py-2.5 text-sm focus:outline-none focus:bg-gray-50 transition-colors"
           v-model="commentInput"
+          @keyup.enter="submitComment"
         />
         <button
-          class="px-6 py-2 bg-orange-500 text-white text-sm rounded-full nav-action"
+          class="px-6 py-2.5 bg-orange-500 text-white text-sm rounded-full nav-action hover:bg-orange-600 transition-colors font-medium"
           @click="submitComment"
         >
           发送
@@ -161,14 +167,14 @@ export default {
       commentList: [
         {
           id: "comment1",
-          author: "张三",
+          author: "运动爱好者",
           avatar: img1,
-          content: "太棒了！我也要坚持游泳",
+          content: "太棒了！我也要坚持运动",
           time: "2小时前",
         },
         {
           id: "comment2",
-          author: "李四",
+          author: "健身达人",
           avatar: img40,
           content: "加油，坚持就是胜利！",
           time: "5小时前",
@@ -177,45 +183,56 @@ export default {
     };
   },
   mounted() {
-    // 从路由参数获取动态ID
-    const dynamicId = this.$route.params.id;
-    this.loadDynamicDetail(dynamicId);
+    this.loadDynamicDetail();
   },
   methods: {
-    loadDynamicDetail(id) {
-      // 模拟加载动态详情数据
-      // 实际应用中应该从API获取
-      const mockData = {
-        1: {
-          id: 1,
-          title: "9月的仪式感, 从纵身跃入泳池开始",
-          content:
-            "今天完成了人生第一个5公里长泳，从最开始的恐水到现在可以轻松完成长距离游泳，这一路走来真的不容易。感谢教练的耐心指导，感谢自己的坚持。游泳不仅锻炼了身体，更重要的是让我学会了坚持和突破自己。",
-          image: img39,
-          avatar: img1,
-          author: "张小明",
-          time: "3小时前",
-          likes: 128,
-          comments: 23,
-          favorites: 45,
-        },
-        2: {
-          id: 2,
-          title: "始于兴趣, 终于坚持, 让游泳成为一种习惯",
-          content:
-            "坚持游泳已经三个月了，从一开始的气喘吁吁到现在能轻松完成2000米，这种进步的感觉真好！每天下班后去游泳已经成为我生活中不可或缺的一部分。",
-          image: img40,
-          avatar: img1,
-          author: "张小明",
-          time: "1天前",
-          likes: 256,
-          comments: 42,
-          favorites: 78,
-        },
-      };
-
-      this.dynamic = mockData[id] || mockData[1];
+    loadDynamicDetail() {
+      // 优先从路由状态获取数据
+      const routeState = history.state?.dynamic;
+      
+      if (routeState) {
+        // 使用路由传递的完整数据
+        this.dynamic = {
+          ...routeState,
+          time: routeState.time || '刚刚',
+          content: routeState.content || this.generateContent(routeState.title),
+          comments: routeState.comments || Math.floor(Math.random() * 50) + 5,
+          favorites: routeState.favorites || Math.floor(Math.random() * 100) + 10,
+        };
+      } else {
+        // 降级方案：使用默认数据
+        const dynamicId = this.$route.params.id;
+        this.dynamic = this.getDefaultDynamic(dynamicId);
+      }
     },
+    
+    // 根据标题生成内容
+    generateContent(title) {
+      const contentTemplates = [
+        `${title}。每天坚持运动让我感觉身心都得到了很好的锻炼，这种感觉真的太棒了！`,
+        `今天的运动打卡完成！${title}。希望能一直保持这个好习惯。`,
+        `${title}。运动不仅让我的身体更健康，也让我的心态变得更加积极向上。`,
+        `分享一下今天的运动日常：${title}。坚持运动，遇见更好的自己！`,
+      ];
+      return contentTemplates[Math.floor(Math.random() * contentTemplates.length)];
+    },
+    
+    // 获取默认动态数据（降级方案）
+    getDefaultDynamic(id) {
+      return {
+        id: id,
+        title: "运动让生活更美好",
+        content: "坚持运动已经成为我生活中不可或缺的一部分，每天都能感受到身体的变化和进步。",
+        image: img39,
+        avatar: img1,
+        author: "运动达人",
+        time: "刚刚",
+        likes: Math.floor(Math.random() * 500) + 50,
+        comments: Math.floor(Math.random() * 50) + 5,
+        favorites: Math.floor(Math.random() * 100) + 10,
+      };
+    },
+    
     submitComment() {
       if (!this.commentInput.trim()) {
         return;
