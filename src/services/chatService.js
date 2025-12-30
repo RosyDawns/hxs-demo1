@@ -57,9 +57,10 @@ class ChatService {
    * Send message to DeepSeek API
    * @param {string} userMessage - The user's message
    * @param {Array} conversationHistory - Previous messages in internal format
+   * @param {AbortSignal} signal - Optional AbortSignal for cancellation
    * @returns {Promise<string>} - AI response text
    */
-  async sendMessage(userMessage, conversationHistory = []) {
+  async sendMessage(userMessage, conversationHistory = [], signal = null) {
     try {
       // Format conversation history
       const formattedHistory = this.formatConversationHistory(conversationHistory)
@@ -109,14 +110,18 @@ class ChatService {
         }
       ]
 
-      // Make API request
-      const response = await this.axiosInstance.post(this.chatEndpoint, {
+      // Make API request with optional abort signal
+      const requestConfig = {
         model: this.model,
         messages: messages,
         temperature: this.temperature,
         max_tokens: this.maxTokens,
         stream: this.stream
-      })
+      }
+
+      const axiosConfig = signal ? { signal } : {}
+      
+      const response = await this.axiosInstance.post(this.chatEndpoint, requestConfig, axiosConfig)
 
       // Extract response content
       if (response.data && response.data.choices && response.data.choices.length > 0) {

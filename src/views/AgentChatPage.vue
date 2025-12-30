@@ -3,7 +3,7 @@
     <!-- 顶部导航栏 -->
     <div class="flex-shrink-0 bg-white/80 backdrop-blur-md py-3 px-4 shadow-sm">
       <div class="flex items-center justify-between">
-        <button class="w-10 h-10 rounded-full bg-gray-100 flex items-center justify-center" @click="$router.back()">
+        <button class="w-10 h-10 rounded-full bg-gray-100 flex items-center justify-center" @click="handleBack">
           <i class="fa-solid fa-arrow-left text-gray-700"></i>
         </button>
 
@@ -122,7 +122,7 @@
       </div>
       
       <!-- 底部占位，防止内容被输入框遮挡 -->
-      <div class="h-40"></div>
+      <div class="h-10"></div>
     </div>
 
     <!-- 设置面板 -->
@@ -292,7 +292,7 @@
 </template>
 
 <script>
-import { ref, onMounted, watch, nextTick } from 'vue';
+import { ref, onMounted, onBeforeUnmount, watch, nextTick } from 'vue';
 import { useRouter } from 'vue-router';
 import ChatService from '../services/chatService.js';
 import TTSService, { VOICE_OPTIONS } from '../services/ttsService.js';
@@ -310,6 +310,9 @@ export default {
     
     // Initialize TTSService
     const ttsService = new TTSService();
+    
+    // AbortController for API requests
+    let abortController = null;
 
     // 状态管理
     const messages = ref([]);
@@ -373,9 +376,12 @@ export default {
       // 显示输入指示器
       isTyping.value = true;
 
+      // 创建新的 AbortController
+      abortController = new AbortController();
+
       try {
-        // 调用 DeepSeek API（传递不包含当前消息的历史）
-        const response = await chatService.sendMessage(userMessage, conversationHistory);
+        // 调用 DeepSeek API（传递不包含当前消息的历史和 abort signal）
+        const response = await chatService.sendMessage(userMessage, conversationHistory, abortController.signal);
         
         // 如果启用了 TTS，先添加加载状态的消息
         if (ttsEnabled.value && response) {
@@ -420,16 +426,22 @@ export default {
           });
         }
       } catch (error) {
-        // 显示错误消息
-        messages.value.push({
-          type: 'ai',
-          content: error.message,
-          time: getCurrentTime(),
-          error: true
-        });
+        // 如果是用户主动取消，不显示错误消息
+        if (error.name === 'AbortError' || error.name === 'CanceledError') {
+          console.log('请求已取消');
+        } else {
+          // 显示错误消息
+          messages.value.push({
+            type: 'ai',
+            content: error.message,
+            time: getCurrentTime(),
+            error: true
+          });
+        }
       } finally {
         // 移除输入指示器
         isTyping.value = false;
+        abortController = null;
         scrollToBottom();
       }
     };
@@ -535,8 +547,35 @@ export default {
       showMoreOptions.value = false;
     };
 
+    // 清理函数 - 中断所有进行中的操作
+    const cleanup = () => {
+      // 中断 API 请求
+      if (abortController) {
+        abortController.abort();
+        abortController = null;
+      }
+      
+      // 停止 TTS 播放
+      ttsService.stopCurrentAudio();
+      
+      // 清除输入状态
+      isTyping.value = false;
+      isPlayingAudio.value = false;
+    };
+
+    // 返回按钮处理
+    const handleBack = () => {
+      cleanup();
+      router.back();
+    };
+
     onMounted(() => {
       scrollToBottom();
+    });
+
+    // 组件卸载前清理
+    onBeforeUnmount(() => {
+      cleanup();
     });
 
     // 监听消息变化
@@ -570,6 +609,7 @@ export default {
       playTTS,
       stopTTS,
       toggleSettings,
+      handleBack,
     };
   }
 };

@@ -43,6 +43,7 @@ class TTSService {
     this.model = TTS_CONFIG.model
     this.audioContext = null
     this.currentSource = null
+    this.currentAbortController = null  // 用于中断 fetch 请求
   }
 
   /**
@@ -56,9 +57,10 @@ class TTSService {
   }
 
   /**
-   * 停止当前播放
+   * 停止当前播放和请求
    */
   stopCurrentAudio() {
+    // 停止音频播放
     if (this.currentSource) {
       try {
         this.currentSource.stop()
@@ -66,6 +68,16 @@ class TTSService {
         // 忽略已停止的错误
       }
       this.currentSource = null
+    }
+    
+    // 中断 fetch 请求
+    if (this.currentAbortController) {
+      try {
+        this.currentAbortController.abort()
+      } catch (e) {
+        // 忽略已中断的错误
+      }
+      this.currentAbortController = null
     }
   }
 
@@ -79,8 +91,11 @@ class TTSService {
    */
   async synthesizeAndPlay(text, voice = 'Cherry', onStart, onEnd, onError) {
     try {
-      // 停止当前播放
+      // 停止当前播放和请求
       this.stopCurrentAudio()
+
+      // 创建新的 AbortController
+      this.currentAbortController = new AbortController()
 
       // 初始化音频上下文
       const audioContext = this.initAudioContext()
@@ -95,7 +110,8 @@ class TTSService {
           text: text,
           voice: voice,
           language_type: 'Chinese'
-        })
+        }),
+        signal: this.currentAbortController.signal  // 添加 abort signal
       })
 
       if (!response.ok) {
@@ -190,11 +206,20 @@ class TTSService {
 
       await waitForPlayback()
 
-      // 播放结束
+      // 播放结束，清理 AbortController
+      this.currentAbortController = null
       if (onEnd) onEnd()
 
     } catch (error) {
+      // 如果是用户主动中断，不报错
+      if (error.name === 'AbortError') {
+        console.log('TTS 请求已取消')
+        this.currentAbortController = null
+        return
+      }
+      
       console.error('TTS 合成失败:', error)
+      this.currentAbortController = null
       if (onError) onError(error)
     }
   }
