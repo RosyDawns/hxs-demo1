@@ -355,6 +355,23 @@
     </div>
 
     <FooterNav activePage="ai" />
+    
+    <!-- 智能体浮动按钮 -->
+    <div class="fixed bottom-40 right-6 z-50">
+      <!-- 光波效果层 -->
+      <div class="absolute inset-0 -m-2">
+        <div class="ripple-wave"></div>
+        <div class="ripple-wave" style="animation-delay: 1s"></div>
+        <div class="ripple-wave" style="animation-delay: 2s"></div>
+      </div>
+      <!-- 按钮本体 -->
+      <!-- <button
+        class="relative w-16 h-16 bg-gradient-to-br from-purple-500 to-pink-500 rounded-full shadow-2xl flex items-center justify-center hover:scale-110 transition-transform duration-300"
+        @click="goToAgentChat"
+      >
+        <i class="fa-solid fa-robot text-white text-2xl"></i>
+      </button> -->
+    </div>
   </div>
 </template>
 
@@ -683,6 +700,11 @@ export default {
       currentSlide.value = index;
     };
 
+    // 跳转到智能体聊天页面
+    const goToAgentChat = () => {
+      router.push('/agent-chat');
+    };
+
     // 触摸事件处理
     const handleTouchStart = (e) => {
       touchStartX.value = e.touches[0].clientX;
@@ -740,6 +762,7 @@ export default {
       handleTouchStart,
       handleTouchMove,
       handleTouchEnd,
+      goToAgentChat,
     };
   },
 };
@@ -759,5 +782,31 @@ export default {
 
 .animate-pulse {
   animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+/* 光波泛动效果 - 柔和透明版本 */
+@keyframes ripple {
+  0% {
+    transform: scale(1);
+    opacity: 0.3;
+  }
+  50% {
+    opacity: 0.15;
+  }
+  100% {
+    transform: scale(1.4);
+    opacity: 0;
+  }
+}
+
+.ripple-wave {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  border: 1px solid rgba(168, 85, 247, 0.4);
+  border-radius: 50%;
+  animation: ripple 3s ease-out infinite;
 }
 </style>
