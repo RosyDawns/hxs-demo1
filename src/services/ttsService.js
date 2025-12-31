@@ -13,28 +13,36 @@ export const TTS_CONFIG = {
   model: 'qwen3-tts-flash'
 }
 
-// 音色列表（qwen3-tts-flash-2025-11-27 支持的音色）
+// 音色分类
+export const VOICE_CATEGORIES = [
+  { value: 'all', label: '全部' },
+  { value: 'standard', label: '标准' },
+  { value: 'dialect', label: '方言' }
+]
+
+// 音色列表（qwen3-tts-flash 支持的音色）
+// 稳定版等同 qwen3-tts-flash-2025-09-18，共 17 种音色
+// 文档: https://help.aliyun.com/zh/model-studio/qwen-tts
 export const VOICE_OPTIONS = [
-  { value: 'Cherry', label: '芊悦 Cherry', description: '阳光积极、亲切自然小姐姐' },
-  { value: 'Serena', label: '苏瑶 Serena', description: '温柔小姐姐' },
-  { value: 'Ethan', label: '晨煦 Ethan', description: '阳光、温暖、活力、朝气' },
-  { value: 'Chelsie', label: '千雪 Chelsie', description: '二次元虚拟女友' },
-  { value: 'Momo', label: '茉兔 Momo', description: '撒娇搞怪，逗你开心' },
-  { value: 'Vivian', label: '十三 Vivian', description: '拽拽的、可爱的小暴躁' },
-  { value: 'Moon', label: '月白 Moon', description: '率性帅气的月白' },
-  { value: 'Maia', label: '四月 Maia', description: '知性与温柔的碰撞' },
-  { value: 'Kai', label: '凯 Kai', description: '耳朵的一场SPA' },
-  { value: 'Nofish', label: '不吃鱼 Nofish', description: '不会翘舌音的设计师' },
-  { value: 'Bella', label: '萌宝 Bella', description: '喝酒不打醉拳的小萝莉' },
-  { value: 'Jennifer', label: '詹妮弗 Jennifer', description: '品牌级、电影质感般美语女声' },
-  { value: 'Ryan', label: '甜茶 Ryan', description: '节奏拉满，戏感炸裂' },
-  { value: 'Katerina', label: '卡捷琳娜 Katerina', description: '御姐音色，韵律回味十足' },
-  { value: 'Aiden', label: '艾登 Aiden', description: '精通厨艺的美语大男孩' },
-  { value: 'Sunny', label: '四川-晴儿 Sunny', description: '甜到你心里的川妹子' },
-  { value: 'Dylan', label: '北京-晓东 Dylan', description: '北京胡同里长大的少年' },
-  { value: 'Jada', label: '上海-阿珍 Jada', description: '风风火火的沪上阿姐' },
-  { value: 'Rocky', label: '粤语-阿强 Rocky', description: '幽默风趣的阿强' },
-  { value: 'Kiki', label: '粤语-阿清 Kiki', description: '甜美的港妹闺蜜' }
+  // 标准音色
+  { value: 'Cherry', label: '芩悦 Cherry', description: '阳光积极、亲切自然小姐姐', category: 'standard' },
+  { value: 'Ethan', label: '晨煚 Ethan', description: '阳光、温暖、活力、朝气', category: 'standard' },
+  { value: 'Nofish', label: '不吃鱼 Nofish', description: '不会翘舶音的设计师', category: 'standard' },
+  { value: 'Jennifer', label: '詹妮弗 Jennifer', description: '品牌级、电影质感般美语女声', category: 'standard' },
+  { value: 'Ryan', label: '甜茶 Ryan', description: '节奏拉满，戏感炸裂', category: 'standard' },
+  { value: 'Katerina', label: '卡捷琳娜 Katerina', description: '御姐音色，韵律回味十足', category: 'standard' },
+  { value: 'Elias', label: '墨讲师 Elias', description: '专业讲师，清晰条理', category: 'standard' },
+  // 方言音色
+  { value: 'Sunny', label: '四川-晴儿 Sunny', description: '甜到你心里的川妹子', category: 'dialect' },
+  { value: 'Eric', label: '四川-程川 Eric', description: '跳脱市井的四川男子', category: 'dialect' },
+  { value: 'Dylan', label: '北京-晓东 Dylan', description: '北京胡同里长大的少年', category: 'dialect' },
+  { value: 'Jada', label: '上海-阿珍 Jada', description: '风风火火的沪上阿姐', category: 'dialect' },
+  { value: 'Li', label: '南京-老李 Li', description: '耐心的瑶伽老师', category: 'dialect' },
+  { value: 'Marcus', label: '陕西-秦川 Marcus', description: '面宽话短的老陕', category: 'dialect' },
+  { value: 'Roy', label: '闽南-阿杰 Roy', description: '诩谐直爽的台湾哥仔', category: 'dialect' },
+  { value: 'Peter', label: '天津-李彼得 Peter', description: '天津相声，专业捧哏', category: 'dialect' },
+  { value: 'Rocky', label: '粤语-阿强 Rocky', description: '幽默风趣的阿强', category: 'dialect' },
+  { value: 'Kiki', label: '粤语-阿清 Kiki', description: '甜美的港妹闺蜜', category: 'dialect' }
 ]
 
 class TTSService {
@@ -50,10 +58,20 @@ class TTSService {
   /**
    * 初始化 Web Audio API
    */
-  initAudioContext() {
+  async initAudioContext() {
     if (!this.audioContext) {
       this.audioContext = new (window.AudioContext || window.webkitAudioContext)()
     }
+    
+    // 确保 AudioContext 处于运行状态
+    if (this.audioContext.state === 'suspended') {
+      try {
+        await this.audioContext.resume()
+      } catch (e) {
+        console.warn('AudioContext resume failed:', e)
+      }
+    }
+    
     return this.audioContext
   }
 
@@ -76,12 +94,13 @@ class TTSService {
     
     // 中断 fetch 请求
     if (this.currentAbortController) {
+      const controller = this.currentAbortController
+      this.currentAbortController = null  // 先清空引用
       try {
-        this.currentAbortController.abort()
+        controller.abort()
       } catch (e) {
         // 忽略已中断的错误
       }
-      this.currentAbortController = null
     }
   }
 
@@ -104,9 +123,10 @@ class TTSService {
 
       // 创建新的 AbortController
       this.currentAbortController = new AbortController()
+      const signal = this.currentAbortController.signal
 
-      // 初始化音频上下文
-      const audioContext = this.initAudioContext()
+      // 初始化音频上下文（确保处于运行状态）
+      const audioContext = await this.initAudioContext()
 
       // 发起流式请求到代理服务器
       const response = await fetch(this.proxyURL, {
@@ -119,7 +139,7 @@ class TTSService {
           voice: voice,
           language_type: 'Chinese'
         }),
-        signal: this.currentAbortController.signal  // 添加 abort signal
+        signal: signal  // 使用局部变量而非实例属性
       })
 
       if (!response.ok) {
@@ -236,12 +256,10 @@ class TTSService {
       // 如果是用户主动中断，不报错
       if (error.name === 'AbortError') {
         console.log('TTS 请求已取消')
-        this.currentAbortController = null
         return
       }
       
       console.error('TTS 合成失败:', error)
-      this.currentAbortController = null
       if (onError) onError(error)
     }
   }

@@ -99,11 +99,11 @@
                   <button 
                     v-if="!message.error && ttsEnabled"
                     class="text-xs flex items-center space-x-1.5 transition-colors px-2 py-1 rounded-md hover:bg-gray-50"
-                    :class="isPlayingAudio ? 'text-orange-500 cursor-not-allowed' : 'text-gray-400 hover:text-orange-500'"
-                    :disabled="isPlayingAudio"
-                    @click="playTTS(message.content)">
-                    <i class="fa-solid" :class="isPlayingAudio ? 'fa-spinner fa-spin' : 'fa-volume-high'"></i>
-                    <span>{{ isPlayingAudio ? '播放中' : '播放' }}</span>
+                    :class="playingMessageIndex === index ? 'text-orange-500 cursor-not-allowed' : (playingMessageIndex !== null ? 'text-gray-300 cursor-not-allowed' : 'text-gray-400 hover:text-orange-500')"
+                    :disabled="playingMessageIndex !== null"
+                    @click="playTTS(message.content, index)">
+                    <i class="fa-solid" :class="playingMessageIndex === index ? 'fa-spinner fa-spin' : 'fa-volume-high'"></i>
+                    <span>{{ playingMessageIndex === index ? '播放中' : '播放' }}</span>
                   </button>
                 </div>
               </div>
@@ -143,7 +143,7 @@
 
     <!-- 设置面板 -->
     <div v-if="showSettings" class="fixed inset-0 bg-slate-900/50 z-50 flex items-end backdrop-blur-sm" @click="showSettings = false">
-      <div class="bg-white rounded-t-3xl w-full max-h-[70vh] overflow-y-auto border-t border-gray-200" @click.stop>
+      <div class="bg-white rounded-t-3xl w-full max-h-[80vh] overflow-y-auto border-t border-gray-200" @click.stop>
         <!-- 设置标题 -->
         
         <div class="sticky top-0 bg-white/95 border-b border-gray-100 px-6 py-5 z-100 backdrop-blur-md">
@@ -176,10 +176,26 @@
 
           <!-- 音色选择 -->
           <div v-if="ttsEnabled">
-            <h3 class="text-base font-bold text-slate-800 mb-4">音色选择</h3>
-            <div class="space-y-3">
+            <h3 class="text-base font-bold text-slate-800 mb-3">音色选择</h3>
+            
+            <!-- 分类筛选 -->
+            <div class="flex space-x-2 mb-4 overflow-x-auto pb-1">
               <button
-                v-for="voice in VOICE_OPTIONS"
+                v-for="cat in VOICE_CATEGORIES"
+                :key="cat.value"
+                class="px-4 py-1.5 rounded-full text-sm font-medium whitespace-nowrap transition-all"
+                :class="selectedCategory === cat.value 
+                  ? 'bg-orange-500 text-white shadow-md' 
+                  : 'bg-gray-100 text-gray-600 hover:bg-gray-200'"
+                @click="selectedCategory = cat.value">
+                {{ cat.label }}
+              </button>
+            </div>
+            
+            <!-- 音色列表 -->
+            <div class="space-y-3 max-h-80 overflow-y-auto">
+              <button
+                v-for="voice in filteredVoices"
                 :key="voice.value"
                 class="w-full text-left px-4 py-4 rounded-xl transition-all border relative overflow-hidden group"
                 :class="selectedVoice === voice.value 
@@ -200,7 +216,7 @@
           </div>
 
           <!-- 当前播放状态 -->
-          <div v-if="isPlayingAudio" class="bg-gradient-to-r from-orange-50 to-amber-50 border border-orange-200 rounded-xl p-4">
+          <div v-if="playingMessageIndex !== null" class="bg-gradient-to-r from-orange-50 to-amber-50 border border-orange-200 rounded-xl p-4">
             <div class="flex items-center justify-between">
               <div class="flex items-center space-x-3">
                 <div class="w-10 h-10 rounded-full bg-orange-500 flex items-center justify-center animate-pulse">
@@ -288,10 +304,10 @@
 </template>
 
 <script>
-import { ref, onMounted, onBeforeUnmount, watch, nextTick } from 'vue';
+import { ref, computed, onMounted, onBeforeUnmount, watch, nextTick } from 'vue';
 import { useRouter } from 'vue-router';
 import ChatService from '../services/chatService.js';
-import TTSService, { VOICE_OPTIONS } from '../services/ttsService.js';
+import TTSService, { VOICE_OPTIONS, VOICE_CATEGORIES } from '../services/ttsService.js';
 import { cleanMarkdownForTTS, markdownToHtml } from '../utils/textUtils.js';
 
 export default {
@@ -320,8 +336,17 @@ export default {
     const showMoreOptions = ref(false);
     const showSettings = ref(false);
     const selectedVoice = ref('Cherry');
-    const isPlayingAudio = ref(false);
+    const selectedCategory = ref('all');  // 音色分类筛选
+    const playingMessageIndex = ref(null);  // 当前播放的消息索引，null 表示没有播放
     const ttsEnabled = ref(true);
+
+    // 根据分类筛选音色
+    const filteredVoices = computed(() => {
+      if (selectedCategory.value === 'all') {
+        return VOICE_OPTIONS;
+      }
+      return VOICE_OPTIONS.filter(v => v.category === selectedCategory.value);
+    });
 
     let recordingTimer = null;
 
@@ -358,7 +383,7 @@ export default {
       
       // 停止当前正在播放的 TTS
       ttsService.stopCurrentAudio();
-      isPlayingAudio.value = false;
+      playingMessageIndex.value = null;
       
       // 保存当前对话历史（不包括即将发送的消息）
       const conversationHistory = [...messages.value];
@@ -398,6 +423,9 @@ export default {
           // 清理 Markdown 标记用于 TTS
           const cleanText = cleanMarkdownForTTS(response);
 
+          // 获取新消息的索引
+          const newMessageIndex = messages.value.length - 1;
+
           // 异步生成 TTS，完成后更新消息状态并播放
           ttsService.synthesizeAndPlay(
             cleanText,  // 使用清理后的文本
@@ -405,15 +433,15 @@ export default {
             () => {
               // TTS 开始播放，移除加载状态
               loadingMessage.isLoadingAudio = false;
-              isPlayingAudio.value = true;
+              playingMessageIndex.value = newMessageIndex;
             },
             () => {
-              isPlayingAudio.value = false;
+              playingMessageIndex.value = null;
             },
             (error) => {
               console.error('TTS 播放失败:', error);
               loadingMessage.isLoadingAudio = false;
-              isPlayingAudio.value = false;
+              playingMessageIndex.value = null;
             }
           );
         } else {
@@ -512,7 +540,7 @@ export default {
     };
 
     // 播放 TTS
-    const playTTS = (text) => {
+    const playTTS = (text, messageIndex) => {
       // 先停止当前播放
       ttsService.stopCurrentAudio();
       
@@ -523,14 +551,14 @@ export default {
         cleanText,
         selectedVoice.value,
         () => {
-          isPlayingAudio.value = true;
+          playingMessageIndex.value = messageIndex;
         },
         () => {
-          isPlayingAudio.value = false;
+          playingMessageIndex.value = null;
         },
         (error) => {
           console.error('TTS 播放失败:', error);
-          isPlayingAudio.value = false;
+          playingMessageIndex.value = null;
         }
       );
     };
@@ -538,7 +566,7 @@ export default {
     // 停止 TTS 播放
     const stopTTS = () => {
       ttsService.stopCurrentAudio();
-      isPlayingAudio.value = false;
+      playingMessageIndex.value = null;
     };
 
     // 切换设置面板
@@ -560,7 +588,7 @@ export default {
       
       // 清除输入状态
       isTyping.value = false;
-      isPlayingAudio.value = false;
+      playingMessageIndex.value = null;
     };
 
     // 返回按钮处理
@@ -595,10 +623,13 @@ export default {
       showMoreOptions,
       showSettings,
       selectedVoice,
-      isPlayingAudio,
+      selectedCategory,
+      playingMessageIndex,
       ttsEnabled,
       quickQuestions,
+      filteredVoices,
       VOICE_OPTIONS,
+      VOICE_CATEGORIES,
       sendMessage,
       sendQuickQuestion,
       toggleInputMode,
