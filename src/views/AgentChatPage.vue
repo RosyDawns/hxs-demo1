@@ -268,7 +268,7 @@
         <div v-if="!isVoiceMode" class="flex-1 flex items-center space-x-3">
           <div class="flex-1 flex items-center relative">
             <textarea v-model="inputText" ref="textInput"
-              class="w-full bg-gray-100 text-slate-800 rounded-2xl px-5 py-3 text-sm resize-none focus:outline-none focus:ring-2 focus:ring-orange-500 focus:bg-white transition-all max-h-32 placeholder-gray-400 border border-transparent focus:border-orange-500 caret-orange-500"
+              class="w-full bg-gray-100 text-slate-800 rounded-2xl px-5 py-3 text-sm resize-none focus:outline-none focus:ring-2 focus:ring-orange-500 focus:bg-white transition-all max-h-32 placeholder-gray-400 border border-transparent focus:border-orange-500 caret-orange-500 scrollbar-hide"
               :class="isTyping ? 'opacity-50 cursor-not-allowed' : ''"
               placeholder="输入你的信息"
               rows="1" 
@@ -396,6 +396,7 @@ export default {
       });
 
       inputText.value = '';
+      resetTextareaHeight();  // 重置文本框高度
       scrollToBottom();
 
       // 显示输入指示器
@@ -525,8 +526,21 @@ export default {
     const autoResize = () => {
       nextTick(() => {
         if (textInput.value) {
+          // 先重置高度
           textInput.value.style.height = 'auto';
-          textInput.value.style.height = textInput.value.scrollHeight + 'px';
+          // 如果有内容，根据内容调整高度；否则保持默认高度
+          if (inputText.value.trim()) {
+            textInput.value.style.height = textInput.value.scrollHeight + 'px';
+          }
+        }
+      });
+    };
+
+    // 重置文本框高度
+    const resetTextareaHeight = () => {
+      nextTick(() => {
+        if (textInput.value) {
+          textInput.value.style.height = 'auto';
         }
       });
     };
@@ -783,5 +797,15 @@ export default {
 .markdown-content :deep(del) {
   text-decoration: line-through;
   color: #94a3b8; /* slate-400 */
+}
+
+/* 隐藏滚动条 */
+.scrollbar-hide {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;  /* Chrome, Safari, Opera */
 }
 </style>
