@@ -268,7 +268,7 @@
         <div v-if="!isVoiceMode" class="flex-1 flex items-center space-x-3">
           <div class="flex-1 flex items-center relative">
             <textarea v-model="inputText" ref="textInput"
-              class="w-full bg-gray-100 text-slate-800 rounded-2xl px-5 py-3 text-sm resize-none focus:outline-none focus:ring-2 focus:ring-orange-500 focus:bg-white transition-all max-h-32 placeholder-gray-400 border border-transparent focus:border-orange-500"
+              class="w-full bg-gray-100 text-slate-800 rounded-2xl px-5 py-3 text-sm resize-none focus:outline-none focus:ring-2 focus:ring-orange-500 focus:bg-white transition-all max-h-32 placeholder-gray-400 border border-transparent focus:border-orange-500 caret-orange-500"
               :class="isTyping ? 'opacity-50 cursor-not-allowed' : ''"
               placeholder="输入你的信息"
               rows="1" 
