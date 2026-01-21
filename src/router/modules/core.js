@@ -83,6 +83,30 @@ const routes = [
     name: 'SportsWaterfall',
     component: () => import('../../views/SportsWaterfallPage.vue'),
     meta: { title: '运动动态瀑布流', showInNav: false }
+  },
+  {
+    path: '/data-cabin',
+    name: 'DataCabin',
+    component: () => import('../../views/DataCabinPage.vue'),
+    meta: { title: '数据舱', showInNav: false }
+  },
+  {
+    path: '/exercise',
+    name: 'Exercise',
+    component: () => import('../../views/ExercisePage.vue'),
+    meta: { title: '练了么', showInNav: false }
+  },
+  {
+    path: '/diet',
+    name: 'Diet',
+    component: () => import('../../views/DietPage.vue'),
+    meta: { title: '吃了么', showInNav: false }
+  },
+  {
+    path: '/slim',
+    name: 'Slim',
+    component: () => import('../../views/SlimPage.vue'),
+    meta: { title: '瘦了么', showInNav: false }
   }
 ]
 

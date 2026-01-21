@@ -1,24 +1,17 @@
 <template>
   <div class="page bg-white min-h-screen flex flex-col" id="page-ai-assistant">
-    <div class="sticky top-0 z-50 bg-white py-3 px-4 mb-2 flex justify-between items-center">
+    <div class="sticky top-0 z-50 bg-white py-3 px-4 mb-2 flex justify-between items-center shadow-sm">
       <div class="flex items-center">
-        <button class="w-10 h-10 rounded-full bg-gray-100 flex items-center justify-center"
-          @click="toggleConversationList">
-          <i class="fa-solid fa-bars text-dark"></i>
-        </button>
+        <span class="text-lg font-bold">AI 助手</span>
       </div>
 
       <div class="flex items-center space-x-3">
-        <!-- 硬件同步 (模拟) -->
-        <!-- <button class="w-10 h-10 rounded-full bg-green-50 text-green-500 flex items-center justify-center"
-          @click="handleHardwareSync">
-          <i class="fa-solid fa-link" :class="{'animate-spin': isSyncing}"></i>
-        </button> -->
-        <!-- 身体档案入口 -->
-        <!-- <button class="w-10 h-10 rounded-full bg-blue-50 text-blue-500 flex items-center justify-center"
-          @click="showBMRModal = true">
-          <i class="fa-solid fa-user-gear"></i>
-        </button> -->
+        <!-- 历史记录 -->
+        <button class="w-10 h-10 rounded-full bg-gray-100 flex items-center justify-center"
+          @click="toggleConversationList">
+          <i class="fa-solid fa-clock-rotate-left text-gray-600"></i>
+        </button>
+        <!-- 新建对话 -->
         <button class="w-10 h-10 rounded-full bg-gray-100 flex items-center justify-center"
           @click="handleNewConversation">
           <i class="fa-solid fa-clone"></i>
@@ -68,6 +61,18 @@
 
     <!-- 主体内容区 -->
     <div class="flex-1 px-4 py-2 flex flex-col pb-14">
+      <!-- 顶部4个入口按钮 -->
+      <div class="flex justify-center gap-3 mb-4">
+        <button 
+          v-for="entry in topEntries" 
+          :key="entry.key"
+          @click="navigateToEntry(entry.route)"
+          class="px-4 py-2 rounded-full text-sm font-medium transition-all bg-white text-gray-600 border border-gray-200 hover:bg-gradient-to-r hover:from-orange-400 hover:to-orange-500 hover:text-white hover:border-transparent"
+        >
+          {{ entry.name }}
+        </button>
+      </div>
+
       <!-- AI形象和时间 -->
       <div class="flex items-center mb-5">
         <img src="@images/wakeBeast.jpg" alt="大狮兄" class="w-2/5 mx-auto object-cover" />
@@ -405,6 +410,19 @@ export default {
     const isRecording = ref(false);
     // 控制推荐列表显示状态
     const showRecommendations = ref(false);
+
+    // 顶部4个入口
+    const topEntries = ref([
+      { key: 'datacabin', name: '数据舱', route: '/data-cabin' },
+      { key: 'exercise', name: '练了么', route: '/exercise' },
+      { key: 'diet', name: '吃了么', route: '/diet' },
+      { key: 'slim', name: '瘦了么', route: '/slim' }
+    ]);
+
+    // 跳转到对应入口页面
+    const navigateToEntry = (route) => {
+      router.push(route);
+    };
     
     // 功能弹窗状态
     const showBMRModal = ref(false);
@@ -851,6 +869,8 @@ export default {
       handleTouchMove,
       handleTouchEnd,
       goToAgentChat,
+      topEntries,
+      navigateToEntry,
       showBMRModal,
       showDietPlanModal,
       showWorkoutPlanModal,
