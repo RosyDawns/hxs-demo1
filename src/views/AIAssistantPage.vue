@@ -9,6 +9,16 @@
       </div>
 
       <div class="flex items-center space-x-3">
+        <!-- 硬件同步 (模拟) -->
+        <!-- <button class="w-10 h-10 rounded-full bg-green-50 text-green-500 flex items-center justify-center"
+          @click="handleHardwareSync">
+          <i class="fa-solid fa-link" :class="{'animate-spin': isSyncing}"></i>
+        </button> -->
+        <!-- 身体档案入口 -->
+        <!-- <button class="w-10 h-10 rounded-full bg-blue-50 text-blue-500 flex items-center justify-center"
+          @click="showBMRModal = true">
+          <i class="fa-solid fa-user-gear"></i>
+        </button> -->
         <button class="w-10 h-10 rounded-full bg-gray-100 flex items-center justify-center"
           @click="handleNewConversation">
           <i class="fa-solid fa-clone"></i>
@@ -17,20 +27,18 @@
     </div>
 
     <!-- 智能体浮动按钮 -->
-    <div class="fixed top-20 right-6 z-50">
-      <!-- 光波效果层 -->
+    <!-- <div class="fixed top-20 right-6 z-50">
       <div class="absolute inset-0 -m-2">
         <div class="ripple-wave"></div>
         <div class="ripple-wave" style="animation-delay: 1s"></div>
         <div class="ripple-wave" style="animation-delay: 2s"></div>
       </div>
-      <!-- 按钮本体 -->
       <button
         class="relative w-8 h-8 bg-gradient-to-br from-purple-500 to-pink-500 rounded-full shadow-2xl flex items-center justify-center hover:scale-110 transition-transform duration-300"
         @click="goToAgentChat">
         <i class="fa-solid fa-robot text-white text-sm"></i>
       </button>
-    </div>
+    </div> -->
 
     <!-- 对话记录列表 - 全屏遮罩显示 -->
     <div v-if="showConversationList" class="fixed inset-0 bg-black/50 z-50 flex items-start justify-center pt-20"
@@ -73,7 +81,56 @@
             @touchend="handleTouchEnd">
             <div class="flex transition-transform duration-300 ease-in-out"
               :style="{ transform: `translateX(-${currentSlide * 100}%)` }">
-              <!-- 第一页 - 两个卡片 -->
+              
+              <!-- Page 1: AI 核心技能 (新增) -->
+              <!-- <div class="w-full flex-shrink-0 flex px-3 space-x-3">
+                <div
+                  class="flex-1 bg-gradient-to-br from-blue-50 to-blue-100 rounded-4xl px-4 py-4 shadow-sm border border-blue-200 relative overflow-hidden flex flex-col justify-between"
+                  @click="showBMRModal = true">
+                  <div>
+                    <div class="w-10 h-10 bg-white rounded-full flex items-center justify-center mb-3 shadow-sm">
+                      <i class="fa-solid fa-calculator text-blue-500 text-lg"></i>
+                    </div>
+                    <p class="font-bold text-gray-800 text-base leading-tight">计算<br>基础代谢</p>
+                    <p class="text-xs text-blue-600/80 mt-1">了解身体数据</p>
+                  </div>
+                  <div class="absolute -bottom-4 -right-4 text-blue-200/50">
+                    <i class="fa-solid fa-fire text-8xl"></i>
+                  </div>
+                </div>
+
+                <div class="flex-1 flex flex-col space-y-3">
+                  <div 
+                    class="flex-1 bg-gradient-to-br from-green-50 to-green-100 rounded-3xl px-4 py-3 flex items-center shadow-sm border border-green-200 cursor-pointer relative overflow-hidden"
+                    @click="showDietPlanModal = true"
+                  >
+                    <div class="z-10">
+                      <p class="font-bold text-gray-800">饮食计划</p>
+                      <p class="text-xs text-green-600">吃出好身材</p>
+                    </div>
+                    <div class="ml-auto w-8 h-8 bg-white rounded-full flex items-center justify-center shadow-sm z-10">
+                      <i class="fa-solid fa-utensils text-green-500 text-sm"></i>
+                    </div>
+                    <i class="fa-solid fa-carrot absolute -bottom-2 -left-2 text-green-200/50 text-5xl"></i>
+                  </div>
+
+                  <div 
+                    class="flex-1 bg-gradient-to-br from-orange-50 to-orange-100 rounded-3xl px-4 py-3 flex items-center shadow-sm border border-orange-200 cursor-pointer relative overflow-hidden"
+                    @click="showWorkoutPlanModal = true"
+                  >
+                    <div class="z-10">
+                      <p class="font-bold text-gray-800">锻炼计划</p>
+                      <p class="text-xs text-orange-600">科学练全身</p>
+                    </div>
+                    <div class="ml-auto w-8 h-8 bg-white rounded-full flex items-center justify-center shadow-sm z-10">
+                      <i class="fa-solid fa-dumbbell text-orange-500 text-sm"></i>
+                    </div>
+                    <i class="fa-solid fa-person-running absolute -bottom-2 -left-2 text-orange-200/50 text-5xl"></i>
+                  </div>
+                </div>
+              </div> -->
+
+              <!-- Page 2: 原第一页 (健身 & 瑜伽) -->
               <div class="w-full flex-shrink-0 flex px-3">
                 <!-- 健身唤醒师推荐卡片 -->
                 <div
@@ -110,7 +167,7 @@
                 </div>
               </div>
 
-              <!-- 第二页 - 两个卡片 -->
+              <!-- Page 3: 原第二页 (游泳 & 篮球) -->
               <div class="w-full flex-shrink-0 flex px-3">
                 <!-- 游泳教练推荐卡片 -->
                 <div
@@ -151,7 +208,7 @@
                 </div>
               </div>
 
-              <!-- 第三页 - 两个卡片 -->
+              <!-- Page 4: 原第三页 (舞蹈 & 羽毛球) -->
               <div class="w-full flex-shrink-0 flex px-3">
                 <!-- 舞蹈教练推荐卡片 -->
                 <div
@@ -206,30 +263,39 @@
       </template>
 
       <!-- 对话区域 - 只在显示推荐列表时显示 -->
-      <div v-if="showRecommendations" class="mb-2">
-        <!-- 用户提问 -->
-        <div class="flex justify-end mb-4">
-          <div class="rounded-2xl p-4 max-w-[80%] shadow-sm" style="
-              background-image: linear-gradient(
-                to right,
-                rgb(255 222 161),
-                rgb(253 220 155)
-              );
-            ">
-            <p class="text-sm">{{ currentQuery }}</p>
-          </div>
-        </div>
+      <div v-if="showRecommendations" class="mb-2 space-y-4">
+        <template v-if="conversationHistory.length > 0">
+          <!-- 显示最近的几条对话 -->
+          <div v-for="(msg, idx) in conversationHistory.slice(0, 4).reverse()" :key="idx">
+            <!-- 用户提问 -->
+            <div v-if="msg.type === 'user'" class="flex justify-end">
+              <div class="rounded-2xl p-4 max-w-[85%] shadow-sm" style="
+                  background-image: linear-gradient(
+                    to right,
+                    rgb(255 222 161),
+                    rgb(253 220 155)
+                  );
+                ">
+                <p class="text-sm">{{ msg.query }}</p>
+              </div>
+            </div>
 
-        <!-- AI回答 -->
-        <div class="mb-2">
-          <div class="bg-white rounded-2xl p-4 max-w-[80%] shadow-sm">
-            <p class="text-sm mb-3">根据您的需求，我为您整理了以下推荐</p>
-            <h3 class="font-bold text-sm mb-2">游泳一对一教练推荐</h3>
-            <p class="text-sm mb-2">
-              为您推荐李教练、赵教练和张教练，都擅长儿童游泳教学，需要为您展示他们的详细信息吗？
-            </p>
+            <!-- AI回答 -->
+            <div v-else class="flex justify-start">
+              <div class="bg-white rounded-2xl p-4 max-w-[90%] shadow-sm border border-gray-50">
+                <div class="flex items-center mb-2">
+                  <div class="w-6 h-6 rounded-full bg-orange-100 flex items-center justify-center mr-2">
+                    <i class="fa-solid fa-robot text-orange-500 text-xs"></i>
+                  </div>
+                  <span class="text-xs text-gray-400">大狮兄</span>
+                </div>
+                <p class="text-sm whitespace-pre-wrap leading-relaxed">{{ msg.query }}</p>
+              </div>
+            </div>
           </div>
-        </div>
+        </template>
+        
+        <!-- 旧的静态展示逻辑保留作为兜底，虽然上面循环已经覆盖了 -->
       </div>
 
       <!-- 推荐列表区域 - 只在显示推荐列表时显示 -->
@@ -293,27 +359,138 @@
 
     <FooterNav activePage="ai" />
 
-
+    <!-- 功能弹窗 -->
+    <BMRCalculatorModal 
+      :visible="showBMRModal" 
+      :initial-data="userProfile"
+      @close="showBMRModal = false"
+      @calculate="handleBMRResult"
+    />
+    <DietPlanModal 
+      :visible="showDietPlanModal" 
+      :user-bmr="userProfile.bmr"
+      :user-tdee="userProfile.tdee"
+      @close="showDietPlanModal = false"
+      @generate-recipe="handleDietResult"
+    />
+    <WorkoutPlanModal 
+      :visible="showWorkoutPlanModal" 
+      @close="showWorkoutPlanModal = false"
+      @generate-plan="handleWorkoutResult"
+    />
   </div>
 </template>
 
 <script>
-import { ref } from "vue";
+import { ref, onMounted, reactive, watch, toRefs } from "vue";
 import { useRouter } from "vue-router";
 import FooterNav from "@/components/FooterNav.vue";
 import HxsItem from "@/components/hxs-item.vue";
+import BMRCalculatorModal from "@/components/BMRCalculatorModal.vue";
+import DietPlanModal from "@/components/DietPlanModal.vue";
+import WorkoutPlanModal from "@/components/WorkoutPlanModal.vue";
+import { useUserProfile } from "@/utils/userProfile";
 
 export default {
   name: "AIAssistantPage",
   components: {
     FooterNav,
     HxsItem,
+    BMRCalculatorModal,
+    DietPlanModal,
+    WorkoutPlanModal,
   },
   setup() {
     const router = useRouter();
     const isRecording = ref(false);
     // 控制推荐列表显示状态
     const showRecommendations = ref(false);
+    
+    // 功能弹窗状态
+    const showBMRModal = ref(false);
+    const showDietPlanModal = ref(false);
+    const showWorkoutPlanModal = ref(false);
+
+    // Centralized User Profile Management
+    const { profile: userProfile, updateProfile, syncWithHardware } = useUserProfile();
+    const isSyncing = ref(false);
+
+    // Handle Hardware Sync
+    const handleHardwareSync = async () => {
+      isSyncing.value = true;
+      try {
+        const data = await syncWithHardware();
+        updateProfile(data);
+        // Add notification message
+        addToConversationHistory("正在同步智能设备数据...", "AI计算");
+        setTimeout(() => {
+          addToConversationHistory(`同步成功！已更新最新体重: ${data.weight}kg`, "AI回复");
+        }, 1200);
+      } catch (e) {
+        console.error("Sync failed", e);
+      } finally {
+        isSyncing.value = false;
+      }
+    };
+
+    // 处理BMR计算结果
+    const handleBMRResult = (data) => {
+      // 更新本地数据
+      updateProfile(data);
+      showBMRModal.value = false;
+
+      // 添加AI消息
+      const resultMsg = `根据您的数据（${data.gender === 'male'?'男':'女'}，${data.age}岁，${data.height}cm，${data.weight}kg），计算结果如下：\n\n🎯 基础代谢(BMR): ${data.bmr} 千卡/天\n🔥 每日总消耗(TDEE): ${data.tdee} 千卡/天\n\n即使整天躺着不动，您的身体也需要 ${data.bmr} 千卡能量来维持生命。考虑到您的活动量，建议每日摄入 ${data.tdee} 千卡左右。`;
+      
+      showRecommendations.value = true;
+      currentQuery.value = "帮我计算一下基础代谢"; // 模拟用户提问
+      
+      // 添加到历史记录
+      addToConversationHistory("帮我计算一下基础代谢", "AI计算");
+      addToConversationHistory(resultMsg, "AI回复");
+    };
+
+    // 处理饮食计划生成
+    const handleDietResult = (data) => {
+      showDietPlanModal.value = false;
+      const goalMap = { lose: '减脂', maintain: '维持', gain: '增肌' };
+      
+      let dietDetails = data.suggestions.map(item => `• ${item.name}: ${item.suggestion}`).join('\n');
+      const resultMsg = `为您生成的【${goalMap[data.goal]}饮食方案】：\n\n🥗 推荐摄入: ${data.recommendedCalories} 千卡/天\n\n📝 参考食谱：\n${dietDetails}\n\n建议您少食多餐，保持营养均衡！`;
+
+      showRecommendations.value = true;
+      currentQuery.value = `生成${goalMap[data.goal]}饮食计划`;
+      
+      addToConversationHistory(currentQuery.value, "AI计算");
+      addToConversationHistory(resultMsg, "AI回复");
+    };
+
+    // 处理运动计划生成
+    const handleWorkoutResult = (data) => {
+      showWorkoutPlanModal.value = false;
+      let msg = "";
+      
+      if (data.mode === 'fixed') {
+        const diffMap = { beginner: '初级', intermediate: '中级', advanced: '高级' };
+        msg = `为您定制的【${diffMap[data.difficulty]}训练计划】（每周${data.frequency}练）：\n\n`;
+        data.plan.forEach(day => {
+          msg += `📅 ${day.day} - ${day.title}\n   ${day.exercises}\n`;
+        });
+      } else {
+        msg = `🎲 随机挑战【${data.plan.name}】\n\n⏱️ 时长: ${data.duration}分钟\n🔥 预计消耗: ${data.plan.calories}千卡\n\n👇 动作列表：\n`;
+        data.plan.exercises.forEach((ex, idx) => {
+          msg += `${idx+1}. ${ex}\n`;
+        });
+        msg += "\n准备好了吗？开始行动吧！💪";
+      }
+
+      showRecommendations.value = true;
+      currentQuery.value = data.mode === 'fixed' ? "制定健身计划" : "随机运动挑战";
+      
+      addToConversationHistory(currentQuery.value, "AI计算");
+      addToConversationHistory(msg, "AI回复");
+    };
+
     // 当前查询内容
     const currentQuery = ref(
       "帮我在附近找一个游泳一对一教练，8岁2年经验小朋友，耐心一些，专业过硬，请推荐一下。"
@@ -326,29 +503,23 @@ export default {
     const showConversationList = ref(false);
     // 轮播相关状态
     const currentSlide = ref(0);
-    const totalSlides = ref(3); // 总共3页，每页2个卡片
+    const totalSlides = ref(4); // 总共4页
     // 触摸滑动相关状态
     const touchStartX = ref(0);
     const touchEndX = ref(0);
     const minSwipeDistance = 50; // 最小滑动距离（像素）
-    // 模拟对话历史记录
+    // 模拟对话历史记录 - 增加type字段区分用户/AI
     const conversationHistory = ref([
       {
         query: "帮我推荐一位附近的健身唤醒师",
         time: "今天 09:30",
+        type: "user"
       },
       {
-        query: "找瑜伽老师学习基础动作",
-        time: "今天 08:45",
-      },
-      {
-        query: "帮我在附近找一个游泳一对一教练",
-        time: "昨天 16:20",
-      },
-      {
-        query: "推荐一位篮球私教",
-        time: "昨天 14:10",
-      },
+        query: "根据您的需求，为您推荐李教练...",
+        time: "今天 09:30",
+        type: "ai"
+      }
     ]);
 
     // 推荐教练数据
@@ -461,12 +632,7 @@ export default {
     };
 
     // 添加到对话历史
-    const addToConversationHistory = (query) => {
-      // 检查是否已存在相同的查询
-      const exists = conversationHistory.value.some(
-        (item) => item.query === query
-      );
-      if (!exists) {
+    const addToConversationHistory = (content, type = 'user') => {
         // 获取当前时间
         const now = new Date();
         const hours = now.getHours().toString().padStart(2, "0");
@@ -475,15 +641,15 @@ export default {
 
         // 添加到历史记录的开头
         conversationHistory.value.unshift({
-          query: query,
+          query: content,
           time: timeText,
+          type: type === 'AI计算' ? 'user' : (type === 'AI回复' ? 'ai' : 'user')
         });
 
         // 限制历史记录数量
-        if (conversationHistory.value.length > 10) {
+        if (conversationHistory.value.length > 20) {
           conversationHistory.value.pop();
         }
-      }
     };
 
     // 处理教练详情
@@ -685,6 +851,15 @@ export default {
       handleTouchMove,
       handleTouchEnd,
       goToAgentChat,
+      showBMRModal,
+      showDietPlanModal,
+      showWorkoutPlanModal,
+      userProfile,
+      isSyncing,
+      handleHardwareSync,
+      handleBMRResult,
+      handleDietResult,
+      handleWorkoutResult,
     };
   },
 };
