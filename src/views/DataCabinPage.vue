@@ -448,7 +448,8 @@ export default {
       goBack,
       navigateTab,
       checkIn,
-      remindTeam
+      remindTeam,
+      router
     }
   }
 }

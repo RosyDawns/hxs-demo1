@@ -520,7 +520,8 @@ export default {
       generatePlan,
       addWater,
       shufflePlan,
-      checkIn
+      checkIn,
+      router
     }
   }
 }

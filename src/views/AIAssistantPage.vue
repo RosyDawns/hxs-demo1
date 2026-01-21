@@ -1,23 +1,18 @@
 <template>
   <div class="page bg-white min-h-screen flex flex-col" id="page-ai-assistant">
-    <div class="sticky top-0 z-50 bg-white py-3 px-4 mb-2 flex justify-between items-center shadow-sm">
-      <div class="flex items-center">
-        <span class="text-lg font-bold">AI 助手</span>
-      </div>
+    <!-- <div class="sticky top-0 z-50 bg-white py-3 px-4 mb-2 flex justify-between items-center shadow-sm">
+      <button class="w-10 h-10 rounded-full bg-gray-100 flex items-center justify-center"
+        @click="toggleConversationList">
+        <i class="fa-solid fa-clock-rotate-left text-gray-600"></i>
+      </button>
 
-      <div class="flex items-center space-x-3">
-        <!-- 历史记录 -->
-        <button class="w-10 h-10 rounded-full bg-gray-100 flex items-center justify-center"
-          @click="toggleConversationList">
-          <i class="fa-solid fa-clock-rotate-left text-gray-600"></i>
-        </button>
-        <!-- 新建对话 -->
-        <button class="w-10 h-10 rounded-full bg-gray-100 flex items-center justify-center"
-          @click="handleNewConversation">
-          <i class="fa-solid fa-clone"></i>
-        </button>
-      </div>
-    </div>
+      <span class="text-lg font-bold">AI 助手</span>
+
+      <button class="w-10 h-10 rounded-full bg-gray-100 flex items-center justify-center"
+        @click="handleNewConversation">
+        <i class="fa-solid fa-pen-to-square text-gray-600"></i>
+      </button>
+    </div> -->
 
     <!-- 智能体浮动按钮 -->
     <!-- <div class="fixed top-20 right-6 z-50">
@@ -53,24 +48,22 @@
             </p>
             <span class="text-xs text-gray-400 mt-1 block">{{
               conversation.time
-              }}</span>
+            }}</span>
           </div>
         </div>
       </div>
     </div>
 
     <!-- 主体内容区 -->
-    <div class="flex-1 px-4 py-2 flex flex-col pb-14">
-      <!-- 顶部4个入口按钮 -->
-      <div class="flex justify-center gap-3 mb-4">
-        <button 
-          v-for="entry in topEntries" 
-          :key="entry.key"
-          @click="navigateToEntry(entry.route)"
-          class="px-4 py-2 rounded-full text-sm font-medium transition-all bg-white text-gray-600 border border-gray-200 hover:bg-gradient-to-r hover:from-orange-400 hover:to-orange-500 hover:text-white hover:border-transparent"
-        >
-          {{ entry.name }}
-        </button>
+    <div class="flex-1 px-4 pb-2 flex flex-col pb-14">
+      <div class="mb-8 sticky top-0 pt-4 z-1 bg-white">
+        <!-- 顶部4个入口按钮 -->
+        <div class="flex justify-center gap-3">
+          <button v-for="entry in topEntries" :key="entry.key" @click="navigateToEntry(entry.route)"
+            class="px-4 py-2 rounded-full text-sm font-medium transition-all bg-white text-gray-600 border border-gray-200 hover:bg-gradient-to-r hover:from-orange-400 hover:to-orange-500 hover:text-white hover:border-transparent">
+            {{ entry.name }}
+          </button>
+        </div>
       </div>
 
       <!-- AI形象和时间 -->
@@ -86,7 +79,7 @@
             @touchend="handleTouchEnd">
             <div class="flex transition-transform duration-300 ease-in-out"
               :style="{ transform: `translateX(-${currentSlide * 100}%)` }">
-              
+
               <!-- Page 1: AI 核心技能 (新增) -->
               <!-- <div class="w-full flex-shrink-0 flex px-3 space-x-3">
                 <div
@@ -141,12 +134,12 @@
                 <div
                   class="flex-1 bg-white rounded-4xl px-4 py-2 shadow-sm border-6 border-pink-100 relative overflow-hidden -rotate-z-6 z-1"
                   @click="
-                    handleRecommendationClick('帮我推荐一位附近的健身唤醒师💪')
+                    handleRecommendationClick('996 的牛马如何高效燃脂')
                     ">
                   <div class="pb-2">
-                    <p class="text-pink-100 text-6xl">"</p>
+                    <p class="text-pink-100 text-6xl flex items-start">" <span class="text-orange-400 text-sm pt-2">@你好明天</span></p>
                     <p class="text-sm font-medium">
-                      帮我推荐一位附近的健身唤醒师💪
+                      996 的牛马如何高效燃脂
                     </p>
                   </div>
                   <div class="flex justify-end mt-2">
@@ -159,10 +152,10 @@
                 <!-- 瑜伽老师推荐卡片 -->
                 <div
                   class="flex-1 bg-white rounded-4xl px-4 py-5 shadow-sm border-6 border-blue-100 relative overflow-hidden rotate-z-6"
-                  @click="handleRecommendationClick('找瑜伽老师学习基础动作🧘')">
+                  @click="handleRecommendationClick('不想动怎么快速瘦 10 斤')">
                   <div class="pb-2">
-                    <p class="text-blue-100 text-6xl">"</p>
-                    <p class="text-sm font-medium">找瑜伽老师学习基础动作🧘</p>
+                    <p class="text-blue-100 text-6xl flex items-start">" <span class="text-orange-400 text-sm pt-2">@明天会更好</span></p>
+                    <p class="text-sm font-medium">不想动怎么快速瘦 10 斤</p>
                   </div>
                   <div class="flex justify-end mt-2">
                     <button class="bg-black text-white text-xs py-1 px-3 rounded-full flex items-center">
@@ -178,12 +171,12 @@
                 <div
                   class="flex-1 bg-white rounded-4xl px-4 py-2 shadow-sm border-6 border-green-100 relative overflow-hidden -rotate-z-6 z-1"
                   @click="
-                    handleRecommendationClick('想找一位游泳教练学习蛙泳🏊')
+                    handleRecommendationClick('来看看蛙泳的正确姿势')
                     ">
                   <div class="pb-2">
-                    <p class="text-green-100 text-6xl">"</p>
+                    <p class="text-green-100 text-6xl flex items-start">" <span class="text-orange-400 text-sm pt-2">@明天你好</span></p>
                     <p class="text-sm font-medium">
-                      想找一位游泳教练学习蛙泳🏊
+                      来看看蛙泳的正确姿势
                     </p>
                   </div>
                   <div class="flex justify-end mt-2">
@@ -299,7 +292,7 @@
             </div>
           </div>
         </template>
-        
+
         <!-- 旧的静态展示逻辑保留作为兜底，虽然上面循环已经覆盖了 -->
       </div>
 
@@ -355,7 +348,7 @@
               <i class="fa-solid fa-microphone text-xl"></i>
               <span :class="isRecording ? 'text-primary animate-pulse' : ''">{{
                 isRecording ? "正在录音..." : "按住说话"
-                }}</span>
+              }}</span>
             </button>
           </div>
         </div>
@@ -365,24 +358,12 @@
     <FooterNav activePage="ai" />
 
     <!-- 功能弹窗 -->
-    <BMRCalculatorModal 
-      :visible="showBMRModal" 
-      :initial-data="userProfile"
-      @close="showBMRModal = false"
-      @calculate="handleBMRResult"
-    />
-    <DietPlanModal 
-      :visible="showDietPlanModal" 
-      :user-bmr="userProfile.bmr"
-      :user-tdee="userProfile.tdee"
-      @close="showDietPlanModal = false"
-      @generate-recipe="handleDietResult"
-    />
-    <WorkoutPlanModal 
-      :visible="showWorkoutPlanModal" 
-      @close="showWorkoutPlanModal = false"
-      @generate-plan="handleWorkoutResult"
-    />
+    <BMRCalculatorModal :visible="showBMRModal" :initial-data="userProfile" @close="showBMRModal = false"
+      @calculate="handleBMRResult" />
+    <DietPlanModal :visible="showDietPlanModal" :user-bmr="userProfile.bmr" :user-tdee="userProfile.tdee"
+      @close="showDietPlanModal = false" @generate-recipe="handleDietResult" />
+    <WorkoutPlanModal :visible="showWorkoutPlanModal" @close="showWorkoutPlanModal = false"
+      @generate-plan="handleWorkoutResult" />
   </div>
 </template>
 
@@ -423,7 +404,7 @@ export default {
     const navigateToEntry = (route) => {
       router.push(route);
     };
-    
+
     // 功能弹窗状态
     const showBMRModal = ref(false);
     const showDietPlanModal = ref(false);
@@ -458,11 +439,11 @@ export default {
       showBMRModal.value = false;
 
       // 添加AI消息
-      const resultMsg = `根据您的数据（${data.gender === 'male'?'男':'女'}，${data.age}岁，${data.height}cm，${data.weight}kg），计算结果如下：\n\n🎯 基础代谢(BMR): ${data.bmr} 千卡/天\n🔥 每日总消耗(TDEE): ${data.tdee} 千卡/天\n\n即使整天躺着不动，您的身体也需要 ${data.bmr} 千卡能量来维持生命。考虑到您的活动量，建议每日摄入 ${data.tdee} 千卡左右。`;
-      
+      const resultMsg = `根据您的数据（${data.gender === 'male' ? '男' : '女'}，${data.age}岁，${data.height}cm，${data.weight}kg），计算结果如下：\n\n🎯 基础代谢(BMR): ${data.bmr} 千卡/天\n🔥 每日总消耗(TDEE): ${data.tdee} 千卡/天\n\n即使整天躺着不动，您的身体也需要 ${data.bmr} 千卡能量来维持生命。考虑到您的活动量，建议每日摄入 ${data.tdee} 千卡左右。`;
+
       showRecommendations.value = true;
       currentQuery.value = "帮我计算一下基础代谢"; // 模拟用户提问
-      
+
       // 添加到历史记录
       addToConversationHistory("帮我计算一下基础代谢", "AI计算");
       addToConversationHistory(resultMsg, "AI回复");
@@ -472,13 +453,13 @@ export default {
     const handleDietResult = (data) => {
       showDietPlanModal.value = false;
       const goalMap = { lose: '减脂', maintain: '维持', gain: '增肌' };
-      
+
       let dietDetails = data.suggestions.map(item => `• ${item.name}: ${item.suggestion}`).join('\n');
       const resultMsg = `为您生成的【${goalMap[data.goal]}饮食方案】：\n\n🥗 推荐摄入: ${data.recommendedCalories} 千卡/天\n\n📝 参考食谱：\n${dietDetails}\n\n建议您少食多餐，保持营养均衡！`;
 
       showRecommendations.value = true;
       currentQuery.value = `生成${goalMap[data.goal]}饮食计划`;
-      
+
       addToConversationHistory(currentQuery.value, "AI计算");
       addToConversationHistory(resultMsg, "AI回复");
     };
@@ -487,7 +468,7 @@ export default {
     const handleWorkoutResult = (data) => {
       showWorkoutPlanModal.value = false;
       let msg = "";
-      
+
       if (data.mode === 'fixed') {
         const diffMap = { beginner: '初级', intermediate: '中级', advanced: '高级' };
         msg = `为您定制的【${diffMap[data.difficulty]}训练计划】（每周${data.frequency}练）：\n\n`;
@@ -497,14 +478,14 @@ export default {
       } else {
         msg = `🎲 随机挑战【${data.plan.name}】\n\n⏱️ 时长: ${data.duration}分钟\n🔥 预计消耗: ${data.plan.calories}千卡\n\n👇 动作列表：\n`;
         data.plan.exercises.forEach((ex, idx) => {
-          msg += `${idx+1}. ${ex}\n`;
+          msg += `${idx + 1}. ${ex}\n`;
         });
         msg += "\n准备好了吗？开始行动吧！💪";
       }
 
       showRecommendations.value = true;
       currentQuery.value = data.mode === 'fixed' ? "制定健身计划" : "随机运动挑战";
-      
+
       addToConversationHistory(currentQuery.value, "AI计算");
       addToConversationHistory(msg, "AI回复");
     };
@@ -651,23 +632,23 @@ export default {
 
     // 添加到对话历史
     const addToConversationHistory = (content, type = 'user') => {
-        // 获取当前时间
-        const now = new Date();
-        const hours = now.getHours().toString().padStart(2, "0");
-        const minutes = now.getMinutes().toString().padStart(2, "0");
-        const timeText = `今天 ${hours}:${minutes}`;
+      // 获取当前时间
+      const now = new Date();
+      const hours = now.getHours().toString().padStart(2, "0");
+      const minutes = now.getMinutes().toString().padStart(2, "0");
+      const timeText = `今天 ${hours}:${minutes}`;
 
-        // 添加到历史记录的开头
-        conversationHistory.value.unshift({
-          query: content,
-          time: timeText,
-          type: type === 'AI计算' ? 'user' : (type === 'AI回复' ? 'ai' : 'user')
-        });
+      // 添加到历史记录的开头
+      conversationHistory.value.unshift({
+        query: content,
+        time: timeText,
+        type: type === 'AI计算' ? 'user' : (type === 'AI回复' ? 'ai' : 'user')
+      });
 
-        // 限制历史记录数量
-        if (conversationHistory.value.length > 20) {
-          conversationHistory.value.pop();
-        }
+      // 限制历史记录数量
+      if (conversationHistory.value.length > 20) {
+        conversationHistory.value.pop();
+      }
     };
 
     // 处理教练详情

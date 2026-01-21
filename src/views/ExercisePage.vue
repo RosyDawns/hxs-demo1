@@ -331,7 +331,8 @@ export default {
       toggleExerciseStatus,
       setRestStatus,
       checkIn,
-      skipExercise
+      skipExercise,
+      router
     }
   }
 }
