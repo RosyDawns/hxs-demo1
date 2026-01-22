@@ -787,10 +787,7 @@ export default {
       currentSlide.value = index;
     };
 
-    // 跳转到智能体聊天页面
-    const goToAgentChat = () => {
-      router.push('/agent-chat');
-    };
+
 
     // 触摸事件处理
     const handleTouchStart = (e) => {
@@ -849,7 +846,6 @@ export default {
       handleTouchStart,
       handleTouchMove,
       handleTouchEnd,
-      goToAgentChat,
       topEntries,
       navigateToEntry,
       showBMRModal,

@@ -12,12 +12,7 @@ const routes = [
     component: () => import('../../views/AIAssistantPage.vue'),
     meta: { title: 'AI管家·大狮兄', icon: 'fa-robot', showInNav: true }
   },
-  {
-    path: '/agent-chat',
-    name: 'AgentChat',
-    component: () => import('../../views/AgentChatPage.vue'),
-    meta: { title: 'AI智能体聊天', icon: 'fa-robot', showInNav: false }
-  },
+
   {
     path: '/energy-tree',
     name: 'EnergyTree',
