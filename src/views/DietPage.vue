@@ -1,5 +1,5 @@
 <template>
-  <div class="page bg-[#FFF8F2] min-h-screen pb-24">
+  <div class="page bg-[#FFF8F2] min-h-screen pb-28">
     <!-- 顶部Tab切换 -->
     <div class="sticky top-0 z-50 bg-[#FFF8F2]/95 backdrop-blur-sm pt-2 pb-2 px-4 flex items-center gap-2">
       <button @click="router.push('/ai-assistant')" class="w-10 h-10 flex-shrink-0 flex items-center justify-center bg-white rounded-full shadow-sm border border-orange-100 text-gray-600 active:scale-95 transition-transform">
@@ -28,7 +28,7 @@
       <div class="flex gap-4 mb-4">
         <div class="flex-1 text-center bg-orange-50 rounded-xl p-3">
           <div class="w-10 h-10 mx-auto bg-white rounded-full flex items-center justify-center mb-2 shadow-sm text-orange-500">
-            <i class="fa-regular fa-sun"></i>
+            <i class="fa-solid fa-fire-flame-curved"></i>
           </div>
           <p class="text-xs text-gray-400 mb-1">基础代谢</p>
           <p class="text-xl font-bold text-orange-500">1680<span class="text-xs font-normal text-gray-400">kcal</span></p>
@@ -38,13 +38,21 @@
             <i class="fa-solid fa-bolt"></i>
           </div>
           <p class="text-xs text-gray-400 mb-1">今日摄入</p>
-          <p class="text-xl font-bold text-red-500">0<span class="text-xs font-normal text-gray-400">kcal</span></p>
+          <p class="text-xl font-bold text-red-500">{{ todayIntake }}<span class="text-xs font-normal text-gray-400">kcal</span></p>
         </div>
       </div>
 
-      <div class="bg-orange-50 rounded-xl p-3 flex items-center justify-between">
-        <span class="text-sm text-gray-500">今日热量适度</span>
-        <span class="text-sm font-bold text-gray-700">0/1680 kcal</span>
+      <div class="bg-orange-50 rounded-xl p-3">
+        <div class="flex items-center justify-between mb-2">
+          <span class="text-sm text-gray-500">今日热量进度</span>
+          <span class="text-sm font-bold text-gray-700">{{ todayIntake }}/1680 kcal</span>
+        </div>
+        <div class="h-2 bg-white rounded-full overflow-hidden">
+          <div 
+            class="h-full bg-gradient-to-r from-orange-400 to-orange-500 rounded-full transition-all duration-300"
+            :style="{ width: Math.min((todayIntake / 1680) * 100, 100) + '%' }"
+          ></div>
+        </div>
       </div>
     </div>
 
@@ -242,8 +250,22 @@
             <span class="text-orange-400 text-lg">🌅</span>
             <span class="font-bold text-gray-800">早餐 (07:00-09:00)</span>
           </div>
-          <span class="text-xs text-gray-400">380 kcal</span>
+          <span class="text-xs text-orange-500 font-bold">{{ mealCalories.breakfast }} kcal</span>
         </div>
+        
+        <!-- 用餐方式选择 -->
+        <div class="flex gap-2 mb-3">
+          <button 
+            v-for="method in mealMethods" 
+            :key="method.key"
+            @click="mealMethod.breakfast = method.key"
+            class="flex-1 py-2 rounded-full text-xs font-medium transition-all border"
+            :class="mealMethod.breakfast === method.key ? 'bg-orange-50 text-orange-500 border-orange-300' : 'bg-white text-gray-500 border-gray-200'"
+          >
+            {{ method.icon }} {{ method.name }}
+          </button>
+        </div>
+        
         <div class="bg-orange-50 rounded-lg p-2 text-xs text-orange-600 mb-3 flex items-center gap-1">
           <i class="fa-regular fa-lightbulb"></i>
           <span>温馨提示：早餐要吃好，不要贪睡哦~</span>
@@ -256,6 +278,7 @@
                 <p class="font-bold text-gray-800 text-sm">全麦面包三明治</p>
                 <p class="text-xs text-gray-400">2片</p>
              </div>
+             <span class="text-xs text-orange-500 font-medium">180kcal</span>
           </div>
           <div class="flex items-center gap-3">
              <div class="w-10 h-10 rounded-lg bg-gray-100 flex-shrink-0 bg-cover bg-center" style="background-image: url('https://images.unsplash.com/photo-1550583724-b2692b85b150?w=100&h=100&fit=crop')"></div>
@@ -263,6 +286,7 @@
                 <p class="font-bold text-gray-800 text-sm">低脂牛奶</p>
                 <p class="text-xs text-gray-400">200ml</p>
              </div>
+             <span class="text-xs text-orange-500 font-medium">120kcal</span>
           </div>
           <div class="flex items-center gap-3">
              <div class="w-10 h-10 rounded-lg bg-gray-100 flex-shrink-0 bg-cover bg-center" style="background-image: url('https://images.unsplash.com/photo-1482049016688-2d3e1b311543?w=100&h=100&fit=crop')"></div>
@@ -270,19 +294,57 @@
                 <p class="font-bold text-gray-800 text-sm">水煮蛋</p>
                 <p class="text-xs text-gray-400">1个</p>
              </div>
+             <span class="text-xs text-orange-500 font-medium">80kcal</span>
           </div>
         </div>
 
-        <div class="flex gap-3">
-          <button @click="shufflePlan" class="flex-1 bg-orange-400 text-white py-2.5 rounded-full text-sm font-bold shadow-sm">
-            🔄 换一换
+        <!-- 跟着计划吃 / 自定义输入 -->
+        <div class="flex gap-3 mb-3">
+          <button 
+            @click="mealInputMode.breakfast = 'plan'"
+            class="flex-1 py-2.5 rounded-full text-sm font-bold transition-all border"
+            :class="mealInputMode.breakfast === 'plan' ? 'bg-orange-50 text-orange-500 border-orange-300' : 'bg-white text-gray-500 border-gray-200'"
+          >
+            ⭐ 跟着计划吃
           </button>
-          <button @click="checkIn" class="flex-1 bg-white border border-gray-200 text-gray-500 py-2.5 rounded-full text-sm font-bold">
-            📷 打卡
+          <button 
+            @click="mealInputMode.breakfast = 'custom'"
+            class="flex-1 py-2.5 rounded-full text-sm font-bold transition-all border"
+            :class="mealInputMode.breakfast === 'custom' ? 'bg-orange-50 text-orange-500 border-orange-300' : 'bg-white text-gray-500 border-gray-200'"
+          >
+            ✏️ 自定义输入
           </button>
         </div>
-        <button @click="checkIn" class="w-full mt-3 bg-gradient-to-r from-orange-400 to-orange-500 text-white py-3 rounded-full font-bold shadow-md">
-           ✅ 按计划执行
+        
+        <!-- 自定义输入框 -->
+        <div v-if="mealInputMode.breakfast === 'custom'" class="flex gap-2 mb-3">
+          <input 
+            type="number" 
+            v-model="customCalories.breakfast"
+            class="flex-1 bg-gray-50 rounded-xl py-3 px-4 text-sm text-gray-600 focus:outline-none border border-gray-200"
+            placeholder="输入热量"
+          />
+          <button class="w-12 h-12 bg-orange-100 rounded-xl flex items-center justify-center text-orange-500">
+            <i class="fa-solid fa-pen"></i>
+          </button>
+        </div>
+        
+        <!-- 打卡按钮 -->
+        <button 
+          v-if="mealInputMode.breakfast === 'plan'"
+          @click="executePlan('breakfast')" 
+          class="w-full py-3 rounded-full font-bold shadow-md transition-all"
+          :class="mealCompleted.breakfast ? 'bg-green-500 text-white' : 'bg-gradient-to-r from-orange-400 to-orange-500 text-white'"
+        >
+           {{ mealCompleted.breakfast ? '✅ 已打卡' : '✅ 按计划打卡' }}
+        </button>
+        <button 
+          v-if="mealInputMode.breakfast === 'custom'"
+          @click="executePlan('breakfast')" 
+          class="w-full py-3 rounded-full font-bold shadow-md transition-all"
+          :class="mealCompleted.breakfast ? 'bg-green-500 text-white' : 'bg-gradient-to-r from-orange-400 to-orange-500 text-white'"
+        >
+           {{ mealCompleted.breakfast ? '✅ 已打卡' : '✅ 自定义打卡' }}
         </button>
       </div>
 
@@ -293,7 +355,20 @@
             <span class="text-yellow-400 text-lg">☀️</span>
             <span class="font-bold text-gray-800">午餐 (11:30-13:00)</span>
           </div>
-          <span class="text-xs text-gray-400">520 kcal</span>
+          <span class="text-xs text-orange-500 font-bold">{{ mealCalories.lunch }} kcal</span>
+        </div>
+        
+        <!-- 用餐方式选择 -->
+        <div class="flex gap-2 mb-3">
+          <button 
+            v-for="method in mealMethods" 
+            :key="method.key"
+            @click="mealMethod.lunch = method.key"
+            class="flex-1 py-2 rounded-full text-xs font-medium transition-all border"
+            :class="mealMethod.lunch === method.key ? 'bg-orange-50 text-orange-500 border-orange-300' : 'bg-white text-gray-500 border-gray-200'"
+          >
+            {{ method.icon }} {{ method.name }}
+          </button>
         </div>
         
         <div class="space-y-3 mb-4">
@@ -303,6 +378,7 @@
                 <p class="font-bold text-gray-800 text-sm">杂粮饭</p>
                 <p class="text-xs text-gray-400">100g</p>
              </div>
+             <span class="text-xs text-orange-500 font-medium">150kcal</span>
           </div>
           <div class="flex items-center gap-3">
              <span class="text-xl">🍗</span>
@@ -310,6 +386,7 @@
                 <p class="font-bold text-gray-800 text-sm">香煎鸡胸肉</p>
                 <p class="text-xs text-gray-400">120g</p>
              </div>
+             <span class="text-xs text-orange-500 font-medium">220kcal</span>
           </div>
           <div class="flex items-center gap-3">
              <span class="text-xl">🥦</span>
@@ -317,19 +394,57 @@
                 <p class="font-bold text-gray-800 text-sm">清炒西兰花</p>
                 <p class="text-xs text-gray-400">150g</p>
              </div>
+             <span class="text-xs text-orange-500 font-medium">150kcal</span>
           </div>
         </div>
 
-        <div class="flex gap-3">
-          <button @click="shufflePlan" class="flex-1 bg-orange-400 text-white py-2.5 rounded-full text-sm font-bold shadow-sm">
-            🔄 换一换
+        <!-- 跟着计划吃 / 自定义输入 -->
+        <div class="flex gap-3 mb-3">
+          <button 
+            @click="mealInputMode.lunch = 'plan'"
+            class="flex-1 py-2.5 rounded-full text-sm font-bold transition-all border"
+            :class="mealInputMode.lunch === 'plan' ? 'bg-orange-50 text-orange-500 border-orange-300' : 'bg-white text-gray-500 border-gray-200'"
+          >
+            ⭐ 跟着计划吃
           </button>
-          <button @click="checkIn" class="flex-1 bg-white border border-gray-200 text-gray-500 py-2.5 rounded-full text-sm font-bold">
-            📷 打卡
+          <button 
+            @click="mealInputMode.lunch = 'custom'"
+            class="flex-1 py-2.5 rounded-full text-sm font-bold transition-all border"
+            :class="mealInputMode.lunch === 'custom' ? 'bg-orange-50 text-orange-500 border-orange-300' : 'bg-white text-gray-500 border-gray-200'"
+          >
+            ✏️ 自定义输入
           </button>
         </div>
-        <button @click="checkIn" class="w-full mt-3 bg-gradient-to-r from-orange-400 to-orange-500 text-white py-3 rounded-full font-bold shadow-md">
-           ✅ 按计划执行
+        
+        <!-- 自定义输入框 -->
+        <div v-if="mealInputMode.lunch === 'custom'" class="flex gap-2 mb-3">
+          <input 
+            type="number" 
+            v-model="customCalories.lunch"
+            class="flex-1 bg-gray-50 rounded-xl py-3 px-4 text-sm text-gray-600 focus:outline-none border border-gray-200"
+            placeholder="输入热量"
+          />
+          <button class="w-12 h-12 bg-orange-100 rounded-xl flex items-center justify-center text-orange-500">
+            <i class="fa-solid fa-pen"></i>
+          </button>
+        </div>
+        
+        <!-- 打卡按钮 -->
+        <button 
+          v-if="mealInputMode.lunch === 'plan'"
+          @click="executePlan('lunch')" 
+          class="w-full py-3 rounded-full font-bold shadow-md transition-all"
+          :class="mealCompleted.lunch ? 'bg-green-500 text-white' : 'bg-gradient-to-r from-orange-400 to-orange-500 text-white'"
+        >
+           {{ mealCompleted.lunch ? '✅ 已打卡' : '✅ 按计划打卡' }}
+        </button>
+        <button 
+          v-if="mealInputMode.lunch === 'custom'"
+          @click="executePlan('lunch')" 
+          class="w-full py-3 rounded-full font-bold shadow-md transition-all"
+          :class="mealCompleted.lunch ? 'bg-green-500 text-white' : 'bg-gradient-to-r from-orange-400 to-orange-500 text-white'"
+        >
+           {{ mealCompleted.lunch ? '✅ 已打卡' : '✅ 自定义打卡' }}
         </button>
       </div>
 
@@ -340,7 +455,20 @@
             <span class="text-blue-400 text-lg">🌙</span>
             <span class="font-bold text-gray-800">晚餐 (17:30-19:00)</span>
           </div>
-          <span class="text-xs text-gray-400">300 kcal</span>
+          <span class="text-xs text-orange-500 font-bold">{{ mealCalories.dinner }} kcal</span>
+        </div>
+        
+        <!-- 用餐方式选择 -->
+        <div class="flex gap-2 mb-3">
+          <button 
+            v-for="method in mealMethods" 
+            :key="method.key"
+            @click="mealMethod.dinner = method.key"
+            class="flex-1 py-2 rounded-full text-xs font-medium transition-all border"
+            :class="mealMethod.dinner === method.key ? 'bg-orange-50 text-orange-500 border-orange-300' : 'bg-white text-gray-500 border-gray-200'"
+          >
+            {{ method.icon }} {{ method.name }}
+          </button>
         </div>
         
         <div class="space-y-3 mb-4">
@@ -350,6 +478,7 @@
                 <p class="font-bold text-gray-800 text-sm">玉米半根</p>
                 <p class="text-xs text-gray-400">150g</p>
              </div>
+             <span class="text-xs text-orange-500 font-medium">100kcal</span>
           </div>
           <div class="flex items-center gap-3">
              <span class="text-xl">🐟</span>
@@ -357,6 +486,7 @@
                 <p class="font-bold text-gray-800 text-sm">清蒸鱼</p>
                 <p class="text-xs text-gray-400">100g</p>
              </div>
+             <span class="text-xs text-orange-500 font-medium">130kcal</span>
           </div>
            <div class="flex items-center gap-3">
              <span class="text-xl">🥒</span>
@@ -364,25 +494,63 @@
                 <p class="font-bold text-gray-800 text-sm">黄瓜一根</p>
                 <p class="text-xs text-gray-400">200g</p>
              </div>
+             <span class="text-xs text-orange-500 font-medium">70kcal</span>
           </div>
         </div>
 
-        <div class="flex gap-3">
-          <button @click="shufflePlan" class="flex-1 bg-orange-400 text-white py-2.5 rounded-full text-sm font-bold shadow-sm">
-            🔄 换一换
+        <!-- 跟着计划吃 / 自定义输入 -->
+        <div class="flex gap-3 mb-3">
+          <button 
+            @click="mealInputMode.dinner = 'plan'"
+            class="flex-1 py-2.5 rounded-full text-sm font-bold transition-all border"
+            :class="mealInputMode.dinner === 'plan' ? 'bg-orange-50 text-orange-500 border-orange-300' : 'bg-white text-gray-500 border-gray-200'"
+          >
+            ⭐ 跟着计划吃
           </button>
-          <button @click="checkIn" class="flex-1 bg-white border border-gray-200 text-gray-500 py-2.5 rounded-full text-sm font-bold">
-            📷 打卡
+          <button 
+            @click="mealInputMode.dinner = 'custom'"
+            class="flex-1 py-2.5 rounded-full text-sm font-bold transition-all border"
+            :class="mealInputMode.dinner === 'custom' ? 'bg-orange-50 text-orange-500 border-orange-300' : 'bg-white text-gray-500 border-gray-200'"
+          >
+            ✏️ 自定义输入
           </button>
         </div>
-        <button @click="checkIn" class="w-full mt-3 bg-gradient-to-r from-orange-400 to-orange-500 text-white py-3 rounded-full font-bold shadow-md">
-           ✅ 按计划执行
+        
+        <!-- 自定义输入框 -->
+        <div v-if="mealInputMode.dinner === 'custom'" class="flex gap-2 mb-3">
+          <input 
+            type="number" 
+            v-model="customCalories.dinner"
+            class="flex-1 bg-gray-50 rounded-xl py-3 px-4 text-sm text-gray-600 focus:outline-none border border-gray-200"
+            placeholder="输入热量"
+          />
+          <button class="w-12 h-12 bg-orange-100 rounded-xl flex items-center justify-center text-orange-500">
+            <i class="fa-solid fa-pen"></i>
+          </button>
+        </div>
+        
+        <!-- 打卡按钮 -->
+        <button 
+          v-if="mealInputMode.dinner === 'plan'"
+          @click="executePlan('dinner')" 
+          class="w-full py-3 rounded-full font-bold shadow-md transition-all"
+          :class="mealCompleted.dinner ? 'bg-green-500 text-white' : 'bg-gradient-to-r from-orange-400 to-orange-500 text-white'"
+        >
+           {{ mealCompleted.dinner ? '✅ 已打卡' : '✅ 按计划打卡' }}
+        </button>
+        <button 
+          v-if="mealInputMode.dinner === 'custom'"
+          @click="executePlan('dinner')" 
+          class="w-full py-3 rounded-full font-bold shadow-md transition-all"
+          :class="mealCompleted.dinner ? 'bg-green-500 text-white' : 'bg-gradient-to-r from-orange-400 to-orange-500 text-white'"
+        >
+           {{ mealCompleted.dinner ? '✅ 已打卡' : '✅ 自定义打卡' }}
         </button>
       </div>
     </div>
 
     <!-- 底部饮水打卡条 -->
-    <div class="fixed bottom-0 left-0 right-0 bg-blue-50/95 backdrop-blur-sm border-t border-blue-100 p-4 safe-area-pb z-50">
+    <div class="fixed bottom-0 left-0 right-0 bg-blue-50/95 backdrop-blur-sm border-t border-blue-100 px-4 py-2 safe-area-pb z-50">
       <div class="flex items-center justify-between mb-2">
          <div class="flex items-center gap-2">
             <span class="text-blue-500">💧</span>
@@ -477,13 +645,7 @@ export default {
 
     const generatePlan = () => {
       showPlan.value = true
-      // Scroll to plan
-      setTimeout(() => {
-        window.scrollTo({
-          top: document.body.scrollHeight,
-          behavior: 'smooth'
-        })
-      }, 100)
+      alert('生成计划完成！')
     }
 
     const waterIntake = ref(6)
@@ -493,12 +655,63 @@ export default {
       }
     }
 
-    const shufflePlan = () => {
-      alert('正在为您更换推荐食谱...')
+    // 今日摄入热量
+    const todayIntake = ref(0)
+    
+    // 每餐热量数据
+    const mealCalories = {
+      breakfast: 380,
+      lunch: 520,
+      dinner: 300
     }
-
-    const checkIn = () => {
-      alert('打卡成功！已记录今日饮食')
+    
+    // 每餐完成状态
+    const mealCompleted = ref({
+      breakfast: false,
+      lunch: false,
+      dinner: false
+    })
+    
+    // 用餐方式选择
+    const mealMethod = ref({
+      breakfast: 'home',
+      lunch: 'home',
+      dinner: 'home'
+    })
+    
+    const mealMethods = [
+      { key: 'home', name: '家里做', icon: '🏠' },
+      { key: 'delivery', name: '点外卖', icon: '🛵' },
+      { key: 'dineout', name: '下馆子', icon: '🍽️' }
+    ]
+    
+    // 输入模式（计划/自定义），默认跟着计划吃
+    const mealInputMode = ref({
+      breakfast: 'plan',
+      lunch: 'plan',
+      dinner: 'plan'
+    })
+    
+    // 自定义热量输入
+    const customCalories = ref({
+      breakfast: '',
+      lunch: '',
+      dinner: ''
+    })
+    
+    // 按计划执行
+    const executePlan = (mealType) => {
+      if (!mealCompleted.value[mealType]) {
+        mealCompleted.value[mealType] = true
+        let calories = 0
+        if (mealInputMode.value[mealType] === 'custom' && customCalories.value[mealType]) {
+          calories = parseInt(customCalories.value[mealType]) || 0
+        } else {
+          calories = mealCalories[mealType]
+        }
+        todayIntake.value += calories
+        alert(`打卡成功！本餐摄入 ${calories} kcal`)
+      }
     }
 
     return {
@@ -519,9 +732,15 @@ export default {
       navigateTab,
       generatePlan,
       addWater,
-      shufflePlan,
-      checkIn,
-      router
+      router,
+      todayIntake,
+      mealCalories,
+      mealCompleted,
+      mealMethod,
+      mealMethods,
+      mealInputMode,
+      customCalories,
+      executePlan
     }
   }
 }

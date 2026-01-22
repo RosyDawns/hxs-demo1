@@ -198,7 +198,7 @@
           <span class="font-bold text-gray-800 text-lg">好友组队</span>
         </div>
         <div class="flex bg-white rounded-full p-0.5">
-          <button @click="teamTab = 'recruit'" class="px-3 py-1 rounded-full text-xs font-bold transition-all" :class="teamTab === 'recruit' ? 'bg-[#3B82F6] text-white shadow-sm' : 'text-gray-400'">招募</button>
+          <button @click="teamTab = 'recruit'" class="px-3 py-1 rounded-full text-xs font-bold transition-all" :class="teamTab === 'recruit' ? 'bg-[#3B82F6] text-white shadow-sm' : 'text-gray-400'">家庭</button>
           <button @click="teamTab = 'friend'" class="px-3 py-1 rounded-full text-xs font-bold transition-all" :class="teamTab === 'friend' ? 'bg-[#3B82F6] text-white shadow-sm' : 'text-gray-400'">好友</button>
         </div>
       </div>
